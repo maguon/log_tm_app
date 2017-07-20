@@ -11,35 +11,28 @@ export default class DriverItem extends Component {
 
     render() {
         return (
-            <View style={{ flexDirection: 'row', backgroundColor: '#fff', borderWidth: 0.5, borderColor: '#e6ebee', borderRadius: 1,marginTop:10 }}>
-
+            <View style={{ flexDirection: 'row', backgroundColor: '#fff', borderWidth: 0.5, borderColor: '#e6ebee', borderRadius: 1, marginTop: 10 }}>
                 <View style={{ flex: 1, backgroundColor: 'red' }}>
-
                 </View>
-                <View style={{ flex: 5 }} >
-                    <View style={{ flexDirection: 'row' }} >
-
+                <View style={{ flex: 5}} >
+                    <View style={{ flexDirection: 'row',paddingVertical:5 ,paddingHorizontal:5 }} >
                         <View>
-                            <Text style={{color:'#00cade'}}>张宝全</Text>
+                            <Text style={{ color: '#00cade' }}>张宝全</Text>
                         </View>
                         <View >
                             <Text>男</Text>
                         </View>
-
-
                     </View>
-                    <View style={{ flexDirection: 'row' }} >
+                    <View style={{ flexDirection: 'row' ,paddingVertical:5 ,paddingHorizontal:5}} >
                         <View  >
-                            <Text>安吉物流</Text>
+                            <Text  style={{ color: '#b9c8cf' ,fontSize:12}}>安吉物流</Text>
                         </View>
                         <View >
-                            <Text>辽B12345</Text>
+                            <Text  style={{ color: '#b9c8cf',fontSize:12 }}>辽B12345</Text>
                         </View>
-
                     </View>
                 </View>
                 <View style={{ flex: 1, backgroundColor: 'yellow' }}>
-
                 </View>
             </View>
         )
