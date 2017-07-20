@@ -4,10 +4,10 @@ import { Button, Icon } from 'native-base'
 import { Scene, TabBar, Router, ActionConst, Action, Switch, Reducer } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 
-// import NavBar from './components/Bar/NavBar'
+import NavBar from './components/bar/NavBar'
 import TabIcon from './components/TabIcon'
 // import SearchBar from './components/Bar/SearchBar'
-// import TopBar from './components/Bar/TopBar'
+import TopBar from './components/bar/TopBar'
 
 
 import Initialization from './views/Initialization'
@@ -18,6 +18,8 @@ import Home from './views/blockInitial/Home'
 import Driver from './views/blockInitial/Driver'
 import Truck from './views/blockInitial/Truck'
 import Setting from './views/blockInitial/Setting'
+
+import DriverList from './views/DriverList'
 
 // import Orientation from 'react-native-orientation'
 // import * as sceneAction from '../actions/SceneAction'
@@ -107,19 +109,21 @@ export default class App extends Component {
                         <Scene key="login" component={Login} hideNavBar hideTabBar />
                         <Scene key="main" initial={true} tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
                             <Scene key="homeBlock" icon={TabIcon} online='ios-home' outline='ios-home-outline' >
-                                <Scene key="home" initial={true} component={Home} hideNavBar />
+                                <Scene key="home" initial={true} component={Home} title='车辆管理' hideNavBar={false} navBar={TopBar} />
+                                <Scene key="driverListAtHomeBlock" component={DriverList} title='司机列表' hideNavBar={false} navBar={NavBar} hideTabBar={true}/>
 
                             </Scene>
                             <Scene key="truckBlock" icon={TabIcon} online='ios-car' outline='ios-car-outline' >
-                                <Scene key="truck" initial={true} component={Truck} hideNavBar />
+                                <Scene key="truck" initial={true} component={Truck} title='车辆信息' hideNavBar={false} navBar={TopBar} />
 
                             </Scene>
-                            <Scene key="driverBlock" icon={TabIcon} online='ios-pin' outline='ios-pin-outline'>
-                                <Scene key="driver" component={Driver} initial={true} hideNavBar />
+                            <Scene key="driverBlock" icon={TabIcon}  initial={true} online='ios-pin' outline='ios-pin-outline'>
+                                <Scene key="driver" component={Driver} initial={true} title='司机详情' hideNavBar={false} navBar={TopBar} />
+                                <Scene key="driverListAtDriverBlock"  component={DriverList} title='司机列表' hideNavBar={false} navBar={NavBar} hideTabBar={true}/>
 
                             </Scene>
                             <Scene key="settingBlock" icon={TabIcon} online='ios-settings' outline='ios-settings-outline' >
-                                <Scene key="setting" component={Setting} hideNavBar={true} />
+                                <Scene key="setting" component={Setting} initial={true} title='设置' hideNavBar={false} navBar={TopBar} />
 
                             </Scene>
                         </Scene>
