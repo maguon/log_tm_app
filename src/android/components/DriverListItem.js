@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import {
     Text,
-    View
+    View,
+    Image
 } from 'react-native'
 
 import FontTag from './tag/FontTag'
 
-export default class DriverItem extends Component {
+export default class DriverListItem extends Component {
     constructor(props) {
         super(props)
     }
@@ -21,18 +22,19 @@ export default class DriverItem extends Component {
                 <FontTag size={40} title='包' color='#e08ddd' fontColor='#fff'/>*/}
                 </View>
                 <View style={{ flex: 2 }} >
-                    <View style={{ marginVertical: 5 }}>
+                    <View style={{ marginVertical: 8 }}>
                         <Text style={{ color: '#00cade' }}>张宝全</Text>
                     </View>
-                    <View style={{ marginBottom: 5 }}>
+                    <View style={{ marginBottom: 8 }}>
                         <Text style={{ color: '#b9c8cf', fontSize: 11 }}>安吉物流</Text>
                     </View>
                 </View>
-                <View style={{ flex: 2 }} >
-                    <View style={{ marginVertical: 5,alignItems:'center' }}>
-                        <Text>男</Text>
+                <View style={{ flex: 2,  justifyContent: 'flex-end' }} >
+                    <View style={{ marginVertical: 8, alignItems: 'center'}}>
+                        <Image source={{ uri: 'man' }} style={{ width: 6, height: 12 }} />
+                        {/*<Image source={{ uri: 'woman' }} style={{ width: 6, height: 12 }} />*/}
                     </View>
-                    <View style={{ marginBottom: 5 ,alignItems:'center'}}>
+                    <View style={{ marginBottom: 8, alignItems: 'center' }}>
                         <Text style={{ color: '#b9c8cf', fontSize: 11 }}>辽B12345</Text>
                     </View>
                 </View>
