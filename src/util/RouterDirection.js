@@ -7,4 +7,10 @@ export const driverList = (parent) => {
     //if (parent === 'settingBlock') return Actions.driverListAtSettingBlock
 }
 
+export const driverInfo = (parent) => {
+    if (parent === 'homeBlock') return Actions.driverInfoAtHomeBlock
+    //if (parent === 'truckBlock') return Actions.driverInfoAtTruckBlock
+    if (parent === 'driverBlock') return Actions.driverInfoAtDriverBlock
+    //if (parent === 'settingBlock') return Actions.driverInfoAtSettingBlock
+}
 

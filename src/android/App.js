@@ -20,6 +20,7 @@ import Truck from './views/blockInitial/Truck'
 import Setting from './views/blockInitial/Setting'
 
 import DriverList from './views/DriverList'
+import DriverInfo from './views/DriverInfo'
 
 // import Orientation from 'react-native-orientation'
 // import * as sceneAction from '../actions/SceneAction'
@@ -111,6 +112,7 @@ export default class App extends Component {
                             <Scene key="homeBlock" icon={TabIcon} online='ios-home' outline='ios-home-outline' >
                                 <Scene key="home" initial={true} component={Home} title='车辆管理' hideNavBar={false} navBar={TopBar} />
                                 <Scene key="driverListAtHomeBlock" component={DriverList} title='司机列表' hideNavBar={false} navBar={NavBar} hideTabBar={true}/>
+                                <Scene key="driverInfoAtHomeBlock"  component={DriverInfo} title='司机详情' hideNavBar={false} navBar={NavBar} hideTabBar={true}/>
 
                             </Scene>
                             <Scene key="truckBlock" icon={TabIcon} online='ios-car' outline='ios-car-outline' >
@@ -118,8 +120,9 @@ export default class App extends Component {
 
                             </Scene>
                             <Scene key="driverBlock" icon={TabIcon}  initial={true} online='ios-pin' outline='ios-pin-outline'>
-                                <Scene key="driver" component={Driver} title='司机详情' hideNavBar={false} navBar={TopBar} />
-                                <Scene key="driverListAtDriverBlock"   initial={true} component={DriverList} title='司机列表' hideNavBar={false} navBar={NavBar} hideTabBar={true}/>
+                                <Scene key="driver" component={Driver} title='司机信息' hideNavBar={false} navBar={TopBar} />
+                                <Scene key="driverListAtDriverBlock"  component={DriverList} title='司机列表' hideNavBar={false} navBar={NavBar} hideTabBar={true}/>
+                                <Scene key="driverInfoAtDriverBlock" initial={true} component={DriverInfo} title='司机详情' hideNavBar={false} navBar={NavBar} hideTabBar={true}/>
 
                             </Scene>
                             <Scene key="settingBlock" icon={TabIcon} online='ios-settings' outline='ios-settings-outline' >
