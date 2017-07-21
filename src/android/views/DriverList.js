@@ -7,6 +7,7 @@ import {
 
 import DriverItem from '../components/DriverItem'
 
+
 export default class DriverList extends Component {
     constructor(props) {
         super(props)
@@ -14,8 +15,9 @@ export default class DriverList extends Component {
 
     render() {
         return (
-            <View style={{paddingHorizontal:10,backgroundColor:'#eff3f6'}}>
+            <View style={{ paddingHorizontal: 10, backgroundColor: '#eff3f6' }}>
                 <DriverItem />
+
                 <Text>DriverList</Text>
             </View>
         )

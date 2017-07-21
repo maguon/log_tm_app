@@ -3,20 +3,13 @@ import {
     Text,
     View
 } from 'react-native'
- import { Button, Ion } from 'native-base'
 
-
-
-export default class Bao extends Component {
-    constructor(props) {
-        super(props)
-    }
-
-    render() {
-        return (
-            <View>
-                <Text>Bao</Text>
-            </View>
-        )
-    }
+const Bao = () => {
+    return (
+        <View>
+            <Text>Bao</Text>
+        </View>
+    )
 }
+
+export default Bao

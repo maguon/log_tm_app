@@ -118,8 +118,8 @@ export default class App extends Component {
 
                             </Scene>
                             <Scene key="driverBlock" icon={TabIcon}  initial={true} online='ios-pin' outline='ios-pin-outline'>
-                                <Scene key="driver" component={Driver} initial={true} title='司机详情' hideNavBar={false} navBar={TopBar} />
-                                <Scene key="driverListAtDriverBlock"  component={DriverList} title='司机列表' hideNavBar={false} navBar={NavBar} hideTabBar={true}/>
+                                <Scene key="driver" component={Driver} title='司机详情' hideNavBar={false} navBar={TopBar} />
+                                <Scene key="driverListAtDriverBlock"   initial={true} component={DriverList} title='司机列表' hideNavBar={false} navBar={NavBar} hideTabBar={true}/>
 
                             </Scene>
                             <Scene key="settingBlock" icon={TabIcon} online='ios-settings' outline='ios-settings-outline' >
