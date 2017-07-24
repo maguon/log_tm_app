@@ -2,15 +2,27 @@ import { Actions } from 'react-native-router-flux'
 
 export const driverList = (parent) => {
     if (parent === 'homeBlock') return Actions.driverListAtHomeBlock
-    //if (parent === 'truckBlock') return Actions.driverListAtTruckBlock
     if (parent === 'driverBlock') return Actions.driverListAtDriverBlock
-    //if (parent === 'settingBlock') return Actions.driverListAtSettingBlock
 }
 
 export const driverInfo = (parent) => {
     if (parent === 'homeBlock') return Actions.driverInfoAtHomeBlock
-    //if (parent === 'truckBlock') return Actions.driverInfoAtTruckBlock
     if (parent === 'driverBlock') return Actions.driverInfoAtDriverBlock
-    //if (parent === 'settingBlock') return Actions.driverInfoAtSettingBlock
+}
+
+
+export const selectDriverCompany = (parent) => {
+    if (parent === 'homeBlock') return Actions.selectDriverCompanyAtHomeBlock
+    if (parent === 'driverBlock') return Actions.selectDriverCompanyAtDriverBlock
+}
+
+export const selectDrivingLicenseType = (parent) => {
+    if (parent === 'homeBlock') return Actions.selectDrivingLicenseTypeAtHomeBlock
+    if (parent === 'driverBlock') return Actions.selectDrivingLicenseTypeAtDriverBlock
+}
+
+export const richText = (parent) => {
+   
+    if (parent === 'driverBlock') return Actions.richTextAtDriverBlock
 }
 

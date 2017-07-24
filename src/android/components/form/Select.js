@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         flex:1,
         borderColor: '#dddddd',
+        paddingHorizontal: 10
         //alignItems: 'center',
         //backgroundColor: 'blue'
     },
@@ -148,7 +149,7 @@ export default class Select extends Component {
     renderDisable() {
         return (
             <View style={[this.props.containerSytle, { backgroundColor: 'rgba(0,0,0,0.1)' }]}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' , flex: 1}}>
                     <Text style={this.props.labelStyle}>{this.renderTag()}{this.props.title}</Text>
                     <Text style={this.props.textStyle}>{this.state.value}</Text>
                     <Icon

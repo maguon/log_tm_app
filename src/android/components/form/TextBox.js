@@ -12,10 +12,11 @@ import { validate } from '../../../util/Validator'
 const styles = StyleSheet.create({
     containerSytle: {
         backgroundColor: '#fff',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderBottomWidth:0.5,
-         paddingVertical: 5,
+        // justifyContent: 'space-between',
+        // alignItems: 'center',
+        borderBottomWidth: 0.5,
+        paddingVertical: 5,
+        paddingHorizontal: 10,
         borderColor: '#dddddd'
     },
     labelStyle: {
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
     inputStyle: {
         flex: 1,
         fontSize: 12,
-        color:'#757575',
+        color: '#757575',
         padding: 0
     }
 })
@@ -122,9 +123,9 @@ export default class TextBox extends Component {
                         value={this.state.value}
                         onChangeText={(value) => { this.changeValue(value) }}
                         style={this.props.inputStyle}
- 
-                        disableFullscreenUI={false} 
-                        />
+
+                        disableFullscreenUI={false}
+                    />
                 </View>
                 {this.renderValidateMessage()}
             </View>

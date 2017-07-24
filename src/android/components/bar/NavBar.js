@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, StatusBar } from 'react-native'
-import { Header, Title, Button } from 'native-base'
-import Icon from 'react-native-vector-icons/Entypo'
+import { Header, Title, Button,Icon } from 'native-base'
+// import Icon from 'react-native-vector-icons/Entypo'
 import { Actions } from 'react-native-router-flux'
 
 export default class NavBar extends Component {
@@ -18,7 +18,7 @@ export default class NavBar extends Component {
                     <Title>{title}</Title>
                     <View style={{ position: 'absolute', left: 0 }}>
                         <Button transparent onPress={ Actions.pop}>
-                            <Icon name="chevron-left" size={30} color='#ffffff' />
+                            <Icon name="ios-arrow-back" size={30} color='#ffffff' />
                         </Button>
                     </View>
                 </Header>

@@ -13,20 +13,21 @@ import { validate } from '../../../util/Validator'
 const styles = StyleSheet.create({
     containerSytle: {
         borderBottomWidth: 0.5,
-        paddingHorizontal: 10,
+        // paddingHorizontal: 10,
         borderColor: '#dddddd',
         paddingVertical: 10,
+        paddingHorizontal: 10,
         justifyContent: 'space-between',
-        alignItems: 'center'
+        //alignItems: 'center'
     },
     labelStyle: {
         fontSize: 12,
-        flex: 4,
-        textAlign: 'right'
+        //flex: 4,
+        //textAlign: 'right'
     },
     textStyle: {
         fontSize: 12,
-        flex: 12
+        //flex: 12
     },
     messageSytle: {
         color: 'red',
@@ -37,8 +38,8 @@ const styles = StyleSheet.create({
 const baseStyles = {
     iconSytle: {
         fontSize: 18,
-        flex: 1,
-        textAlign: 'right',
+        //flex: 1,
+        //textAlign: 'right',
         color: '#7a7a7a'
     }
 }
@@ -134,11 +135,11 @@ export default class DateTimePicker extends Component {
                 onPress={() => this.showPicker({ date: new Date(), mode: 'spinner' })}>
 
                 <View style={this.props.containerSytle}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <Text style={this.props.labelStyle}>{this.renderTag()}{this.props.title}</Text>
-                        <Text style={this.props.textStyle}>{this.state.dataTime}</Text>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1 }}>
+                        <Text style={this.props.labelStyle}>{this.renderTag()}{this.props.title}<Text style={this.props.textStyle}>{this.state.dataTime}</Text></Text>
+
                         <Icon
-                            name='md-arrow-dropdown'
+                            name='md-calendar'
                             style={this.props.iconSytle} />
                     </View>
                     {this.renderValidateMessage()}
