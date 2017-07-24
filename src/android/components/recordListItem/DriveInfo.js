@@ -13,13 +13,13 @@ export default class DriveInfo extends Component {
     render() {
         return (
             <View style={{ paddingVertical: 10 }}>
-                <View style={{ flexDirection: 'row',alignItems:'center' }}>
-                    <View style={{ width: 6, height: 6, borderRadius: 3,marginRight:4, backgroundColor: '#00cade' }} />
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <View style={{ width: 6, height: 6, borderRadius: 3, marginRight: 4, backgroundColor: '#00cade' }} />
                     <Text>重新启用</Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 5 }}>
-                    <Text style={{marginLeft:10}}>2017-3-30 11:30</Text>
-                    <Text>操作员：王宝泉</Text>
+                    <Text style={{ marginLeft: 10, fontSize: 12, color: '#bfbfbf' }}>2017-3-30 11:30</Text>
+                    <Text style={{ fontSize: 12, color: '#bfbfbf' }}>操作员：王宝泉</Text>
                 </View>
 
             </View>
