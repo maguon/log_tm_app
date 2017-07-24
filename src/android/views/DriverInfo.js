@@ -10,6 +10,7 @@ import TextBox from '../components/form/TextBox'
 import RecordListItem from '../components/recordListItem/DriveInfo'
 import Select from '../components/form/Select'
 import DateTimePicker from '../components/form/DateTimePicker'
+import CheckBox from '../components/form/CheckBox'
 import RichTextBox from '../components/form/RichTextBox'
 import FontTag from '../components/tag/FontTag'
 import * as RouterDirection from '../../util/RouterDirection'
@@ -364,9 +365,8 @@ export default class DriverInfo extends Component {
 
     renderDriverPhoto() {
         return (
-            <ScrollView>
-                <Text>renderDriverPhoto</Text>
-            </ScrollView>
+
+            <CheckBox />
         )
     }
 
