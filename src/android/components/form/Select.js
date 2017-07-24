@@ -14,21 +14,17 @@ import { Actions } from 'react-native-router-flux'
 const styles = StyleSheet.create({
     containerSytle: {
         borderBottomWidth: 0.5,
-        paddingHorizontal: 10,
         paddingVertical: 10,
+        flex:1,
         borderColor: '#dddddd',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        // backgroundColor: 'rgba(0,0,0,0.1)'
+        //alignItems: 'center',
+        //backgroundColor: 'blue'
     },
     labelStyle: {
         fontSize: 12,
-        flex: 4,
-        textAlign: 'right'
     },
     textStyle: {
         fontSize: 12,
-        flex: 12
     },
     messageSytle: {
         color: 'red',
@@ -39,8 +35,7 @@ const styles = StyleSheet.create({
 const baseStyles = {
     iconSytle: {
         fontSize: 18,
-        flex: 1,
-        textAlign: 'right',
+        //textAlign: 'right',
         color: '#7a7a7a'
     }
 }
@@ -65,7 +60,7 @@ export default class Select extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.value) {
             this.setState({ value: nextProps.value })
-        }else{
+        } else {
             this.setState({ value: nextProps.defaultValue })
         }
     }
@@ -136,14 +131,15 @@ export default class Select extends Component {
                 underlayColor='rgba(0,0,0,0.1)'
                 onPress={this.showList}>
                 <View style={this.props.containerSytle}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <Text style={this.props.labelStyle}>{this.renderTag()}{this.props.title}</Text>
-                        <Text style={this.props.textStyle}>{this.state.value}</Text>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1}}>
+
+                        <Text style={this.props.labelStyle}>{this.renderTag()}{this.props.title}<Text style={this.props.textStyle}>{this.state.value}</Text></Text>
+                        
                         <Icon
                             name='ios-arrow-forward'
                             style={this.props.iconSytle} />
                     </View>
-                    {this.renderValidateMessage()}
+                    {/*{this.renderValidateMessage()}*/}
                 </View>
             </TouchableHighlight>
         )
@@ -152,7 +148,7 @@ export default class Select extends Component {
     renderDisable() {
         return (
             <View style={[this.props.containerSytle, { backgroundColor: 'rgba(0,0,0,0.1)' }]}>
-                <View style={{ flexDirection: 'row' }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Text style={this.props.labelStyle}>{this.renderTag()}{this.props.title}</Text>
                     <Text style={this.props.textStyle}>{this.state.value}</Text>
                     <Icon

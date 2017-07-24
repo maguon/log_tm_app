@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import {
     StyleSheet,
     Text,
-    View
+    View,
+    TextInput
 } from 'react-native'
 
 import { Icon, Input } from 'native-base'
@@ -10,31 +11,28 @@ import { validate } from '../../../util/Validator'
 
 const styles = StyleSheet.create({
     containerSytle: {
-        marginTop: 10,
-        paddingHorizontal: 10,
         backgroundColor: '#fff',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        borderBottomWidth:0.5,
+         paddingVertical: 5,
+        borderColor: '#dddddd'
     },
     labelStyle: {
-        color: '#00cade',
-        marginLeft: 10,
-        fontSize: 18,
-        flex: 1
+        fontSize: 12,
     },
     messageSytle: {
         color: 'red',
         fontSize: 10
+    },
+    inputStyle: {
+        flex: 1,
+        fontSize: 12,
+        color:'#757575',
+        padding: 0
     }
 })
 
-const baseStyles = {
-    inputStyle: {
-        color: '#00cade',
-        fontSize: 15,
-        flex: 5
-    }
-}
 
 export default class TextBox extends Component {
     constructor(props) {
@@ -49,7 +47,7 @@ export default class TextBox extends Component {
     componentWillMount() {
         this.changeValue(this.props.defaultValue)
     }
-    
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.value) {
             this.setState({ value: nextProps.value })
@@ -83,7 +81,7 @@ export default class TextBox extends Component {
         verifications: [],
         containerSytle: styles.containerSytle,
         labelStyle: styles.labelStyle,
-        inputStyle: baseStyles.inputStyle,
+        inputStyle: styles.inputStyle,
         messageSytle: styles.messageSytle,
         onRequire: (param) => { }
     }
@@ -117,12 +115,16 @@ export default class TextBox extends Component {
             <View style={this.props.containerSytle}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Text style={this.props.labelStyle}>{this.renderTag()}{this.props.title}</Text>
-                    <Input
+                    <TextInput
+                        underlineColorAndroid="transparent"
                         placeholder={this.props.placeholder}
                         placeholderTextColor='#ddd'
                         value={this.state.value}
                         onChangeText={(value) => { this.changeValue(value) }}
-                        style={this.props.inputStyle} />
+                        style={this.props.inputStyle}
+ 
+                        disableFullscreenUI={false} 
+                        />
                 </View>
                 {this.renderValidateMessage()}
             </View>
