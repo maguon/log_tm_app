@@ -13,6 +13,8 @@ import DateTimePicker from '../components/form/DateTimePicker'
 import CheckBox from '../components/form/CheckBox'
 import RichTextBox from '../components/form/RichTextBox'
 import FontTag from '../components/tag/FontTag'
+import Camera from '../components/camera/Camera'
+import PanelItem from '../components/camera/PanelItem'
 import * as RouterDirection from '../../util/RouterDirection'
 
 export default class DriverInfo extends Component {
@@ -354,7 +356,8 @@ export default class DriverInfo extends Component {
     renderDriverPhoto() {
         return (
 
-            <CheckBox />
+            // <Camera />
+            <PanelItem />
         )
     }
 

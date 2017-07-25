@@ -3,9 +3,7 @@ import {
     Text,
     View
 } from 'react-native'
- import { Button, Ion } from 'native-base'
-
-
+ import { Button, Icon } from 'native-base'
 
 export default class Home extends Component {
     constructor(props) {
