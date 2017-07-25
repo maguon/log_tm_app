@@ -7,8 +7,6 @@ import {
 } from 'react-native'
 import { Button, Icon } from 'native-base'
 
-
-
 export default class CheckBox extends Component {
     constructor(props) {
         super(props)
