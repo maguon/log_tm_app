@@ -17,12 +17,16 @@ export default class Home extends Component {
         }
         this.onPressPanel = this.onPressPanel.bind(this)
         this.onPressEdit = this.onPressEdit.bind(this)
+        this.renderIsEdit = this.renderIsEdit.bind(this)
+        this.renderIsCustom = this.renderIsCustom.bind(this)
     }
 
     static defaultProps = {
         containerSytle: { marginLeft: 10, marginRight: 5, marginTop: 10 },
         width: (window.width - 15) / 2,
-        title: '上传驾驶证照片'
+        title: '身份证',
+        imageUrl: 'http://stg.myxxjs.com:9002/api/image/596f21de100f67405a122ded',
+        onPhotograph: () => { }
     }
 
     onPressPanel() {
@@ -36,23 +40,40 @@ export default class Home extends Component {
         console.log('onPressEdit')
     }
 
-    render() {
-        let cc = 'http://stg.myxxjs.com:9002/api/image/596f21de100f67405a122ded'
+    renderIsEdit() {
         return (
             <TouchableHighlight underlayColor='rgba(0,0,0,0)' onPress={this.onPressPanel}>
                 <View style={{ width: this.props.width, height: this.props.width / 16 * 9, ...this.props.containerSytle }}>
-                    {/*<Image source={{ uri: 'http://stg.myxxjs.com:9002/api/image/596f21de100f67405a122ded' }} style={{ width: this.props.width, height: this.props.width / 16 * 9, borderColor: '#e4e4e4', borderWidth: 1 }} />*/}
-                    <TouchableHighlight underlayColor='rgba(0,0,0,0)' onPress={this.onPressEdit}>
-                        <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', width: this.props.width, position: 'absolute', bottom: 0 }}>
-                            <Text style={{ textAlign: 'center', fontSize: 10, paddingVertical: 4, color: '#fff' }}>{this.props.title}</Text>
+                    <Image source={{ uri: this.props.imageUrl }} style={{ width: this.props.width, height: this.props.width / 16 * 9, borderColor: '#e4e4e4', borderWidth: 1 }} />
+                    <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', width: this.props.width, position: 'absolute', bottom: 0 }}>
+                        <Text style={{ textAlign: 'center', fontSize: 10, paddingVertical: 4, color: '#fff' }}>{this.props.title}</Text>
+                    </View>
+                    <TouchableHighlight underlayColor='rgba(0,0,0,0)' onPress={this.onPressEdit} style={{ position: 'absolute', top: 0, right: 0 }}>
+                        <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', width: 30, height: 30, justifyContent: 'center', alignItems: 'center' }}>
+                            <Icon name='camera' style={{ color: '#fff', fontSize: 20 }} />
                         </View>
                     </TouchableHighlight>
-                    <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', position: 'absolute', top: 0, right: 0, width: 24, height: 24, justifyContent: 'center', alignItems: 'center' }}>
-                        <Icon name='md-create' style={{ color: '#fff', fontSize: 18 }} />
-                    </View>
                 </View>
             </TouchableHighlight>
+        )
+    }
 
+    renderIsCustom() {
+        return (
+            <TouchableHighlight underlayColor='rgba(0,0,0,0)' onPress={this.onPressPanel}>
+                <View style={{ width: this.props.width, height: this.props.width / 16 * 9, ...this.props.containerSytle }}>
+                    <Image source={{ uri: this.props.imageUrl }} style={{ width: this.props.width, height: this.props.width / 16 * 9, borderColor: '#e4e4e4', borderWidth: 1 }} />
+                </View>
+            </TouchableHighlight>
+        )
+    }
+
+    render() {
+        return (
+            <View>
+                {!this.state.isEdit && this.renderIsCustom()}
+                {this.state.isEdit && this.renderIsEdit()}
+            </View>
         )
     }
 }
