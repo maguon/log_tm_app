@@ -9,7 +9,7 @@ import {
 import { Button, Icon } from 'native-base'
 
 const window = Dimensions.get('window')
-export default class Home extends Component {
+export default class PanelSingleItem extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -23,7 +23,7 @@ export default class Home extends Component {
 
     static defaultProps = {
         containerSytle: { marginLeft: 10, marginRight: 5, marginTop: 10 },
-        width: (window.width - 15) / 2,
+        width: (window.width - 30) / 2,
         title: '身份证',
         imageUrl: 'http://stg.myxxjs.com:9002/api/image/596f21de100f67405a122ded',
         onPhotograph: () => { }

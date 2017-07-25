@@ -14,7 +14,8 @@ import CheckBox from '../components/form/CheckBox'
 import RichTextBox from '../components/form/RichTextBox'
 import FontTag from '../components/tag/FontTag'
 import Camera from '../components/camera/Camera'
-import PanelItem from '../components/camera/PanelItem'
+import PanelSingleItem from '../components/camera/PanelSingleItem'
+import PanelCustomItem from '../components/camera/PanelCustomItem'
 import * as RouterDirection from '../../util/RouterDirection'
 
 export default class DriverInfo extends Component {
@@ -37,7 +38,7 @@ export default class DriverInfo extends Component {
     }
 
     onSelect(param) {
-
+        console.log(param)
     }
 
     renderDriverInfoEnable() {
@@ -355,9 +356,26 @@ export default class DriverInfo extends Component {
 
     renderDriverPhoto() {
         return (
-
-            // <Camera />
-            <PanelItem />
+            <FlatList showsVerticalScrollIndicator={false}
+                data={[<View style={{ flexDirection: 'row' }}>
+                    <PanelSingleItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                    <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
+                </View>, <View style={{ flexDirection: 'row' }}>
+                    <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                    <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
+                </View>, <View style={{ flexDirection: 'row' }}>
+                    <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                    <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
+                </View>,
+                <View style={{ flexDirection: 'row' }}>
+                    <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                    <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
+                </View>,
+                <View style={{ flexDirection: 'row' }}>
+                    <Camera containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                </View>]}
+                renderItem={({ item }) => item}
+            />
         )
     }
 
