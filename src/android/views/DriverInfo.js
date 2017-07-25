@@ -19,7 +19,7 @@ export default class DriverInfo extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            active: 2
+            active: 1
         }
         this.onPressSegment = this.onPressSegment.bind(this)
         this.renderDriverInfoEnable = this.renderDriverInfoEnable.bind(this)
@@ -76,13 +76,7 @@ export default class DriverInfo extends Component {
                             <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
                         </View>
                     </View>
-                    <Select
-                        title='性别：'
-                        //value={this.state.queryCar.routeStart}
-                        //showList={RouterDirection.selectCity(this.props.parent)}
-                        onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
-                        defaultValue={'请选择'}
-                    />
+                    <CheckBox listTitle='选择性别' itemList={[{ id: 0, value: '男' }, { id: 1, value: '女' }]} onCheck={(item) => { console.log(item) }} />
                     <TextBox
                         title='联系电话：'
                         //value={this.state.queryCar.vinCode}
@@ -236,13 +230,7 @@ export default class DriverInfo extends Component {
                         onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
                         defaultValue={'请选择'}
                     />
-                    <Select
-                        title='性别：'
-                        //value={this.state.queryCar.routeStart}
-                        //showList={RouterDirection.selectCity(this.props.parent)}
-                        onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
-                        defaultValue={'请选择'}
-                    />
+                    <CheckBox listTitle='选择性别' itemList={[{ id: 0, value: '男' }, { id: 1, value: '女' }]} onCheck={(item) => { console.log(item) }} />
                     <TextBox
                         title='联系电话：'
                         //value={this.state.queryCar.vinCode}
