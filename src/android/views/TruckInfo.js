@@ -174,9 +174,101 @@ export default class TruckInfo extends Component {
 
     renderTractorInfoDisable() {
         return (
-            <View>
-                <Text>renderTractorInfoDisable</Text>
-            </View>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.5, borderColor: '#ddd' }}>
+                        <View style={{ flex: 5 }}>
+                            <TextBox
+                                title='车牌号：'
+                                containerSytle={{
+                                    paddingVertical: 5,
+                                    paddingHorizontal: 10
+                                }}
+                                //value={this.state.queryCar.vinCode}
+                                defaultValue={''}
+                                /*verifications={[{
+                                    type: 'isLength',
+                                    arguments: [0, 17],
+                                    message: '长度不能超过17位'
+                                }]}*/
+                                onValueChange={(param) => this.onSelect({ vinCode: param })}
+                                placeholder='请输入车牌号'
+                            />
+                        </View>
+                        <View style={{ flex: 1, justifyContent: 'center' }}><Text style={{ color: '#ccc', fontSize: 10 }}>已停用</Text></View>
+                        <View style={{ flex: 1, justifyContent: 'center' }}><FontTag size={26} title='自' color='#12c3eb' fontColor='#fff' /></View>
+                    </View>
+                    <Select
+                        title='品牌：'
+                        //value={this.state.queryCar.routeStart}
+                        showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
+                        onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
+                        defaultValue={'请选择'}
+                    />
+                    <TextBox
+                        title='联系电话：'
+                        //value={this.state.queryCar.vinCode}
+                        defaultValue={''}
+                        /*verifications={[{
+                            type: 'isLength',
+                            arguments: [0, 17],
+                            message: '长度不能超过17位'
+                        }]}*/
+                        onValueChange={(param) => this.onSelect({ vinCode: param })}
+                        placeholder='请输入联系电话'
+                    />
+                    <TextBox
+                        title='识别代码：'
+                        //value={this.state.queryCar.vinCode}
+                        defaultValue={''}
+                        /*verifications={[{
+                            type: 'isLength',
+                            arguments: [0, 17],
+                            message: '长度不能超过17位'
+                        }]}*/
+                        onValueChange={(param) => this.onSelect({ vinCode: param })}
+                        placeholder='请输入识别代码'
+                    />
+                    <Select
+                        title='所属公司：'
+                        //value={this.state.queryCar.routeStart}
+                        showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
+                        onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
+                        defaultValue={'请选择'}
+                    />
+                    <DateTimePicker
+                        // value={this.state.queryCar.enterEnd}
+                        title='行驶证检证日期：'
+                        defaultValue={'请选择'}
+                        onValueChange={(param) => this.onSelect({ enterEnd: param })}
+                    />
+                    <DateTimePicker
+                        // value={this.state.queryCar.enterEnd}
+                        title='营运证检证日期：'
+                        defaultValue={'请选择'}
+                        onValueChange={(param) => this.onSelect({ enterEnd: param })}
+                    />
+                    <RichTextBox
+                        // isRequire={false}
+                        title='备注：'
+                        //verifications={[{
+                        //     type: 'isLength',
+                        //      arguments: [0, 300],
+                        //      message: '长度0-300位'
+                        //  }]}
+                        // value={remark}
+                        defaultValue={'请填写'}
+                        onValueChange={(param) => this.props.changeAddCarField({ remark: param })}
+                        // onRequire={(flag) => { this.setState({ remarkRequire: flag }) }}
+                        showRichText={RouterDirection.richText(this.props.parent)}
+                    />
+                    <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
+                        <Button full onPress={() => { }} style={{ backgroundColor: '#00cade' }}>
+                            <Text style={{ color: '#fff' }}>保存信息</Text>
+                        </Button>
+                    </View>
+                </View>
+            </ScrollView>
         )
     }
 
@@ -286,9 +378,11 @@ export default class TruckInfo extends Component {
 
     renderTrailerInfoDisable() {
         return (
-            <View>
-                <Text>renderTrailerInfoDisable</Text>
-            </View>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <View>
+                    <Text>renderTrailerInfoDisable</Text>
+                </View>
+            </ScrollView>
         )
     }
 
@@ -326,7 +420,7 @@ export default class TruckInfo extends Component {
                     </Button>
                 </View>
                 <View style={{ backgroundColor: '#fff', borderTopWidth: 1, borderColor: '#00cade', flex: 1 }}>
-                    {this.state.active == 0 && this.renderTrailerInfoEnable()}
+                    {this.state.active == 0 && this.renderTrailerInfoDisable()}
                     {this.state.active == 1 && this.renderTruckPhoto()}
                     {this.state.active == 3 && this.renderTruckRecord()}
                 </View>
