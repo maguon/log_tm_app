@@ -23,9 +23,9 @@ import DriverList from './views/DriverList'
 import AddDriverFirst from './views/addDriver/First'
 import AddDriverSecond from './views/addDriver/Second'
 import DriverInfo from './views/DriverInfo'
-import TruckInfo from './views/TruckInfo'
 import RichText from './views/RichText'
 
+import TruckInfo from './views/TruckInfo'
 
 import DriverCompany from './views/select/DriverCompany'
 import DrivingLicenseType from './views/select/DrivingLicenseType'
@@ -128,14 +128,15 @@ export default class App extends Component {
                                 <Scene key="selectDrivingLicenseTypeAtHomeBlock" component={DrivingLicenseType} title='驾照类型' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
 
                             </Scene>
-                            <Scene key="truckBlock"  initial={true} icon={TabIcon} online='ios-car' outline='ios-car-outline' >
+                            <Scene key="truckBlock" initial={true} icon={TabIcon} online='ios-car' outline='ios-car-outline' >
                                 <Scene key="truck" initial={true} component={Truck} title='车辆信息' hideNavBar={false} navBar={TopBar} />
+                                <Scene key="rruckInfoAtTruckBlock" component={TruckInfo} title='车辆信息' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
 
                             </Scene>
                             <Scene key="driverBlock" icon={TabIcon} online='ios-pin' outline='ios-pin-outline'>
                                 <Scene key="driver" initial={true} component={Driver} title='司机信息' hideNavBar={false} navBar={TopBar} />
 
-                                <Scene key="addDriverFirst" component={AddDriverFirst}   title='新增司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="addDriverFirst" component={AddDriverFirst} title='新增司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="addDriverSecond" component={AddDriverSecond} title='新增司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="driverListAtDriverBlock" component={DriverList} title='司机列表' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="richTextAtDriverBlock" component={RichText} title='备注' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
