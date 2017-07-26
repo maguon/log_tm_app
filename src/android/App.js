@@ -133,9 +133,9 @@ export default class App extends Component {
                             <Scene key="truckBlock" initial={true} icon={TabIcon} online='ios-car' outline='ios-car-outline' >
                                 <Scene key="truck" component={Truck} title='车辆信息' hideNavBar={false} navBar={TopBar} />
                                 <Scene key="truckInfoAtTruckBlock" component={TruckInfo} title='车辆信息' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="addTruckFirst" component={AddTruckFirst}  initial={true} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="addTruckSecond" component={AddTruckSecond}  title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="addTruckThird" component={AddTruckThird}  title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="addTruckFirst" component={AddTruckFirst} initial={true} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="addTruckSecond" component={AddTruckSecond} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="addTruckThird" component={AddTruckThird} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                             </Scene>
                             <Scene key="driverBlock" icon={TabIcon} online='ios-pin' outline='ios-pin-outline'>
                                 <Scene key="driver" initial={true} component={Driver} title='司机信息' hideNavBar={false} navBar={TopBar} />
@@ -147,11 +147,9 @@ export default class App extends Component {
                                 <Scene key="selectDriverCompanyAtDriverBlock" component={DriverCompany} title='所属公司' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectDrivingLicenseTypeAtDriverBlock" component={DrivingLicenseType} title='驾照类型' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectTractorAtDriverBlock" component={Tractor} title='选择车头' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-
                             </Scene>
                             <Scene key="settingBlock" icon={TabIcon} online='ios-settings' outline='ios-settings-outline' >
                                 <Scene key="setting" component={Setting} initial={true} title='设置' hideNavBar={false} navBar={TopBar} />
-
                             </Scene>
                         </Scene>
                     </Scene>
