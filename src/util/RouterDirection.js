@@ -10,7 +10,6 @@ export const driverInfo = (parent) => {
     if (parent === 'driverBlock') return Actions.driverInfoAtDriverBlock
 }
 
-
 export const selectDriverCompany = (parent) => {
     if (parent === 'homeBlock') return Actions.selectDriverCompanyAtHomeBlock
     if (parent === 'driverBlock') return Actions.selectDriverCompanyAtDriverBlock
@@ -26,9 +25,11 @@ export const selectTractor = (parent) => {
     if (parent === 'driverBlock') return Actions.selectTractorAtDriverBlock
 }
 
-
 export const richText = (parent) => {
-
     if (parent === 'driverBlock') return Actions.richTextAtDriverBlock
+}
+
+export const truckInfo = (parent) => {
+    if (parent === 'truckBlock') return Actions.truckInfoAtTruckBlock
 }
 

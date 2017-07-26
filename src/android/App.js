@@ -129,8 +129,8 @@ export default class App extends Component {
 
                             </Scene>
                             <Scene key="truckBlock" initial={true} icon={TabIcon} online='ios-car' outline='ios-car-outline' >
-                                <Scene key="truck" initial={true} component={Truck} title='车辆信息' hideNavBar={false} navBar={TopBar} />
-                                <Scene key="rruckInfoAtTruckBlock" component={TruckInfo} title='车辆信息' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="truck" component={Truck} title='车辆信息' hideNavBar={false} navBar={TopBar} />
+                                <Scene key="truckInfoAtTruckBlock"  initial={true} component={TruckInfo} title='车辆信息' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
 
                             </Scene>
                             <Scene key="driverBlock" icon={TabIcon} online='ios-pin' outline='ios-pin-outline'>
