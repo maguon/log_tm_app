@@ -13,61 +13,70 @@ export default class StepIndicator extends Component {
     }
 
     static defaultProps = {
-        stepList: [{ step: '1', title: '基本信息' }, { step: '2', title: '上传照片' }],
+        stepList: [{ step: '1', title: '基本信息' }, { step: '2', title: '上传照片' },, { step: '3', title: '保险' }],
         current: 1
     }
 
-    renderBeforeItem(step) {
+    renderBeforeItem(param) {
         return (
             <View style={{ flexDirection: 'row', paddingVertical: 10, paddingHorizontal: 7 }}>
                 <View style={{ backgroundColor: '#ff9aa9', height: 20, width: 20, borderWidth: 2, borderRadius: 10, borderColor: '#fff', justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ fontSize: 14, color: '#fff' }}>{step}</Text>
+                    <Text style={{ fontSize: 14, color: '#fff' }}>{param.step}</Text>
                 </View>
                 <View style={{ paddingLeft: 5, justifyContent: 'center' }}>
-                    <Text style={{ fontSize: 12 }}>基本信息</Text>
+                    <Text style={{ fontSize: 12 }}>{param.title}</Text>
                 </View>
             </View>
         )
     }
 
-    renderAfterItem(step) {
+    renderAfterItem(param) {
         return (
             <View style={{ flexDirection: 'row', paddingVertical: 10, paddingHorizontal: 7 }}>
                 <View style={{ backgroundColor: '#adadad', height: 20, width: 20, borderWidth: 2, borderRadius: 10, borderColor: '#fff', justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ fontSize: 14, color: '#fff' }}>{step}</Text>
+                    <Text style={{ fontSize: 14, color: '#fff' }}>{param.step}</Text>
                 </View>
                 <View style={{ paddingLeft: 5, justifyContent: 'center' }}>
-                    <Text style={{ fontSize: 12 }}>基本信息</Text>
+                    <Text style={{ fontSize: 12 }}>{param.title}</Text>
                 </View>
             </View>
         )
     }
 
-    renderCurrentItem(step) {
+    renderCurrentItem(param) {
         return (
             <View style={{ flexDirection: 'row', paddingVertical: 10, paddingHorizontal: 7 }}>
                 <View style={{ backgroundColor: '#fff', height: 20, width: 20, borderWidth: 2, borderRadius: 10, borderColor: '#ff9aa9', justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ fontSize: 14, color: '#ff9aa9' }}>{step}</Text>
+                    <Text style={{ fontSize: 14, color: '#ff9aa9' }}>{param.step}</Text>
                 </View>
                 <View style={{ paddingLeft: 5, justifyContent: 'center' }}>
-                    <Text style={{ fontSize: 12 }}>基本信息</Text>
+                    <Text style={{ fontSize: 12 }}>{param.title}</Text>
                 </View>
             </View>
         )
+    }
+
+    renderItem() {
+        return this.props.stepList.map((stepItem, i) => {
+            let item
+            if (i < this.props.current) item = this.renderBeforeItem(stepItem)
+            if (i == this.props.current) item = this.renderCurrentItem(stepItem)
+            if (i > this.props.current) item = this.renderAfterItem(stepItem)
+            return (
+                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                    {item}
+                    {this.props.stepList.length > (i + 1) && <View style={{ height: 1, width: 10, backgroundColor: '#adadad' }} />}
+                </View>
+
+            )
+        })
     }
 
 
     render() {
         return (
             <View style={{ backgroundColor: '#edf1f4', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                {/*<View style={{ flexDirection: 'row', paddingVertical: 10, paddingHorizontal: 10 }}>*/}
-                {this.renderBeforeItem('1')}
-                <View style={{ height: 1, width: 10, backgroundColor: '#adadad' }} />
-                {this.renderCurrentItem('2')}
-                <View style={{ height: 1, width: 10, backgroundColor: '#adadad' }} />
-                {this.renderAfterItem('3')}
-
-                {/*</View>*/}
+                {this.props.stepList.length > 0 && this.renderItem()}
             </View>
         )
     }
