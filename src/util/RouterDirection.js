@@ -21,8 +21,14 @@ export const selectDrivingLicenseType = (parent) => {
     if (parent === 'driverBlock') return Actions.selectDrivingLicenseTypeAtDriverBlock
 }
 
+export const selectTractor = (parent) => {
+    // if (parent === 'homeBlock') return Actions.selectDrivingLicenseTypeAtHomeBlock
+    if (parent === 'driverBlock') return Actions.selectTractorAtDriverBlock
+}
+
+
 export const richText = (parent) => {
-   
+
     if (parent === 'driverBlock') return Actions.richTextAtDriverBlock
 }
 

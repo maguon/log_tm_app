@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Button, Icon } from 'native-base'
-import { Scene, TabBar, Router, ActionConst, Action, Switch, Reducer } from 'react-native-router-flux'
+import { Scene, TabBar, Router, ActionConst, Actions, Switch, Reducer } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 
 import NavBar from './components/bar/NavBar'
@@ -21,12 +21,15 @@ import Setting from './views/blockInitial/Setting'
 
 import DriverList from './views/DriverList'
 import AddDriverFirst from './views/addDriver/First'
+import AddDriverSecond from './views/addDriver/Second'
 import DriverInfo from './views/DriverInfo'
 import RichText from './views/RichText'
 
 
 import DriverCompany from './views/select/DriverCompany'
 import DrivingLicenseType from './views/select/DrivingLicenseType'
+import Tractor from './views/select/Tractor'
+import Trailer from './views/select/Trailer'
 
 
 // import Orientation from 'react-native-orientation'
@@ -129,14 +132,16 @@ export default class App extends Component {
 
                             </Scene>
                             <Scene key="driverBlock" icon={TabIcon} initial={true} online='ios-pin' outline='ios-pin-outline'>
-                                <Scene key="driver" component={Driver} title='司机信息' hideNavBar={false} navBar={TopBar} />
+                                <Scene key="driver" initial={true} component={Driver} title='司机信息' hideNavBar={false} navBar={TopBar} />
 
-                                <Scene key="addDriverFirst" component={AddDriverFirst}  initial={true}  title='增加司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="addDriverFirst" component={AddDriverFirst}   title='新增司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="addDriverSecond" component={AddDriverSecond} title='新增司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="driverListAtDriverBlock" component={DriverList} title='司机列表' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="richTextAtDriverBlock" component={RichText} title='备注' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="driverInfoAtDriverBlock" component={DriverInfo} title='司机详情' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectDriverCompanyAtDriverBlock" component={DriverCompany} title='所属公司' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectDrivingLicenseTypeAtDriverBlock" component={DrivingLicenseType} title='驾照类型' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="selectTractorAtDriverBlock" component={Tractor} title='选择车头' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
 
                             </Scene>
                             <Scene key="settingBlock" icon={TabIcon} online='ios-settings' outline='ios-settings-outline' >
