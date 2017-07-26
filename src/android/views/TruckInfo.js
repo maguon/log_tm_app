@@ -17,6 +17,7 @@ import Camera from '../components/camera/Camera'
 import PanelSingleItem from '../components/camera/PanelSingleItem'
 import PanelCustomItem from '../components/camera/PanelCustomItem'
 import * as RouterDirection from '../../util/RouterDirection'
+import RecordListItem from '../components/recordListItem/TruckInfo'
 
 export default class TruckInfo extends Component {
     constructor(props) {
@@ -380,7 +381,90 @@ export default class TruckInfo extends Component {
         return (
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View>
-                    <Text>renderTrailerInfoDisable</Text>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.5, borderColor: '#ddd' }}>
+                        <View style={{ flex: 5 }}>
+                            <TextBox
+                                title='车牌号：'
+                                containerSytle={{
+                                    paddingVertical: 5,
+                                    paddingHorizontal: 10
+                                }}
+                                //value={this.state.queryCar.vinCode}
+                                defaultValue={''}
+                                /*verifications={[{
+                                    type: 'isLength',
+                                    arguments: [0, 17],
+                                    message: '长度不能超过17位'
+                                }]}*/
+                                onValueChange={(param) => this.onSelect({ vinCode: param })}
+                                placeholder='请输入车牌号'
+                            />
+                        </View>
+                        <View style={{ flex: 1, justifyContent: 'center' }}><Text style={{ color: '#ccc', fontSize: 10 }}>已停用</Text></View>
+                        <View style={{ flex: 1, justifyContent: 'center' }}><FontTag size={26} title='自' color='#12c3eb' fontColor='#fff' /></View>
+                    </View>
+                    <TextBox
+                        title='挂车货位：'
+                        //value={this.state.queryCar.vinCode}
+                        defaultValue={''}
+                        /*verifications={[{
+                            type: 'isLength',
+                            arguments: [0, 17],
+                            message: '长度不能超过17位'
+                        }]}*/
+                        onValueChange={(param) => this.onSelect({ vinCode: param })}
+                        placeholder='请输入挂车货位'
+                    />
+                    <TextBox
+                        title='识别代码：'
+                        //value={this.state.queryCar.vinCode}
+                        defaultValue={''}
+                        /*verifications={[{
+                            type: 'isLength',
+                            arguments: [0, 17],
+                            message: '长度不能超过17位'
+                        }]}*/
+                        onValueChange={(param) => this.onSelect({ vinCode: param })}
+                        placeholder='请输入识别代码'
+                    />
+                    <Select
+                        title='所属公司：'
+                        //value={this.state.queryCar.routeStart}
+                        showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
+                        onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
+                        defaultValue={'请选择'}
+                    />
+                    <DateTimePicker
+                        // value={this.state.queryCar.enterEnd}
+                        title='行驶证检证日期：'
+                        defaultValue={'请选择'}
+                        onValueChange={(param) => this.onSelect({ enterEnd: param })}
+                    />
+                    <DateTimePicker
+                        // value={this.state.queryCar.enterEnd}
+                        title='营运证检证日期：'
+                        defaultValue={'请选择'}
+                        onValueChange={(param) => this.onSelect({ enterEnd: param })}
+                    />
+                    <RichTextBox
+                        // isRequire={false}
+                        title='备注：'
+                        //verifications={[{
+                        //     type: 'isLength',
+                        //      arguments: [0, 300],
+                        //      message: '长度0-300位'
+                        //  }]}
+                        // value={remark}
+                        defaultValue={'请填写'}
+                        onValueChange={(param) => this.props.changeAddCarField({ remark: param })}
+                        // onRequire={(flag) => { this.setState({ remarkRequire: flag }) }}
+                        showRichText={RouterDirection.richText(this.props.parent)}
+                    />
+                    <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
+                        <Button full onPress={() => { }} style={{ backgroundColor: '#00cade' }}>
+                            <Text style={{ color: '#fff' }}>保存信息</Text>
+                        </Button>
+                    </View>
                 </View>
             </ScrollView>
         )
@@ -388,17 +472,38 @@ export default class TruckInfo extends Component {
 
     renderTruckPhoto() {
         return (
-            <View>
-                <Text>renderTruckPhoto</Text>
-            </View>
+            <FlatList showsVerticalScrollIndicator={false}
+                data={[<View style={{ flexDirection: 'row' }}>
+                    <PanelSingleItem title='行驶证' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                    <PanelSingleItem title='营运证' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                </View>, <View style={{ flexDirection: 'row' }}>
+                    <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                    <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
+                </View>, <View style={{ flexDirection: 'row' }}>
+                    <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                    <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
+                </View>,
+                <View style={{ flexDirection: 'row' }}>
+                    <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                    <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
+                </View>,
+                <View style={{ flexDirection: 'row' }}>
+                    <Camera title='上传车辆照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                </View>]}
+                renderItem={({ item }) => item}
+            />
         )
     }
 
     renderTruckRecord() {
         return (
-            <View>
-                <Text>renderTruckRecord</Text>
-            </View>
+            <FlatList
+                showsVerticalScrollIndicator={false}
+                data={[{ key: 'a' }, { key: 'b' }, { key: 'c' }, { key: 'd' }, { key: 'e' }, { key: 'f' }, { key: 'g' }, { key: 'h' }, { key: 'i' }, { key: 'j' },
+                { key: 'k' }, { key: 'l' }, { key: 'm' }, { key: 'n' }, { key: 'o' }, { key: 'p' }, { key: 'q' }, { key: 'r' }, { key: 's' }, { key: 't' }, { key: 'u' },
+                { key: 'v' }, { key: 'w' }, { key: 'x' }, { key: 'y' }, { key: 'z' }]}
+                renderItem={({ item }) => <View style={{ borderColor: '#ddd', borderBottomWidth: 0.5, paddingHorizontal: 10 }}><RecordListItem /></View>}
+            />
         )
     }
 
