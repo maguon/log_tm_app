@@ -20,7 +20,7 @@ import Truck from './views/blockInitial/Truck'
 import Setting from './views/blockInitial/Setting'
 
 import DriverList from './views/DriverList'
-import AddDriver from './views/AddDriver'
+import AddDriverFirst from './views/addDriver/First'
 import DriverInfo from './views/DriverInfo'
 import RichText from './views/RichText'
 
@@ -131,7 +131,7 @@ export default class App extends Component {
                             <Scene key="driverBlock" icon={TabIcon} initial={true} online='ios-pin' outline='ios-pin-outline'>
                                 <Scene key="driver" component={Driver} title='司机信息' hideNavBar={false} navBar={TopBar} />
 
-                                <Scene key="addDriver" component={AddDriver}  initial={true}  title='增加司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="addDriverFirst" component={AddDriverFirst}  initial={true}  title='增加司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="driverListAtDriverBlock" component={DriverList} title='司机列表' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="richTextAtDriverBlock" component={RichText} title='备注' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="driverInfoAtDriverBlock" component={DriverInfo} title='司机详情' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
