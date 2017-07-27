@@ -32,6 +32,7 @@ import RichText from './views/RichText'
 import TruckInfo from './views/TruckInfo'
 
 import DriverCompany from './views/select/DriverCompany'
+import CompanyType from './views/select/CompanyType'
 import DrivingLicenseType from './views/select/DrivingLicenseType'
 import Tractor from './views/select/Tractor'
 import Trailer from './views/select/Trailer'
@@ -128,6 +129,7 @@ export default class App extends Component {
                                 <Scene key="home" initial={true} component={Home} title='车辆管理' hideNavBar={false} navBar={TopBar} />
                                 <Scene key="driverListAtHomeBlock" component={DriverList} title='司机列表' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="driverInfoAtHomeBlock" component={DriverInfo} title='司机详情' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="companyTypeAtHomeBlock" component={CompanyType} title='公司类型' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="truckInfoAtHomeBlock" component={TruckInfo} title='车辆信息' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="truckListAtHomeBlock" component={TruckList} title='车辆信息' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectDriverCompanyAtHomeBlock" component={DriverCompany} title='所属公司' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
