@@ -17,6 +17,9 @@ export default class TruckList extends Component {
         return (
             <View style={{ paddingHorizontal: 10,paddingBottom:10, backgroundColor: '#eff3f6' }}>
                 <TruckListItem />
+                <TruckListItem />
+                <TruckListItem />
+                <TruckListItem />
             </View>
         )
     }
