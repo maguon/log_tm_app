@@ -30,10 +30,12 @@ export const richText = (parent) => {
 }
 
 export const truckInfo = (parent) => {
+    if (parent === 'homeBlock') return Actions.truckInfoAtHomeBlock
     if (parent === 'truckBlock') return Actions.truckInfoAtTruckBlock
 }
 
 export const truckList = (parent) => {
+    if (parent === 'homeBlock') return Actions.truckListAtHomeBlock
     if (parent === 'truckBlock') return Actions.truckListAtTruckBlock
 }
 

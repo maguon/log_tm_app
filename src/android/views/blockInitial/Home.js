@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import { Button, Icon } from 'native-base'
 import FontTag from '../../components/tag/FontTag'
+import * as RouterDirection from '../../../util/RouterDirection'
 
 export default class Home extends Component {
     constructor(props) {
@@ -39,7 +40,7 @@ export default class Home extends Component {
 
     renderTruckStatusItem(param) {
         return (
-            <TouchableNativeFeedback onPress={()=>{}} background={TouchableNativeFeedback.SelectableBackground()}>
+            <TouchableNativeFeedback onPress={param.router} background={TouchableNativeFeedback.SelectableBackground()}>
                 <View style={{ flexDirection: 'row', paddingVertical: 15, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 10, borderBottomWidth: 1, borderColor: '#e2e9ec' }}>
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         {param.status == 0 && <Image source={{ uri: 'service_truck_4x' }} style={{ width: 40, height: 40 }} />}
@@ -89,9 +90,9 @@ export default class Home extends Component {
                             </View>
                         </View>
                         <View>
-                            {this.renderTruckStatusItem({ status: 0, count: 97, isWarn: false, title: '维修中车辆' })}
-                            {this.renderTruckStatusItem({ status: 1, count: 197, isWarn: true, title: '待检车辆' })}
-                            {this.renderTruckStatusItem({ status: 2, count: 297, isWarn: true, title: '待检司机' })}
+                            {this.renderTruckStatusItem({ status: 0, count: 97, isWarn: false, title: '维修中车辆', router: RouterDirection.truckList(this.props.parent) })}
+                            {this.renderTruckStatusItem({ status: 1, count: 197, isWarn: true, title: '待检车辆', router: RouterDirection.truckList(this.props.parent) })}
+                            {this.renderTruckStatusItem({ status: 2, count: 297, isWarn: true, title: '待检司机', router: RouterDirection.driverList(this.props.parent) })}
                         </View>
                     </View>
                 </ScrollView>
