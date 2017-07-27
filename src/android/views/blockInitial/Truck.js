@@ -94,7 +94,7 @@ export default class Truck extends Component {
                                 </View>
                             </View>
                             <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
-                                <Button full onPress={RouterDirection.truckInfo(this.props.parent)} style={{ backgroundColor: '#00cade' }}>
+                                <Button full onPress={RouterDirection.truckList(this.props.parent)} style={{ backgroundColor: '#00cade' }}>
                                     <Text style={{ color: '#fff' }}>搜索</Text>
                                 </Button>
                             </View>

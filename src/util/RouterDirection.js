@@ -33,3 +33,8 @@ export const truckInfo = (parent) => {
     if (parent === 'truckBlock') return Actions.truckInfoAtTruckBlock
 }
 
+export const truckList = (parent) => {
+    if (parent === 'truckBlock') return Actions.truckListAtTruckBlock
+}
+
+
