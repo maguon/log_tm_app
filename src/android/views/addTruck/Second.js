@@ -9,6 +9,7 @@ import StepIndicator from '../../components/StepIndicator'
 import Camera from '../../components/camera/Camera'
 import PanelSingleItem from '../../components/camera/PanelSingleItem'
 import PanelCustomItem from '../../components/camera/PanelCustomItem'
+
 export default class Second extends Component {
     constructor(props) {
         super(props)
