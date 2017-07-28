@@ -63,7 +63,7 @@ export default class StepIndicator extends Component {
             if (i == this.props.current) item = this.renderCurrentItem(stepItem)
             if (i > this.props.current) item = this.renderAfterItem(stepItem)
             return (
-                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                <View key={i} style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                     {item}
                     {this.props.stepList.length > (i + 1) && <View style={{ height: 1, width: 10, backgroundColor: '#adadad' }} />}
                 </View>
