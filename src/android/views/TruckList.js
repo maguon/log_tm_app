@@ -6,13 +6,18 @@ import {
 } from 'react-native'
 import TruckListItem from '../components/TruckListItem'
 import * as RouterDirection from '../../util/RouterDirection'
+import { connect } from 'react-redux'
 
-export default class TruckList extends Component {
+class TruckList extends Component {
     constructor(props) {
         super(props)
     }
+    componentDidMount() {
+        console.log(this.props.initParam)
+    }
 
     render() {
+
         return (
             <View style={{ paddingHorizontal: 10, paddingBottom: 10, backgroundColor: '#eff3f6' }}>
                 <TruckListItem type={0} truckType={0} isInspect={true} onPress={RouterDirection.truckInfo(this.props.parent)} isRepair={true} />
@@ -23,3 +28,18 @@ export default class TruckList extends Component {
         )
     }
 }
+
+
+const mapStateToProps = (state) => {
+    return {
+        homeReducer: state.homeReducer
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    getTruckList: (url) => {
+        dispatch(getAction(actionTypes.homeActionTypes.operateTypeCount, url))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(TruckList)

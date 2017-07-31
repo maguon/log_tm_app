@@ -9,10 +9,8 @@ import TabIcon from './components/TabIcon'
 // import SearchBar from './components/Bar/SearchBar'
 import TopBar from './components/bar/TopBar'
 
-
 import Initialization from './views/Initialization'
 import Login from './views/Login'
-
 
 import Home from './views/blockInitial/Home'
 import Driver from './views/blockInitial/Driver'

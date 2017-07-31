@@ -22,7 +22,7 @@ export default class DriverInfo extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            active: 1
+            active: 0
         }
         this.onPressSegment = this.onPressSegment.bind(this)
         this.renderDriverInfoEnable = this.renderDriverInfoEnable.bind(this)
