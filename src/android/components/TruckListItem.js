@@ -22,7 +22,7 @@ export default class TruckListItem extends Component {
     }
 
     render() {
-        console.log('props', this.props)
+        // console.log('props', this.props)
         return (
             <TouchableNativeFeedback onPress={this.props.onPress} background={TouchableNativeFeedback.SelectableBackground()}>
                 <View style={{ backgroundColor: '#fff', marginTop: 10, flexDirection: 'row', justifyContent: 'space-between' }}>

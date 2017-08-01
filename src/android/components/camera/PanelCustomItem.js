@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 import { Button, Icon } from 'native-base'
 
+
 const window = Dimensions.get('window')
 export default class PanelCustomItem extends Component {
     constructor(props) {

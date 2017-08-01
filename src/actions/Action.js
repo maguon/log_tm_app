@@ -20,6 +20,8 @@ import requestHeaders from '../util/RequestHeaders'
 // }
 
 export const getAction = (types, url) => async (dispatch) => {
+    // console.log('types',types)
+    // console.log('url',url)
     try {
         dispatch({ type: types.WAITING, payload: {} })
         let res = await httpRequest.get(url)

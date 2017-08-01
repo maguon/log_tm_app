@@ -7,6 +7,8 @@ import {
     TouchableHighlight
 } from 'react-native'
 import { Button, Icon } from 'native-base'
+import Camera from './Camera'
+import { file_host } from '../../../config/Host'
 
 const window = Dimensions.get('window')
 export default class PanelSingleItem extends Component {
@@ -25,7 +27,6 @@ export default class PanelSingleItem extends Component {
         containerSytle: { marginLeft: 10, marginRight: 5, marginTop: 10 },
         width: (window.width - 30) / 2,
         title: '身份证',
-        imageUrl: 'http://stg.myxxjs.com:9002/api/image/596f21de100f67405a122ded',
         onPhotograph: () => { }
     }
 
@@ -44,7 +45,7 @@ export default class PanelSingleItem extends Component {
         return (
             <TouchableHighlight underlayColor='rgba(0,0,0,0)' onPress={this.onPressPanel}>
                 <View style={{ width: this.props.width, height: this.props.width / 16 * 9, ...this.props.containerSytle }}>
-                    <Image source={{ uri: this.props.imageUrl }} style={{ width: this.props.width, height: this.props.width / 16 * 9, borderColor: '#e4e4e4', borderWidth: 1 }} />
+                    <Image source={{ uri: `${file_host}/image/${this.props.imageUrl}` }} style={{ width: this.props.width, height: this.props.width / 16 * 9, borderColor: '#e4e4e4', borderWidth: 1 }} />
                     <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', width: this.props.width, position: 'absolute', bottom: 0 }}>
                         <Text style={{ textAlign: 'center', fontSize: 10, paddingVertical: 4, color: '#fff' }}>{this.props.title}</Text>
                     </View>
@@ -62,7 +63,7 @@ export default class PanelSingleItem extends Component {
         return (
             <TouchableHighlight underlayColor='rgba(0,0,0,0)' onPress={this.onPressPanel}>
                 <View style={{ width: this.props.width, height: this.props.width / 16 * 9, ...this.props.containerSytle }}>
-                    <Image source={{ uri: this.props.imageUrl }} style={{ width: this.props.width, height: this.props.width / 16 * 9, borderColor: '#e4e4e4', borderWidth: 1 }} />
+                    <Image source={{ uri: `${file_host}/image/${this.props.imageUrl}` }} style={{ width: this.props.width, height: this.props.width / 16 * 9, borderColor: '#e4e4e4', borderWidth: 1 }} />
                 </View>
             </TouchableHighlight>
         )
@@ -71,8 +72,9 @@ export default class PanelSingleItem extends Component {
     render() {
         return (
             <View>
-                {!this.state.isEdit && this.renderIsCustom()}
-                {this.state.isEdit && this.renderIsEdit()}
+                {!this.state.isEdit && this.props.imageUrl && this.renderIsCustom()}
+                {this.state.isEdit && this.props.imageUrl && this.renderIsEdit()}
+                {!this.props.imageUrl && <Camera />}
             </View>
         )
     }

@@ -36,7 +36,7 @@ class TruckList extends Component {
                 truckType={0}
                 isInspect={true}
                 truck={item}
-                onPress={() => RouterDirection.truckInfo(this.props.parent)({ truck: item })}
+                onPress={() => RouterDirection.truckInfo(this.props.parent)({ initParam: { truckId: item.id, truck_num: item.truck_num } })}
                 isRepair={true}
             />
         })
@@ -47,10 +47,6 @@ class TruckList extends Component {
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{ paddingHorizontal: 10, paddingBottom: 10 }}>
                         {truckList}
-                        {/*<TruckListItem type={0} truckType={0} isInspect={true} onPress={RouterDirection.truckInfo(this.props.parent)} isRepair={true} />
-                <TruckListItem type={1} truckType={1} isInspect={true} onPress={RouterDirection.truckInfo(this.props.parent)} />
-                <TruckListItem type={2} truckType={0} onPress={RouterDirection.truckInfo(this.props.parent)} />
-                <TruckListItem type={3} truckType={1} isRepair={true} onPress={RouterDirection.truckInfo(this.props.parent)} />*/}
                     </View>
                 </ScrollView>
             </View>

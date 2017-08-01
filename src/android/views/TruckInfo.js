@@ -18,8 +18,13 @@ import PanelSingleItem from '../components/camera/PanelSingleItem'
 import PanelCustomItem from '../components/camera/PanelCustomItem'
 import * as RouterDirection from '../../util/RouterDirection'
 import RecordListItem from '../components/recordListItem/TruckInfo'
+import { connect } from 'react-redux'
+import actionTypes from '../../actions/actionTypes'
+import { base_host, record_host, file_host } from '../../config/Host'
+import { getAction } from '../../actions/Action'
+import { ObjectToUrl } from '../../util/ObjectToUrl'
 
-export default class TruckInfo extends Component {
+class TruckInfo extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -35,9 +40,14 @@ export default class TruckInfo extends Component {
         this.onSelect = this.onSelect.bind(this)
     }
 
-    
-    componentWillMount(){
-        console.log(this.props)
+    componentWillReceiveProps(nextProps) {
+
+    }
+
+    componentDidMount() {
+        this.props.getTruckInfo(`${base_host}/truckFirst?truckId=${this.props.initParam.truckId}`)
+        this.props.getTruckInsureRel(`${base_host}/truckInsureRel?truckId=${this.props.initParam.truckId}&active=1`)
+        this.props.getTruckRecord(`${record_host}/user/38/truck/${this.props.initParam.truck_num}/record`)
     }
 
     onPressSegment(index) {
@@ -46,7 +56,7 @@ export default class TruckInfo extends Component {
     }
 
     onSelect(param) {
-       // console.log(param)
+        // console.log(param)
     }
 
     renderTractorInfoEnable() {
@@ -476,12 +486,14 @@ export default class TruckInfo extends Component {
     }
 
     renderTruckPhoto() {
-        
+        const { driving_image, license_image } = this.props.truckInfoReducer.data.truckInfo
+        console.log(driving_image)
+        console.log(license_image)
         return (
             <FlatList showsVerticalScrollIndicator={false}
                 data={[<View style={{ flexDirection: 'row' }}>
-                    <PanelSingleItem title='行驶证' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                    <PanelSingleItem title='营运证' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                    <PanelSingleItem title='行驶证' imageUrl={driving_image} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                    <PanelSingleItem title='营运证' imageUrl={license_image} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
                 </View>, <View style={{ flexDirection: 'row' }}>
                     <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
                     <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
@@ -514,7 +526,7 @@ export default class TruckInfo extends Component {
     }
 
     render() {
-        //console.log(this.props)
+        console.log(this.props)
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>
@@ -540,3 +552,24 @@ export default class TruckInfo extends Component {
         )
     }
 }
+
+
+const mapStateToProps = (state) => {
+    return {
+        truckInfoReducer: state.truckInfoReducer
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    getTruckInfo: (url) => {
+        dispatch(getAction(actionTypes.truckInfoActionTypes.truckInfo, url))
+    },
+    getTruckRecord: (url) => {
+        dispatch(getAction(actionTypes.truckInfoActionTypes.truckRecord, url))
+    },
+    getTruckInsureRel: (url) => {
+        dispatch(getAction(actionTypes.truckInfoActionTypes.truckInsureRel, url))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(TruckInfo)
