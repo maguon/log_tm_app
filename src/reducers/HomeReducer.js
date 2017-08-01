@@ -82,7 +82,7 @@ export default handleActions({
             waitingInspectCount: {
                 ...state.waitingInspectCount,
                 isResultStatus: 0,
-                isExecStatus: 0
+                isExecStatus: 2
             }
         }
     }

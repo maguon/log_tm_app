@@ -35,13 +35,18 @@ export default class TruckInfo extends Component {
         this.onSelect = this.onSelect.bind(this)
     }
 
+    
+    componentWillMount(){
+        console.log(this.props)
+    }
+
     onPressSegment(index) {
         if (this.state.active != index)
             this.setState({ active: index })
     }
 
     onSelect(param) {
-        console.log(param)
+       // console.log(param)
     }
 
     renderTractorInfoEnable() {
@@ -471,6 +476,7 @@ export default class TruckInfo extends Component {
     }
 
     renderTruckPhoto() {
+        
         return (
             <FlatList showsVerticalScrollIndicator={false}
                 data={[<View style={{ flexDirection: 'row' }}>
@@ -508,6 +514,7 @@ export default class TruckInfo extends Component {
     }
 
     render() {
+        //console.log(this.props)
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>

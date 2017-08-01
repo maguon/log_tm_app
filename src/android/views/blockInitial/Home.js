@@ -115,8 +115,8 @@ class Home extends Component {
                                 status: 1, count: waitingInspectCount, isWarn: true, title: '待检车辆', router: () => RouterDirection.truckList(this.props.parent)({
                                     initParam: {
                                         truckStatus: 1,
-                                        drivingDateStart: new Date(Date.now()).toLocaleDateString(),
-                                        drivingDateEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString()
+                                        drivingDateEnd: new Date(Date.now()).toLocaleDateString(),
+                                        drivingDateStart: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toLocaleDateString()
                                     }
                                 })
                             })}
