@@ -1,6 +1,5 @@
 import { handleActions } from 'redux-actions'
-import actionTypes from '../actions/actionTypes'
-import reducerTemplate from './ReducerTemplate'
+import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
     data: {
@@ -28,14 +27,11 @@ const initialState = {
     }
 }
 
-const operateTypeCount = reducerTemplate(actionTypes.homeActionTypes.operateTypeCount, 'operateTypeCount')
-const waitingInspectCount = reducerTemplate(actionTypes.homeActionTypes.waitingInspectCount, 'waitingInspectCount')
-
 //isResultStatus(执行结果状态):[0(成功)，1(错误)，2(执行失败),3(服务器错误)] 
 //isExecuteStatus(执行状态):[0(未执行)，1(正在执行)，2(执行完毕)]
 export default handleActions({
-    ...operateTypeCount,
-    [(actionTypes.homeActionTypes.operateTypeCount.SUCCESS)]: (state, action) => {
+    [(actionTypes.homeTypes.GET_OperateTypeCount_SUCCESS)]: (state, action) => {
+        
         const { payload: { data } } = action
         let operateTypeCount = {
             zCount: 0,
@@ -70,8 +66,66 @@ export default handleActions({
             }
         }
     },
-    ...waitingInspectCount,
-    [(actionTypes.homeActionTypes.waitingInspectCount.SUCCESS)]: (state, action) => {
+    [(actionTypes.homeTypes.GET_OperateTypeCount_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            operateTypeCount: {
+                ...state.operateTypeCount,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.homeTypes.GET_OperateTypeCount_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            operateTypeCount: {
+                ...state.operateTypeCount,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.homeTypes.GET_OperateTypeCount_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            operateTypeCount: {
+                ...state.operateTypeCount,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.homeTypes.GET_OperateTypeCount_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            operateTypeCount: {
+                ...state.operateTypeCount,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.homeTypes.RESET_GET_OperateTypeCount)]: (state, action) => {
+  
+        return {
+            ...state,
+            operateTypeCount: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
+
+    [(actionTypes.homeTypes.GET_WaitingInspectCount_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
@@ -85,5 +139,63 @@ export default handleActions({
                 isExecStatus: 2
             }
         }
+    },
+    [(actionTypes.homeTypes.GET_WaitingInspectCount_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            waitingInspectCount: {
+                ...state.waitingInspectCount,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.homeTypes.GET_WaitingInspectCount_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            waitingInspectCount: {
+                ...state.waitingInspectCount,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.homeTypes.GET_WaitingInspectCount_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            waitingInspectCount: {
+                ...state.waitingInspectCount,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.homeTypes.GET_WaitingInspectCount_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            waitingInspectCount: {
+                ...state.waitingInspectCount,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.homeTypes.RESET_GET_WaitingInspectCount)]: (state, action) => {      
+        return {
+            ...state,
+            waitingInspectCount: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
     }
+
 }, initialState)

@@ -1,17 +1,11 @@
-import { getTemplate, actionTemplate } from './ActionTypesTemplate'
-
-const operateTypeCount = getTemplate('OperateTypeCount')
-const waitingInspectCount = getTemplate('WaitingInspectCount')
-const truckList = getTemplate('TruckList')
-const truckInfo = getTemplate('TruckInfo')
-const truckInsureRel = getTemplate('TruckInsureRel')
-const truckRecord = getTemplate('TruckRecord')
+import * as truckInfoTypes from './TruckInfoTypes'
+import * as homeTypes from './HomeTypes'
+import * as truckListTypes from './TruckListTypes'
 
 
-const actionTypes = {
-    homeActionTypes: actionTemplate({ operateTypeCount, waitingInspectCount }, 'HomeAction'),
-    truckListActionTypes: actionTemplate({ truckList }, 'TruckListAction'),
-    truckInfoActionTypes: actionTemplate({ truckInfo, truckRecord, truckInsureRel }, 'TruckInfoAction')
+export {
+    homeTypes,
+    truckInfoTypes,
+    truckListTypes
 }
 
-export default actionTypes

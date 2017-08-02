@@ -9,26 +9,44 @@ import {
 import TruckListItem from '../components/TruckListItem'
 import * as RouterDirection from '../../util/RouterDirection'
 import { connect } from 'react-redux'
-import actionTypes from '../../actions/actionTypes'
-import { base_host } from '../../config/Host'
-import { getAction } from '../../actions/Action'
-import { ObjectToUrl } from '../../util/ObjectToUrl'
+import { getTruckList } from '../../actions/TruckListAction'
 
 class TruckList extends Component {
     constructor(props) {
         super(props)
     }
     componentDidMount() {
-        // console.log(this.props.initParam)
-        // console.log(actionTypes)
-        //InteractionManager.runAfterInteractions()
-        this.props.getTruckList(`${base_host}/truckFirst?${ObjectToUrl(this.props.initParam)}`)
+        if (this.props.initParam) {
+            this.props.getTruckList({ OptionalParam: this.props.initParam })
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+         let { getTruckList } = nextProps.truckListReducer
+        /*getTruckList*/
+        if (getTruckList.isExecStatus == 2) {
+            if (getTruckList.isResultStatus == 0) {
+                console.log('getTruckList执行成功')
+                
+            }
+            else if (getTruckList.isResultStatus == 1) {
+                console.log('getTruckList异常')
+                
+            }
+            else if (getTruckList.isResultStatus == 2) {
+                console.log('getTruckList执行失败')
+                
+            }
+            else if (getTruckList.isResultStatus == 3) {
+                console.log('getTruckList服务器异常')
+               
+            }
+        }
+        /************************************ */
     }
 
     render() {
-
         let { truckList } = this.props.truckListReducer.data
-
         truckList = truckList.map((item, i) => {
             return <TruckListItem
                 key={i}
@@ -40,7 +58,6 @@ class TruckList extends Component {
                 isRepair={true}
             />
         })
-        // console.log(truckList)
 
         return (
             <View style={{ flex: 1, backgroundColor: '#eff3f6' }}>
@@ -62,8 +79,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getTruckList: (url) => {
-        dispatch(getAction(actionTypes.truckListActionTypes.truckList, url))
+    getTruckList: (param) => {
+        dispatch(getTruckList(param))
     }
 })
 

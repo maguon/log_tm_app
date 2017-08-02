@@ -9,40 +9,40 @@ function get(url) {
         let json = response.json()
         return json
     })
-    // .then((responseJson) => {
-    //     callback(null, responseJson)
-    // })
-    // .catch((error) => {
-    //     callback(error, null);
-    // })
+        // .then((responseJson) => {
+        //     callback(null, responseJson)
+        // })
+        // .catch((error) => {
+        //     callback(error, null);
+        // })
 }
 
-function post(url, params, callback) {
+function post(url, params) {
     fetch(url, {
         method: 'POST',
         headers: requestHeaders.headers,
         body: JSON.stringify(params)
     }).then((response) => response.json())
-        .then((responseJson) => {
-            callback(null, responseJson)
-        })
-        .catch((error) => {
-            callback(error, null);
-        });
+    // .then((responseJson) => {
+    //     callback(null, responseJson)
+    // })
+    // .catch((error) => {
+    //     callback(error, null);
+    // });
 }
 
-function put(url, params, callback) {
+function put(url, params) {
     fetch(url, {
         method: 'PUT',
         headers: requestHeaders.headers,
         body: JSON.stringify(params)
     }).then((response) => response.json())
-        .then((responseJson) => {
-            callback(null, responseJson)
-        })
-        .catch((error) => {
-            callback(error, null);
-        });
+    // .then((responseJson) => {
+    //     callback(null, responseJson)
+    // })
+    // .catch((error) => {
+    //     callback(error, null);
+    // });
 }
 
 function del(url, callback) {

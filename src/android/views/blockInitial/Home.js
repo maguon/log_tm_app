@@ -11,10 +11,12 @@ import { Button, Icon } from 'native-base'
 import FontTag from '../../components/tag/FontTag'
 import * as RouterDirection from '../../../util/RouterDirection'
 import { connect } from 'react-redux'
-import * as homeAction from '../../../actions/HomeAction'
-import { getAction } from '../../../actions/Action'
-import actionTypes from '../../../actions/actionTypes'
-import { base_host } from '../../../config/Host'
+import {
+    getOperateTypeCount,
+    getWaitingInspectCount,
+    resetGetOperateTypeCount,
+    resetGetWaitingInspectCount
+} from '../../../actions/HomeAction'
 
 class Home extends Component {
     constructor(props) {
@@ -24,15 +26,62 @@ class Home extends Component {
     }
 
     componentDidMount() {
+        this.props.getOperateTypeCount({ OptionalParam: { truckType: 1 } })
         let now = Date.now()
-        InteractionManager.runAfterInteractions(this.props.getOperateTypeCount(`${base_host}/operateTypeCount?truckType=1`))
-        InteractionManager.runAfterInteractions(
-            this.props.getWaitingInspectCount(
-                `${base_host}/drivingCount?truckStatus=1
-                &drivingDateStart=${new Date(now).toLocaleDateString()}
-                &drivingDateEnd=${new Date(now + 30 * 24 * 60 * 60 * 1000).toLocaleDateString()}`
-            )
-        )
+        this.props.getWaitingInspectCount({
+            OptionalParam: {
+                truckStatus: 1,
+                drivingDateStart: new Date(now).toLocaleDateString(),
+                drivingDateEnd: new Date(now + 30 * 24 * 60 * 60 * 1000).toLocaleDateString()
+            }
+        })
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+        let { operateTypeCount, waitingInspectCount } = nextProps.homeReducer
+
+        /*operateTypeCount*/
+        if (operateTypeCount.isExecStatus == 2) {
+            if (operateTypeCount.isResultStatus == 0) {
+                console.log('operateTypeCount执行成功')
+                this.props.resetGetOperateTypeCount()
+            }
+            else if (operateTypeCount.isResultStatus == 1) {
+                console.log('operateTypeCount异常')
+                this.props.resetGetOperateTypeCount()
+            }
+            else if (operateTypeCount.isResultStatus == 2) {
+                console.log('operateTypeCount执行失败')
+                this.props.resetGetOperateTypeCount()
+            }
+            else if (operateTypeCount.isResultStatus == 3) {
+                console.log('operateTypeCount服务器异常')
+                this.props.resetGetOperateTypeCount()
+            }
+        }
+        /************************************ */
+
+        /*waitingInspectCount*/
+        if (waitingInspectCount.isExecStatus == 2) {
+            if (waitingInspectCount.isResultStatus == 0) {
+                console.log('waitingInspectCount执行成功')
+                this.props.resetGetWaitingInspectCount()
+            }
+            else if (waitingInspectCount.isResultStatus == 1) {
+                console.log('waitingInspectCount异常')
+                this.props.resetGetWaitingInspectCount()
+            }
+            else if (waitingInspectCount.isResultStatus == 2) {
+                console.log('waitingInspectCount执行失败')
+                this.props.resetGetWaitingInspectCount()
+            }
+            else if (waitingInspectCount.isResultStatus == 3) {
+                console.log('waitingInspectCount服务器异常')
+                this.props.resetGetWaitingInspectCount()
+            }
+        }
+        /************************************ */
     }
 
     renderTruckTypeItem(param) {
@@ -115,8 +164,8 @@ class Home extends Component {
                                 status: 1, count: waitingInspectCount, isWarn: true, title: '待检车辆', router: () => RouterDirection.truckList(this.props.parent)({
                                     initParam: {
                                         truckStatus: 1,
-                                        drivingDateEnd: new Date(Date.now()).toLocaleDateString(),
-                                        drivingDateStart: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toLocaleDateString()
+                                        drivingDateStart: new Date(Date.now()).toLocaleDateString(),
+                                        drivingDateEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString()
                                     }
                                 })
                             })}
@@ -137,11 +186,18 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getOperateTypeCount: (url) => {
-        dispatch(getAction(actionTypes.homeActionTypes.operateTypeCount, url))
+    getOperateTypeCount: (param) => {
+        dispatch(getOperateTypeCount(param))
     },
-    getWaitingInspectCount: (url) => {
-        dispatch(getAction(actionTypes.homeActionTypes.waitingInspectCount, url))
+    getWaitingInspectCount: (param) => {
+        dispatch(getWaitingInspectCount(param))
+    },
+    resetGetOperateTypeCount: () => {
+        dispatch(resetGetOperateTypeCount())
+    },
+    resetGetWaitingInspectCount: () => {
+        dispatch(resetGetWaitingInspectCount())
+
     }
 })
 

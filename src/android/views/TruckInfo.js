@@ -28,7 +28,18 @@ class TruckInfo extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            active: 0
+            active: 0,
+            truckInfo: {
+                truck_num: '',      //车牌号
+                brand_name: '',     //识别码
+                truck_tel: '',      //车辆管理的电话
+                company_name: '',   //所属公司名称
+                driving_date: '',   //行驶证检证日期
+                license_date: '',   //营运证检证日期
+                driving_image: '',  //行驶证照片
+                license_image: '',  //营运证照片
+                remark: ''          //备注
+            }
         }
         this.renderTractorInfoEnable = this.renderTractorInfoEnable.bind(this)
         this.renderTractorInfoDisable = this.renderTractorInfoDisable.bind(this)
@@ -41,7 +52,75 @@ class TruckInfo extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        const { truckInfo, truckInsureRel, truckRecord } = nextProps.truckInfoReducer
+        /*truckInfo*/
+        if (truckInfo.isExecStatus == 0)
+        { console.log('truckInfo', '初始状态') }
+        else if (truckInfo.isExecStatus == 1)
+        { console.log('truckInfo', '等待执行结果') }
+        else if (truckInfo.isExecStatus == 2) {
+            console.log('truckInfo', '执行结束')
+            if (truckInfo.isResultStatus == 0) {
+                console.log('truckInfo', '执行成功')
+                //console.log()
+            }
+            else if (truckInfo.isResultStatus == 1) {
+                console.log('truckInfo', '异常')
+            }
+            else if (truckInfo.isResultStatus == 2) {
+                console.log('truckInfo', '执行失败')
+            }
+            else if (truckInfo.isResultStatus == 3) {
+                console.log('truckInfo', '服务器异常')
+            }
+        }
+        /************************************ */
 
+
+        /*truckInsureRel*/
+        if (truckInsureRel.isExecStatus == 0)
+        { console.log('truckInsureRel', '初始状态') }
+        else if (truckInsureRel.isExecStatus == 1)
+        { console.log('truckInsureRel', '等待执行结果') }
+        else if (truckInsureRel.isExecStatus == 2) {
+            console.log('truckInsureRel', '执行结束')
+            if (truckInsureRel.isResultStatus == 0) {
+                console.log('truckInsureRel', '执行成功')
+            }
+            else if (truckInsureRel.isResultStatus == 1) {
+                console.log('truckInsureRel', '异常')
+            }
+            else if (truckInsureRel.isResultStatus == 2) {
+                console.log('truckInsureRel', '执行失败')
+            }
+            else if (truckInsureRel.isResultStatus == 3) {
+                console.log('truckInsureRel', '服务器异常')
+            }
+        }
+        /************************************ */
+
+
+        /*truckRecord*/
+        if (truckRecord.isExecStatus == 0)
+        { console.log('truckRecord', '初始状态') }
+        else if (truckRecord.isExecStatus == 1)
+        { console.log('truckRecord', '等待执行结果') }
+        else if (truckRecord.isExecStatus == 2) {
+            console.log('truckRecord', '执行结束')
+            if (truckRecord.isResultStatus == 0) {
+                console.log('truckRecord', '执行成功')
+            }
+            else if (truckRecord.isResultStatus == 1) {
+                console.log('truckRecord', '异常')
+            }
+            else if (truckRecord.isResultStatus == 2) {
+                console.log('truckRecord', '执行失败')
+            }
+            else if (truckRecord.isResultStatus == 3) {
+                console.log('truckRecord', '服务器异常')
+            }
+        }
+        /************************************ */
     }
 
     componentDidMount() {
@@ -55,8 +134,20 @@ class TruckInfo extends Component {
             this.setState({ active: index })
     }
 
+    updateTruckInfo() {
+        //this.props.putUpdateTruckInfo(`${base_host}/truckFirst?truckId=${this.props.initParam.truckId}`)
+    }
+
     onSelect(param) {
         // console.log(param)
+    }
+
+    unBindDriver() {
+
+    }
+
+    bindDriver() {
+
     }
 
     renderTractorInfoEnable() {
@@ -71,7 +162,7 @@ class TruckInfo extends Component {
                                     paddingVertical: 5,
                                     paddingHorizontal: 10
                                 }}
-                                //value={this.state.queryCar.vinCode}
+                                value={this.state.truck_num}
                                 defaultValue={''}
                                 /*verifications={[{
                                     type: 'isLength',
@@ -527,6 +618,7 @@ class TruckInfo extends Component {
 
     render() {
         console.log(this.props)
+        const { truck_status, truck_type } = this.props.truckInfoReducer.data.truckInfo
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>
@@ -544,7 +636,12 @@ class TruckInfo extends Component {
                     </Button>
                 </View>
                 <View style={{ backgroundColor: '#fff', borderTopWidth: 1, borderColor: '#00cade', flex: 1 }}>
-                    {this.state.active == 0 && this.renderTrailerInfoDisable()}
+                    {this.state.active == 0 && truck_status == 1 && truck_type == 1 && this.renderTractorInfoEnable()}
+                    {this.state.active == 0 && truck_status == 0 && truck_type == 1 && this.renderTractorInfoDisable()}
+
+                    {this.state.active == 0 && truck_status == 1 && truck_type == 2 && this.renderTrailerInfoEnable()}
+                    {this.state.active == 0 && truck_status == 0 && truck_type == 2 && this.renderTrailerInfoDisable()}
+
                     {this.state.active == 1 && this.renderTruckPhoto()}
                     {this.state.active == 3 && this.renderTruckRecord()}
                 </View>
@@ -569,6 +666,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getTruckInsureRel: (url) => {
         dispatch(getAction(actionTypes.truckInfoActionTypes.truckInsureRel, url))
+    },
+    putUpdateTruckInfo: (url, param) => {
+        dispatch(putAction(actionTypes.truckInfoActionTypes.updateTruckInfo, param, url))
     }
 })
 

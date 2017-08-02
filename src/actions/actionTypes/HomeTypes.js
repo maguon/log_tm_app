@@ -1,0 +1,15 @@
+export const GET_OperateTypeCount_SUCCESS = 'GET_OperateTypeCount_SUCCESS'
+export const GET_OperateTypeCount_FAILED = 'GET_OperateTypeCount_FAILED'
+export const GET_OperateTypeCount_WAITING = 'GET_OperateTypeCount_WAITING'
+export const GET_OperateTypeCount_SERVICEERROR = 'GET_OperateTypeCount_SERVICEERROR'
+export const GET_OperateTypeCount_ERROR = 'GET_OperateTypeCount_ERROR'
+export const RESET_GET_OperateTypeCount = 'RESET_GET_OperateTypeCount'
+
+export const GET_WaitingInspectCount_SUCCESS = 'GET_WaitingInspectCount_SUCCESS'
+export const GET_WaitingInspectCount_FAILED = 'GET_WaitingInspectCount_FAILED'
+export const GET_WaitingInspectCount_WAITING = 'GET_WaitingInspectCount_WAITING'
+export const GET_WaitingInspectCount_SERVICEERROR = 'GET_WaitingInspectCount_SERVICEERROR'
+export const GET_WaitingInspectCount_ERROR = 'GET_WaitingInspectCount_ERROR'
+export const RESET_GET_WaitingInspectCount = 'RESET_GET_WaitingInspectCount'
+
+export const CLEAN_HomeReducer = 'CLEAN_HomeReducer'
