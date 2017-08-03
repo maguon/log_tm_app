@@ -27,19 +27,15 @@ class TruckList extends Component {
         if (getTruckList.isExecStatus == 2) {
             if (getTruckList.isResultStatus == 0) {
                 console.log('getTruckList执行成功')
-                
             }
             else if (getTruckList.isResultStatus == 1) {
                 console.log('getTruckList异常')
-                
             }
             else if (getTruckList.isResultStatus == 2) {
                 console.log('getTruckList执行失败')
-                
             }
             else if (getTruckList.isResultStatus == 3) {
-                console.log('getTruckList服务器异常')
-               
+                console.log('getTruckList服务器异常')         
             }
         }
         /************************************ */
@@ -58,7 +54,6 @@ class TruckList extends Component {
                 isRepair={true}
             />
         })
-
         return (
             <View style={{ flex: 1, backgroundColor: '#eff3f6' }}>
                 <ScrollView showsVerticalScrollIndicator={false}>

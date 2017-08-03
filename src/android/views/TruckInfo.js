@@ -19,10 +19,15 @@ import PanelCustomItem from '../components/camera/PanelCustomItem'
 import * as RouterDirection from '../../util/RouterDirection'
 import RecordListItem from '../components/recordListItem/TruckInfo'
 import { connect } from 'react-redux'
-import actionTypes from '../../actions/actionTypes'
-import { base_host, record_host, file_host } from '../../config/Host'
-import { getAction } from '../../actions/Action'
-import { ObjectToUrl } from '../../util/ObjectToUrl'
+import {
+    getTruckInfo,
+    getTruckRecord,
+    getTruckInsureRel,
+    updateTruckInfo,
+    resetGetTruckInfo,
+    resetGetTruckInsureRel,
+    resetGetTruckRecord
+} from '../../actions/TruckInfoAction'
 
 class TruckInfo extends Component {
     constructor(props) {
@@ -54,79 +59,75 @@ class TruckInfo extends Component {
     componentWillReceiveProps(nextProps) {
         const { truckInfo, truckInsureRel, truckRecord } = nextProps.truckInfoReducer
         /*truckInfo*/
-        if (truckInfo.isExecStatus == 0)
-        { console.log('truckInfo', '初始状态') }
-        else if (truckInfo.isExecStatus == 1)
-        { console.log('truckInfo', '等待执行结果') }
-        else if (truckInfo.isExecStatus == 2) {
-            console.log('truckInfo', '执行结束')
+        if (truckInfo.isExecStatus == 2) {
             if (truckInfo.isResultStatus == 0) {
                 console.log('truckInfo', '执行成功')
-                //console.log()
+                this.props.resetGetTruckInfo()
             }
             else if (truckInfo.isResultStatus == 1) {
                 console.log('truckInfo', '异常')
+                this.props.resetGetTruckInfo()
             }
             else if (truckInfo.isResultStatus == 2) {
                 console.log('truckInfo', '执行失败')
+                this.props.resetGetTruckInfo()
             }
             else if (truckInfo.isResultStatus == 3) {
                 console.log('truckInfo', '服务器异常')
+                this.props.resetGetTruckInfo()
             }
         }
         /************************************ */
 
 
         /*truckInsureRel*/
-        if (truckInsureRel.isExecStatus == 0)
-        { console.log('truckInsureRel', '初始状态') }
-        else if (truckInsureRel.isExecStatus == 1)
-        { console.log('truckInsureRel', '等待执行结果') }
-        else if (truckInsureRel.isExecStatus == 2) {
-            console.log('truckInsureRel', '执行结束')
+        if (truckInsureRel.isExecStatus == 2) {
             if (truckInsureRel.isResultStatus == 0) {
                 console.log('truckInsureRel', '执行成功')
+                this.props.resetGetTruckInsureRel()
             }
             else if (truckInsureRel.isResultStatus == 1) {
                 console.log('truckInsureRel', '异常')
+                this.props.resetGetTruckInsureRel()
             }
             else if (truckInsureRel.isResultStatus == 2) {
                 console.log('truckInsureRel', '执行失败')
+                this.props.resetGetTruckInsureRel()
             }
             else if (truckInsureRel.isResultStatus == 3) {
                 console.log('truckInsureRel', '服务器异常')
+                this.props.resetGetTruckInsureRel()
             }
         }
         /************************************ */
 
 
         /*truckRecord*/
-        if (truckRecord.isExecStatus == 0)
-        { console.log('truckRecord', '初始状态') }
-        else if (truckRecord.isExecStatus == 1)
-        { console.log('truckRecord', '等待执行结果') }
-        else if (truckRecord.isExecStatus == 2) {
-            console.log('truckRecord', '执行结束')
+        if (truckRecord.isExecStatus == 2) {
             if (truckRecord.isResultStatus == 0) {
                 console.log('truckRecord', '执行成功')
+                this.props.resetGetTruckRecord()
             }
             else if (truckRecord.isResultStatus == 1) {
                 console.log('truckRecord', '异常')
+                this.props.resetGetTruckRecord()                
             }
             else if (truckRecord.isResultStatus == 2) {
                 console.log('truckRecord', '执行失败')
+                this.props.resetGetTruckRecord()                
             }
             else if (truckRecord.isResultStatus == 3) {
                 console.log('truckRecord', '服务器异常')
+                this.props.resetGetTruckRecord()                
             }
         }
         /************************************ */
     }
 
     componentDidMount() {
-        this.props.getTruckInfo(`${base_host}/truckFirst?truckId=${this.props.initParam.truckId}`)
-        this.props.getTruckInsureRel(`${base_host}/truckInsureRel?truckId=${this.props.initParam.truckId}&active=1`)
-        this.props.getTruckRecord(`${record_host}/user/38/truck/${this.props.initParam.truck_num}/record`)
+        this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
+        this.props.getTruckInsureRel({ OptionalParam: { truckId: this.props.initParam.truckId, active: 1 } })
+        this.props.getTruckRecord({ requiredParam: { userId: this.props.userReducer.data.user.userId, truckNum: this.props.initParam.truck_num } })
     }
 
     onPressSegment(index) {
@@ -653,22 +654,32 @@ class TruckInfo extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        truckInfoReducer: state.truckInfoReducer
+        truckInfoReducer: state.truckInfoReducer,
+        userReducer: state.userReducer
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getTruckInfo: (url) => {
-        dispatch(getAction(actionTypes.truckInfoActionTypes.truckInfo, url))
+    getTruckInfo: (param) => {
+        dispatch(getTruckInfo(param))
     },
-    getTruckRecord: (url) => {
-        dispatch(getAction(actionTypes.truckInfoActionTypes.truckRecord, url))
+    getTruckRecord: (param) => {
+        dispatch(getTruckRecord(param))
     },
-    getTruckInsureRel: (url) => {
-        dispatch(getAction(actionTypes.truckInfoActionTypes.truckInsureRel, url))
+    getTruckInsureRel: (param) => {
+        dispatch(getTruckInsureRel(param))
     },
-    putUpdateTruckInfo: (url, param) => {
-        dispatch(putAction(actionTypes.truckInfoActionTypes.updateTruckInfo, param, url))
+    putUpdateTruckInfo: (param) => {
+        dispatch(putUpdateTruckInfo(param))
+    },
+    resetGetTruckInfo: () => {
+        dispatch(resetGetTruckInfo())
+    },
+    resetGetTruckInsureRel: () => {
+        dispatch(resetGetTruckInsureRel())
+    },
+    resetGetTruckRecord:()=>{
+        dispatch(resetGetTruckRecord())       
     }
 })
 
