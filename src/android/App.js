@@ -140,7 +140,7 @@ export default class App extends Component {
                                 <Scene key="selectDrivingLicenseTypeAtHomeBlock" component={DrivingLicenseType} title='驾照类型' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                             </Scene>
                             <Scene key="truckBlock" icon={TabIcon} online='ios-car' outline='ios-car-outline' >
-                                <Scene key="truck" initial={true} rightType={1} onPressRight={() => Actions.addTruckFirst()} component={Truck} title='车辆信息' hideNavBar={false} navBar={TopBar} />
+                                <Scene key="truck" initial={true}  rightType={1} onPressRight={() => Actions.addTruckFirst()} component={Truck} title='车辆信息' hideNavBar={false} navBar={TopBar} />
                                 <Scene key="truckInfoAtTruckBlock" rightType={1} component={TruckInfo} title='车辆信息' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="truckListAtTruckBlock" component={TruckList} title='车辆信息' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="addTruckFirst" component={AddTruckFirst} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />

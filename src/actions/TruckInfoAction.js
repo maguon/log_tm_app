@@ -18,10 +18,8 @@ export const getTruckInfo = (param) => async (dispatch) => {
     }
 }
 
-
 export const getTruckRecord = (param) => async (dispatch) => {
     const url = `${record_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckNum}/record`
-    console.log(url) 
     dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_WAITING, payload: {} })
     try {
         let res = await httpRequest.get(url)
@@ -50,19 +48,34 @@ export const getTruckInsureRel = (param) => async (dispatch) => {
     }
 }
 
-export const updateTruckInfo = (param) => (dispatch) => {
-
-}
-
 export const resetGetTruckInfo = (param) => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.RESET_GET_TruckInfo, payload: {} })
 }
+
 export const resetGetTruckRecord = (param) => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.RESET_GET_TruckRecord, payload: {} })
 }
+
 export const resetGetTruckInsureRel = (param) => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.RESET_GET_TruckInsureRel, payload: {} })
 }
-export const resetUpdateTruckInfo = (param) => (dispatch) => {
 
+export const updateTruckInfo = (param) => async (dispatch) => {
+    const url = `${record_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}`
+    console.log(url)
+    dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_WAITING, payload: {} })
+    try {
+        let res = await httpRequest.put(url, param.putParam)
+        if (res.success) {
+            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_SUCCESS, payload: { data: res.result } })
+        } else {
+            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_FAILED, payload: { data: res.msg } })
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_ERROR, payload: { data: err } })
+    }
+}
+
+export const resetUpdateTruckInfo = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.truckInfoTypes.RESET_UpdateTruckInfo, payload: {} })
 }

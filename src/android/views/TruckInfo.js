@@ -110,15 +110,15 @@ class TruckInfo extends Component {
             }
             else if (truckRecord.isResultStatus == 1) {
                 console.log('truckRecord', '异常')
-                this.props.resetGetTruckRecord()                
+                this.props.resetGetTruckRecord()
             }
             else if (truckRecord.isResultStatus == 2) {
                 console.log('truckRecord', '执行失败')
-                this.props.resetGetTruckRecord()                
+                this.props.resetGetTruckRecord()
             }
             else if (truckRecord.isResultStatus == 3) {
                 console.log('truckRecord', '服务器异常')
-                this.props.resetGetTruckRecord()                
+                this.props.resetGetTruckRecord()
             }
         }
         /************************************ */
@@ -136,7 +136,19 @@ class TruckInfo extends Component {
     }
 
     updateTruckInfo() {
-        //this.props.putUpdateTruckInfo(`${base_host}/truckFirst?truckId=${this.props.initParam.truckId}`)
+        this.props.updateTruckInfo({
+            requiredParam: {
+                userId: this.props.userReducer.data.user.userId,
+                truckId: this.props.initParam.truckId
+            },
+            putParam: {
+                truckNum: "辽B1al12",
+                companyId: 40,
+                remark: "234234",
+                truckType: 2,
+                number: 8
+            }
+        })
     }
 
     onSelect(param) {
@@ -669,18 +681,18 @@ const mapDispatchToProps = (dispatch) => ({
     getTruckInsureRel: (param) => {
         dispatch(getTruckInsureRel(param))
     },
-    putUpdateTruckInfo: (param) => {
-        dispatch(putUpdateTruckInfo(param))
-    },
     resetGetTruckInfo: () => {
         dispatch(resetGetTruckInfo())
     },
     resetGetTruckInsureRel: () => {
         dispatch(resetGetTruckInsureRel())
     },
-    resetGetTruckRecord:()=>{
-        dispatch(resetGetTruckRecord())       
-    }
+    resetGetTruckRecord: () => {
+        dispatch(resetGetTruckRecord())
+    },
+    updateTruckInfo: (param) => {
+        dispatch(updateTruckInfo(param))
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TruckInfo)

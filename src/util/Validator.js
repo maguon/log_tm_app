@@ -2,12 +2,11 @@ export const validate = (value, verifications) => {
     return verifications
         .filter(item => {
             if (item.type == 'isLength') {
-                if (value.length >= item.arguments[0] && value.length <= item.arguments[1]) {
-                    return false
-                }
-                else { return true }
+                return validateLength(value, item)
             }
-            return false
+            if(item.type == 'isVehicleNumber'){
+                return validateVehicleNumber(value)
+            }
         })
         .map(item => {
             return item.message
@@ -15,4 +14,26 @@ export const validate = (value, verifications) => {
 }
 
 
+const validateLength = (value, condition) => {
+    if (value.length >= condition.arguments[0] && value.length <= condition.arguments[1]) {
+        return false
+    }
+    else {
+        return true
+    }
+}
 
+const validateVehicleNumber = (value) => {
+      let result = false
+      if (value.length == 7){
+        const express = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/
+        result = express.test(value)
+      }
+      return !result
+//     if (value.length >= condition.arguments[0] && value.length <= condition.arguments[1]) {
+//         return false
+//     }
+//     else {
+//         return true
+//     }
+}

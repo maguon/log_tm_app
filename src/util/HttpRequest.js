@@ -5,20 +5,17 @@ function get(url) {
     return fetch(url, {
         method: 'GET',
         headers: requestHeaders.headers
-    }).then((response) => {
-        let json = response.json()
-        return json
-    })
-        // .then((responseJson) => {
-        //     callback(null, responseJson)
-        // })
-        // .catch((error) => {
-        //     callback(error, null);
-        // })
+    }).then((response) => response.json())
+    // .then((responseJson) => {
+    //     callback(null, responseJson)
+    // })
+    // .catch((error) => {
+    //     callback(error, null);
+    // })
 }
 
 function post(url, params) {
-    fetch(url, {
+    return fetch(url, {
         method: 'POST',
         headers: requestHeaders.headers,
         body: JSON.stringify(params)
@@ -32,7 +29,7 @@ function post(url, params) {
 }
 
 function put(url, params) {
-    fetch(url, {
+    return fetch(url, {
         method: 'PUT',
         headers: requestHeaders.headers,
         body: JSON.stringify(params)

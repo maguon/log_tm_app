@@ -14,17 +14,63 @@ import TextBox from '../../components/form/TextBox'
 import * as RouterDirection from '../../../util/RouterDirection'
 import StepIndicator from '../../components/StepIndicator'
 import { Actions } from 'react-native-router-flux'
+import { connect } from 'react-redux'
+import { createTruckFirst, createTruckTrailer } from '../../../actions/AddTruckFirstAction'
 
-export default class First extends Component {
+class First extends Component {
     constructor(props) {
         super(props)
         this.onSelect = this.onSelect.bind(this)
+        this.onPressNextStep = this.onPressNextStep.bind(this)
     }
+    //    "truckTel": "13889661887",
+    //             "theCode": "lasdfjjhhsa",                "remark": "123"
 
     onSelect(param) {
         console.log(param)
     }
 
+    componentWillReceiveProps(nextProps) {
+        const { createTruckFirst } = nextProps.addTruckFirstReducer
+        /*createTruckFirst*/
+        if (createTruckFirst.isExecStatus == 2) {
+            if (createTruckFirst.isResultStatus == 0) {
+                console.log('createTruckFirst', '执行成功')
+            }
+            else if (createTruckFirst.isResultStatus == 1) {
+                console.log('createTruckFirst', '异常')
+            }
+            else if (createTruckFirst.isResultStatus == 2) {
+                console.log('createTruckFirst', '执行失败')
+            }
+            else if (createTruckFirst.isResultStatus == 3) {
+                console.log('createTruckFirst', '服务器异常')
+            }
+        }
+        /************************************ */
+    }
+
+    onPressNextStep() {
+        // Actions.addTruckSecond()
+        this.props.createTruckFirst({
+            requiredParam:
+            {
+                userId: this.props.userReducer.data.user.userId
+            },
+            postParam: {
+                truckNum: '辽B112239',//车牌号
+                brandId: 21,//品牌Id
+                truckTel: '13889661887',//随车电话
+                theCode: 'lasdfjjhhsa',//车辆识别码
+                companyId: 40,//所属公司Id
+                truckType: 1,//货车类型1，车头
+                drivingDate: '2017/8/15', //行驶证检验日期
+                licenseDate: '2017/8/15',//营运证检证日期
+                remark: '123124'//备注
+            }
+
+        })
+    }
 
     render() {
         return (
@@ -32,16 +78,15 @@ export default class First extends Component {
                 <StepIndicator stepList={[{ step: '1', title: '基本信息' }, { step: '2', title: '上传照片' }, { step: '3', title: '车保信息' }]} current={0} />
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View>
-                        <CheckBox listTitle='车辆类型' title='车辆类型：' itemList={[{ id: 0, value: '头车' }, { id: 1, value: '挂车' }]} onCheck={(item) => { console.log(item) }} />
                         <TextBox
+                            isRequire={true}
                             title='车牌号码：'
                             //value={this.state.queryCar.vinCode}
                             defaultValue={''}
-                            /*verifications={[{
-                                type: 'isLength',
-                                arguments: [0, 17],
-                                message: '长度不能超过17位'
-                            }]}*/
+                            verifications={[{
+                                type: 'isVehicleNumber',
+                                message: '不是车牌号'
+                            }]}
                             onValueChange={(param) => this.onSelect({ vinCode: param })}
                             placeholder='请输入车牌号码'
                         />
@@ -83,41 +128,15 @@ export default class First extends Component {
                             onValueChange={(param) => this.onSelect({ vinCode: param })}
                             placeholder='请输入识别代码'
                         />
-                        <Select
-                            title='关联挂车：'
-                            //value={this.state.queryCar.routeStart}
-                            showList={RouterDirection.selectDriverCompany(this.props.parent)}
-                            onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
-                            defaultValue={'请选择'}
-                        />
-                        <Select
-                            title='主驾司机：'
-                            //value={this.state.queryCar.routeStart}
-                            showList={RouterDirection.selectDriverCompany(this.props.parent)}
-                            onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
-                            defaultValue={'请选择'}
-                        />
-                        <TextBox
-                            title='副驾司机：'
-                            //value={this.state.queryCar.vinCode}
-                            defaultValue={''}
-                            /*verifications={[{
-                                type: 'isLength',
-                                arguments: [0, 17],
-                                message: '长度不能超过17位'
-                            }]}*/
-                            onValueChange={(param) => this.onSelect({ vinCode: param })}
-                            placeholder='请输入副驾司机'
-                        />
                         <DateTimePicker
                             // value={this.state.queryCar.enterEnd}
-                            title='到期时间：'
+                            title='行驶证检证日期：'
                             defaultValue={'请选择'}
                             onValueChange={(param) => this.onSelect({ enterEnd: param })}
                         />
                         <DateTimePicker
                             // value={this.state.queryCar.enterEnd}
-                            title='检证时间：'
+                            title='营运证鉴证时间：'
                             defaultValue={'请选择'}
                             onValueChange={(param) => this.onSelect({ enterEnd: param })}
                         />
@@ -136,7 +155,7 @@ export default class First extends Component {
                             showRichText={RouterDirection.richText(this.props.parent)}
                         />
                         <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
-                            <Button full onPress={Actions.addTruckSecond} style={{ backgroundColor: '#00cade' }}>
+                            <Button full onPress={this.onPressNextStep} style={{ backgroundColor: '#00cade' }}>
                                 <Text style={{ color: '#fff' }}>下一步</Text>
                             </Button>
                         </View>
@@ -146,3 +165,21 @@ export default class First extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        addTruckFirstReducer: state.addTruckFirstReducer,
+        userReducer: state.userReducer
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    createTruckFirst: (param) => {
+        dispatch(createTruckFirst(param))
+    },
+    createTruckTrailer: (param) => {
+        dispatch(createTruckFirst(param))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(First)

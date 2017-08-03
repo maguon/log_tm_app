@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
         // alignItems: 'center',
         borderBottomWidth: 0.5,
         paddingVertical: 5,
-        paddingHorizontal: 10,
+        
+        paddingRight: 10,
         borderColor: '#dddddd'
     },
     labelStyle: {
@@ -94,7 +95,7 @@ export default class TextBox extends Component {
             warnMessage = this.state.warnMessageList.reduce((acc, val) => {
                 return `${acc}${val}  `
             }, '')
-            warnMessage = (<View style={{ alignSelf: 'flex-start' }}>
+            warnMessage = (<View style={{ alignSelf: 'flex-start',paddingLeft:10 }}>
                 <Text style={this.props.messageSytle}>{warnMessage}</Text>
             </View>)
         }
@@ -114,8 +115,9 @@ export default class TextBox extends Component {
         return (
 
             <View style={this.props.containerSytle}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={this.props.labelStyle}>{this.renderTag()}{this.props.title}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+                    <Text style={{width:10,textAlign:'right'}}>{this.renderTag()}</Text>
+                    <Text style={this.props.labelStyle}>{this.props.title}</Text>
                     <TextInput
                         underlineColorAndroid="transparent"
                         placeholder={this.props.placeholder}
