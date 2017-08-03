@@ -14,7 +14,7 @@ import { Actions } from 'react-native-router-flux'
 const styles = StyleSheet.create({
     containerSytle: {
         borderBottomWidth: 0.5,
-        paddingHorizontal: 10,
+        paddingRight: 10,
         borderColor: '#dddddd',
         paddingVertical: 10,
         //justifyContent: 'space-between',
@@ -94,25 +94,18 @@ export default class RichTextBox extends Component {
         onRequire: (param) => { }
     }
 
-    renderTag() {
-        if (this.props.isRequire) {
-            return <Text style={{ color: 'red', textAlign: 'left' }}>*</Text>
-        }
-        else {
-            return
-        }
-    }
-
     render() {
         return (
             <TouchableHighlight
                 underlayColor='rgba(0,0,0,0.1)'
                 onPress={this.showRichText}>
-
                 <View style={this.props.containerSytle}>
-                    <View style={{ flexDirection: 'row',justifyContent: 'space-between' }}>
-                        <Text style={this.props.labelStyle}>{this.renderTag()}{this.props.title}<Text style={this.props.textStyle}>{this.state.value}</Text></Text>
-                        
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={{ width: 10, textAlign: 'right', color: 'red' }}>{this.props.isRequire && '*'}</Text>
+                            <Text style={this.props.labelStyle}>{this.props.title} </Text>
+                            <Text style={this.props.textStyle}>{this.state.value}</Text>
+                        </View>
                         <Icon
                             name='ios-arrow-forward'
                             style={this.props.iconSytle} />

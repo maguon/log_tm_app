@@ -4,10 +4,10 @@ import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
     data: {
-        truck: {
-
-        },
-        truckId: 0
+        truckFirst: {},
+        truckTrailer: {},
+        truckFirstId: 0,
+        truckTrailerId: 0
     },
     createTruckFirst: {
         isResultStatus: 0,
@@ -99,7 +99,18 @@ export default handleActions({
             }
         }
     },
-
+    // [(actionTypes.addTruckFirstTypes.RESET_CREATE_TruckFirst)]: (state, action) => {
+    //     return {
+    //         ...state,
+    //         createTruckFirst: {
+    //             isResultStatus: 0,
+    //             isExecStatus: 0,
+    //             errorMsg: '',
+    //             failedMsg: '',
+    //             serviceFailedMsg: ''
+    //         }
+    //     }
+    // },
 
     [(actionTypes.addTruckFirstTypes.CREATE_TruckTrailer_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action

@@ -20,6 +20,15 @@ import { createTruckFirst, createTruckTrailer } from '../../../actions/AddTruckF
 class First extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            Validate: {
+                truckNum: false,
+                companyId: false,
+                brandId: false,
+                drivingDate: false,
+                licenseDate: false,
+            }
+        }
         this.onSelect = this.onSelect.bind(this)
         this.onPressNextStep = this.onPressNextStep.bind(this)
     }
@@ -73,6 +82,7 @@ class First extends Component {
     }
 
     render() {
+        console.log(this.state)
         return (
             <View style={{ flex: 1 }}>
                 <StepIndicator stepList={[{ step: '1', title: '基本信息' }, { step: '2', title: '上传照片' }, { step: '3', title: '车保信息' }]} current={0} />
@@ -81,17 +91,18 @@ class First extends Component {
                         <TextBox
                             isRequire={true}
                             title='车牌号码：'
-                            //value={this.state.queryCar.vinCode}
-                            defaultValue={''}
+                            value={''}
                             verifications={[{
                                 type: 'isVehicleNumber',
                                 message: '不是车牌号'
                             }]}
                             onValueChange={(param) => this.onSelect({ vinCode: param })}
+                            onRequire={(flag) => { this.setState({ Validate: { ...this.state.Validate, truckNum: flag }})  }}
                             placeholder='请输入车牌号码'
                         />
                         <Select
-                            title='车辆所属：'
+                            title='所属公司：'
+                            isRequire={true}
                             //value={this.state.queryCar.routeStart}
                             showList={RouterDirection.selectDriverCompany(this.props.parent)}
                             onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
@@ -99,6 +110,7 @@ class First extends Component {
                         />
                         <Select
                             title='车辆品牌：'
+                            isRequire={true}
                             //value={this.state.queryCar.routeStart}
                             showList={RouterDirection.selectDriverCompany(this.props.parent)}
                             onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
@@ -129,18 +141,21 @@ class First extends Component {
                             placeholder='请输入识别代码'
                         />
                         <DateTimePicker
+                            isRequire={true}
                             // value={this.state.queryCar.enterEnd}
                             title='行驶证检证日期：'
                             defaultValue={'请选择'}
                             onValueChange={(param) => this.onSelect({ enterEnd: param })}
                         />
                         <DateTimePicker
+                            isRequire={true}
                             // value={this.state.queryCar.enterEnd}
                             title='营运证鉴证时间：'
                             defaultValue={'请选择'}
                             onValueChange={(param) => this.onSelect({ enterEnd: param })}
                         />
                         <RichTextBox
+                            isRequire={false}
                             // isRequire={false}
                             title='备注：'
                             //verifications={[{
@@ -151,14 +166,16 @@ class First extends Component {
                             // value={remark}
                             defaultValue={'请填写'}
                             onValueChange={(param) => this.props.changeAddCarField({ remark: param })}
-                            // onRequire={(flag) => { this.setState({ remarkRequire: flag }) }}
+
                             showRichText={RouterDirection.richText(this.props.parent)}
                         />
-                        <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
-                            <Button full onPress={this.onPressNextStep} style={{ backgroundColor: '#00cade' }}>
+     
+                       <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
+                             <Button full onPress={this.onPressNextStep} style={{ backgroundColor: '#00cade' }}>
                                 <Text style={{ color: '#fff' }}>下一步</Text>
                             </Button>
                         </View>
+
                     </View>
                 </ScrollView>
             </View>

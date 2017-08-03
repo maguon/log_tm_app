@@ -15,9 +15,9 @@ const styles = StyleSheet.create({
     containerSytle: {
         borderBottomWidth: 0.5,
         paddingVertical: 10,
-        flex:1,
+        flex: 1,
         borderColor: '#dddddd',
-        paddingHorizontal: 10
+        paddingRight: 10
         //alignItems: 'center',
         //backgroundColor: 'blue'
     },
@@ -109,22 +109,12 @@ export default class Select extends Component {
             warnMessage = this.state.warnMessageList.reduce((acc, val) => {
                 return `${acc}${val}  `
             }, '')
-            warnMessage = (<View style={{ alignSelf: 'flex-start' }}>
+            warnMessage = (<View style={{ alignSelf: 'flex-start', paddingLeft: 10 }}>
                 <Text style={this.props.messageSytle}>{warnMessage}</Text>
             </View>)
         }
         return warnMessage
     }
-
-    renderTag() {
-        if (this.props.isRequire) {
-            return <Text style={{ color: 'red', textAlign: 'left' }}>*</Text>
-        }
-        else {
-            return
-        }
-    }
-
 
     renderEnable() {
         return (
@@ -132,26 +122,30 @@ export default class Select extends Component {
                 underlayColor='rgba(0,0,0,0.1)'
                 onPress={this.showList}>
                 <View style={this.props.containerSytle}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1}}>
-
-                        <Text style={this.props.labelStyle}>{this.renderTag()}{this.props.title}<Text style={this.props.textStyle}>{this.state.value}</Text></Text>
-                        
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1 }}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={{ width: 10, textAlign: 'right', color: 'red' }}>{this.props.isRequire && '*'}</Text>
+                            <Text style={this.props.labelStyle}>{this.props.title} </Text>
+                            <Text style={this.props.textStyle}>{this.state.value}</Text>
+                        </View>
                         <Icon
                             name='ios-arrow-forward'
                             style={this.props.iconSytle} />
                     </View>
-                    {/*{this.renderValidateMessage()}*/}
+                    {this.renderValidateMessage()}
                 </View>
             </TouchableHighlight>
         )
     }
-
     renderDisable() {
         return (
             <View style={[this.props.containerSytle, { backgroundColor: 'rgba(0,0,0,0.1)' }]}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' , flex: 1}}>
-                    <Text style={this.props.labelStyle}>{this.renderTag()}{this.props.title}</Text>
-                    <Text style={this.props.textStyle}>{this.state.value}</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1 }}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={{ width: 10, textAlign: 'right', color: 'red' }}>{this.props.isRequire && '*'}</Text>
+                        <Text style={this.props.labelStyle}>{this.props.title}</Text>
+                        <Text style={this.props.textStyle}>{this.state.value}</Text>
+                    </View>
                     <Icon
                         name='ios-arrow-forward'
                         style={this.props.iconSytle} />

@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         // alignItems: 'center',
         borderBottomWidth: 0.5,
         paddingVertical: 5,
-        
+
         paddingRight: 10,
         borderColor: '#dddddd'
     },
@@ -46,20 +46,14 @@ export default class TextBox extends Component {
         this.changeValue = this.changeValue.bind(this)
     }
 
-    componentWillMount() {
-        this.changeValue(this.props.defaultValue)
-    }
-
     componentWillReceiveProps(nextProps) {
-        if (nextProps.value) {
+        console.log('componentWillReceiveProps')
+        if (nextProps.value) {            
             this.setState({ value: nextProps.value })
-        } else {
-            this.setState({ value: nextProps.defaultValue })
-        }
+        } 
     }
 
     changeValue(value) {
-        //let state = { value: value }
         let state = {}
         if (!this.props.value) {
             state.value = value
@@ -95,28 +89,19 @@ export default class TextBox extends Component {
             warnMessage = this.state.warnMessageList.reduce((acc, val) => {
                 return `${acc}${val}  `
             }, '')
-            warnMessage = (<View style={{ alignSelf: 'flex-start',paddingLeft:10 }}>
+            warnMessage = (<View style={{ alignSelf: 'flex-start', paddingLeft: 10 }}>
                 <Text style={this.props.messageSytle}>{warnMessage}</Text>
             </View>)
         }
         return warnMessage
     }
 
-    renderTag() {
-        if (this.props.isRequire) {
-            return <Text style={{ color: 'red', textAlign: 'left' }}>*</Text>
-        }
-        else {
-            return
-        }
-    }
 
     render() {
         return (
-
             <View style={this.props.containerSytle}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', }}>
-                    <Text style={{width:10,textAlign:'right'}}>{this.renderTag()}</Text>
+                    <Text style={{ color: 'red', width: 10, textAlign: 'right' }}>{this.props.isRequire && '*'}</Text>
                     <Text style={this.props.labelStyle}>{this.props.title}</Text>
                     <TextInput
                         underlineColorAndroid="transparent"

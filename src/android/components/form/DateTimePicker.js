@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         // paddingHorizontal: 10,
         borderColor: '#dddddd',
         paddingVertical: 10,
-        paddingHorizontal: 10,
+        paddingRight: 10,
         justifyContent: 'space-between',
         //alignItems: 'center'
     },
@@ -112,20 +112,11 @@ export default class DateTimePicker extends Component {
             warnMessage = this.state.warnMessageList.reduce((acc, val) => {
                 return `${acc}${val}  `
             }, '')
-            warnMessage = (<View style={{ alignSelf: 'flex-start' }}>
+            warnMessage = (<View style={{ alignSelf: 'flex-start', paddingLeft: 10 }}>
                 <Text style={this.props.messageSytle}>{warnMessage}</Text>
             </View>)
         }
         return warnMessage
-    }
-
-    renderTag() {
-        if (this.props.isRequire) {
-            return <Text style={{ color: 'red', textAlign: 'left' }}>*</Text>
-        }
-        else {
-            return
-        }
     }
 
     render() {
@@ -136,7 +127,12 @@ export default class DateTimePicker extends Component {
 
                 <View style={this.props.containerSytle}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1 }}>
-                        <Text style={this.props.labelStyle}>{this.renderTag()}{this.props.title}<Text style={this.props.textStyle}>{this.state.dataTime}</Text></Text>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={{ width: 10, textAlign: 'right', color: 'red' }}>{this.props.isRequire && '*'}</Text>
+                            <Text style={this.props.labelStyle}>{this.props.title} </Text>
+                            <Text style={this.props.textStyle}>{this.state.dataTime}</Text>
+                        </View>
+                        {/*<Text style={this.props.labelStyle}>{this.props.isRequire && '*'}{this.props.title}<Text style={this.props.textStyle}>{this.state.dataTime}</Text></Text>*/}
 
                         <Icon
                             name='md-calendar'
