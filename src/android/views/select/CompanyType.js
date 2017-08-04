@@ -37,14 +37,15 @@ export default class CompanyType extends Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <View style={{ flex: 1 }}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View>
-                        {this.renderItem({ title: '自营', type: 0, router:RouterDirection.selectDriverCompany(this.props.parent) })}
-                        {this.renderItem({ title: '外协', type: 1, router:RouterDirection.selectDriverCompany(this.props.parent) })}
-                        {this.renderItem({ title: '供方', type: 2, router:RouterDirection.selectDriverCompany(this.props.parent) })}
-                        {this.renderItem({ title: '承包', type: 3, router:RouterDirection.selectDriverCompany(this.props.parent) })}
+                        {this.renderItem({ title: '自营', type: 0, router: () => this.props.router({ initParam: { onSelect: this.props.onSelect, operateType: 1 } }) })}
+                        {this.renderItem({ title: '外协', type: 1, router: () => this.props.router({ initParam: { onSelect: this.props.onSelect, operateType: 2 } }) })}
+                        {this.renderItem({ title: '供方', type: 2, router: () => this.props.router({ initParam: { onSelect: this.props.onSelect, operateType: 3 } }) })}
+                        {this.renderItem({ title: '承包', type: 3, router: () => this.props.router({ initParam: { onSelect: this.props.onSelect, operateType: 4 } }) })}
                     </View>
                 </ScrollView>
             </View>

@@ -120,9 +120,9 @@ class First extends Component {
                         <Select
                             title='所属公司：'
                             isRequire={true}
-                            //value={this.state.queryCar.routeStart}
-                            showList={RouterDirection.selectDriverCompany(this.props.parent)}
-                            onValueChange={(param) => this.onSelect({ brandId: param.id, routeStart: param.value })}
+                             value={this.props.addTruckFirstReducer.data.truckFirst.companyName}
+                            showList={(param) => RouterDirection.selectCompanyType(this.props.parent)({ router: RouterDirection.selectCompany(this.props.parent), ...param })}
+                            onValueChange={(param) => this.onSelect({ companyId: param.id, companyName: param.value })}
                             defaultValue={'请选择'}
                         />
                         <Select
@@ -186,7 +186,6 @@ class First extends Component {
 
                             showRichText={RouterDirection.richText(this.props.parent)}
                         />
-
                         <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
                             <Button full onPress={this.onPressNextStep} style={{ backgroundColor: '#00cade' }}>
                                 <Text style={{ color: '#fff' }}>下一步</Text>

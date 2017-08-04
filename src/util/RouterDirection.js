@@ -10,8 +10,6 @@ export const driverInfo = (parent) => {
     if (parent === 'driverBlock') return Actions.driverInfoAtDriverBlock
 }
 
-
-
 export const richText = (parent) => {
     if (parent === 'driverBlock') return Actions.richTextAtDriverBlock
 }
@@ -26,14 +24,13 @@ export const truckList = (parent) => {
     if (parent === 'truckBlock') return Actions.truckListAtTruckBlock
 }
 
-
 export const selectMake = (parent) => {
-    if (parent === 'truckBlock') return Actions.selectMakeAtDriverBlock
+    if (parent === 'truckBlock') return Actions.selectMakeAtTruckBlock
 }
 
-export const selectDriverCompany = (parent) => {
-    if (parent === 'homeBlock') return Actions.selectDriverCompanyAtHomeBlock
-    if (parent === 'driverBlock') return Actions.selectDriverCompanyAtDriverBlock
+export const selectCompany = (parent) => {
+    if (parent === 'homeBlock') return Actions.selectCompanyAtHomeBlock
+    if (parent === 'truckBlock') return Actions.selectCompanyAtTruckBlock
 }
 
 export const selectDrivingLicenseType = (parent) => {
@@ -47,8 +44,6 @@ export const selectTractor = (parent) => {
 }
 
 export const selectCompanyType = (parent) => {
-    if (parent === 'truckBlock') return Actions.selectMakeAtTruckBlock
+    if (parent === 'homeBlock') return Actions.selectCompanyTypeAtHomeBlock
+    if (parent === 'truckBlock') return Actions.selectCompanyTypeAtTruckBlock
 }
-
-
-
