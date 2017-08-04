@@ -47,13 +47,21 @@ export default class TextBox extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        // console.log('componentWillReceiveProps')
-        if (nextProps.value) {            
+        console.log(nextProps)
+        console.log(nextProps.value)
+        console.log(typeof (nextProps.value) == "undefined")
+
+        // if (nextProps.value && nextProps.value != '') {
+        //     this.setState({ value: nextProps.value })
+        // }
+        if (typeof (nextProps.value) != "undefined") {
             this.setState({ value: nextProps.value })
-        } 
+        }
     }
 
     changeValue(value) {
+        console.log('changeValue', value)
+
         let state = {}
         if (!this.props.value) {
             state.value = value
@@ -70,7 +78,7 @@ export default class TextBox extends Component {
         if (this.props.isRequire) {
             flag = value && flag
         }
-        this.props.onRequire(flag)
+        //this.props.onRequire(flag)
     }
 
     static defaultProps = {
@@ -98,6 +106,7 @@ export default class TextBox extends Component {
 
 
     render() {
+        console.log('changeValueRender', this.state.value)
         return (
             <View style={this.props.containerSytle}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', }}>
@@ -110,7 +119,6 @@ export default class TextBox extends Component {
                         value={this.state.value}
                         onChangeText={(value) => { this.changeValue(value) }}
                         style={this.props.inputStyle}
-
                         disableFullscreenUI={false}
                     />
                 </View>

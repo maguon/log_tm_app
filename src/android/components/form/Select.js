@@ -40,7 +40,7 @@ const baseStyles = {
         color: '#7a7a7a'
     }
 }
-
+// export const Select=()=>{}
 export default class Select extends Component {
     constructor(props) {
         super(props)

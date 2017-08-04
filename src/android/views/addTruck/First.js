@@ -37,7 +37,7 @@ class First extends Component {
         }
         this.onSelect = this.onSelect.bind(this)
         this.onPressNextStep = this.onPressNextStep.bind(this)
-        this.test = this.test.bind(this)
+        // this.test = this.test.bind(this)
     }
     //    "truckTel": "13889661887",
     //             "theCode": "lasdfjjhhsa",                "remark": "123"
@@ -79,7 +79,7 @@ class First extends Component {
                 userId: this.props.userReducer.data.user.userId
             },
             postParam: {
-                truckNum: '辽B112239',//车牌号
+                truckNum: '辽B112240',//车牌号
                 brandId: 21,//品牌Id
                 truckTel: '13889661887',//随车电话
                 theCode: 'lasdfjjhhsa',//车辆识别码
@@ -93,13 +93,13 @@ class First extends Component {
         })
     }
 
-    test() {
-        //console.log(this.props);
-        return RouterDirection.selectMake(this.props.parent)
-    }
+    // test() {
+    //     //console.log(this.props);
+    //     return RouterDirection.selectMake(this.props.parent)
+    // }
 
     render() {
-        console.log(this.props.addTruckFirstReducer.data.truckFirst.brandId)
+        console.log(this.props)
         return (
             <View style={{ flex: 1 }}>
                 <StepIndicator stepList={[{ step: '1', title: '基本信息' }, { step: '2', title: '上传照片' }, { step: '3', title: '车保信息' }]} current={0} />
@@ -108,7 +108,7 @@ class First extends Component {
                         <TextBox
                             isRequire={true}
                             title='车牌号码：'
-                            value={''}
+                            value={this.props.addTruckFirstReducer.data.truckFirst.truckNum ? this.props.addTruckFirstReducer.data.truckFirst.truckNum : ''}
                             verifications={[{
                                 type: 'isVehicleNumber',
                                 message: '不是车牌号'
@@ -120,7 +120,7 @@ class First extends Component {
                         <Select
                             title='所属公司：'
                             isRequire={true}
-                             value={this.props.addTruckFirstReducer.data.truckFirst.companyName}
+                            value={this.props.addTruckFirstReducer.data.truckFirst.companyName ? this.props.addTruckFirstReducer.data.truckFirst.companyName : ''}
                             showList={(param) => RouterDirection.selectCompanyType(this.props.parent)({ router: RouterDirection.selectCompany(this.props.parent), ...param })}
                             onValueChange={(param) => this.onSelect({ companyId: param.id, companyName: param.value })}
                             defaultValue={'请选择'}
@@ -128,62 +128,64 @@ class First extends Component {
                         <Select
                             title='车辆品牌：'
                             isRequire={true}
-                            value={this.props.addTruckFirstReducer.data.truckFirst.brandName}
+                            value={this.props.addTruckFirstReducer.data.truckFirst.brandName ? this.props.addTruckFirstReducer.data.truckFirst.brandName : ''}
                             showList={RouterDirection.selectMake(this.props.parent)}
                             onValueChange={(param) => this.onSelect({ brandId: param.id, brandName: param.value })}
                             defaultValue={'请选择'}
                         />
                         <TextBox
                             title='联系电话：'
-                            //value={this.state.queryCar.vinCode}
-                            defaultValue={''}
+                            value={''}
+                            //value={this.props.addTruckFirstReducer.data.truckFirst.truckTel ? this.props.addTruckFirstReducer.data.truckFirst.truckTel : ''}
                             /*verifications={[{
                                 type: 'isLength',
                                 arguments: [0, 17],
                                 message: '长度不能超过17位'
                             }]}*/
-                            onValueChange={(param) => this.onSelect({ vinCode: param })}
+                            onValueChange={(param) => {
+                                //this.onSelect({ truckTel: param })
+                            }}
                             placeholder='请输入联系电话'
                         />
                         <TextBox
                             title='识别代码：'
-                            //value={this.state.queryCar.vinCode}
-                            defaultValue={''}
+                            value={''}
+                            //value={this.props.addTruckFirstReducer.data.truckFirst.theCode ? this.props.addTruckFirstReducer.data.truckFirst.theCode : ''}
                             /*verifications={[{
                                 type: 'isLength',
                                 arguments: [0, 17],
                                 message: '长度不能超过17位'
                             }]}*/
-                            onValueChange={(param) => this.onSelect({ vinCode: param })}
+                            onValueChange={(param) => {
+                                //this.onSelect({ theCode: param })
+                            }}
                             placeholder='请输入识别代码'
                         />
                         <DateTimePicker
                             isRequire={true}
-                            // value={this.state.queryCar.enterEnd}
+                            value={this.props.addTruckFirstReducer.data.truckFirst.drivingDate ? this.props.addTruckFirstReducer.data.truckFirst.drivingDate : ''}
                             title='行驶证检证日期：'
                             defaultValue={'请选择'}
-                            onValueChange={(param) => this.onSelect({ enterEnd: param })}
+                            onValueChange={(param) => this.onSelect({ drivingDate: param })}
                         />
                         <DateTimePicker
                             isRequire={true}
-                            // value={this.state.queryCar.enterEnd}
+                            value={this.props.addTruckFirstReducer.data.truckFirst.licenseDate ? this.props.addTruckFirstReducer.data.truckFirst.licenseDate : ''}
                             title='营运证鉴证时间：'
                             defaultValue={'请选择'}
-                            onValueChange={(param) => this.onSelect({ enterEnd: param })}
+                            onValueChange={(param) => this.onSelect({ licenseDate: param })}
                         />
                         <RichTextBox
                             isRequire={false}
-                            // isRequire={false}
                             title='备注：'
-                            //verifications={[{
-                            //     type: 'isLength',
-                            //      arguments: [0, 300],
-                            //      message: '长度0-300位'
-                            //  }]}
+                            verifications={[{
+                                type: 'isLength',
+                                arguments: [0, 200],
+                                message: '长度0-200位'
+                            }]}
                             // value={remark}
                             defaultValue={'请填写'}
-                            onValueChange={(param) => this.props.changeAddCarField({ remark: param })}
-
+                            onValueChange={(param) => this.onSelect({ remark: param })}
                             showRichText={RouterDirection.richText(this.props.parent)}
                         />
                         <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
