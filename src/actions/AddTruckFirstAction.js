@@ -33,11 +33,16 @@ export const createTruckTrailer = (param) => async (dispatch) => {
     }
 }
 
-export const resetCreateTruckFirst = (param) => (dispatch) => {
+export const resetCreateTruckFirst = () => (dispatch) => {
     dispatch({ type: actionTypes.addTruckFirstTypes.RESET_CREATE_TruckFirst, payload: {} })
 }
 
-export const resetCreateTruckTrailer = (param) => (dispatch) => {
+export const resetCreateTruckTrailer = () => (dispatch) => {
     dispatch({ type: actionTypes.addTruckFirstTypes.RESET_CREATE_TruckTrailer, payload: {} })
 
+}
+
+export const changeTruckFirstField = (param) => (dispatch) => {
+    console.log('param', param)
+    dispatch({ type: actionTypes.addTruckFirstTypes.CHANGE_TruckFirst_FIELD, payload: { data: param } })
 }

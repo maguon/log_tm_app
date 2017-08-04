@@ -15,7 +15,13 @@ import * as RouterDirection from '../../../util/RouterDirection'
 import StepIndicator from '../../components/StepIndicator'
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
-import { createTruckFirst, createTruckTrailer } from '../../../actions/AddTruckFirstAction'
+import {
+    createTruckFirst,
+    createTruckTrailer,
+    changeTruckFirstField,
+    resetCreateTruckFirst,
+    resetCreateTruckTrailer
+} from '../../../actions/AddTruckFirstAction'
 
 class First extends Component {
     constructor(props) {
@@ -31,12 +37,18 @@ class First extends Component {
         }
         this.onSelect = this.onSelect.bind(this)
         this.onPressNextStep = this.onPressNextStep.bind(this)
+        this.test = this.test.bind(this)
     }
     //    "truckTel": "13889661887",
     //             "theCode": "lasdfjjhhsa",                "remark": "123"
 
     onSelect(param) {
+        this.props.changeTruckFirstField(param)
         console.log(param)
+    }
+
+    componentDidMount() {
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -81,8 +93,13 @@ class First extends Component {
         })
     }
 
+    test() {
+        //console.log(this.props);
+        return RouterDirection.selectMake(this.props.parent)
+    }
+
     render() {
-        console.log(this.state)
+        console.log(this.props.addTruckFirstReducer.data.truckFirst.brandId)
         return (
             <View style={{ flex: 1 }}>
                 <StepIndicator stepList={[{ step: '1', title: '基本信息' }, { step: '2', title: '上传照片' }, { step: '3', title: '车保信息' }]} current={0} />
@@ -96,8 +113,8 @@ class First extends Component {
                                 type: 'isVehicleNumber',
                                 message: '不是车牌号'
                             }]}
-                            onValueChange={(param) => this.onSelect({ vinCode: param })}
-                            onRequire={(flag) => { this.setState({ Validate: { ...this.state.Validate, truckNum: flag }})  }}
+                            onValueChange={(param) => this.props.changeTruckFirstField({ truckNum: param })}
+                            onRequire={(flag) => { this.setState({ Validate: { ...this.state.Validate, truckNum: flag } }) }}
                             placeholder='请输入车牌号码'
                         />
                         <Select
@@ -105,15 +122,15 @@ class First extends Component {
                             isRequire={true}
                             //value={this.state.queryCar.routeStart}
                             showList={RouterDirection.selectDriverCompany(this.props.parent)}
-                            onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
+                            onValueChange={(param) => this.onSelect({ brandId: param.id, routeStart: param.value })}
                             defaultValue={'请选择'}
                         />
                         <Select
                             title='车辆品牌：'
                             isRequire={true}
-                            //value={this.state.queryCar.routeStart}
-                            showList={RouterDirection.selectDriverCompany(this.props.parent)}
-                            onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
+                            value={this.props.addTruckFirstReducer.data.truckFirst.brandName}
+                            showList={RouterDirection.selectMake(this.props.parent)}
+                            onValueChange={(param) => this.onSelect({ brandId: param.id, brandName: param.value })}
                             defaultValue={'请选择'}
                         />
                         <TextBox
@@ -169,9 +186,9 @@ class First extends Component {
 
                             showRichText={RouterDirection.richText(this.props.parent)}
                         />
-     
-                       <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
-                             <Button full onPress={this.onPressNextStep} style={{ backgroundColor: '#00cade' }}>
+
+                        <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
+                            <Button full onPress={this.onPressNextStep} style={{ backgroundColor: '#00cade' }}>
                                 <Text style={{ color: '#fff' }}>下一步</Text>
                             </Button>
                         </View>
@@ -196,6 +213,16 @@ const mapDispatchToProps = (dispatch) => ({
     },
     createTruckTrailer: (param) => {
         dispatch(createTruckFirst(param))
+    },
+    changeTruckFirstField: (param) => {
+        // console.log(param)
+        dispatch(changeTruckFirstField(param))
+    },
+    resetCreateTruckTrailer: () => {
+        dispatch(resetCreateTruckTrailer())
+    },
+    resetCreateTruckFirst: () => {
+        dispatch(resetCreateTruckFirst())
     }
 })
 

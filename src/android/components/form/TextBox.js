@@ -47,7 +47,7 @@ export default class TextBox extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('componentWillReceiveProps')
+        // console.log('componentWillReceiveProps')
         if (nextProps.value) {            
             this.setState({ value: nextProps.value })
         } 

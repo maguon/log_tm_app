@@ -99,18 +99,19 @@ export default handleActions({
             }
         }
     },
-    // [(actionTypes.addTruckFirstTypes.RESET_CREATE_TruckFirst)]: (state, action) => {
-    //     return {
-    //         ...state,
-    //         createTruckFirst: {
-    //             isResultStatus: 0,
-    //             isExecStatus: 0,
-    //             errorMsg: '',
-    //             failedMsg: '',
-    //             serviceFailedMsg: ''
-    //         }
-    //     }
-    // },
+    [(actionTypes.addTruckFirstTypes.CHANGE_TruckFirst_FIELD)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                truckFirst: {
+                    ...state.data.truckFirst,
+                    ...data
+                }
+            }
+        }
+    },
 
     [(actionTypes.addTruckFirstTypes.CREATE_TruckTrailer_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
