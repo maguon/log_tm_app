@@ -59,12 +59,20 @@ export default class Select extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        // console.log(nextProps)
         if (nextProps.value) {
             this.setState({ value: nextProps.value })
         } 
         else {
             this.setState({ value: nextProps.defaultValue })
         }
+    }
+
+    shouldComponentUpdate(nextProps,nextState){
+        if(nextProps.value===this.state.value){
+            return false
+        }
+        return true
     }
 
     changeValue(param) {
@@ -118,6 +126,7 @@ export default class Select extends Component {
     }
 
     renderEnable() {
+        
         return (
             <TouchableHighlight
                 underlayColor='rgba(0,0,0,0.1)'
@@ -157,6 +166,7 @@ export default class Select extends Component {
     }
 
     render() {
+        // console.log(1111122222)
         return (
             <View>
                 {this.props.isEnable ? this.renderEnable() : this.renderDisable()}

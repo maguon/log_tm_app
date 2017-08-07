@@ -40,45 +40,41 @@ export default class TextBox extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            value: '',
             warnMessageList: []
         }
         this.changeValue = this.changeValue.bind(this)
+        this.validate = this.validate.bind(this)
     }
 
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
-        console.log(nextProps.value)
-        console.log(typeof (nextProps.value) == "undefined")
 
-        // if (nextProps.value && nextProps.value != '') {
-        //     this.setState({ value: nextProps.value })
-        // }
-        if (typeof (nextProps.value) != "undefined") {
-            this.setState({ value: nextProps.value })
+    componentDidMount() {
+        this.validate(this.props.value)
+    }
+
+    validate(value) {
+        if (this.props.isRequire) {
+            const warnMessageList = validate(value, this.props.verifications)
+            this.setState({ warnMessageList })
+            const flag = !(warnMessageList.length > 0)
+            this.props.onRequire(value && flag)
+        } else {
+            if (value === '') {
+                this.setState({ warnMessageList: [] })
+                this.props.onRequire(true)
+            }
+            else {
+                const warnMessageList = validate(value, this.props.verifications)
+                this.setState({ warnMessageList })
+                this.props.onRequire(!(warnMessageList.length > 0))
+            }
         }
     }
+
 
     changeValue(value) {
-        console.log('changeValue', value)
-
-        let state = {}
-        if (!this.props.value) {
-            state.value = value
-        }
-        let warnMessageList = validate(value, this.props.verifications)
-        if (warnMessageList.length > 0) {
-            state.warnMessageList = warnMessageList
-        } else {
-            state.warnMessageList = []
-        }
-        this.setState({ ...state })
+        this.validate(value)
         this.props.onValueChange(value)
-        let flag = !(warnMessageList.length > 0)
-        if (this.props.isRequire) {
-            flag = value && flag
-        }
-        //this.props.onRequire(flag)
+
     }
 
     static defaultProps = {
@@ -89,7 +85,6 @@ export default class TextBox extends Component {
         messageSytle: styles.messageSytle,
         onRequire: (param) => { }
     }
-
 
     renderValidateMessage() {
         let warnMessage
@@ -106,7 +101,6 @@ export default class TextBox extends Component {
 
 
     render() {
-        console.log('changeValueRender', this.state.value)
         return (
             <View style={this.props.containerSytle}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', }}>
@@ -116,7 +110,7 @@ export default class TextBox extends Component {
                         underlineColorAndroid="transparent"
                         placeholder={this.props.placeholder}
                         placeholderTextColor='#ddd'
-                        value={this.state.value}
+                        value={this.props.value}
                         onChangeText={(value) => { this.changeValue(value) }}
                         style={this.props.inputStyle}
                         disableFullscreenUI={false}

@@ -12,6 +12,7 @@ export const driverInfo = (parent) => {
 
 export const richText = (parent) => {
     if (parent === 'driverBlock') return Actions.richTextAtDriverBlock
+    if (parent === 'truckBlock') return Actions.richTextAtTruckBlock
 }
 
 export const truckInfo = (parent) => {

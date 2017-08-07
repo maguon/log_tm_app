@@ -37,7 +37,7 @@ export default class CompanyType extends Component {
     }
 
     render() {
-        console.log(this.props)
+        // console.log(this.props)
         return (
             <View style={{ flex: 1 }}>
                 <ScrollView showsVerticalScrollIndicator={false}>
