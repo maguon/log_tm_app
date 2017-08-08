@@ -13,6 +13,7 @@ import * as RouterDirection from '../../../util/RouterDirection'
 class Second extends Component {
     constructor(props) {
         super(props)
+        this.onSelect = this.onSelect.bind(this)
     }
 
     static defaultProps = {
@@ -20,6 +21,10 @@ class Second extends Component {
             truckId: 172,
             type: 1
         }
+    }
+
+    onSelect(param) {
+        console.log(param)
     }
 
     render() {
@@ -36,7 +41,7 @@ class Second extends Component {
                         title='关联挂车：'
                         isRequire={false}
                         value={''}
-                        showList={RouterDirection.selectTractor(this.props.parent)}
+                        showList={RouterDirection.selectTruck(this.props.parent)}
                         onValueChange={(param) => this.onSelect({ companyId: param.id, companyName: param.value })}
                         onRequire={(flag) => this.setState({ companyIdValidater: flag })}
                         defaultValue={'请选择'}

@@ -27,7 +27,7 @@ export default handleActions({
                 ...state,
                 data: {
                     ...state.data,
-                    truckList: data
+                    tractorList: data
                 },
                 getTruckList: {
                     ...state.getTruckList,
