@@ -28,12 +28,11 @@ const initialState = {
 export default handleActions({
     [(actionTypes.addTruckFirstTypes.CREATE_TruckFirst_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
-        console.log(data)
         return {
             ...state,
             data: {
                 ...state.data,
-                truck: data[0]
+                truckFirstId: data
             },
             createTruckFirst: {
                 ...state.createTruckFirst,

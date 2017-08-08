@@ -5,11 +5,13 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 
 export const createTruckFirst = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/truckFirst`
+    console.log(url)
     dispatch({ type: actionTypes.addTruckFirstTypes.CREATE_TruckFirst_WAITING, payload: {} })
     try {
         let res = await httpRequest.post(url, param.postParam)
+        console.log(res)
         if (res.success) {
-            dispatch({ type: actionTypes.addTruckFirstTypes.CREATE_TruckFirst_SUCCESS, payload: { data: res.result } })
+            dispatch({ type: actionTypes.addTruckFirstTypes.CREATE_TruckFirst_SUCCESS, payload: { data: res.id } })
         } else {
             dispatch({ type: actionTypes.addTruckFirstTypes.CREATE_TruckFirst_FAILED, payload: { data: res.msg } })
         }
@@ -43,6 +45,5 @@ export const resetCreateTruckTrailer = () => (dispatch) => {
 }
 
 export const changeTruckFirstField = (param) => (dispatch) => {
-    console.log('param', param)
     dispatch({ type: actionTypes.addTruckFirstTypes.CHANGE_TruckFirst_FIELD, payload: { data: param } })
 }
