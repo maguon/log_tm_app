@@ -33,24 +33,34 @@ export const unBindTruck = (param) => async (dispatch) => {
     }
 }
 
-
 export const bindDriver = (param) => async (dispatch) => {
-    const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/trail/${param.requiredParam.trailId}/bind`
-    dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindTruck_WAITING, payload: {} })
+    const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/drive/${param.requiredParam.driverId}/bind`
+    dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindDriver_WAITING, payload: {} })
     try {
         let res = await httpRequest.put(url, {})
         if (res.success) {
-            dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindTruck_SUCCESS, payload: {} })
+            dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindDriver_SUCCESS, payload: {} })
         } else {
-            dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindTruck_FAILED, payload: { data: res.msg } })
+            dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindDriver_FAILED, payload: { data: res.msg } })
         }
     } catch (err) {
-        dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindTruck_ERROR, payload: { data: err } })
+        dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindDriver_ERROR, payload: { data: err } })
     }
 }
 
 export const unBindDriver = (param) => async (dispatch) => {
-
+    const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/drive/${param.requiredParam.driverId}/unbind`
+    dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindDriver_WAITING, payload: {} })
+    try {
+        let res = await httpRequest.put(url, {})
+        if (res.success) {
+            dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondUnBindDriver_SUCCESS, payload: {} })
+        } else {
+            dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondUnBindDriver_FAILED, payload: { data: res.msg } })
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondUnBindDriver_ERROR, payload: { data: err } })
+    }
 }
 
 export const resetBindTruck = () => (dispatch) => {
