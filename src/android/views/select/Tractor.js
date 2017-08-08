@@ -6,15 +6,25 @@ import {
 } from 'react-native'
 import { Button, Icon } from 'native-base'
 import TextBox from '../../components/form/TextBox'
+import { connect } from 'react-redux'
 
-export default class Tractor extends Component {
+class Tractor extends Component {
     constructor(props) {
         super(props)
         this.onSelect = this.onSelect.bind(this)
     }
 
+    static defaultProps = {
+        initParam: {
+            type: 1
+        }
+    }
 
-    onSelect() {
+    onSelect(param) {
+        console.log(param)
+    }
+
+    componentDidMount() {
 
     }
 
@@ -23,7 +33,6 @@ export default class Tractor extends Component {
             <View>
                 <View style={{ backgroundColor: '#edf1f4' }}>
                     <TextBox
-                        //isRequire={false}
                         title='检索车牌：'
                         //value={this.state.queryCar.vinCode}
                         defaultValue={''}
@@ -39,7 +48,7 @@ export default class Tractor extends Component {
                             arguments: [0, 17],
                             message: '长度不能超过17位'
                         }]}*/
-                        onValueChange={(param) => this.onSelect({ vinCode: param })}
+                        onValueChange={(param) => this.onSelect({ theCode: param })}
                         //onRequire={(param) => this.setState({ vinRequire: param })}
                         placeholder='请输入车牌号'
                     />
@@ -58,3 +67,18 @@ export default class Tractor extends Component {
         )
     }
 }
+
+
+const mapStateToProps = (state) => {
+    return {
+        userReducer: state.userReducer
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    createTruckFirst: (param) => {
+
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tractor)

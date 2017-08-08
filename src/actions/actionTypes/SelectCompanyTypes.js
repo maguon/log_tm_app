@@ -1,5 +1,5 @@
-export const GET_CompanyList_SUCCESS = 'GET_CompanyList_SUCCESS'
-export const GET_CompanyList_FAILED = 'GET_CompanyList_FAILED'
-export const GET_CompanyList_WAITING = 'GET_CompanyList_WAITING'
-export const GET_CompanyList_SERVICEERROR = 'GET_CompanyList_SERVICEERROR'
-export const GET_CompanyList_ERROR = 'GET_CompanyList_ERROR'
+export const GET_CompanyList_SUCCESS = Symbol('GET_CompanyList_SUCCESS')
+export const GET_CompanyList_FAILED = Symbol('GET_CompanyList_FAILED')
+export const GET_CompanyList_WAITING = Symbol('GET_CompanyList_WAITING')
+export const GET_CompanyList_SERVICEERROR = Symbol('GET_CompanyList_SERVICEERROR')
+export const GET_CompanyList_ERROR = Symbol('GET_CompanyList_ERROR')

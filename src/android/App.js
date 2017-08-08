@@ -130,7 +130,7 @@ export default class App extends Component {
                     >
                         <Scene key="login" component={Login} hideNavBar hideTabBar />
                         <Scene key="main" initial={true} tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
-                            <Scene key="homeBlock" icon={TabIcon} online='ios-home' outline='ios-home-outline' >
+                            <Scene key="homeBlock"  initial={true}  icon={TabIcon} online='ios-home' outline='ios-home-outline' >
                                 <Scene key="home" initial={true} component={Home} title='车辆管理' hideNavBar={false} navBar={TopBar} />
                                 <Scene key="driverListAtHomeBlock" rightType={1} component={DriverList} title='司机列表' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="driverInfoAtHomeBlock" component={DriverInfo} title='司机详情' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
@@ -140,16 +140,17 @@ export default class App extends Component {
                                 <Scene key="selectCompanyAtHomeBlock" component={Company} title='所属公司' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectDrivingLicenseTypeAtHomeBlock" component={DrivingLicenseType} title='驾照类型' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                             </Scene>
-                            <Scene key="truckBlock" initial={true} icon={TabIcon} online='ios-car' outline='ios-car-outline' >
+                            <Scene key="truckBlock"icon={TabIcon} online='ios-car' outline='ios-car-outline' >
                                 <Scene key="truck" rightType={1} onPressRight={() => Actions.addTruckFirst()} component={Truck} title='车辆信息' hideNavBar={false} navBar={TopBar} />
                                 <Scene key="truckInfoAtTruckBlock" rightType={1} component={TruckInfo} title='车辆信息' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="truckListAtTruckBlock" component={TruckList} title='车辆信息' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="addTruckFirst" initial={true} component={AddTruckFirst} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="addTruckSecond" component={AddTruckSecond} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="addTruckFirst" component={AddTruckFirst} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="addTruckSecond" initial={true} component={AddTruckSecond} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="addTruckThird" component={AddTruckThird} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectMakeAtTruckBlock" component={Make} title='选择品牌' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectCompanyTypeAtTruckBlock" component={CompanyType} title='公司类型' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectCompanyAtTruckBlock" component={Company} title='所属公司' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="selectTractorAtTruckBlock" component={Tractor} title='所属公司' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="richTextAtTruckBlock" component={RichText} title='备注' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                             </Scene>
                             <Scene key="driverBlock" icon={TabIcon} online='ios-pin' outline='ios-pin-outline'>
