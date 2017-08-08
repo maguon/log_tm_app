@@ -19,7 +19,7 @@ const initialState = {
 //isResultStatus(执行结果状态):[0(成功)，1(错误)，2(执行失败),3(服务器错误)] 
 //isExecuteStatus(执行状态):[0(未执行)，1(正在执行)，2(执行完毕)]
 export default handleActions({
-    [(actionTypes.selectTruckTypes.GET_TruckList_SUCCESS)]: (state, action) => {
+    [(actionTypes.selectTruckTypes.GET_SelectTruckList_SUCCESS)]: (state, action) => {
         const { payload: { data, type } } = action
         let ReturnValue
         if (type === 1) {
@@ -51,7 +51,7 @@ export default handleActions({
         }
         return ReturnValue
     },
-    [(actionTypes.selectTruckTypes.GET_TruckList_FAILED)]: (state, action) => {
+    [(actionTypes.selectTruckTypes.GET_SelectTruckList_FAILED)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
@@ -63,7 +63,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.selectTruckTypes.GET_TruckList_SERVICEERROR)]: (state, action) => {
+    [(actionTypes.selectTruckTypes.GET_SelectTruckList_SERVICEERROR)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
@@ -75,7 +75,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.selectTruckTypes.GET_TruckList_ERROR)]: (state, action) => {
+    [(actionTypes.selectTruckTypes.GET_SelectTruckList_ERROR)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
@@ -87,7 +87,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.selectTruckTypes.GET_TruckList_WAITING)]: (state, action) => {
+    [(actionTypes.selectTruckTypes.GET_SelectTruckList_WAITING)]: (state, action) => {
         return {
             ...state,
             getTruckList: {
@@ -96,7 +96,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.selectTruckTypes.RESET_GET_TruckList)]: (state, action) => {
+    [(actionTypes.selectTruckTypes.RESET_GET_SelectTruckList)]: (state, action) => {
 
         return {
             ...state,

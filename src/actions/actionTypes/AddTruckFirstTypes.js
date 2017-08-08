@@ -1,17 +1,17 @@
-export const CREATE_TruckFirst_SUCCESS = Symbol('CREATE_TruckFirst_SUCCESS')
-export const CREATE_TruckFirst_FAILED = Symbol('CREATE_TruckFirst_FAILED')
-export const CREATE_TruckFirst_WAITING = Symbol('CREATE_TruckFirst_WAITING')
-export const CREATE_TruckFirst_SERVICEERROR = Symbol('CREATE_TruckFirst_SERVICEERROR')
-export const CREATE_TruckFirst_ERROR = Symbol('CREATE_TruckFirst_ERROR')
-export const RESET_CREATE_TruckFirst = Symbol('RESET_CREATE_TruckFirst')
-export const CHANGE_TruckFirst_FIELD = Symbol('CHANGE_TruckFirst_FIELD')
+export const CREATE_TruckFirst_SUCCESS = 'CREATE_TruckFirst_SUCCESS'
+export const CREATE_TruckFirst_FAILED = 'CREATE_TruckFirst_FAILED'
+export const CREATE_TruckFirst_WAITING = 'CREATE_TruckFirst_WAITING'
+export const CREATE_TruckFirst_SERVICEERROR = 'CREATE_TruckFirst_SERVICEERROR'
+export const CREATE_TruckFirst_ERROR = 'CREATE_TruckFirst_ERROR'
+export const RESET_CREATE_TruckFirst = 'RESET_CREATE_TruckFirst'
+export const CHANGE_TruckFirst_FIELD = 'CHANGE_TruckFirst_FIELD'
 
-export const CREATE_TruckTrailer_SUCCESS = Symbol('CREATE_TruckTrailer_SUCCESS')
-export const CREATE_TruckTrailer_FAILED = Symbol('CREATE_TruckTrailer_FAILED')
-export const CREATE_TruckTrailer_WAITING = Symbol('CREATE_TruckTrailer_WAITING')
-export const CREATE_TruckTrailer_SERVICEERROR = Symbol('CREATE_TruckTrailer_SERVICEERROR')
-export const CREATE_TruckTrailer_ERROR = Symbol('CREATE_TruckTrailer_ERROR')
-export const RESET_CREATE_TruckTrailer = Symbol('RESET_CREATE_TruckTrailer')
-export const CHANGE_TruckTrailer_FIELD = Symbol('CHANGE_TruckTrailer_FIELD')
+export const CREATE_TruckTrailer_SUCCESS = 'CREATE_TruckTrailer_SUCCESS'
+export const CREATE_TruckTrailer_FAILED = 'CREATE_TruckTrailer_FAILED'
+export const CREATE_TruckTrailer_WAITING = 'CREATE_TruckTrailer_WAITING'
+export const CREATE_TruckTrailer_SERVICEERROR = 'CREATE_TruckTrailer_SERVICEERROR'
+export const CREATE_TruckTrailer_ERROR = 'CREATE_TruckTrailer_ERROR'
+export const RESET_CREATE_TruckTrailer = 'RESET_CREATE_TruckTrailer'
+export const CHANGE_TruckTrailer_FIELD = 'CHANGE_TruckTrailer_FIELD'
 
-export const CLEAN_AddTruckFirstReducer = Symbol('CLEAN_AddTruckFirstReducer')
+export const CLEAN_AddTruckFirstReducer = 'CLEAN_AddTruckFirstReducer'

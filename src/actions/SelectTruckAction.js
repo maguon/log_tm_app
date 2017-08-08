@@ -11,15 +11,15 @@ export const getTruckList = (param) => async (dispatch) => {
         url = `${base_host}/truckTrailer?${ObjectToUrl(param.OptionalParam)}`
     }
 
-    dispatch({ type: actionTypes.selectTruckTypes.GET_TruckList_WAITING, payload: {} })
+    dispatch({ type: actionTypes.selectTruckTypes.GET_SelectTruckList_WAITING, payload: {} })
     try {
         let res = await httpRequest.get(url)
         if (res.success) {
-            dispatch({ type: actionTypes.selectTruckTypes.GET_TruckList_SUCCESS, payload: { data: res.result, type: param.OptionalParam.truckType } })
+            dispatch({ type: actionTypes.selectTruckTypes.GET_SelectTruckList_SUCCESS, payload: { data: res.result, type: param.OptionalParam.truckType } })
         } else {
-            dispatch({ type: actionTypes.selectTruckTypes.GET_TruckList_FAILED, payload: { data: res.msg } })
+            dispatch({ type: actionTypes.selectTruckTypes.GET_SelectTruckList_FAILED, payload: { data: res.msg } })
         }
     } catch (err) {
-        dispatch({ type: actionTypes.selectTruckTypes.GET_TruckList_ERROR, payload: { data: err } })
+        dispatch({ type: actionTypes.selectTruckTypes.GET_SelectTruckList_ERROR, payload: { data: err } })
     }
 }

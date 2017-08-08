@@ -55,6 +55,18 @@ class Second extends Component {
                         onRequire={(flag) => this.setState({ companyIdValidater: flag })}
                         defaultValue={'请选择'}
                     />
+                    <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View><Text style={{ fontSize: 12 }}>关联挂车：辽B12345</Text></View>
+                        <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                            <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
+                        </View>
+                    </View>
+                    <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View><Text style={{ fontSize: 12 }}>关联司机：张宝全</Text></View>
+                        <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                            <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
+                        </View>
+                    </View>
                 </ScrollView>
             </View>
         )

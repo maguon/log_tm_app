@@ -1,5 +1,5 @@
-export const GET_MakeList_SUCCESS = Symbol('GET_MakeList_SUCCESS')
-export const GET_MakeList_FAILED = Symbol('GET_MakeList_FAILED')
-export const GET_MakeList_WAITING = Symbol('GET_MakeList_WAITING')
-export const GET_MakeList_SERVICEERROR = Symbol('GET_MakeList_SERVICEERROR')
-export const GET_MakeList_ERROR = Symbol('GET_MakeList_ERROR')
+export const GET_MakeList_SUCCESS = 'GET_MakeList_SUCCESS'
+export const GET_MakeList_FAILED = 'GET_MakeList_FAILED'
+export const GET_MakeList_WAITING = 'GET_MakeList_WAITING'
+export const GET_MakeList_SERVICEERROR = 'GET_MakeList_SERVICEERROR'
+export const GET_MakeList_ERROR = 'GET_MakeList_ERROR'
