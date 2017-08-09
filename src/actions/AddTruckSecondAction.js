@@ -47,7 +47,7 @@ export const bindDriver = (param) => async (dispatch) => {
     try {
         let res = await httpRequest.put(url, {})
         if (res.success) {
-            dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindDriver_SUCCESS, payload: {} })
+            dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindDriver_SUCCESS, payload: { data: { driverId: param.driverId, driver: param.driver } } })
         } else {
             dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindDriver_FAILED, payload: { data: res.msg } })
         }

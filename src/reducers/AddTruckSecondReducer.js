@@ -45,12 +45,12 @@ export default handleActions({
         const { payload: { data } } = action
         let newState
         if (data.type == 1) {
-
             newState = {
                 ...state,
                 data: {
                     ...state.data,
-                    truckFirstId: data
+                    bindTrailerId: data.truckId,
+                    bindTrailer: data.truck,
                 },
                 bindTruck: {
                     ...state.bindTruck,
@@ -59,7 +59,19 @@ export default handleActions({
                 }
             }
         } else if (data.type == 2) {
-
+            newState = {
+                ...state,
+                data: {
+                    ...state.data,
+                    bindTractorId: data.truckId,
+                    bindTractor: data.truck,
+                },
+                bindTruck: {
+                    ...state.bindTruck,
+                    isResultStatus: 0,
+                    isExecStatus: 2
+                }
+            }
         }
         return newState
     },
@@ -123,12 +135,14 @@ export default handleActions({
 
 
     [(actionTypes.addTruckSecondTypes.CREATE_TruckSecondUnBindTruck_SUCCESS)]: (state, action) => {
-        const { payload: { data } } = action
         return {
             ...state,
             data: {
                 ...state.data,
-                truckFirstId: data
+                bindTractorId: '',
+                bindTractor: '',
+                bindTrailerId: '',
+                bindTrailer: ''
             },
             unBindTruck: {
                 ...state.unBindTruck,
@@ -201,7 +215,8 @@ export default handleActions({
             ...state,
             data: {
                 ...state.data,
-                truckFirstId: data
+                bindDriverId: data.driverId,
+                bindDriver: data.driver
             },
             bindDriver: {
                 ...state.bindDriver,
@@ -275,7 +290,8 @@ export default handleActions({
             ...state,
             data: {
                 ...state.data,
-                truckFirstId: data
+                bindDriverId: '',
+                bindDriver: ''
             },
             unBindDriver: {
                 ...state.unBindDriver,
