@@ -9,7 +9,15 @@ export const bindTruck = (param) => async (dispatch) => {
     try {
         let res = await httpRequest.put(url, {})
         if (res.success) {
-            dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindTruck_SUCCESS, payload: {} })
+            dispatch({
+                type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindTruck_SUCCESS, payload: {
+                    data: {
+                        type: param.type,
+                        truck: param.truck,
+                        truckId: param.truckId
+                    }
+                }
+            })
         } else {
             dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindTruck_FAILED, payload: { data: res.msg } })
         }

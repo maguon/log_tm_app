@@ -6,7 +6,9 @@ import userReducer from './UserReducer'
 import selectMakeReducer from './SelectMakeReducer'
 import selectCompanyReducer from './SelectCompanyReducer'
 import selectTruckReducer from './SelectTruckReducer'
-import addTruckFirstReducer from './AddTruckFirstReducer' 
+import selectDriverReducer from './SelectDriverReducer'
+import addTruckFirstReducer from './AddTruckFirstReducer'
+import addTruckSecondReducer from './AddTruckSecondReducer'
 
 export default combineReducers({
     homeReducer,
@@ -14,7 +16,9 @@ export default combineReducers({
     truckInfoReducer,
     userReducer,
     addTruckFirstReducer,
+    addTruckSecondReducer,
     selectMakeReducer,
     selectCompanyReducer,
-    selectTruckReducer
+    selectTruckReducer,
+    selectDriverReducer
 })

@@ -34,6 +34,7 @@ import CompanyType from './views/select/CompanyType'
 import DrivingLicenseType from './views/select/DrivingLicenseType'
 import Make from './views/select/Make'
 import SelectTruck from './views/select/Truck'
+import SelectDriver from './views/select/Driver'
 
 
 
@@ -151,6 +152,7 @@ export default class App extends Component {
                                 <Scene key="selectCompanyTypeAtTruckBlock" component={CompanyType} title='公司类型' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectCompanyAtTruckBlock" component={Company} title='所属公司' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectTruckAtTruckBlock" component={SelectTruck} title='选择车头' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="selectDriverAtTruckBlock" component={SelectDriver} title='选择司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="richTextAtTruckBlock" component={RichText} title='备注' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                             </Scene>
                             <Scene key="driverBlock" icon={TabIcon} online='ios-pin' outline='ios-pin-outline'>
