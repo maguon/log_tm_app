@@ -5,12 +5,16 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 
 
 export const updateDrivingImage = (param) => async (dispatch) => {
+    console.log(param)
     const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
+    console.log(imageUrl)
     dispatch({ type: actionTypes.addTruckThirdTypes.UPDATE_TruckThirdDrivingImage_WAITING, payload: {} })
     try {
         let imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
+        console.log(imageRes)
         if (imageRes.success) {
             const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/image`
+            console.log(url)
             param.putParam.truckImage = imageRes.imageId
             let res = await httpRequest.put(url, param.putParam)
             if (res.success) {

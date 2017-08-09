@@ -39,7 +39,7 @@ export default handleActions({
             ...state,
             data: {
                 ...state.data,
-                drivingImage: data.image
+                drivingImage: data
             },
             updateDrivingImage: {
                 ...state.updateDrivingImage,
@@ -112,7 +112,7 @@ export default handleActions({
             ...state,
             data: {
                 ...state.data,
-                licenseImage: data.image
+                licenseImage: data
             },
             updateLicenseImage: {
                 ...state.updateLicenseImage,

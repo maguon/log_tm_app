@@ -7,7 +7,7 @@ import {
     TouchableHighlight
 } from 'react-native'
 import { Button, Icon } from 'native-base'
-import Camera from './Camera'
+
 import { file_host } from '../../../config/Host'
 
 const window = Dimensions.get('window')
@@ -27,7 +27,8 @@ export default class PanelSingleItem extends Component {
         containerSytle: { marginLeft: 10, marginRight: 5, marginTop: 10 },
         width: (window.width - 30) / 2,
         title: '身份证',
-        onPhotograph: () => { }
+        onPhotograph: () => { },
+       // imageUrl:`${file_host}/image/${this.props.imageUrl}`
     }
 
     onPressPanel() {
@@ -74,7 +75,6 @@ export default class PanelSingleItem extends Component {
             <View>
                 {!this.state.isEdit && this.props.imageUrl && this.renderIsCustom()}
                 {this.state.isEdit && this.props.imageUrl && this.renderIsEdit()}
-                {!this.props.imageUrl && <Camera />}
             </View>
         )
     }
