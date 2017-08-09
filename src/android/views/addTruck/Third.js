@@ -10,7 +10,16 @@ import Camera from '../../components/camera/Camera'
 import PanelSingleItem from '../../components/camera/PanelSingleItem'
 import PanelCustomItem from '../../components/camera/PanelCustomItem'
 
-export default class Third extends Component {
+import {
+    updateDrivingImage,
+    updateLicenseImage,
+    createTruckImage,
+    resetUpdateDrivingImage,
+    resetUpdateLicenseImage,
+    resetCreateTruckImage
+} from '../../../actions/AddTruckThirdAction'
+
+class Third extends Component {
     constructor(props) {
         super(props)
     }
@@ -55,3 +64,35 @@ export default class Third extends Component {
         )
     }
 }
+
+
+const mapStateToProps = (state) => {
+    return {
+        userReducer: state.userReducer,
+        addTruckThirdReducer: state.addTruckThirdReducer
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    updateDrivingImage: (param) => {
+        dispatch(updateDrivingImage(param))
+    },
+    updateLicenseImage: (param) => {
+        dispatch(updateLicenseImage(param))
+    }, 
+    createTruckImage: (param) => {
+        dispatch(createTruckImage(param))
+    }, 
+    resetUpdateDrivingImage: () => {
+        dispatch(resetUpdateDrivingImage())
+    }, 
+    resetUpdateLicenseImage: () => {
+        dispatch(resetUpdateLicenseImage())
+    }, 
+    resetCreateTruckImage: () => {
+        dispatch(resetCreateTruckImage())
+    },
+
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Third)
