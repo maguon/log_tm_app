@@ -59,24 +59,20 @@ function del(url, callback) {
 
 function postFile(url, params, callback) {
     let formData = new FormData()
-    // console.log('params', params)
     let file = { uri: params.imageUrl, type: params.imageType, name: params.imageName }
     formData.append(params.key, file)
-    //console.log('formData', formData)
-    fetch(url, {
+    return fetch(url, {
         method: 'POST',
         headers: requestHeaders.formHeaders,
         body: formData,
     }).then((response) => response.json())
-        .then((responseJson) => {
-            //console.log('responseJson', responseJson)
-            callback(null, responseJson)
+    // .then((responseJson) => {
+    //     callback(null, responseJson)
 
-        })
-        .catch((error) => {
-            //console.log('error', error)
-            callback(error, null)
-        })
+    // })
+    // .catch((error) => {
+    //     callback(error, null)
+    // })
 }
 
 // function getAll(urls, callback) {

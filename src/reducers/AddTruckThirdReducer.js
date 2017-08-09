@@ -30,10 +30,23 @@ const initialState = {
     }
 }
 
+//isResultStatus(执行结果状态):[0(成功)，1(错误)，2(执行失败),3(服务器错误)] 
+//isExecuteStatus(执行状态):[0(未执行)，1(正在执行)，2(执行完毕)]
 export default handleActions({
     [(actionTypes.addTruckThirdTypes.UPDATE_TruckThirdDrivingImage_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
-        return {}
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                drivingImage: data.image
+            },
+            updateDrivingImage: {
+                ...state.updateDrivingImage,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
     },
     [(actionTypes.addTruckThirdTypes.UPDATE_TruckThirdDrivingImage_FAILED)]: (state, action) => {
         const { payload: { data } } = action
@@ -95,7 +108,18 @@ export default handleActions({
 
     [(actionTypes.addTruckThirdTypes.UPDATE_TruckThirdLicenseImage_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
-        return {}
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                licenseImage: data.image
+            },
+            updateLicenseImage: {
+                ...state.updateLicenseImage,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
     },
     [(actionTypes.addTruckThirdTypes.UPDATE_TruckThirdLicenseImage_FAILED)]: (state, action) => {
         const { payload: { data } } = action
@@ -158,7 +182,18 @@ export default handleActions({
 
     [(actionTypes.addTruckThirdTypes.CREATE_TruckThirdTruckImage_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
-        return {}
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                truckImageList: [...state.data.truckImageList, ...data]
+            },
+            createTruckImage: {
+                ...state.createTruckImage,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
     },
     [(actionTypes.addTruckThirdTypes.CREATE_TruckThirdTruckImage_FAILED)]: (state, action) => {
         const { payload: { data } } = action
