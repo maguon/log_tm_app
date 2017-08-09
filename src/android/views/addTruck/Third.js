@@ -15,6 +15,13 @@ export default class Third extends Component {
         super(props)
     }
 
+    static defaultProps = {
+        initParam: {
+            truckId: 172,
+            type: 1
+        }
+    }
+
     render() {
         return (
             <View style={{ flex: 1 }}>

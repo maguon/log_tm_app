@@ -11,6 +11,7 @@ import StepIndicator from '../../components/StepIndicator'
 import Select from '../../components/form/Select'
 import { connect } from 'react-redux'
 import * as RouterDirection from '../../../util/RouterDirection'
+import { Actions } from 'react-native-router-flux'
 import {
     bindTruck,
     unBindTruck,
@@ -29,6 +30,7 @@ class Second extends Component {
         this.onSelectDriver = this.onSelectDriver.bind(this)
         this.onPressUnBindTruck = this.onPressUnBindTruck.bind(this)
         this.onPressUnBindDriver = this.onPressUnBindDriver.bind(this)
+        this.onPressNextStep = this.onPressNextStep.bind(this)
     }
 
     static defaultProps = {
@@ -106,6 +108,9 @@ class Second extends Component {
         })
     }
 
+    onPressNextStep() {
+        Actions.addTruckThird({ initParam: this.props.initParam })
+    }
 
     componentWillReceiveProps(nextProps) {
         const { bindTruck, unBindTruck, bindDriver, unBindDriver, data } = nextProps.addTruckSecondReducer
@@ -256,6 +261,14 @@ class Second extends Component {
                             </View>
                         </TouchableNativeFeedback>
                     </View>}
+                    <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
+                        <Button
+                            full
+                            onPress={this.onPressNextStep}
+                            style={{ backgroundColor: '#00cade' }}>
+                            <Text style={{ color: '#fff' }}>下一步</Text>
+                        </Button>
+                    </View>
                 </ScrollView>
             </View>
         )
