@@ -1,0 +1,22 @@
+export const UPDATE_TruckThirdDrivingImage_SUCCESS = 'UPDATE_TruckThirdDrivingImage_SUCCESS'
+export const UPDATE_TruckThirdDrivingImage_FAILED = 'UPDATE_TruckThirdDrivingImage_FAILED'
+export const UPDATE_TruckThirdDrivingImage_WAITING = 'UPDATE_TruckThirdDrivingImage_WAITING'
+export const UPDATE_TruckThirdDrivingImage_SERVICEERROR = 'UPDATE_TruckThirdDrivingImage_SERVICEERROR'
+export const UPDATE_TruckThirdDrivingImage_ERROR = 'UPDATE_TruckThirdDrivingImage_ERROR'
+export const RESET_UPDATE_TruckThirdDrivingImage = 'RESET_UPDATE_TruckThirdDrivingImage'
+
+export const UPDATE_TruckThirdLicenseImage_SUCCESS = 'UPDATE_TruckThirdLicenseImage_SUCCESS'
+export const UPDATE_TruckThirdLicenseImage_FAILED = 'UPDATE_TruckThirdLicenseImage_FAILED'
+export const UPDATE_TruckThirdLicenseImage_WAITING = 'UPDATE_TruckThirdLicenseImage_WAITING'
+export const UPDATE_TruckThirdLicenseImage_SERVICEERROR = 'UPDATE_TruckThirdLicenseImage_SERVICEERROR'
+export const UPDATE_TruckThirdLicenseImage_ERROR = 'UPDATE_TruckThirdLicenseImage_ERROR'
+export const RESET_UPDATE_TruckThirdLicenseImage = 'RESET_UPDATE_TruckThirdLicenseImage'
+
+export const CREATE_TruckThirdTruckImage_SUCCESS = 'CREATE_TruckThirdTruckImage_SUCCESS'
+export const CREATE_TruckThirdTruckImage_FAILED = 'CREATE_TruckThirdTruckImage_FAILED'
+export const CREATE_TruckThirdTruckImage_WAITING = 'CREATE_TruckThirdTruckImage_WAITING'
+export const CREATE_TruckThirdTruckImage_SERVICEERROR = 'CREATE_TruckThirdTruckImage_SERVICEERROR'
+export const CREATE_TruckThirdTruckImage_ERROR = 'CREATE_TruckThirdTruckImage_ERROR'
+export const RESET_CREATE_TruckThirdTruckImage = 'RESET_CREATE_TruckThirdTruckImage'
+
+export const CLEAN_AddTruckThirdReducer = 'CLEAN_AddTruckThirdReducer'

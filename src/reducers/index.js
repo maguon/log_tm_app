@@ -9,6 +9,7 @@ import selectTruckReducer from './SelectTruckReducer'
 import selectDriverReducer from './SelectDriverReducer'
 import addTruckFirstReducer from './AddTruckFirstReducer'
 import addTruckSecondReducer from './AddTruckSecondReducer'
+import addTruckThirdReducer from './AddTruckThirdReducer'
 
 export default combineReducers({
     homeReducer,
@@ -17,6 +18,7 @@ export default combineReducers({
     userReducer,
     addTruckFirstReducer,
     addTruckSecondReducer,
+    addTruckThirdReducer,
     selectMakeReducer,
     selectCompanyReducer,
     selectTruckReducer,

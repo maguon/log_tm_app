@@ -25,7 +25,12 @@ export default class Third extends Component {
     render() {
         return (
             <View style={{ flex: 1 }}>
-                <StepIndicator stepList={[{ step: '1', title: '基本信息' }, { step: '2', title: '上传照片' }, { step: '3', title: '车保信息' }]} current={1} />
+                <StepIndicator
+                    stepList={[{ step: '1', title: '基本信息' },
+                    { step: '2', title: '关联信息' },
+                    { step: '3', title: '上传照片' },
+                    { step: '4', title: '车保信息' }]}
+                    current={2} />
                 <FlatList showsVerticalScrollIndicator={false}
                     data={[<View style={{ flexDirection: 'row' }}>
                         <PanelSingleItem title='行驶证' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
