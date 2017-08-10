@@ -5,7 +5,7 @@ const initialState = {
     data: {
         drivingImage: '598ad0d0100f67405a12333f',
         licenseImage: '598ad0d0100f67405a12333f',
-        truckImageList: ['598ad0d0100f67405a12333f','598ad0d0100f67405a12333f','598ad0d0100f67405a12333f']
+        truckImageList: []
     },
     updateDrivingImage: {
         isResultStatus: 0,
@@ -182,11 +182,12 @@ export default handleActions({
 
     [(actionTypes.addTruckThirdTypes.CREATE_TruckThirdTruckImage_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
+        console.log([...state.data.truckImageList, data])
         return {
             ...state,
             data: {
                 ...state.data,
-                truckImageList: [...state.data.truckImageList, ...data]
+                truckImageList: [...state.data.truckImageList, data]
             },
             createTruckImage: {
                 ...state.createTruckImage,

@@ -4,7 +4,9 @@ import * as actionTypes from '../actions/actionTypes'
 const initialState = {
     data: {
         user: {
-            userId: 38
+            userId: "38",
+            userType: "21",
+            mobile: "18888"
         }
     }
 }

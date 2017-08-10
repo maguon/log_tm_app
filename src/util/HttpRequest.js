@@ -24,7 +24,7 @@ function post(url, params) {
     //     callback(null, responseJson)
     // })
     // .catch((error) => {
-    //     callback(error, null);
+    //    console.log(error) //callback(error, null);
     // });
 }
 
@@ -38,7 +38,7 @@ function put(url, params) {
     //     callback(null, responseJson)
     // })
     // .catch((error) => {
-    //     callback(error, null);
+    //     console.log(error)//callback(error, null);
     // });
 }
 

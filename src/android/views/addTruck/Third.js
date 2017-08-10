@@ -25,12 +25,14 @@ class Third extends Component {
         this.updateDrivingImage = this.updateDrivingImage.bind(this)
         this.updateLicenseImage = this.updateLicenseImage.bind(this)
         this.renderImageList = this.renderImageList.bind(this)
+        this.createTruckImage = this.createTruckImage.bind(this)
     }
 
     static defaultProps = {
         initParam: {
             truckId: 172,
-            type: 1
+            type: 1,
+            truckCode: '辽B55560'
         }
     }
 
@@ -39,15 +41,19 @@ class Third extends Component {
         /*updateDrivingImage*/
         if (updateDrivingImage.isExecStatus == 2) {
             if (updateDrivingImage.isResultStatus == 0) {
+                this.props.resetUpdateDrivingImage()
                 console.log('updateDrivingImage成功')
             }
             else if (updateDrivingImage.isResultStatus == 1) {
+                this.props.resetUpdateDrivingImage()                
                 console.log('updateDrivingImage错误')
             }
             else if (updateDrivingImage.isResultStatus == 2) {
+                this.props.resetUpdateDrivingImage()                
                 console.log('updateDrivingImage失败')
             }
             else if (updateDrivingImage.isResultStatus == 3) {
+                this.props.resetUpdateDrivingImage()                
                 console.log('updateDrivingImage服务错误')
             }
         }
@@ -56,15 +62,19 @@ class Third extends Component {
         /*updateLicenseImage*/
         if (updateLicenseImage.isExecStatus == 2) {
             if (updateLicenseImage.isResultStatus == 0) {
+                this.props.resetUpdateLicenseImage()
                 console.log('updateLicenseImage成功')
             }
             else if (updateLicenseImage.isResultStatus == 1) {
+                this.props.resetUpdateLicenseImage()
                 console.log('updateLicenseImage错误')
             }
             else if (updateLicenseImage.isResultStatus == 2) {
+                this.props.resetUpdateLicenseImage()
                 console.log('updateLicenseImage失败')
             }
             else if (updateLicenseImage.isResultStatus == 3) {
+                this.props.resetUpdateLicenseImage()
                 console.log('updateLicenseImage服务错误')
             }
         }
@@ -73,15 +83,19 @@ class Third extends Component {
         /*createTruckImage*/
         if (createTruckImage.isExecStatus == 2) {
             if (createTruckImage.isResultStatus == 0) {
+                 this.props.resetCreateTruckImage()
                 console.log('createTruckImage成功')
             }
             else if (createTruckImage.isResultStatus == 1) {
+                this.props.resetCreateTruckImage()
                 console.log('createTruckImage错误')
             }
             else if (createTruckImage.isResultStatus == 2) {
+                this.props.resetCreateTruckImage()
                 console.log('createTruckImage失败')
             }
             else if (createTruckImage.isResultStatus == 3) {
+                this.props.resetCreateTruckImage()
                 console.log('createTruckImage服务错误')
             }
         }
@@ -125,9 +139,32 @@ class Third extends Component {
             }
         })
     }
- 
+
+    createTruckImage(param) {
+        this.props.createTruckImage({
+            requiredParam: {
+                userId: this.props.userReducer.data.user.userId,
+                truckId: this.props.initParam.truckId,
+                truckCode: this.props.initParam.truckCode
+            },
+            OptionalParam: {
+                imageType: 2
+            },
+            postParam: {
+                username: this.props.userReducer.data.user.mobile,
+                userid: this.props.userReducer.data.user.userId,
+                userType: this.props.userReducer.data.user.userType,
+            },
+            postFileParam: {
+                ...param.postFileParam,
+                key: "image"
+            }
+        })
+    }
+
     renderImageList() {
-        let { truckImageList } = this.props.addTruckThirdReducer.data
+        let truckImageList = [...this.props.addTruckThirdReducer.data.truckImageList]
+        console.log(truckImageList)
         const imageListHead = <View key={'w'} style={{ flexDirection: 'row' }}>
             {!this.props.addTruckThirdReducer.data.drivingImage ?
                 <Camera title='上传行驶证照片' onGetPhoto={this.updateDrivingImage} /> :
@@ -140,13 +177,13 @@ class Third extends Component {
         let imageListFoot
         if (truckImageList.length % 2 == 0) {
             imageListFoot = <View key={'f'} style={{ flexDirection: 'row' }}>
-                <Camera title='上传车辆照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                <Camera onGetPhoto={this.createTruckImage} title='上传车辆照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
             </View>
         } else {
             const lastImage = truckImageList.pop()
             imageListFoot = <View key={'f'} style={{ flexDirection: 'row' }}>
                 <PanelCustomItem imageUrl={lastImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                <Camera title='上传车辆照片' containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
+                <Camera onGetPhoto={this.createTruckImage} title='上传车辆照片' containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
             </View>
         }
 
@@ -158,8 +195,7 @@ class Third extends Component {
             </View>)
             imageBody.push(viewItem)
         }
-
-        return [imageListHead,...imageBody,imageListFoot]
+        return [imageListHead, ...imageBody, imageListFoot]
     }
 
     render() {
