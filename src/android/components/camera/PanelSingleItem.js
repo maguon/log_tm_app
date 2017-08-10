@@ -28,7 +28,6 @@ export default class PanelSingleItem extends Component {
         width: (window.width - 30) / 2,
         title: '身份证',
         onPhotograph: () => { },
-       // imageUrl:`${file_host}/image/${this.props.imageUrl}`
     }
 
     onPressPanel() {

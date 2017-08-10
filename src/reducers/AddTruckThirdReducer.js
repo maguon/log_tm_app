@@ -3,9 +3,9 @@ import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
     data: {
-        drivingImage: '',
-        licenseImage: '',
-        truckImageList: []
+        drivingImage: '598ad0d0100f67405a12333f',
+        licenseImage: '598ad0d0100f67405a12333f',
+        truckImageList: ['598ad0d0100f67405a12333f','598ad0d0100f67405a12333f','598ad0d0100f67405a12333f']
     },
     updateDrivingImage: {
         isResultStatus: 0,

@@ -125,71 +125,41 @@ class Third extends Component {
             }
         })
     }
-    // [<View style={{ flexDirection: 'row' }}>
-    //                     {!this.props.addTruckThirdReducer.data.drivingImage ?
-    //                         <Camera title='上传行驶证照片' onGetPhoto={this.updateDrivingImage} /> :
-    //                         <PanelSingleItem title='行驶证' imageUrl={this.props.addTruckThirdReducer.data.drivingImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
-    //                     {!this.props.addTruckThirdReducer.data.licenseImage ?
-    //                         <Camera title='上传营运证照片' onGetPhoto={this.updateLicenseImage} /> :
-    //                         <PanelSingleItem title='营运证' imageUrl={this.props.addTruckThirdReducer.data.licenseImage} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
-    //                 </View>, <View style={{ flexDirection: 'row' }}>
-    //                     <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-    //                     <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
-    //                 </View>, <View style={{ flexDirection: 'row' }}>
-    //                     <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-    //                     <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
-    //                 </View>,
-    //                 <View style={{ flexDirection: 'row' }}>
-    //                     <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-    //                     <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
-    //                 </View>,
-    //                 <View style={{ flexDirection: 'row' }}>
-    //                     <Camera title='上传车辆照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-    //                 </View>]
-
+ 
     renderImageList() {
         let { truckImageList } = this.props.addTruckThirdReducer.data
-        const imageListHead = [<View style={{ flexDirection: 'row' }}>
+        const imageListHead = <View key={'w'} style={{ flexDirection: 'row' }}>
             {!this.props.addTruckThirdReducer.data.drivingImage ?
                 <Camera title='上传行驶证照片' onGetPhoto={this.updateDrivingImage} /> :
                 <PanelSingleItem title='行驶证' imageUrl={this.props.addTruckThirdReducer.data.drivingImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
             {!this.props.addTruckThirdReducer.data.licenseImage ?
                 <Camera title='上传营运证照片' onGetPhoto={this.updateLicenseImage} /> :
                 <PanelSingleItem title='营运证' imageUrl={this.props.addTruckThirdReducer.data.licenseImage} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
-        </View>]
+        </View>
 
         let imageListFoot
         if (truckImageList.length % 2 == 0) {
-            imageListFoot = [<View style={{ flexDirection: 'row' }}>
+            imageListFoot = <View key={'f'} style={{ flexDirection: 'row' }}>
                 <Camera title='上传车辆照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-            </View>]
+            </View>
         } else {
             const lastImage = truckImageList.pop()
-            imageListFoot = [<View style={{ flexDirection: 'row' }}>
+            imageListFoot = <View key={'f'} style={{ flexDirection: 'row' }}>
                 <PanelCustomItem imageUrl={lastImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
                 <Camera title='上传车辆照片' containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
-            </View>]
+            </View>
         }
 
-        const imageBody = truckImageList.reduce((sum, value) => {
-            if (sum.length % 2 == 0) {
-                return [...sum, [value]]
-            } else {
-                return [...sum, [...sum[length - 1], value]]
-            }
-        }, []).map((item, i) => {
-            let cItem = item.map((citem, j) => {
-                if (j % 2 == 0) {
-                    return <PanelCustomItem key={j} imageUrl={item} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                } else {
-                    return <PanelCustomItem key={j} imageUrl={item} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
-                }
-                return <View style={{ flexDirection: 'row' }}>
-                    {cItem}
-                </View>
-            })
-        })
-        return [...imageListHead,...imageBody,...imageListFoot]
+        let imageBody = []
+        for (let i = 0; i < truckImageList.length; i += 2) {
+            const viewItem = (<View key={i} style={{ flexDirection: 'row' }}>
+                <PanelCustomItem imageUrl={truckImageList[i]} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                <PanelCustomItem imageUrl={truckImageList[i + 1]} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
+            </View>)
+            imageBody.push(viewItem)
+        }
+
+        return [imageListHead,...imageBody,imageListFoot]
     }
 
     render() {
