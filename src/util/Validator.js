@@ -10,6 +10,9 @@ export const validate = (value, verifications) => {
             if (item.type == 'isPhone') {
                 return validatePhone(value)
             }
+            if (item.type == 'isMoney') {
+                return validateMoney(value)
+            }
         })
         .map(item => {
             return item.message
@@ -38,10 +41,16 @@ const validateVehicleNumber = (value) => {
 
 const validatePhone = (value) => {
     if ((/^1[34578]\d{9}$/.test(value))) {
-       // console.log('false')
         return false
     } else {
-        //console.log('true')
+        return true
+    }
+}
+
+const validateMoney = (value) => {
+    if ((/^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/.test(value))) {
+        return false
+    } else {
         return true
     }
 }

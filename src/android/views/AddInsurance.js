@@ -46,32 +46,25 @@ export default class AddInsurance extends Component {
                             title='保单编号：'
                             value={''}
                             verifications={[{
-                                type: 'isVehicleNumber',
-                                message: '不是车牌号'
+                                type: 'isLength',
+                                arguments: [0, 40],
+                                message: '长度不能超过40位'
                             }]}
                             onValueChange={(param) => { }}
                             onRequire={(flag) => { }}
-                            placeholder='请输入车牌号码'
+                            placeholder='请输入保单编号'
                         />
                         <TextBox
                             isRequire={true}
                             title='保单金额：'
                             value={''}
                             verifications={[{
-                                type: 'isVehicleNumber',
-                                message: '不是车牌号'
-                            }]}
+                                type: 'isMoney',
+                                message: '金额只能为数字且不能超过8位'
+                            }]} 
                             onValueChange={(param) => { console.log(param) }}
                             onRequire={(flag) => { }}
-                            placeholder='请输入车牌号码'
-                        />
-                        <DateTimePicker
-                            isRequire={true}
-                            value={''}
-                            title='投保日期：'
-                            defaultValue={'请选择'}
-                            onRequire={(flag) => { console.log(flag) }}
-                            onValueChange={(param) => { console.log(param) }}
+                            placeholder='请输入保单金额'
                         />
                         <View style={{ flexDirection: 'row' }}>
                             <View style={{ flex: 1 }}>
