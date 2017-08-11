@@ -59,3 +59,9 @@ export const selectInsurance = (parent) => {
     if (parent === 'homeBlock') return Actions.selectInsuranceAtHomeBlock
     if (parent === 'truckBlock') return Actions.selectInsuranceAtTruckBlock
 }
+
+
+export const selectInsuranceType = (parent) => {
+    if (parent === 'homeBlock') return Actions.selectInsuranceTypeAtHomeBlock
+    if (parent === 'truckBlock') return Actions.selectInsuranceTypeAtTruckBlock
+}

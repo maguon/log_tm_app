@@ -1,0 +1,10 @@
+[
+    {
+        "id": 1,
+        "insuranceType": "商业险"
+    },
+    {
+        "id": 2,
+        "insuranceType": "交强险"
+    }
+]

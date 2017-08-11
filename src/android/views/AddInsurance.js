@@ -28,17 +28,17 @@ export default class AddInsurance extends Component {
                             isRequire={true}
                             value={''}
                             showList={RouterDirection.selectInsurance(this.props.parent)}
-                            onValueChange={(param) => { }}
-                            onRequire={(flag) => { }}
+                            onValueChange={(param) => { console.log(param) }}
+                            onRequire={(flag) => { console.log(flag) }}
                             defaultValue={'请选择'}
                         />
                         <Select
                             title='保险险种：'
                             isRequire={true}
                             value={''}
-                            showList={(param) => { }}
-                            onValueChange={(param) => { }}
-                            onRequire={(flag) => { }}
+                            showList={RouterDirection.selectInsuranceType(this.props.parent)}
+                            onValueChange={(param) => { console.log(param) }}
+                            onRequire={(flag) => { console.log(flag) }}
                             defaultValue={'请选择'}
                         />
                         <TextBox
@@ -61,7 +61,7 @@ export default class AddInsurance extends Component {
                                 type: 'isVehicleNumber',
                                 message: '不是车牌号'
                             }]}
-                            onValueChange={(param) => { }}
+                            onValueChange={(param) => { console.log(param) }}
                             onRequire={(flag) => { }}
                             placeholder='请输入车牌号码'
                         />
@@ -70,8 +70,8 @@ export default class AddInsurance extends Component {
                             value={''}
                             title='投保日期：'
                             defaultValue={'请选择'}
-                            onRequire={(flag) => this.setState({ drivingDateValidater: flag })}
-                            onValueChange={(param) => this.onSelect({ drivingDate: param })}
+                            onRequire={(flag) => { console.log(flag) }}
+                            onValueChange={(param) => { console.log(param) }}
                         />
                         <View style={{ flexDirection: 'row' }}>
                             <View style={{ flex: 1 }}>
@@ -80,8 +80,8 @@ export default class AddInsurance extends Component {
                                     value={''}
                                     title='保险生效日期：'
                                     defaultValue={'请选择'}
-                                    onRequire={(flag) => this.setState({ drivingDateValidater: flag })}
-                                    onValueChange={(param) => this.onSelect({ drivingDate: param })}
+                                    onRequire={(flag) => { console.log(flag) }}
+                                    onValueChange={(param) => { console.log(param) }}
                                 />
                             </View>
                             <View style={{ flex: 1 }}>
@@ -90,8 +90,8 @@ export default class AddInsurance extends Component {
                                     value={''}
                                     title='到：'
                                     defaultValue={'请选择'}
-                                    onRequire={(flag) => this.setState({ drivingDateValidater: flag })}
-                                    onValueChange={(param) => this.onSelect({ drivingDate: param })}
+                                    onRequire={(flag) => { console.log(flag) }}
+                                    onValueChange={(param) => { console.log(param) }}
                                 />
                             </View>
                         </View>
