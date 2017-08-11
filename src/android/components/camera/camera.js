@@ -47,7 +47,11 @@ export default class Camera extends Component {
 
     launchCamera = () => {
         ImagePicker.showImagePicker(photoOptions, (response) => {
-            if (response.customButton) {
+            if (response.didCancel) {
+               //console.log('User cancelled video picker')
+            }else if (response.error) {
+                //console.log('ImagePicker Error: ', response.error)
+            }else if (response.customButton) {
                 if (response.customButton == 'choosePhoto') {
                     this.openPicker()
                 }

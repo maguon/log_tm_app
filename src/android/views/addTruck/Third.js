@@ -18,6 +18,7 @@ import {
     resetUpdateLicenseImage,
     resetCreateTruckImage
 } from '../../../actions/AddTruckThirdAction'
+import { Actions } from 'react-native-router-flux'
 
 class Third extends Component {
     constructor(props) {
@@ -26,6 +27,7 @@ class Third extends Component {
         this.updateLicenseImage = this.updateLicenseImage.bind(this)
         this.renderImageList = this.renderImageList.bind(this)
         this.createTruckImage = this.createTruckImage.bind(this)
+        this.onPressNextStep=this.onPressNextStep.bind(this)
     }
 
     static defaultProps = {
@@ -45,15 +47,15 @@ class Third extends Component {
                 console.log('updateDrivingImage成功')
             }
             else if (updateDrivingImage.isResultStatus == 1) {
-                this.props.resetUpdateDrivingImage()                
+                this.props.resetUpdateDrivingImage()
                 console.log('updateDrivingImage错误')
             }
             else if (updateDrivingImage.isResultStatus == 2) {
-                this.props.resetUpdateDrivingImage()                
+                this.props.resetUpdateDrivingImage()
                 console.log('updateDrivingImage失败')
             }
             else if (updateDrivingImage.isResultStatus == 3) {
-                this.props.resetUpdateDrivingImage()                
+                this.props.resetUpdateDrivingImage()
                 console.log('updateDrivingImage服务错误')
             }
         }
@@ -83,7 +85,7 @@ class Third extends Component {
         /*createTruckImage*/
         if (createTruckImage.isExecStatus == 2) {
             if (createTruckImage.isResultStatus == 0) {
-                 this.props.resetCreateTruckImage()
+                this.props.resetCreateTruckImage()
                 console.log('createTruckImage成功')
             }
             else if (createTruckImage.isResultStatus == 1) {
@@ -162,6 +164,10 @@ class Third extends Component {
         })
     }
 
+    onPressNextStep() {
+        Actions.addTruckFourth({ initParam: this.props.initParam })
+    }
+
     renderImageList() {
         let truckImageList = [...this.props.addTruckThirdReducer.data.truckImageList]
         console.log(truckImageList)
@@ -211,6 +217,14 @@ class Third extends Component {
                     data={this.renderImageList()}
                     renderItem={({ item }) => item}
                 />
+                <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
+                    <Button
+                        full
+                        onPress={this.onPressNextStep}
+                        style={{ backgroundColor: '#00cade' }}>
+                        <Text style={{ color: '#fff' }}>下一步</Text>
+                    </Button>
+                </View>
             </View>
         )
     }

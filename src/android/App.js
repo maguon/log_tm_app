@@ -24,6 +24,8 @@ import AddDriverSecond from './views/addDriver/Second'
 import AddTruckFirst from './views/addTruck/First'
 import AddTruckSecond from './views/addTruck/Second'
 import AddTruckThird from './views/addTruck/Third'
+import AddTruckFourth from './views/addTruck/Fourth'
+import AddInsurance from './views/AddInsurance'
 import DriverInfo from './views/DriverInfo'
 import RichText from './views/RichText'
 
@@ -34,7 +36,8 @@ import CompanyType from './views/select/CompanyType'
 import DrivingLicenseType from './views/select/DrivingLicenseType'
 import Make from './views/select/Make'
 import SelectTruck from './views/select/Truck'
-import SelectDriver from './views/select/Driver'
+import SelectDriver from './views/select/Driver' 
+import SelectInsurance from './views/select/Insurance' 
 
 
 
@@ -140,6 +143,7 @@ export default class App extends Component {
                                 <Scene key="truckListAtHomeBlock" component={TruckList} title='车辆信息' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectCompanyAtHomeBlock" component={Company} title='所属公司' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectDrivingLicenseTypeAtHomeBlock" component={DrivingLicenseType} title='驾照类型' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="selectInsuranceAtHomeBlock" component={SelectInsurance} title='选择保险公司' hideNavBar={false} navBar={NavBar} hideTabBar={true} />                                
                             </Scene>
                             <Scene key="truckBlock" initial={true} icon={TabIcon} online='ios-car' outline='ios-car-outline' >
                                 <Scene key="truck" rightType={1} onPressRight={() => Actions.addTruckFirst()} component={Truck} title='车辆信息' hideNavBar={false} navBar={TopBar} />
@@ -147,12 +151,15 @@ export default class App extends Component {
                                 <Scene key="truckListAtTruckBlock" component={TruckList} title='车辆信息' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="addTruckFirst" component={AddTruckFirst} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="addTruckSecond" component={AddTruckSecond} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="addTruckThird" initial={true} component={AddTruckThird} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="addTruckThird" component={AddTruckThird} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="addTruckFourth"  component={AddTruckFourth} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="addInsurance"   component={AddInsurance} title='新增保单' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectMakeAtTruckBlock" component={Make} title='选择品牌' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectCompanyTypeAtTruckBlock" component={CompanyType} title='公司类型' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectCompanyAtTruckBlock" component={Company} title='所属公司' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectTruckAtTruckBlock" component={SelectTruck} title='选择车头' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectDriverAtTruckBlock" component={SelectDriver} title='选择司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="selectInsuranceAtTruckBlock"  initial={true} component={SelectInsurance} title='选择保险公司' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="richTextAtTruckBlock" component={RichText} title='备注' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                             </Scene>
                             <Scene key="driverBlock" icon={TabIcon} online='ios-pin' outline='ios-pin-outline'>

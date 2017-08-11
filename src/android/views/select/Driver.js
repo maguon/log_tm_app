@@ -62,7 +62,8 @@ class Driver extends Component {
                         placeholder='请输入司机姓名'
                     />
                 </View>
-                <FlatList showsVerticalScrollIndicator={false}
+                <FlatList
+                    showsVerticalScrollIndicator={false}
                     data={this.driverListFilter()}
                     renderItem={({ item }) => {
                         return (
