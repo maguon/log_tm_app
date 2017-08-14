@@ -10,6 +10,7 @@ import * as selectCompanyTypes from './SelectCompanyTypes'
 import * as selectTruckTypes from './SelectTruckTypes'
 import * as selectDriverTypes from './SelectDriverTypes' 
 import * as selectInsuranceTypes from './SelectInsuranceTypes' 
+import * as addTruckFourthTypes from './AddTruckFourthTypes' 
 
 export {
     homeTypes,
@@ -23,6 +24,7 @@ export {
     selectCompanyTypes,
     selectTruckTypes,
     selectDriverTypes,
-    selectInsuranceTypes
+    selectInsuranceTypes,
+    addTruckFourthTypes
 }
 

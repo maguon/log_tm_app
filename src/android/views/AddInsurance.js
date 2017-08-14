@@ -15,6 +15,11 @@ import {
     resetCreateInsurancer,
     changeInsuranceField
 } from '../../actions/AddInsuranceAction'
+import {
+    createInsurance,
+    resetCreateInsurancer,
+    changeInsuranceField
+} from '../../actions/AddInsuranceAction'
 
 class AddInsurance extends Component {
     constructor(props) {
@@ -27,11 +32,59 @@ class AddInsurance extends Component {
             insuranceStartDateValidater: false,
             insuranceEndDateValidater: false
         }
+        this.onPressCreateInsurance = this.onPressCreateInsurance.bind(this)
+    }
+
+    static defaultProps = {
+        initParam: {
+            truckId: 172
+        }
+    }
+
+    onPressCreateInsurance() {
+        const { insureId, insureType, insureNum, insureMoney, startDate, endDate } = this.props.addInsuranceReducer.data
+        const { userId } = this.props.userReducer.data.user
+        const { truckId } = this.props.initParam
+        // console.log(this.props)
+        this.props.createInsurance({
+            requiredParam: {
+                userId
+            },
+            postParam: {
+                truckId,
+                insureId,
+                insureType,
+                insureNum,
+                insureMoney,
+                startDate,
+                endDate
+            }
+        })
+    }
+
+        componentWillReceiveProps(nextProps) {
+        const { createInsurance } = nextProps.addInsuranceReducer
+        /*createInsurance*/
+        if (createInsurance.isExecStatus == 2) {
+            if (createInsurance.isResultStatus == 0) {
+                console.log('createInsurance', '执行成功')
+            }
+            else if (createInsurance.isResultStatus == 1) {
+                console.log('createInsurance', '异常')
+            }
+            else if (createInsurance.isResultStatus == 2) {
+                console.log('createInsurance', '执行失败')
+            }
+            else if (createInsurance.isResultStatus == 3) {
+                console.log('createInsurance', '服务器异常')
+            }
+        }
+        /************************************ */
     }
 
     render() {
-        console.log(this.state)
-        console.log(this.props.addInsuranceReducer)
+        // console.log(this.state)
+        // console.log(this.props.addInsuranceReducer)
         return (
             <View style={{ flex: 1 }}>
                 <ScrollView>
@@ -104,16 +157,24 @@ class AddInsurance extends Component {
                         <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
                             <Button
                                 full
-                                onPress={() => { }}
+                                onPress={this.onPressCreateInsurance}
                                 disabled={!(
                                     this.state.insuranceCompanyValidater &&
-                                    this.state.insuranceTypeValidater
+                                    this.state.insuranceTypeValidater &&
+                                    this.state.insuranceNumValidater &&
+                                    this.state.insuranceMoneyValidater &&
+                                    this.state.insuranceStartDateValidater &&
+                                    this.state.insuranceEndDateValidater
                                 )}
 
                                 style={{
                                     backgroundColor: (
                                         this.state.insuranceCompanyValidater &&
-                                        this.state.insuranceTypeValidater
+                                        this.state.insuranceTypeValidater &&
+                                        this.state.insuranceNumValidater &&
+                                        this.state.insuranceMoneyValidater &&
+                                        this.state.insuranceStartDateValidater &&
+                                        this.state.insuranceEndDateValidater
                                     ) ? '#00cade' : '#888888'
                                 }}
                             >
@@ -122,7 +183,7 @@ class AddInsurance extends Component {
                         </View>
                     </View>
                 </ScrollView>
-            </View>
+            </View >
         )
     }
 }
@@ -131,7 +192,8 @@ class AddInsurance extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        addInsuranceReducer: state.addInsuranceReducer
+        addInsuranceReducer: state.addInsuranceReducer,
+        userReducer: state.userReducer
     }
 }
 
