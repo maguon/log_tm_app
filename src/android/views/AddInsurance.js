@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import {
     Text,
     View,
-    ScrollView
+    ScrollView,
+    ToastAndroid
 } from 'react-native'
 import { Button } from 'native-base'
 import Select from '../components/form/Select'
@@ -33,17 +34,12 @@ class AddInsurance extends Component {
         this.onPressCreateInsurance = this.onPressCreateInsurance.bind(this)
     }
 
-    static defaultProps = {
-        initParam: {
-            truckId: 172
-        }
-    }
 
     onPressCreateInsurance() {
         const { insureId, insureType, insureNum, insureMoney, startDate, endDate } = this.props.addInsuranceReducer.data
         const { userId } = this.props.userReducer.data.user
         const { truckId } = this.props.initParam
-         console.log(this.props)
+        console.log(this.props)
         this.props.createInsurance({
             requiredParam: {
                 userId
@@ -62,34 +58,38 @@ class AddInsurance extends Component {
 
     componentWillReceiveProps(nextProps) {
         const { createInsurance } = nextProps.addInsuranceReducer
-        const { insureId, insureType, insureNum, insureMoney, startDate, endDate } = nextProps.addInsuranceReducer.data
+        const param = nextProps.addInsuranceReducer.data
         console.log(nextProps.addInsuranceReducer.data)
         /*createInsurance*/
         if (createInsurance.isExecStatus == 2) {
             if (createInsurance.isResultStatus == 0) {
-                //this.props.addInsurance
-                this.props.addInsurance({
-                    insureId,
-                    insureType,
-                    insureNum,
-                    insureMoney,
-                    startDate,
-                    endDate
+                this.props.addInsurance(param)
+                this.setState({
+                    insuranceCompanyValidater: false,
+                    insuranceTypeValidater: false,
+                    insuranceNumValidater: false,
+                    insuranceMoneyValidater: false,
+                    insuranceStartDateValidater: false,
+                    insuranceEndDateValidater: false
                 })
-                Actions.pop()           
-                //this.props.cleanAddInsurance()
+                ToastAndroid.show('添加成功', ToastAndroid.SHORT)
+                Actions.pop()  
+                this.props.cleanAddInsurance()
                 console.log('createInsurance', '执行成功')
             }
             else if (createInsurance.isResultStatus == 1) {
-                console.log('createInsurance异常',createInsurance.errorMsg )
+                console.log('createInsurance异常', createInsurance.errorMsg)
+                ToastAndroid.show('数据错误，请重新输入', ToastAndroid.SHORT)
                 this.props.resetCreateInsurance()
             }
             else if (createInsurance.isResultStatus == 2) {
                 console.log('createInsurance执行失败', createInsurance.failedMsg)
+                ToastAndroid.show(`执行失败:${createInsurance.failedMsg}`, ToastAndroid.SHORT)
                 this.props.resetCreateInsurance()
             }
             else if (createInsurance.isResultStatus == 3) {
                 console.log('createInsurance服务器异常', createInsurance.serviceFailedMsg)
+                ToastAndroid.show('数据错误，请重新输入', ToastAndroid.SHORT)
                 this.props.resetCreateInsurance()
             }
         }
@@ -220,7 +220,7 @@ const mapDispatchToProps = (dispatch) => ({
     addInsurance: (param) => {
         dispatch(addInsurance(param))
     },
-    cleanAddInsurance:()=>{
+    cleanAddInsurance: () => {
         dispatch(cleanAddInsurance())
     }
 

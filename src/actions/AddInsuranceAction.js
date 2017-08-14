@@ -5,11 +5,9 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 
 export const createInsurance = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/truckInsureRel`
-    console.log(url)
     dispatch({ type: actionTypes.addInsuranceTypes.CREATE_Insurance_WAITING, payload: {} })
     try {
         let res = await httpRequest.post(url, param.postParam)
-        console.log(res)
         if (res.success) {
             dispatch({ type: actionTypes.addInsuranceTypes.CREATE_Insurance_SUCCESS, payload: { } })
         } else {
@@ -29,5 +27,5 @@ export const changeInsuranceField = (param) => (dispatch) => {
 }
 
 export const cleanAddInsurance = () => (dispatch) => {
-    sispatch({ type: actionTypes.addInsuranceTypes.CLEAN_AddInsurance, payload: {} })
+    dispatch({ type: actionTypes.addInsuranceTypes.CLEAN_AddInsurance, payload: {} })
 }

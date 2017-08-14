@@ -22,6 +22,10 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
+            data: {
+                ...state.data,
+                createDate: (new Date()).toLocaleDateString()
+            },
             createInsurance: {
                 ...state.createInsurance,
                 isResultStatus: 0,
