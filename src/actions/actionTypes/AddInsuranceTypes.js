@@ -1,0 +1,7 @@
+export const CREATE_Insurance_SUCCESS = 'CREATE_Insurance_SUCCESS'
+export const CREATE_Insurance_FAILED = 'CREATE_Insurance_FAILED'
+export const CREATE_Insurance_WAITING = 'CREATE_Insurance_WAITING'
+export const CREATE_Insurance_SERVICEERROR = 'CREATE_Insurance_SERVICEERROR'
+export const CREATE_Insurance_ERROR = 'CREATE_Insurance_ERROR'
+export const RESET_CREATE_Insurance = 'RESET_CREATE_Insurance'
+export const CHANGE_Insurance_FIELD = 'CHANGE_Insurance_FIELD'
