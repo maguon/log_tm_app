@@ -154,8 +154,8 @@ export default class App extends Component {
                                 <Scene key="addTruckFirst" component={AddTruckFirst} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="addTruckSecond" component={AddTruckSecond} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="addTruckThird" component={AddTruckThird} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="addTruckFourth" component={AddTruckFourth} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="addInsurance"  initial={true} component={AddInsurance} title='新增保单' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="addTruckFourth"  initial={true} component={AddTruckFourth} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="addInsurance" component={AddInsurance} title='新增保单' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectMakeAtTruckBlock" component={Make} title='选择品牌' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectCompanyTypeAtTruckBlock" component={CompanyType} title='公司类型' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectCompanyAtTruckBlock" component={Company} title='所属公司' hideNavBar={false} navBar={NavBar} hideTabBar={true} />

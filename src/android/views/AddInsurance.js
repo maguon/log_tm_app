@@ -10,16 +10,14 @@ import DateTimePicker from '../components/form/DateTimePicker'
 import TextBox from '../components/form/TextBox'
 import { connect } from 'react-redux'
 import * as RouterDirection from '../../util/RouterDirection'
+import { Actions } from 'react-native-router-flux'
 import {
     createInsurance,
-    resetCreateInsurancer,
-    changeInsuranceField
+    resetCreateInsurance,
+    changeInsuranceField,
+    cleanAddInsurance
 } from '../../actions/AddInsuranceAction'
-import {
-    createInsurance,
-    resetCreateInsurancer,
-    changeInsuranceField
-} from '../../actions/AddInsuranceAction'
+import { addInsurance } from '../../actions/AddTruckFourthAction'
 
 class AddInsurance extends Component {
     constructor(props) {
@@ -45,7 +43,7 @@ class AddInsurance extends Component {
         const { insureId, insureType, insureNum, insureMoney, startDate, endDate } = this.props.addInsuranceReducer.data
         const { userId } = this.props.userReducer.data.user
         const { truckId } = this.props.initParam
-        // console.log(this.props)
+         console.log(this.props)
         this.props.createInsurance({
             requiredParam: {
                 userId
@@ -62,29 +60,43 @@ class AddInsurance extends Component {
         })
     }
 
-        componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps) {
         const { createInsurance } = nextProps.addInsuranceReducer
+        const { insureId, insureType, insureNum, insureMoney, startDate, endDate } = nextProps.addInsuranceReducer.data
+        console.log(nextProps.addInsuranceReducer.data)
         /*createInsurance*/
         if (createInsurance.isExecStatus == 2) {
             if (createInsurance.isResultStatus == 0) {
+                //this.props.addInsurance
+                this.props.addInsurance({
+                    insureId,
+                    insureType,
+                    insureNum,
+                    insureMoney,
+                    startDate,
+                    endDate
+                })
+                Actions.pop()           
+                //this.props.cleanAddInsurance()
                 console.log('createInsurance', '执行成功')
             }
             else if (createInsurance.isResultStatus == 1) {
-                console.log('createInsurance', '异常')
+                console.log('createInsurance异常',createInsurance.errorMsg )
+                this.props.resetCreateInsurance()
             }
             else if (createInsurance.isResultStatus == 2) {
-                console.log('createInsurance', '执行失败')
+                console.log('createInsurance执行失败', createInsurance.failedMsg)
+                this.props.resetCreateInsurance()
             }
             else if (createInsurance.isResultStatus == 3) {
-                console.log('createInsurance', '服务器异常')
+                console.log('createInsurance服务器异常', createInsurance.serviceFailedMsg)
+                this.props.resetCreateInsurance()
             }
         }
         /************************************ */
     }
 
     render() {
-        // console.log(this.state)
-        // console.log(this.props.addInsuranceReducer)
         return (
             <View style={{ flex: 1 }}>
                 <ScrollView>
@@ -188,8 +200,6 @@ class AddInsurance extends Component {
     }
 }
 
-
-
 const mapStateToProps = (state) => {
     return {
         addInsuranceReducer: state.addInsuranceReducer,
@@ -206,7 +216,14 @@ const mapDispatchToProps = (dispatch) => ({
     },
     changeInsuranceField: (param) => {
         dispatch(changeInsuranceField(param))
+    },
+    addInsurance: (param) => {
+        dispatch(addInsurance(param))
+    },
+    cleanAddInsurance:()=>{
+        dispatch(cleanAddInsurance())
     }
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddInsurance)

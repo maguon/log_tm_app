@@ -97,4 +97,20 @@ export default handleActions({
             }
         }
     }
+    ,
+    [(actionTypes.addInsuranceTypes.CLEAN_AddInsurance)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            data: {
+
+            },
+            createInsurance: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    }
 }, initialState)

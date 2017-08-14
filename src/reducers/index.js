@@ -12,6 +12,7 @@ import addTruckFirstReducer from './AddTruckFirstReducer'
 import addTruckSecondReducer from './AddTruckSecondReducer'
 import addInsuranceReducer from './AddInsuranceReducer'
 import addTruckThirdReducer from './AddTruckThirdReducer'
+import addTruckFourthReducer from './AddTruckFourthReducer'
 
 export default combineReducers({
     homeReducer,
@@ -21,6 +22,7 @@ export default combineReducers({
     addTruckFirstReducer,
     addTruckSecondReducer,
     addTruckThirdReducer,
+    addTruckFourthReducer,
     addInsuranceReducer,
     selectMakeReducer,
     selectCompanyReducer,

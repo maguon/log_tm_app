@@ -16,7 +16,7 @@ export default handleActions({
         return {
             ...state,
             data: {
-                insuranceLsit: [...data.insuranceLsit, data]
+                insuranceLsit: [...state.data.insuranceLsit, data]
             }
         }
     },
