@@ -11,7 +11,6 @@ import ImageCropPicker from 'react-native-image-crop-picker'
 
 const window = Dimensions.get('window')
 
-
 var photoOptions = {
     //底部弹出框选项
     title: '请选择',
@@ -75,7 +74,6 @@ export default class Camera extends Component {
 
 
     openPicker() {
-
         ImageCropPicker.openPicker({
             multiple: true
         }).then(images => {

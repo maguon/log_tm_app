@@ -3,7 +3,7 @@ import {
     Text,
     View
 } from 'react-native'
-import { Button, Ion } from 'native-base'
+import { Button, Icon } from 'native-base'
 import { connect } from 'react-redux'
 
 // import {

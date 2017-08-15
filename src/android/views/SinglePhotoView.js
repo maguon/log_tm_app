@@ -9,10 +9,12 @@ import { Button, Icon } from 'native-base'
 import Swiper from 'react-native-swiper'
 import PhotoView from 'react-native-photo-view'
 import { Actions } from 'react-native-router-flux'
+import { connect } from 'react-redux'
+import { file_host } from '../../config/Host'
 
 const { width, height } = Dimensions.get('window')
 
-export default class SinglePhotoView extends Component {
+class SinglePhotoView extends Component {
     constructor(props) {
         super(props)
         this.renderPagination = this.renderPagination.bind(this)
@@ -21,7 +23,7 @@ export default class SinglePhotoView extends Component {
 
     static defaultProps = {
         initParam: {
-            onUpdateImage: (param) => { console.log(param) }
+            onUpdateImage: () => { console.log(1111) }
         }
     }
 
@@ -52,11 +54,11 @@ export default class SinglePhotoView extends Component {
     }
 
     renderPhoteView() {
-        let imageList = []
-        return imageList.map((item, i) => {
+        console.log(this.props.singlePhotoViewReducer.data.photo)
+        return this.props.singlePhotoViewReducer.data.photo.map((item, i) => {
             return <View key={i} style={{ flex: 1 }} >
                 <PhotoView
-                    source={{ uri: item }}
+                    source={{ uri: `${file_host}/image/${item}` }}
                     resizeMode='contain'
                     minimumZoomScale={1}
                     maximumZoomScale={3}
@@ -67,14 +69,13 @@ export default class SinglePhotoView extends Component {
         })
     }
 
-
     render() {
-        let index = 0
+        console.log(this.props.singlePhotoViewReducer)
         return (
             <View style={{ flex: 1, backgroundColor: '#000' }}>
                 <Swiper
                     ref='Swiper'
-                    index={index}
+                    //index={0} 
                     style={styles.wrapper}
                     renderPagination={this.renderPagination}
                     loop={false}
@@ -89,8 +90,7 @@ export default class SinglePhotoView extends Component {
                         <Text style={{ color: '#888888' }}>返回</Text>
                     </Button>
                     <Button iconLeft transparent style={{ position: 'absolute', right: 0, }}
-                        onPress={() => { }}
-                    >
+                        onPress={this.props.initParam.onUpdateImage}>
                         <Icon style={{ color: '#888888' }} name='camera' />
                         {/* <Text style={{ color: '#888888' }}>更新</Text> */}
                     </Button>
@@ -105,6 +105,18 @@ export default class SinglePhotoView extends Component {
     }
 }
 
+
+const mapStateToProps = (state) => {
+    return {
+        singlePhotoViewReducer: state.singlePhotoViewReducer
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SinglePhotoView)
 
 var styles = {
     wrapper: {
