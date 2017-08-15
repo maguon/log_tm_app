@@ -22,6 +22,29 @@ import {
 } from '../../../actions/AddTruckThirdAction'
 import { setPhoto } from '../../../actions/SinglePhotoViewAction'
 import { Actions } from 'react-native-router-flux'
+import ImageResizer from 'react-native-image-resizer'
+import ImagePicker from 'react-native-image-picker'
+import ImageCropPicker from 'react-native-image-crop-picker'
+
+
+var photoOptions = {
+    //底部弹出框选项
+    title: '请选择',
+    cancelButtonTitle: '取消',
+    takePhotoButtonTitle: '拍照',
+    chooseFromLibraryButtonTitle: null,
+    customButtons: [{ title: '选择照片（一次最多5张）', name: 'choosePhoto' }],
+    quality: 0.75,
+    allowsEditing: true,
+    noData: false,
+    maxWidth: 960,
+    maxHeight: 960,
+    storageOptions: {
+        skipBackup: true,
+        path: 'images'
+    }
+}
+
 
 class Third extends Component {
     constructor(props) {
@@ -34,6 +57,8 @@ class Third extends Component {
         this.onShowDrivingImage = this.onShowDrivingImage.bind(this)
         this.onShowLicenseImage = this.onShowLicenseImage.bind(this)
         this.onPressUpdateDrivingImage = this.onPressUpdateDrivingImage.bind(this)
+        this.launchCamera = this.launchCamera.bind(this)
+        this.openPicker = this.openPicker.bind(this)
     }
 
     static defaultProps = {
@@ -184,8 +209,66 @@ class Third extends Component {
 
     }
 
-    onPressUpdateDrivingImage() {
+    launchCamera = (onGetPhoto) => {
+        ImagePicker.showImagePicker(photoOptions, (response) => {
+            if (response.didCancel) {
+                //console.log('User cancelled video picker')
+            } else if (response.error) {
+                //console.log('ImagePicker Error: ', response.error)
+            } else if (response.customButton) {
+                if (response.customButton == 'choosePhoto') {
+                    this.openPicker(onGetPhoto)
+                }
+            } else {
+                ImageResizer.createResizedImage(response.uri, 960, 960, 'JPEG', 100)
+                    .then((resizedImageUri) => {
+                        let param = {
+                            postFileParam: {
+                                imageUrl: resizedImageUri,
+                                imageType: response.type,
+                                imageName: encodeURI(response.fileName)
+                            }
+                        }
+                        onGetPhoto(param)
+                    }).catch((err) => {
+                        // return console.log(err)
+                    })
+            }
+        })
+    }
 
+    openPicker(onGetPhoto) {
+        ImageCropPicker.openPicker({
+            multiple: true
+        }).then(images => {
+            if (images.length > 5) {
+                this.setState({ modalVisible: true })
+            }
+            else {
+                images.forEach((item) => {
+                    let pos = item.path.lastIndexOf('/')
+                    ImageResizer.createResizedImage(item.path, 960, 960, 'JPEG', 100)
+                        .then((resizedImageUri) => {
+                            let param = {
+                                postFileParam: {
+                                    imageUrl: resizedImageUri,
+                                    imageType: item.mime,
+                                    imageName: encodeURI(item.path.substring(pos + 1))
+                                }
+                            }
+                            onGetPhoto(param)
+                        }).catch((err) => {
+                            // return console.log(err)
+                        })
+                })
+            }
+        }).catch(err => {
+            // console.log('err')
+        })
+    }
+
+    onPressUpdateDrivingImage() {
+        this.launchCamera(this.updateDrivingImage)
     }
 
     //RouterDirection.singlePhotoView(this.props.parent)

@@ -18,7 +18,7 @@ export default class PanelSingleItem extends Component {
             isEdit: false
         }
         this.onPressPanel = this.onPressPanel.bind(this)
-        this.onPressEdit = this.onPressEdit.bind(this)
+        // this.onPressEdit = this.onPressEdit.bind(this)
         this.renderIsEdit = this.renderIsEdit.bind(this)
         this.renderIsCustom = this.renderIsCustom.bind(this)
     }
@@ -27,7 +27,7 @@ export default class PanelSingleItem extends Component {
         containerSytle: { marginLeft: 10, marginRight: 5, marginTop: 10 },
         width: (window.width - 30) / 2,
         title: '身份证',
-        onPressEdit: () => { },
+        onUpdateImage: () => { },
         onShowPhoto: () => { }
     }
 
@@ -38,9 +38,9 @@ export default class PanelSingleItem extends Component {
             this.setState({ isEdit: true })
     }
 
-    onPressEdit() {
-        console.log('onPressEdit')
-    }
+    // onPressEdit() {
+    //     console.log('onPressEdit')
+    // }
 
     renderIsEdit() {
         return (
@@ -50,7 +50,7 @@ export default class PanelSingleItem extends Component {
                     <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', width: this.props.width, position: 'absolute', bottom: 0 }}>
                         <Text style={{ textAlign: 'center', fontSize: 10, paddingVertical: 4, color: '#fff' }}>{this.props.title}</Text>
                     </View>
-                    <TouchableHighlight underlayColor='rgba(0,0,0,0)' onPress={this.onPressEdit} style={{ position: 'absolute', top: 0, right: 0 }}>
+                    <TouchableHighlight underlayColor='rgba(0,0,0,0)' onPress={this.props.onUpdateImage} style={{ position: 'absolute', top: 0, right: 0 }}>
                         <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', width: 30, height: 30, justifyContent: 'center', alignItems: 'center' }}>
                             <Icon name='camera' style={{ color: '#fff', fontSize: 20 }} />
                         </View>
