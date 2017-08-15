@@ -69,7 +69,6 @@ class Fourth extends Component {
             </View>
         )
 
-        // let saveBtn=( )
         return [...insuranceList, addInsuranceBtn]
     }
 
@@ -89,15 +88,14 @@ class Fourth extends Component {
                     <FlatList showsVerticalScrollIndicator={false}
                         data={this.renderInsuranceList()}
                         renderItem={({ item }) => item}
-                       // getItemLayout={(data, index) => {console.log(data);console.log(index) }}
                         ListFooterComponent={<View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
-                    <Button
-                        full
-                        onPress={() => { }}
-                        style={{ backgroundColor: '#00cade' }}>
-                        <Text style={{ color: '#fff' }}>完成</Text>
-                    </Button>
-                </View>}
+                            <Button
+                                full
+                                onPress={() => { }}
+                                style={{ backgroundColor: '#00cade' }}>
+                                <Text style={{ color: '#fff' }}>完成</Text>
+                            </Button>
+                        </View>}
                     />
                 </View>
                 {/* <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
