@@ -2,13 +2,15 @@ import React, { Component } from 'react'
 import {
     Text,
     View,
-    FlatList
+    FlatList,
+    TouchableNativeFeedback
 } from 'react-native'
 import { Button, Icon } from 'native-base'
 import StepIndicator from '../../components/StepIndicator'
 import PanelSingleItem from '../../components/camera/PanelSingleItem'
 import PanelCustomItem from '../../components/camera/PanelCustomItem'
 import { connect } from 'react-redux'
+import * as RouterDirection from '../../../util/RouterDirection'
 import Camera from '../../components/camera/Camera'
 import {
     updateDrivingImage,
@@ -27,7 +29,9 @@ class Third extends Component {
         this.updateLicenseImage = this.updateLicenseImage.bind(this)
         this.renderImageList = this.renderImageList.bind(this)
         this.createTruckImage = this.createTruckImage.bind(this)
-        this.onPressNextStep=this.onPressNextStep.bind(this)
+        this.onPressNextStep = this.onPressNextStep.bind(this)
+        this.onShowDrivingImage=this.onShowDrivingImage.bind(this)
+        this.onShowLicenseImage=this.onShowLicenseImage.bind(this)
     }
 
     static defaultProps = {
@@ -168,13 +172,22 @@ class Third extends Component {
         Actions.addTruckFourth({ initParam: this.props.initParam })
     }
 
+    onShowDrivingImage(){
+        RouterDirection.singlePhotoView(this.props.parent)()
+    }
+
+    onShowLicenseImage(){
+        RouterDirection.singlePhotoView(this.props.parent)()
+        
+    }
+    //RouterDirection.singlePhotoView(this.props.parent)
     renderImageList() {
         let truckImageList = [...this.props.addTruckThirdReducer.data.truckImageList]
         console.log(truckImageList)
         const imageListHead = <View key={'w'} style={{ flexDirection: 'row' }}>
             {!this.props.addTruckThirdReducer.data.drivingImage ?
                 <Camera title='上传行驶证照片' onGetPhoto={this.updateDrivingImage} /> :
-                <PanelSingleItem title='行驶证' imageUrl={this.props.addTruckThirdReducer.data.drivingImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
+                <PanelSingleItem onShowPhoto={this.onShowDrivingImage} title='行驶证' imageUrl={this.props.addTruckThirdReducer.data.drivingImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
             {!this.props.addTruckThirdReducer.data.licenseImage ?
                 <Camera title='上传营运证照片' onGetPhoto={this.updateLicenseImage} /> :
                 <PanelSingleItem title='营运证' imageUrl={this.props.addTruckThirdReducer.data.licenseImage} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}

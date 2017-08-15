@@ -39,8 +39,9 @@ import SelectTruck from './views/select/Truck'
 import SelectDriver from './views/select/Driver'
 import SelectInsurance from './views/select/Insurance'
 import SelectInsuranceType from './views/select/InsuranceType'
+  
 
-
+import SinglePhotoView from './views/SinglePhotoView'
 
 // import Orientation from 'react-native-orientation'
 // import * as sceneAction from '../actions/SceneAction'
@@ -151,9 +152,9 @@ export default class App extends Component {
                                 <Scene key="truck"   rightType={1} onPressRight={() => Actions.addTruckFirst()} component={Truck} title='车辆信息' hideNavBar={false} navBar={TopBar} />
                                 <Scene key="truckInfoAtTruckBlock" rightType={1} component={TruckInfo} title='车辆信息' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="truckListAtTruckBlock" component={TruckList} title='车辆信息' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="addTruckFirst" initial={true} component={AddTruckFirst} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="addTruckFirst"  component={AddTruckFirst} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="addTruckSecond" component={AddTruckSecond} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="addTruckThird" component={AddTruckThird} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="addTruckThird" initial={true} component={AddTruckThird} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="addTruckFourth"  component={AddTruckFourth} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="addInsurance" component={AddInsurance} title='新增保单' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectMakeAtTruckBlock" component={Make} title='选择品牌' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
@@ -164,6 +165,8 @@ export default class App extends Component {
                                 <Scene key="selectInsuranceAtTruckBlock" component={SelectInsurance} title='选择保险公司' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectInsuranceTypeAtTruckBlock" component={SelectInsuranceType} title='选择保险险种' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="richTextAtTruckBlock" component={RichText} title='备注' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="singlePhotoViewAtTruckBlock" component={SinglePhotoView} hideNavBar hideTabBar/>
+                                
                             </Scene>
                             <Scene key="driverBlock" icon={TabIcon} online='ios-pin' outline='ios-pin-outline'>
                                 <Scene key="driver" initial={true} rightType={1} onPressRight={() => Actions.addDriverFirst()} component={Driver} title='司机信息' hideNavBar={false} navBar={TopBar} />

@@ -4,7 +4,7 @@ import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
     data: {
-        photo: ''
+        photo: []
     }
 }
 
@@ -13,7 +13,7 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             data: {
-                photo: data
+                photo: [data]
             }
         }
     }

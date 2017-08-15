@@ -4,10 +4,13 @@ import {
     View
 } from 'react-native'
 import { Button, Ion } from 'native-base'
+import { connect } from 'react-redux'
 
+// import {
 
+// } from '../../actions/CustomPhotoViewAction'
 
-export default class PhotoPageView extends Component {
+class CustomPhotoView extends Component {
     constructor(props) {
         super(props)
     }
@@ -21,8 +24,22 @@ export default class PhotoPageView extends Component {
     render() {
         return (
             <View>
-                <Text>PhotoPageView</Text>
+                <Text>CustomPhotoView</Text>
             </View>
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        customPhotoViewReducer: state.customPhotoViewReducer,
+        userReducer: state.userReducer
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+
+
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomPhotoView)

@@ -27,7 +27,8 @@ export default class PanelSingleItem extends Component {
         containerSytle: { marginLeft: 10, marginRight: 5, marginTop: 10 },
         width: (window.width - 30) / 2,
         title: '身份证',
-        onPhotograph: () => { },
+        onPressEdit: () => { },
+        onShowPhoto: () => { }
     }
 
     onPressPanel() {
@@ -43,7 +44,7 @@ export default class PanelSingleItem extends Component {
 
     renderIsEdit() {
         return (
-            <TouchableHighlight underlayColor='rgba(0,0,0,0)' onPress={this.onPressPanel}>
+            <TouchableHighlight underlayColor='rgba(0,0,0,0)' onPress={this.props.onShowPhoto} onLongPress={this.onPressPanel} >
                 <View style={{ width: this.props.width, height: this.props.width / 16 * 9, ...this.props.containerSytle }}>
                     <Image source={{ uri: `${file_host}/image/${this.props.imageUrl}` }} style={{ width: this.props.width, height: this.props.width / 16 * 9, borderColor: '#e4e4e4', borderWidth: 1 }} />
                     <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', width: this.props.width, position: 'absolute', bottom: 0 }}>
@@ -61,7 +62,7 @@ export default class PanelSingleItem extends Component {
 
     renderIsCustom() {
         return (
-            <TouchableHighlight underlayColor='rgba(0,0,0,0)' onPress={this.onPressPanel}>
+            <TouchableHighlight underlayColor='rgba(0,0,0,0)' onPress={this.props.onShowPhoto} onLongPress={this.onPressPanel}>
                 <View style={{ width: this.props.width, height: this.props.width / 16 * 9, ...this.props.containerSytle }}>
                     <Image source={{ uri: `${file_host}/image/${this.props.imageUrl}` }} style={{ width: this.props.width, height: this.props.width / 16 * 9, borderColor: '#e4e4e4', borderWidth: 1 }} />
                 </View>

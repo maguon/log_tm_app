@@ -66,3 +66,8 @@ export const selectInsuranceType = (parent) => {
     if (parent === 'homeBlock') return Actions.selectInsuranceTypeAtHomeBlock
     if (parent === 'truckBlock') return Actions.selectInsuranceTypeAtTruckBlock
 }
+
+
+export const singlePhotoView = (parent) => {
+    if (parent === 'truckBlock') return Actions.singlePhotoViewAtTruckBlock
+}
