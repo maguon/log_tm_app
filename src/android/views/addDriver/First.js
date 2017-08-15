@@ -48,14 +48,14 @@ export default class First extends Component {
                         <Select
                             title='所属公司：'
                             //value={this.state.queryCar.routeStart}
-                            showList={RouterDirection.selectDriverCompany(this.props.parent)}
+                            showList={RouterDirection.selectCompany(this.props.parent)}
                             onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
                             defaultValue={'请选择'}
                         />
                         <Select
                             title='关联货车：'
                             //value={this.state.queryCar.routeStart}
-                            showList={RouterDirection.selectTractor(this.props.parent)}
+                            showList={RouterDirection.selectTruck(this.props.parent)}
                             onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
                             defaultValue={'请选择'}
                         />

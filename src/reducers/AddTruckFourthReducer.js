@@ -4,11 +4,13 @@ import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
     data: {
-        insuranceLsit: [{ insureTypeName: '商业险', insureNum: '111223344', insure: '中国人保', createDate: '2017-8-18', startDate: '2018-8-18', endDate: '2018-8-18', insureMoney: '2222' },
-        // { insureTypeName: '商业险', insureNum: '111223344', insure: '中国人保', createDate: '2017-8-18', startDate: '2018-8-18', endDate: '2018-8-18', insureMoney: '2222' },
-        // { insureTypeName: '商业险', insureNum: '111223344', insure: '中国人保', createDate: '2017-8-18', startDate: '2018-8-18', endDate: '2018-8-18', insureMoney: '2222' },
-        // { insureTypeName: '商业险', insureNum: '111223344', insure: '中国人保', createDate: '2017-8-18', startDate: '2018-8-18', endDate: '2018-8-18', insureMoney: '2222' },
-        { insureTypeName: '商业险', insureNum: '111223344', insure: '中国人保', createDate: '2017-8-18', startDate: '2018-8-18', endDate: '2018-8-18', insureMoney: '2222' }]
+        insuranceLsit: [
+            // { insureTypeName: '商业险', insureNum: '111223344', insure: '中国人保', createDate: '2017-8-18', startDate: '2018-8-18', endDate: '2018-8-18', insureMoney: '2222' },
+            // { insureTypeName: '商业险', insureNum: '111223344', insure: '中国人保', createDate: '2017-8-18', startDate: '2018-8-18', endDate: '2018-8-18', insureMoney: '2222' },
+            // { insureTypeName: '商业险', insureNum: '111223344', insure: '中国人保', createDate: '2017-8-18', startDate: '2018-8-18', endDate: '2018-8-18', insureMoney: '2222' },
+            // { insureTypeName: '商业险', insureNum: '111223344', insure: '中国人保', createDate: '2017-8-18', startDate: '2018-8-18', endDate: '2018-8-18', insureMoney: '2222' },
+            // { insureTypeName: '商业险', insureNum: '111223344', insure: '中国人保', createDate: '2017-8-18', startDate: '2018-8-18', endDate: '2018-8-18', insureMoney: '2222' }
+        ]
     }
 }
 

@@ -32,6 +32,7 @@ export const selectMake = (parent) => {
 export const selectCompany = (parent) => {
     if (parent === 'homeBlock') return Actions.selectCompanyAtHomeBlock
     if (parent === 'truckBlock') return Actions.selectCompanyAtTruckBlock
+    if (parent === 'driverBlock') return Actions.selectCompanyAtDriverBlock
 }
 
 export const selectDrivingLicenseType = (parent) => {

@@ -11,6 +11,8 @@ import * as selectTruckTypes from './SelectTruckTypes'
 import * as selectDriverTypes from './SelectDriverTypes' 
 import * as selectInsuranceTypes from './SelectInsuranceTypes' 
 import * as addTruckFourthTypes from './AddTruckFourthTypes' 
+import * as customPhotoViewTypes from './CustomPhotoViewTypes' 
+import * as singlePhotoViewTypes from './SinglePhotoViewTypes' 
 
 export {
     homeTypes,
@@ -25,6 +27,8 @@ export {
     selectTruckTypes,
     selectDriverTypes,
     selectInsuranceTypes,
-    addTruckFourthTypes
+    addTruckFourthTypes,
+    customPhotoViewTypes,
+    singlePhotoViewTypes
 }
 

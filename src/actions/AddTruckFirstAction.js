@@ -45,3 +45,8 @@ export const resetCreateTruckTrailer = () => (dispatch) => {
 export const changeTruckFirstField = (param) => (dispatch) => {
     dispatch({ type: actionTypes.addTruckFirstTypes.CHANGE_TruckFirst_FIELD, payload: { data: param } })
 }
+
+
+export const changeTruckTrailerField = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.addTruckFirstTypes.CHANGE_TruckTrailer_FIELD, payload: { data: param } })
+}

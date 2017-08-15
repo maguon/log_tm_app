@@ -148,13 +148,13 @@ export default class App extends Component {
                                 <Scene key="selectInsuranceTypeAtHomeBlock"  initial={true} component={SelectInsuranceType} title='选择保险险种' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                             </Scene>
                             <Scene key="truckBlock" initial={true} icon={TabIcon} online='ios-car' outline='ios-car-outline' >
-                                <Scene key="truck"  rightType={1} onPressRight={() => Actions.addTruckFirst()} component={Truck} title='车辆信息' hideNavBar={false} navBar={TopBar} />
+                                <Scene key="truck"   rightType={1} onPressRight={() => Actions.addTruckFirst()} component={Truck} title='车辆信息' hideNavBar={false} navBar={TopBar} />
                                 <Scene key="truckInfoAtTruckBlock" rightType={1} component={TruckInfo} title='车辆信息' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="truckListAtTruckBlock" component={TruckList} title='车辆信息' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="addTruckFirst" component={AddTruckFirst} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="addTruckFirst" initial={true} component={AddTruckFirst} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="addTruckSecond" component={AddTruckSecond} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="addTruckThird" component={AddTruckThird} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="addTruckFourth"  initial={true} component={AddTruckFourth} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="addTruckFourth"  component={AddTruckFourth} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="addInsurance" component={AddInsurance} title='新增保单' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectMakeAtTruckBlock" component={Make} title='选择品牌' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectCompanyTypeAtTruckBlock" component={CompanyType} title='公司类型' hideNavBar={false} navBar={NavBar} hideTabBar={true} />

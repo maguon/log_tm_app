@@ -1,0 +1,2 @@
+export const INIT_PHOTOLIST = 'INIT_PHOTOLIST'
+export const DEL_PHOTO = 'DEL_PHOTO'

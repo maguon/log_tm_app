@@ -4,8 +4,12 @@ import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
     data: {
-        truckFirst: {},
-        truckTrailer: {},
+        truckFirst: {
+            truckNum:'辽B'
+        },
+        truckTrailer: {
+            truckNum:'辽B'
+        },
         truckFirstId: 0,
         truckTrailerId: 0
     },
@@ -34,7 +38,7 @@ export default handleActions({
             ...state,
             data: {
                 ...state.data,
-                truckFirstId: data
+                truckTrailerId: data
             },
             createTruckFirst: {
                 ...state.createTruckFirst,
@@ -120,10 +124,10 @@ export default handleActions({
             ...state,
             data: {
                 ...state.data,
-                truckInfo: data[0]
+                truckFirstId: data
             },
-            truckInfo: {
-                ...state.truckInfo,
+            createTruckTrailer: {
+                ...state.createTruckTrailer,
                 isResultStatus: 0,
                 isExecStatus: 2
             }
@@ -133,8 +137,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            truckInfo: {
-                ...state.truckInfo,
+            createTruckTrailer: {
+                ...state.createTruckTrailer,
                 isResultStatus: 2,
                 failedMsg: data,
                 isExecStatus: 2
@@ -145,8 +149,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            truckInfo: {
-                ...state.truckInfo,
+            createTruckTrailer: {
+                ...state.createTruckTrailer,
                 isResultStatus: 3,
                 serviceFailedMsg: data,
                 isExecStatus: 2
@@ -157,8 +161,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            truckInfo: {
-                ...state.truckInfo,
+            createTruckTrailer: {
+                ...state.createTruckTrailer,
                 isResultStatus: 1,
                 errorMsg: data,
                 isExecStatus: 2
@@ -168,8 +172,8 @@ export default handleActions({
     [(actionTypes.addTruckFirstTypes.CREATE_TruckTrailer_WAITING)]: (state, action) => {
         return {
             ...state,
-            truckInfo: {
-                ...state.truckInfo,
+            createTruckTrailer: {
+                ...state.createTruckTrailer,
                 isExecStatus: 1
             }
         }
@@ -177,7 +181,7 @@ export default handleActions({
     [(actionTypes.addTruckFirstTypes.RESET_CREATE_TruckTrailer)]: (state, action) => {
         return {
             ...state,
-            truckInfo: {
+            createTruckTrailer: {
                 isResultStatus: 0,
                 isExecStatus: 0,
                 errorMsg: '',
@@ -186,4 +190,18 @@ export default handleActions({
             }
         }
     },
+    [(actionTypes.addTruckFirstTypes.CHANGE_TruckTrailer_FIELD)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                truckTrailer: {
+                    ...state.data.truckTrailer,
+                    ...data
+                }
+            }
+        }
+    }
+
 }, initialState)

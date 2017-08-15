@@ -20,6 +20,7 @@ import {
     createTruckFirst,
     createTruckTrailer,
     changeTruckFirstField,
+    changeTruckTrailerField,
     resetCreateTruckFirst,
     resetCreateTruckTrailer
 } from '../../../actions/AddTruckFirstAction'
@@ -28,13 +29,31 @@ class First extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            truckNumValidater: false,
-            companyIdValidater: false,
-            brandIdValidater: false,
-            drivingDateValidater: false,
-            licenseDateValidater: false,
-            truckTelValidater: false,
-            theCodeValidater: false,
+            truckNumFirstValidater: false,
+            companyIdFirstValidater: false,
+            brandIdFirstValidater: false,
+            drivingDateFirstValidater: false,
+            licenseDateFirstValidater: false,
+            truckTelFirstValidater: false,
+            theCodeFirstValidater: false,
+
+
+            truckNumTrailerValidater: false,
+            companyIdTrailerValidater: false,
+            numberTrailerValidater: false,
+            drivingDateTrailerValidater: false,
+            licenseDateTrailerValidater: false,
+            theCodeTrailerValidater: false,
+
+            //               "truckNum": "辽B11222",
+            //   "brandId": 22,
+            //   "companyId": 40,
+            //   "truckType": 2,
+            //   "number": 14,
+            //   "drivingDate": "2017-08-15",
+            //   "licenseDate": "2017-08-15",
+            //   "theCode":"1233344",
+            //   "remark": "1111"
             active: 1
         }
         this.onSelect = this.onSelect.bind(this)
@@ -57,12 +76,14 @@ class First extends Component {
 
     componentWillReceiveProps(nextProps) {
         const { createTruckFirst, data } = nextProps.addTruckFirstReducer
+        console.log(data)
         /*createTruckFirst*/
         if (createTruckFirst.isExecStatus == 2) {
             if (createTruckFirst.isResultStatus == 0) {
                 ToastAndroid.show('创建成功', ToastAndroid.SHORT)
                 this.props.resetCreateTruckFirst()
-                Actions.addTruckSecond({ initParam: { truckId: data.truckFirstId, type: this.state.active } })
+
+                Actions.addTruckSecond({ initParam: { truckId: data.truckFirstId, type: this.state.active, truckCode: data.truckFirst.truckNum } })
                 console.log('createTruckFirst', '执行成功')
             }
             else if (createTruckFirst.isResultStatus == 1) {
@@ -82,22 +103,64 @@ class First extends Component {
             }
         }
         /************************************ */
+
+
+        /*createTruckTrailer*/
+        if (createTruckTrailer.isExecStatus == 2) {
+            if (createTruckTrailer.isResultStatus == 0) {
+                ToastAndroid.show('创建成功', ToastAndroid.SHORT)
+                this.props.resetCreateTruckTrailer()
+
+                Actions.addTruckSecond({ initParam: { truckId: data.truckTrailerId, type: this.state.active, truckCode: data.truckTrailer.truckNum } })
+                console.log('createTruckTrailer', '执行成功')
+            }
+            else if (createTruckTrailer.isResultStatus == 1) {
+                ToastAndroid.show(createTruckFirst.errorMsg, ToastAndroid.SHORT)
+                this.props.resetCreateTruckTrailer()
+                console.log('createTruckTrailer', '异常')
+            }
+            else if (createTruckTrailer.isResultStatus == 2) {
+                ToastAndroid.show(createTruckFirst.failedMsg, ToastAndroid.SHORT)
+                this.props.resetCreateTruckTrailer()
+                console.log('createTruckTrailer', '执行失败')
+            }
+            else if (createTruckTrailer.isResultStatus == 3) {
+                ToastAndroid.show(createTruckFirst.serviceFailedMsg, ToastAndroid.SHORT)
+                this.props.resetCreateTruckTrailer()
+                console.log('createTruckTrailer', '服务器异常')
+            }
+        }
+        /************************************ */
     }
 
     onPressNextStep() {
-        this.props.createTruckFirst({
-            requiredParam:
-            {
-                userId: this.props.userReducer.data.user.userId
-            },
-            postParam: {
-                ...this.props.addTruckFirstReducer.data.truckFirst,
-                truckType: 1
-            }
-        })
+        if (this.state.active == 1) {
+            this.props.createTruckFirst({
+                requiredParam:
+                {
+                    userId: this.props.userReducer.data.user.userId
+                },
+                postParam: {
+                    ...this.props.addTruckFirstReducer.data.truckFirst,
+                    truckType: 1
+                }
+            })
+        } else if (this.state.active == 2) {
+            this.props.createTruckTrailer({
+                requiredParam:
+                {
+                    userId: this.props.userReducer.data.user.userId
+                },
+                postParam: {
+                    ...this.props.addTruckFirstReducer.data.truckTrailer,
+                    truckType: 2
+                }
+            })
+        }
     }
 
     renderCreateTruckFist() {
+        console.log(this.state)
         return <ScrollView showsVerticalScrollIndicator={false} style={{ borderTopWidth: 1, borderColor: '#00cade' }}>
             <View>
                 <TextBox
@@ -109,7 +172,7 @@ class First extends Component {
                         message: '不是车牌号'
                     }]}
                     onValueChange={(param) => this.props.changeTruckFirstField({ truckNum: param })}
-                    onRequire={(flag) => this.setState({ truckNumValidater: flag })}
+                    onRequire={(flag) => this.setState({ truckNumFirstValidater: flag })}
                     placeholder='请输入车牌号码'
                 />
                 <Select
@@ -117,8 +180,8 @@ class First extends Component {
                     isRequire={true}
                     value={this.props.addTruckFirstReducer.data.truckFirst.companyName ? this.props.addTruckFirstReducer.data.truckFirst.companyName : ''}
                     showList={(param) => RouterDirection.selectCompanyType(this.props.parent)({ router: RouterDirection.selectCompany(this.props.parent), ...param })}
-                    onValueChange={(param) => this.onSelect({ companyId: param.id, companyName: param.value })}
-                    onRequire={(flag) => this.setState({ companyIdValidater: flag })}
+                    onValueChange={(param) => this.props.changeTruckFirstField({ companyId: param.id, companyName: param.value })}
+                    onRequire={(flag) => this.setState({ companyIdFirstValidater: flag })}
                     defaultValue={'请选择'}
                 />
                 <Select
@@ -126,8 +189,8 @@ class First extends Component {
                     isRequire={true}
                     value={this.props.addTruckFirstReducer.data.truckFirst.brandName ? this.props.addTruckFirstReducer.data.truckFirst.brandName : ''}
                     showList={RouterDirection.selectMake(this.props.parent)}
-                    onValueChange={(param) => this.onSelect({ brandId: param.id, brandName: param.value })}
-                    onRequire={(flag) => this.setState({ brandIdValidater: flag })}
+                    onValueChange={(param) => this.props.changeTruckFirstField({ brandId: param.id, brandName: param.value })}
+                    onRequire={(flag) => this.setState({ brandIdFirstValidater: flag })}
                     defaultValue={'请选择'}
                 />
                 <TextBox
@@ -138,8 +201,8 @@ class First extends Component {
                         type: 'isPhone',
                         message: '不是手机号码'
                     }]}
-                    onValueChange={(value) => this.onSelect({ truckTel: value })}
-                    onRequire={(flag) => this.setState({ truckTelValidater: flag })}
+                    onValueChange={(value) => this.props.changeTruckFirstField({ truckTel: value })}
+                    onRequire={(flag) => this.setState({ truckTelFirstValidater: flag })}
                     placeholder='请输入联系电话'
                 />
                 <TextBox
@@ -151,8 +214,8 @@ class First extends Component {
                         arguments: [0, 20],
                         message: '长度不能超过20位'
                     }]}
-                    onValueChange={(value) => this.onSelect({ theCode: value })}
-                    onRequire={(flag) => this.setState({ theCodeValidater: flag })}
+                    onValueChange={(value) => this.props.changeTruckFirstField({ theCode: value })}
+                    onRequire={(flag) => this.setState({ theCodeFirstValidater: flag })}
                     placeholder='请输入识别代码'
                 />
                 <DateTimePicker
@@ -160,16 +223,16 @@ class First extends Component {
                     value={this.props.addTruckFirstReducer.data.truckFirst.drivingDate ? this.props.addTruckFirstReducer.data.truckFirst.drivingDate : ''}
                     title='行驶证检证日期：'
                     defaultValue={'请选择'}
-                    onRequire={(flag) => this.setState({ drivingDateValidater: flag })}
-                    onValueChange={(param) => this.onSelect({ drivingDate: param })}
+                    onRequire={(flag) => this.setState({ drivingDateFirstValidater: flag })}
+                    onValueChange={(param) => this.props.changeTruckFirstField({ drivingDate: param })}
                 />
                 <DateTimePicker
                     isRequire={true}
                     value={this.props.addTruckFirstReducer.data.truckFirst.licenseDate ? this.props.addTruckFirstReducer.data.truckFirst.licenseDate : ''}
                     title='营运证鉴证时间：'
                     defaultValue={'请选择'}
-                    onRequire={(flag) => this.setState({ licenseDateValidater: flag })}
-                    onValueChange={(param) => this.onSelect({ licenseDate: param })}
+                    onRequire={(flag) => this.setState({ licenseDateFirstValidater: flag })}
+                    onValueChange={(param) => this.props.changeTruckFirstField({ licenseDate: param })}
                 />
                 <RichTextBox
                     isRequire={false}
@@ -181,7 +244,7 @@ class First extends Component {
                     }]}
                     value={this.props.addTruckFirstReducer.data.truckFirst.remark ? this.props.addTruckFirstReducer.data.truckFirst.remark : ''}
                     defaultValue={'请填写'}
-                    onValueChange={(param) => this.onSelect({ remark: param })}
+                    onValueChange={(param) => this.props.changeTruckFirstField({ remark: param })}
                     showRichText={RouterDirection.richText(this.props.parent)}
                 />
                 <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
@@ -189,23 +252,23 @@ class First extends Component {
                         full
                         onPress={this.onPressNextStep}
                         disabled={!(
-                            this.state.companyIdValidater &&
-                            this.state.brandIdValidater &&
-                            this.state.drivingDateValidater &&
-                            this.state.licenseDateValidater &&
-                            this.state.truckNumValidater &&
-                            this.state.theCodeValidater &&
-                            this.state.truckTelValidater
+                            this.state.companyIdFirstValidater &&
+                            this.state.brandIdFirstValidater &&
+                            this.state.drivingDateFirstValidater &&
+                            this.state.licenseDateFirstValidater &&
+                            this.state.truckNumFirstValidater &&
+                            this.state.theCodeFirstValidater &&
+                            this.state.truckTelFirstValidater
                         )}
                         style={{
                             backgroundColor: (
-                                this.state.companyIdValidater &&
-                                this.state.brandIdValidater &&
-                                this.state.drivingDateValidater &&
-                                this.state.licenseDateValidater &&
-                                this.state.truckNumValidater &&
-                                this.state.theCodeValidater &&
-                                this.state.truckTelValidater
+                                this.state.companyIdFirstValidater &&
+                                this.state.brandIdFirstValidater &&
+                                this.state.drivingDateFirstValidater &&
+                                this.state.licenseDateFirstValidater &&
+                                this.state.truckNumFirstValidater &&
+                                this.state.theCodeFirstValidater &&
+                                this.state.truckTelFirstValidater
                             ) ? '#00cade' : '#888888'
                         }}>
                         <Text style={{ color: '#fff' }}>下一步</Text>
@@ -216,9 +279,110 @@ class First extends Component {
     }
 
     renderCreateTruckTrailer() {
-        return <View style={{ borderTopWidth: 1, borderColor: '#00cade' }}>
-
-        </View>
+        return <ScrollView showsVerticalScrollIndicator={false} style={{ borderTopWidth: 1, borderColor: '#00cade' }}>
+            <View style={{ borderTopWidth: 1, borderColor: '#00cade' }}>
+                <TextBox
+                    isRequire={true}
+                    title='车牌号码：'
+                    value={this.props.addTruckFirstReducer.data.truckTrailer.truckNum ? this.props.addTruckFirstReducer.data.truckTrailer.truckNum : ''}
+                    verifications={[{
+                        type: 'isVehicleNumber',
+                        message: '不是车牌号'
+                    }]}
+                    onValueChange={(param) => this.props.changeTruckTrailerField({ truckNum: param })}
+                    onRequire={(flag) => this.setState({ truckNumTrailerValidater: flag })}
+                    placeholder='请输入车牌号码'
+                />
+                <TextBox
+                    isRequire={true}
+                    title='挂车货位：'
+                    value={this.props.addTruckFirstReducer.data.truckTrailer.number ? this.props.addTruckFirstReducer.data.truckTrailer.number : ''}
+                     /* verifications={[{
+                        type: 'isVehicleNumber',
+                        message: '不是车牌号'
+                    }]}  */
+                    onValueChange={(param) => this.props.changeTruckTrailerField({ number: param })}
+                    onRequire={(flag) => this.setState({ numberTrailerValidater: flag })}
+                    placeholder='请输入车牌号码'
+                />
+                <TextBox
+                    title='识别代码：'
+                    isRequire={false}
+                    value={this.props.addTruckFirstReducer.data.truckTrailer.theCode ? this.props.addTruckFirstReducer.data.truckTrailer.theCode : ''}
+                    verifications={[{
+                        type: 'isLength',
+                        arguments: [0, 20],
+                        message: '长度不能超过20位'
+                    }]}
+                    onValueChange={(value) => this.props.changeTruckTrailerField({ theCode: value })}
+                    onRequire={(flag) => this.setState({ theCodeTrailerValidater: flag })}
+                    placeholder='请输入识别代码'
+                />
+                <Select
+                    title='所属公司：'
+                    isRequire={true}
+                    value={this.props.addTruckFirstReducer.data.truckTrailer.companyName ? this.props.addTruckFirstReducer.data.truckTrailer.companyName : ''}
+                    showList={(param) => RouterDirection.selectCompanyType(this.props.parent)({ router: RouterDirection.selectCompany(this.props.parent), ...param })}
+                    onValueChange={(param) => this.props.changeTruckTrailerField({ companyId: param.id, companyName: param.value })}
+                    onRequire={(flag) => this.setState({ companyIdTrailerValidater: flag })}
+                    defaultValue={'请选择'}
+                />
+                <DateTimePicker
+                    isRequire={true}
+                    value={this.props.addTruckFirstReducer.data.truckTrailer.drivingDate ? this.props.addTruckFirstReducer.data.truckTrailer.drivingDate : ''}
+                    title='行驶证检证日期：'
+                    defaultValue={'请选择'}
+                    onRequire={(flag) => this.setState({ drivingDateTrailerValidater: flag })}
+                    onValueChange={(param) => this.props.changeTruckTrailerField({ drivingDate: param })}
+                />
+                <DateTimePicker
+                    isRequire={true}
+                    value={this.props.addTruckFirstReducer.data.truckTrailer.licenseDate ? this.props.addTruckFirstReducer.data.truckTrailer.licenseDate : ''}
+                    title='营运证鉴证时间：'
+                    defaultValue={'请选择'}
+                    onRequire={(flag) => this.setState({ licenseDateTrailerValidater: flag })}
+                    onValueChange={(param) => this.props.changeTruckTrailerField({ licenseDate: param })}
+                />
+                <RichTextBox
+                    isRequire={false}
+                    title='备注：'
+                    verifications={[{
+                        type: 'isLength',
+                        arguments: [0, 200],
+                        message: '长度0-200位'
+                    }]}
+                    value={this.props.addTruckFirstReducer.data.truckTrailer.remark ? this.props.addTruckFirstReducer.data.truckTrailer.remark : ''}
+                    defaultValue={'请填写'}
+                    onValueChange={(param) => this.props.changeTruckTrailerField({ remark: param })}
+                    showRichText={RouterDirection.richText(this.props.parent)}
+                />
+                <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
+                    <Button
+                        full
+                        onPress={this.onPressNextStep}
+                        disabled={!(
+                            this.state.truckNumTrailerValidater &&
+                            this.state.companyIdTrailerValidater &&
+                            this.state.drivingDateTrailerValidater &&
+                            this.state.licenseDateTrailerValidater &&
+                            this.state.theCodeTrailerValidater &&
+                            this.state.numberTrailerValidater
+                        )}
+                        style={{
+                            backgroundColor: (
+                                this.state.truckNumTrailerValidater &&
+                                this.state.companyIdTrailerValidater &&
+                                this.state.drivingDateTrailerValidater &&
+                                this.state.licenseDateTrailerValidater &&
+                                this.state.theCodeTrailerValidater &&
+                                this.state.numberTrailerValidater
+                            ) ? '#00cade' : '#888888'
+                        }}>
+                        <Text style={{ color: '#fff' }}>下一步</Text>
+                    </Button>
+                </View>
+            </View>
+        </ScrollView>
     }
 
     render() {
@@ -261,6 +425,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     changeTruckFirstField: (param) => {
         dispatch(changeTruckFirstField(param))
+    },
+    changeTruckTrailerField: (param) => {
+        dispatch(changeTruckTrailerField(param))
     },
     resetCreateTruckTrailer: () => {
         dispatch(resetCreateTruckTrailer())
