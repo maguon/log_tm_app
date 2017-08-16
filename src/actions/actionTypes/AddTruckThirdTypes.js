@@ -19,4 +19,11 @@ export const CREATE_TruckThirdTruckImage_SERVICEERROR = 'CREATE_TruckThirdTruckI
 export const CREATE_TruckThirdTruckImage_ERROR = 'CREATE_TruckThirdTruckImage_ERROR'
 export const RESET_CREATE_TruckThirdTruckImage = 'RESET_CREATE_TruckThirdTruckImage'
 
+export const DEL_TruckThirdTruckImage_SUCCESS = 'DEL_TruckThirdTruckImage_SUCCESS'
+export const DEL_TruckThirdTruckImage_FAILED = 'DEL_TruckThirdTruckImage_FAILED'
+export const DEL_TruckThirdTruckImage_WAITING = 'DEL_TruckThirdTruckImage_WAITING'
+export const DEL_TruckThirdTruckImage_SERVICEERROR = 'DEL_TruckThirdTruckImage_SERVICEERROR'
+export const DEL_TruckThirdTruckImage_ERROR = 'DEL_TruckThirdTruckImage_ERROR'
+export const RESET_DEL_TruckThirdTruckImage = 'RESET_DEL_TruckThirdTruckImage'
+
 export const CLEAN_AddTruckThirdReducer = 'CLEAN_AddTruckThirdReducer'

@@ -43,17 +43,17 @@ function put(url, params) {
 }
 
 function del(url, callback) {
-    fetch(url, {
+   return fetch(url, {
         method: 'DELETE',
         headers: requestHeaders.headers,
         //body: JSON.stringify(params)
     }).then((response) => response.json())
-        .then((responseJson) => {
-            callback(null, responseJson)
-        })
-        .catch((error) => {
-            callback(error, null);
-        });
+        // .then((responseJson) => {
+        //     callback(null, responseJson)
+        // })
+        // .catch((error) => {
+        //     callback(error, null);
+        // });
 }
 
 

@@ -3,7 +3,8 @@ import {
     Text,
     View,
     Dimensions,
-    Image
+    Image,
+    TouchableHighlight
 } from 'react-native'
 import { Button, Icon } from 'native-base'
 import { file_host } from '../../../config/Host'
@@ -21,9 +22,11 @@ export default class PanelCustomItem extends Component {
 
     render() {
         return (
-            <View style={{ width: this.props.width, height: this.props.width / 16 * 9, ...this.props.containerSytle }}>
-                <Image source={{ uri: `${file_host}/image/${this.props.imageUrl}` }} style={{ width: this.props.width, height: this.props.width / 16 * 9, borderColor: '#e4e4e4', borderWidth: 1 }} />
-            </View>
+            <TouchableHighlight underlayColor='rgba(0,0,0,0)' onPress={this.props.onShowPhoto}  >
+                <View style={{ width: this.props.width, height: this.props.width / 16 * 9, ...this.props.containerSytle }}>
+                    <Image source={{ uri: `${file_host}/image/${this.props.imageUrl}` }} style={{ width: this.props.width, height: this.props.width / 16 * 9, borderColor: '#e4e4e4', borderWidth: 1 }} />
+                </View>
+            </TouchableHighlight>
         )
     }
 }

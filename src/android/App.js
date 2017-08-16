@@ -41,8 +41,8 @@ import SelectInsurance from './views/select/Insurance'
 import SelectInsuranceType from './views/select/InsuranceType'
   
 
-import SinglePhotoView from './views/SinglePhotoView'
-
+import SinglePhotoView from './views/SinglePhotoView'  
+import CustomPhotoView from './views/CustomPhotoView'
 // import Orientation from 'react-native-orientation'
 // import * as sceneAction from '../actions/SceneAction'
 
@@ -166,6 +166,7 @@ export default class App extends Component {
                                 <Scene key="selectInsuranceTypeAtTruckBlock" component={SelectInsuranceType} title='选择保险险种' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="richTextAtTruckBlock" component={RichText} title='备注' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="singlePhotoViewAtTruckBlock" component={SinglePhotoView} hideNavBar hideTabBar/>
+                                <Scene key="customPhotoViewAtTruckBlock" component={CustomPhotoView} hideNavBar hideTabBar/>
                                 
                             </Scene>
                             <Scene key="driverBlock" icon={TabIcon} online='ios-pin' outline='ios-pin-outline'>

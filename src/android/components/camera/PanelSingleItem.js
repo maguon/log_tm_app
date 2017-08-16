@@ -14,13 +14,13 @@ const window = Dimensions.get('window')
 export default class PanelSingleItem extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            isEdit: false
-        }
-        this.onPressPanel = this.onPressPanel.bind(this)
+        // this.state = {
+        //     isEdit: false
+        // }
+        // this.onPressPanel = this.onPressPanel.bind(this)
         // this.onPressEdit = this.onPressEdit.bind(this)
         this.renderIsEdit = this.renderIsEdit.bind(this)
-        this.renderIsCustom = this.renderIsCustom.bind(this)
+        // this.renderIsCustom = this.renderIsCustom.bind(this)
     }
 
     static defaultProps = {
@@ -31,12 +31,12 @@ export default class PanelSingleItem extends Component {
         onShowPhoto: () => { }
     }
 
-    onPressPanel() {
-        if (this.state.isEdit)
-            this.setState({ isEdit: false })
-        else
-            this.setState({ isEdit: true })
-    }
+    // onPressPanel() {
+    //     if (this.state.isEdit)
+    //         this.setState({ isEdit: false })
+    //     else
+    //         this.setState({ isEdit: true })
+    // }
 
     // onPressEdit() {
     //     console.log('onPressEdit')
@@ -44,7 +44,7 @@ export default class PanelSingleItem extends Component {
 
     renderIsEdit() {
         return (
-            <TouchableHighlight underlayColor='rgba(0,0,0,0)' onPress={this.props.onShowPhoto} onLongPress={this.onPressPanel} >
+            <TouchableHighlight underlayColor='rgba(0,0,0,0)' onPress={this.props.onShowPhoto}  >
                 <View style={{ width: this.props.width, height: this.props.width / 16 * 9, ...this.props.containerSytle }}>
                     <Image source={{ uri: `${file_host}/image/${this.props.imageUrl}` }} style={{ width: this.props.width, height: this.props.width / 16 * 9, borderColor: '#e4e4e4', borderWidth: 1 }} />
                     <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', width: this.props.width, position: 'absolute', bottom: 0 }}>
@@ -60,21 +60,22 @@ export default class PanelSingleItem extends Component {
         )
     }
 
-    renderIsCustom() {
-        return (
-            <TouchableHighlight underlayColor='rgba(0,0,0,0)' onPress={this.props.onShowPhoto} onLongPress={this.onPressPanel}>
-                <View style={{ width: this.props.width, height: this.props.width / 16 * 9, ...this.props.containerSytle }}>
-                    <Image source={{ uri: `${file_host}/image/${this.props.imageUrl}` }} style={{ width: this.props.width, height: this.props.width / 16 * 9, borderColor: '#e4e4e4', borderWidth: 1 }} />
-                </View>
-            </TouchableHighlight>
-        )
-    }
+    // renderIsCustom() {
+    //     return (
+    //         <TouchableHighlight underlayColor='rgba(0,0,0,0)' onPress={this.props.onShowPhoto} >
+    //             <View style={{ width: this.props.width, height: this.props.width / 16 * 9, ...this.props.containerSytle }}>
+    //                 <Image source={{ uri: `${file_host}/image/${this.props.imageUrl}` }} style={{ width: this.props.width, height: this.props.width / 16 * 9, borderColor: '#e4e4e4', borderWidth: 1 }} />
+    //             </View>
+    //         </TouchableHighlight>
+    //     )
+    // }
 
     render() {
         return (
             <View>
-                {!this.state.isEdit && this.props.imageUrl && this.renderIsCustom()}
-                {this.state.isEdit && this.props.imageUrl && this.renderIsEdit()}
+                {this.renderIsEdit()}
+                {/* {!this.state.isEdit && this.props.imageUrl && this.renderIsCustom()}
+                {this.state.isEdit && this.props.imageUrl && this.renderIsEdit()} */}
             </View>
         )
     }

@@ -3,8 +3,8 @@ import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
     data: {
-        drivingImage: '598ad0d0100f67405a12333f',
-        licenseImage: '598ad0d0100f67405a12333f',
+        drivingImage: '',
+        licenseImage: '',
         truckImageList: []
     },
     updateDrivingImage: {
@@ -22,6 +22,13 @@ const initialState = {
         serviceFailedMsg: ''
     },
     createTruckImage: {
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
+    },
+    delTruckImage: {
         isResultStatus: 0,
         isExecStatus: 0,
         errorMsg: '',
@@ -182,7 +189,6 @@ export default handleActions({
 
     [(actionTypes.addTruckThirdTypes.CREATE_TruckThirdTruckImage_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
-        console.log([...state.data.truckImageList, data])
         return {
             ...state,
             data: {
@@ -254,4 +260,76 @@ export default handleActions({
         }
     },
 
+    [(actionTypes.addTruckThirdTypes.DEL_TruckThirdTruckImage_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                truckImageList: data.map((item)=>item.url)
+            },
+            delTruckImage: {
+                ...state.delTruckImage,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addTruckThirdTypes.DEL_TruckThirdTruckImage_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            delTruckImage: {
+                ...state.delTruckImage,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addTruckThirdTypes.DEL_TruckThirdTruckImage_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            delTruckImage: {
+                ...state.delTruckImage,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addTruckThirdTypes.DEL_TruckThirdTruckImage_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            delTruckImage: {
+                ...state.delTruckImage,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addTruckThirdTypes.DEL_TruckThirdTruckImage_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            delTruckImage: {
+                ...state.delTruckImage,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.addTruckThirdTypes.RESET_DEL_TruckThirdTruckImage)]: (state, action) => {
+        return {
+            ...state,
+            delTruckImage: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
 }, initialState)

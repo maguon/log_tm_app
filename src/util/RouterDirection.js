@@ -71,3 +71,8 @@ export const selectInsuranceType = (parent) => {
 export const singlePhotoView = (parent) => {
     if (parent === 'truckBlock') return Actions.singlePhotoViewAtTruckBlock
 }
+
+
+export const customPhotoView = (parent) => {
+    if (parent === 'truckBlock') return Actions.customPhotoViewAtTruckBlock
+}
