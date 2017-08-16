@@ -41,11 +41,40 @@ export default class Truck extends Component {
         }
         this.onPressSegment = this.onPressSegment.bind(this)
         this.renderTruckFirst = this.renderTruckFirst.bind(this)
+        this.onShowTruckFirstList = this.onShowTruckFirstList.bind(this)
+        this.onShowTruckTrailerList = this.onShowTruckTrailerList.bind(this)
     }
 
     onPressSegment(index) {
         if (this.state.truckType != index)
             this.setState({ truckType: index })
+    }
+
+    onShowTruckFirstList() {
+        console.log({
+            truckNum: this.state.truckNumTruckFirst,
+            brandId: this.state.brandIdTruckFirst,
+            companyId: this.state.companyIdTruckFirst,
+            repairStatus: this.state.repairStatusTruckFirst,
+            drivingDateStart: this.state.drivingDateStartTruckFirst,
+            drivingDateEnd: this.state.drivingDateEndTruckFirst,
+            licenseDateStart: this.state.licenseDateStartTruckFirst,
+            licenseDateEnd: this.state.licenseDateEndTruckFirst
+        })
+        //RouterDirection.truckList(this.props.parent)
+        //RouterDirection.truckList(this.props.parent)
+    }
+
+    onShowTruckTrailerList() {
+       console.log({
+            truckNum: this.state.truckNumTruckTrailer,
+            companyId: this.state.companyIdTruckTrailer,
+            repairStatus: this.state.repairStatusTruckTrailer,
+            drivingDateStart: this.state.drivingDateStartTruckTrailer,
+            drivingDateEnd: this.state.drivingDateEndTruckTrailer,
+            licenseDateStart: this.state.licenseDateStartTruckTrailer,
+            licenseDateEnd: this.state.licenseDateEndTruckTrailer
+        })
     }
 
     renderTruckFirst() {
@@ -57,7 +86,7 @@ export default class Truck extends Component {
                         value={this.state.truckNumTruckFirst}
                         defaultValue={''}
                         onValueChange={(param) => this.setState({ truckNumTruckFirst: param })}
-                        placeholder='请输入姓名'
+                        placeholder='请输入车牌'
                     />
                     <Select
                         title='品牌：'
@@ -116,12 +145,12 @@ export default class Truck extends Component {
                         </View>
                     </View>
                     <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
-                        <Button full onPress={RouterDirection.truckList(this.props.parent)} style={{ backgroundColor: '#00cade' }}>
+                        <Button full onPress={this.onShowTruckFirstList} style={{ backgroundColor: '#00cade' }}>
                             <Text style={{ color: '#fff' }}>搜索</Text>
                         </Button>
                     </View>
                 </View>
-            </ScrollView >
+            </ScrollView>
         )
     }
 
@@ -134,7 +163,7 @@ export default class Truck extends Component {
                         value={this.state.truckNumTruckTrailer}
                         defaultValue={''}
                         onValueChange={(param) => this.setState({ truckNumTruckTrailer: param })}
-                        placeholder='请输入姓名'
+                        placeholder='请输入车牌'
                     />
                     <Select
                         title='车辆所属：'
@@ -171,8 +200,8 @@ export default class Truck extends Component {
                                 isRequire={false}
                                 title='行驶证检证日期：'
                                 defaultValue={'请选择'}
-                                value={this.state.licenseDateStartTruckTrailer}
-                                onValueChange={(param) => this.setState({ licenseDateStartTruckTrailer: param })}
+                                value={this.state.drivingDateStartTruckTrailer}
+                                onValueChange={(param) => this.setState({ drivingDateStartTruckTrailer: param })}
                             />
                         </View>
                         <View style={{ flex: 2 }}>
@@ -180,18 +209,18 @@ export default class Truck extends Component {
                                 isRequire={false}
                                 value={this.state.drivingDateEndTruckTrailer}
                                 title='至：'
-                                defaultValue={'请选择'}
+                               // defaultValue={this.state.drivingDateEndTruckTrailer}
                                 onValueChange={(param) => this.setState({ drivingDateEndTruckTrailer: param })}
                             />
                         </View>
                     </View>
                     <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
-                        <Button full onPress={RouterDirection.truckList(this.props.parent)} style={{ backgroundColor: '#00cade' }}>
+                        <Button full onPress={this.onShowTruckTrailerList} style={{ backgroundColor: '#00cade' }}>
                             <Text style={{ color: '#fff' }}>搜索</Text>
                         </Button>
                     </View>
                 </View>
-            </ScrollView >
+            </ScrollView>
         )
     }
 
