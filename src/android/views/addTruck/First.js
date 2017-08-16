@@ -54,7 +54,7 @@ class First extends Component {
             //   "licenseDate": "2017-08-15",
             //   "theCode":"1233344",
             //   "remark": "1111"
-            active: 1
+            truckType: 1
         }
         this.onSelect = this.onSelect.bind(this)
         this.onPressNextStep = this.onPressNextStep.bind(this)
@@ -66,8 +66,8 @@ class First extends Component {
     }
 
     onPressSegment(index) {
-        if (this.state.active != index)
-            this.setState({ active: index })
+        if (this.state.truckType != index)
+            this.setState({ truckType: index })
     }
 
     componentDidMount() {
@@ -83,7 +83,7 @@ class First extends Component {
                 ToastAndroid.show('创建成功', ToastAndroid.SHORT)
                 this.props.resetCreateTruckFirst()
 
-                Actions.addTruckSecond({ initParam: { truckId: data.truckFirstId, type: this.state.active, truckCode: data.truckFirst.truckNum } })
+                Actions.addTruckSecond({ initParam: { truckId: data.truckFirstId, type: this.state.truckType, truckCode: data.truckFirst.truckNum } })
                 console.log('createTruckFirst', '执行成功')
             }
             else if (createTruckFirst.isResultStatus == 1) {
@@ -111,7 +111,7 @@ class First extends Component {
                 ToastAndroid.show('创建成功', ToastAndroid.SHORT)
                 this.props.resetCreateTruckTrailer()
 
-                Actions.addTruckSecond({ initParam: { truckId: data.truckTrailerId, type: this.state.active, truckCode: data.truckTrailer.truckNum } })
+                Actions.addTruckSecond({ initParam: { truckId: data.truckTrailerId, type: this.state.truckType, truckCode: data.truckTrailer.truckNum } })
                 console.log('createTruckTrailer', '执行成功')
             }
             else if (createTruckTrailer.isResultStatus == 1) {
@@ -134,7 +134,7 @@ class First extends Component {
     }
 
     onPressNextStep() {
-        if (this.state.active == 1) {
+        if (this.state.truckType == 1) {
             this.props.createTruckFirst({
                 requiredParam:
                 {
@@ -145,7 +145,7 @@ class First extends Component {
                     truckType: 1
                 }
             })
-        } else if (this.state.active == 2) {
+        } else if (this.state.truckType == 2) {
             this.props.createTruckTrailer({
                 requiredParam:
                 {
@@ -395,15 +395,15 @@ class First extends Component {
                     { step: '4', title: '车保信息' }]}
                     current={0} />
                 <View style={{ marginHorizontal: 30, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>
-                    <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.active == 1 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(1)}>
-                        <Text style={{ color: this.state.active == 1 ? '#fff' : '#00cade' }}>车头</Text>
+                    <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.truckType == 1 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(1)}>
+                        <Text style={{ color: this.state.truckType == 1 ? '#fff' : '#00cade' }}>车头</Text>
                     </Button>
-                    <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.active == 2 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(2)}>
-                        <Text style={{ color: this.state.active == 2 ? '#fff' : '#00cade' }}>挂车</Text>
+                    <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.truckType == 2 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(2)}>
+                        <Text style={{ color: this.state.truckType == 2 ? '#fff' : '#00cade' }}>挂车</Text>
                     </Button>
                 </View>
-                {this.state.active == 1 && this.renderCreateTruckFist()}
-                {this.state.active == 2 && this.renderCreateTruckTrailer()}
+                {this.state.truckType == 1 && this.renderCreateTruckFist()}
+                {this.state.truckType == 2 && this.renderCreateTruckTrailer()}
             </View>
         )
     }

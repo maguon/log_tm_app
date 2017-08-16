@@ -17,11 +17,11 @@ class Fourth extends Component {
     }
 
 
-    static defaultProps = {
-        initParam: {
-            truckId: 172
-        }
-    }
+    // static defaultProps = {
+    //     initParam: {
+    //         truckId: 172
+    //     }
+    // }
 
     renderInsuranceList() {
         let insuranceList = this.props.addTruckFourthReducer.data.insuranceLsit.map((item, i) => {

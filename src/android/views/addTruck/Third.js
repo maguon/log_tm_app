@@ -67,13 +67,13 @@ class Third extends Component {
         this.delTruckImage = this.delTruckImage.bind(this)
     }
 
-    static defaultProps = {
-        initParam: {
-            truckId: 172,
-            type: 1,
-            truckCode: '辽B55560'
-        }
-    }
+    // static defaultProps = {
+    //     initParam: {
+    //         truckId: 172,
+    //         type: 1,
+    //         truckCode: '辽B55560'
+    //     }
+    // }
 
     componentWillReceiveProps(nextProps) {
         const { updateDrivingImage, updateLicenseImage, createTruckImage,delTruckImage, data } = nextProps.addTruckThirdReducer
