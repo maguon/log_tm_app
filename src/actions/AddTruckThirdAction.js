@@ -123,9 +123,3 @@ export const delTruckImage = (param) => async (dispatch) => {
 export const resetDelTruckImage = () => (dispatch) => {
     dispatch({ type: actionTypes.addTruckThirdTypes.RESET_DEL_TruckThirdTruckImage, payload: {} })
 }
-// export const DEL_TruckThirdTruckImage_SUCCESS = 'DEL_TruckThirdTruckImage_SUCCESS'
-// export const DEL_TruckThirdTruckImage_FAILED = 'DEL_TruckThirdTruckImage_FAILED'
-// export const DEL_TruckThirdTruckImage_WAITING = 'DEL_TruckThirdTruckImage_WAITING'
-// export const DEL_TruckThirdTruckImage_SERVICEERROR = 'DEL_TruckThirdTruckImage_SERVICEERROR'
-// export const DEL_TruckThirdTruckImage_ERROR = 'DEL_TruckThirdTruckImage_ERROR'
-// export const RESET_DEL_TruckThirdTruckImage = 'RESET_DEL_TruckThirdTruckImage'

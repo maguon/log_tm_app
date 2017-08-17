@@ -230,12 +230,6 @@ class TruckInfo extends Component {
 
     onChangeTruckStatus(param) {
         const { truckId, truckType, userId, truckStatus } = param
-        // let truckStatus
-        // if (param.truckStatus == 0) {
-        //     truckStatus = 1
-        // } else if (param.truckStatus == 0) {
-        //     truckStatus = 0
-        // }
         if (truckType == 1) {
             this.props.changeTruckFirstStatus({
                 requiredParam: {
