@@ -63,10 +63,22 @@ const initialState = {
         errorMsg: '',
         failedMsg: '',
         serviceFailedMsg: ''
+    },
+    changeTruckFirstStatus: {
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
+    },
+    changeTruckTrailerStatus: {
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
     }
 }
-
-
 
 //isResultStatus(执行结果状态):[0(成功)，1(错误)，2(执行失败),3(服务器错误)] 
 //isExecuteStatus(执行状态):[0(未执行)，1(正在执行)，2(执行完毕)]
@@ -143,14 +155,16 @@ export default handleActions({
             }
         }
     },
+
+
     [(actionTypes.truckInfoTypes.GET_TruckRecord_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
             data: {
                 ...state.data,
-                recordList: data[0].comments,
-                imageList: data[0].images,
+                recordList: data[0] ? data[0].comments : [],
+                imageList: data[0] ? data[0].images : [],
             },
             truckRecord: {
                 ...state.truckRecord,
@@ -216,6 +230,8 @@ export default handleActions({
             }
         }
     },
+
+
     [(actionTypes.truckInfoTypes.GET_TruckInsureRel_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         return {
@@ -358,4 +374,148 @@ export default handleActions({
             }
         }
     },
+
+
+
+    [(actionTypes.truckInfoTypes.ChangeTruckFirstStatus_SUCCESS)]: (state, action) => {
+        return {
+            ...state,
+            changeTruckFirstStatus: {
+                ...state.changeTruckFirstStatus,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.ChangeTruckFirstStatus_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        console.log('data',data)
+        return {
+            ...state,
+            changeTruckFirstStatus: {
+                ...state.changeTruckFirstStatus,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.ChangeTruckFirstStatus_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            changeTruckFirstStatus: {
+                ...state.changeTruckFirstStatus,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.ChangeTruckFirstStatus_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            changeTruckFirstStatus: {
+                ...state.changeTruckFirstStatus,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.ChangeTruckFirstStatus_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            changeTruckFirstStatus: {
+                ...state.changeTruckFirstStatus,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.RESET_ChangeTruckFirstStatus)]: (state, action) => {
+        return {
+            ...state,
+            changeTruckFirstStatus: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
+
+
+
+    [(actionTypes.truckInfoTypes.ChangeTruckTrailerStatus_SUCCESS)]: (state, action) => {
+        return {
+            ...state,
+            changeTruckTrailerStatus: {
+                ...state.changeTruckTrailerStatus,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.ChangeTruckTrailerStatus_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            changeTruckTrailerStatus: {
+                ...state.changeTruckTrailerStatus,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.ChangeTruckTrailerStatus_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            changeTruckTrailerStatus: {
+                ...state.changeTruckTrailerStatus,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.ChangeTruckTrailerStatus_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            changeTruckTrailerStatus: {
+                ...state.changeTruckTrailerStatus,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.ChangeTruckTrailerStatus_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            changeTruckTrailerStatus: {
+                ...state.changeTruckTrailerStatus,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.RESET_ChangeTruckTrailerStatus)]: (state, action) => {
+        return {
+            ...state,
+            changeTruckTrailerStatus: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
+
+
+
 }, initialState)

@@ -80,7 +80,7 @@ const getSceneStyle = (/* NavigationSceneRendererProps */ props, computedProps) 
 //     }
 // }
 
-export default class App extends Component {
+class App extends Component {
     constructor(props) {
         super(props)
         // this.reducerCreate = this.reducerCreate.bind(this)
@@ -146,7 +146,7 @@ export default class App extends Component {
                                 <Scene key="selectCompanyAtHomeBlock" component={Company} title='所属公司' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectDrivingLicenseTypeAtHomeBlock" component={DrivingLicenseType} title='驾照类型' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectInsuranceAtHomeBlock" component={SelectInsurance} title='选择保险公司' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="selectInsuranceTypeAtHomeBlock"  initial={true} component={SelectInsuranceType} title='选择保险险种' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="selectInsuranceTypeAtHomeBlock" component={SelectInsuranceType} title='选择保险险种' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                             </Scene>
                             <Scene key="truckBlock" initial={true} icon={TabIcon} online='ios-car' outline='ios-car-outline' >
                                 <Scene key="truck" initial={true}  rightType={1} onPressRight={() => Actions.addTruckFirst()} component={Truck} title='车辆信息' hideNavBar={false} navBar={TopBar} />
@@ -191,10 +191,17 @@ export default class App extends Component {
     }
 }
 
-// const mapDispatchToProps = (dispatch) => ({
-//     changeScene: (param) => {
-//         dispatch(sceneAction.changeScene(param))
-//     }
-// })
+const mapStateToProps = (state) => {
+    return {
+        //truckInfoReducer: state.truckInfoReducer,
+        // userReducer: state.userReducer
+    }
+}
 
-// export default connect((state) => { return {} }, mapDispatchToProps)(App)
+const mapDispatchToProps = (dispatch) => ({
+    changeScene: (param) => {
+        // dispatch(sceneAction.changeScene(param))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

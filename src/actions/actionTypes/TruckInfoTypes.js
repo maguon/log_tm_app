@@ -75,12 +75,20 @@ export const DelTruckImage_SERVICEERROR = 'DelTruckImage_SERVICEERROR'
 export const DelTruckImage_ERROR = 'DelTruckImage_ERROR'
 export const RESET_DelTruckImage = 'RESET_DelTruckImage'
 
-export const ChangeTruckStatus_SUCCESS = 'ChangeTruckStatus_SUCCESS'
-export const ChangeTruckStatus_FAILED = 'ChangeTruckStatus_FAILED'
-export const ChangeTruckStatus_WAITING = 'ChangeTruckStatus_WAITING'
-export const ChangeTruckStatus_SERVICEERROR = 'ChangeTruckStatus_SERVICEERROR'
-export const ChangeTruckStatus_ERROR = 'ChangeTruckStatus_ERROR'
-export const RESET_ChangeTruckStatus = 'RESET_ChangeTruckStatus'
+export const ChangeTruckFirstStatus_SUCCESS = 'ChangeTruckFirstStatus_SUCCESS'
+export const ChangeTruckFirstStatus_FAILED = 'ChangeTruckFirstStatus_FAILED'
+export const ChangeTruckFirstStatus_WAITING = 'ChangeTruckFirstStatus_WAITING'
+export const ChangeTruckFirstStatus_SERVICEERROR = 'ChangeTruckFirstStatus_SERVICEERROR'
+export const ChangeTruckFirstStatus_ERROR = 'ChangeTruckFirstStatus_ERROR'
+export const RESET_ChangeTruckFirstStatus = 'RESET_ChangeTruckFirstStatus'
+
+
+export const ChangeTruckTrailerStatus_SUCCESS = 'ChangeTruckTrailerStatus_SUCCESS'
+export const ChangeTruckTrailerStatus_FAILED = 'ChangeTruckTrailerStatus_FAILED'
+export const ChangeTruckTrailerStatus_WAITING = 'ChangeTruckTrailerStatus_WAITING'
+export const ChangeTruckTrailerStatus_SERVICEERROR = 'ChangeTruckTrailerStatus_SERVICEERROR'
+export const ChangeTruckTrailerStatus_ERROR = 'ChangeTruckTrailerStatus_ERROR'
+export const RESET_ChangeTruckTrailerStatus = 'RESET_ChangeTruckTrailerStatus'
 
 export const CLEAN_TruckInfoReducer = 'CLEAN_TruckInfoReducer'
 

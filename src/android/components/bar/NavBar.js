@@ -11,7 +11,8 @@ export default class NavBar extends Component {
 
     static defaultProps = {
         rightType: 0, //0：不显示right 1:status
-        onPressRight: () => { }
+        onPressRight: () => { },
+        truckStatus:1
     }
 
     render() {
@@ -28,12 +29,10 @@ export default class NavBar extends Component {
                     </View>
                     {this.props.rightType == 1 && <View style={{ position: 'absolute', right: 10 }}>
                         <Button transparent onPress={this.props.onPressRight}>
-                            <Text style={{color:'#fff',fontSize:12}}>启用</Text>
+                            <Text style={{ color: '#fff', fontSize: 12 }}>{this.props.truckStatus==1&&'停用'}{this.props.truckStatus==0&&'启用'}</Text>
                         </Button>
                     </View>}
-
                 </Header>
-
             </View>
         )
     }

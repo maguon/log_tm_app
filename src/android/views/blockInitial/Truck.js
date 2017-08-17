@@ -5,7 +5,6 @@ import {
     ScrollView
 } from 'react-native'
 import { Button } from 'native-base'
-
 import Select from '../../components/form/Select'
 import DateTimePicker from '../../components/form/DateTimePicker'
 import TextBox from '../../components/form/TextBox'

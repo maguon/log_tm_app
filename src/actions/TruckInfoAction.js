@@ -62,7 +62,6 @@ export const resetGetTruckInsureRel = (param) => (dispatch) => {
 
 export const updateTruckInfo = (param) => async (dispatch) => {
     const url = `${record_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}`
-    console.log(url)
     dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_WAITING, payload: {} })
     try {
         let res = await httpRequest.put(url, param.putParam)
@@ -78,4 +77,49 @@ export const updateTruckInfo = (param) => async (dispatch) => {
 
 export const resetUpdateTruckInfo = (param) => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.RESET_UpdateTruckInfo, payload: {} })
+}
+
+export const changeTruckFirstStatus = (param) => async (dispatch) => {
+    const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/truckStatus/${param.requiredParam.truckStatus}/first`
+    console.log(url)
+    dispatch({ type: actionTypes.truckInfoTypes.ChangeTruckFirstStatus_WAITING, payload: {} })
+    try {
+        let res = await httpRequest.put(url, {})
+    console.log(res)
+        
+        if (res.success) {
+            dispatch({ type: actionTypes.truckInfoTypes.ChangeTruckFirstStatus_SUCCESS, payload: {} })
+        } else {
+              console.log(res.msg)
+            dispatch({ type: actionTypes.truckInfoTypes.ChangeTruckFirstStatus_FAILED, payload: { data: res.msg } })
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.truckInfoTypes.ChangeTruckFirstStatus_ERROR, payload: { data: err } })
+    }
+}
+
+export const changeTruckTrailerStatus = (param) => async (dispatch) => {
+    const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/truckStatus/${param.requiredParam.truckStatus}/trailer`
+    console.log(url)
+    dispatch({ type: actionTypes.truckInfoTypes.ChangeTruckTrailerStatus_WAITING, payload: {} })
+    try {
+        let res = await httpRequest.put(url, {})
+    console.log(res)
+        
+        if (res.success) {
+            dispatch({ type: actionTypes.truckInfoTypes.ChangeTruckTrailerStatus_SUCCESS, payload: {} })
+        } else {
+            dispatch({ type: actionTypes.truckInfoTypes.ChangeTruckTrailerStatus_FAILED, payload: { data: res.msg } })
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.truckInfoTypes.ChangeTruckTrailerStatus_ERROR, payload: { data: err } })
+    }
+}
+
+export const resetChangeTruckFirstStatus = () => (dispatch) => {
+    dispatch({ type: actionTypes.truckInfoTypes.RESET_ChangeTruckFirstStatus, payload: {} })
+}
+
+export const resetChangeTruckTrailerStatus = () => (dispatch) => {
+    dispatch({ type: actionTypes.truckInfoTypes.RESET_ChangeTruckTrailerStatus, payload: {} })
 }

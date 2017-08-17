@@ -26,14 +26,19 @@ import {
     updateTruckInfo,
     resetGetTruckInfo,
     resetGetTruckInsureRel,
-    resetGetTruckRecord
+    resetGetTruckRecord,
+    resetChangeTruckFirstStatus,
+    changeTruckFirstStatus,
+    changeTruckTrailerStatus,
+    resetChangeTruckTrailerStatus
 } from '../../actions/TruckInfoAction'
+import { Actions } from 'react-native-router-flux'
 
 class TruckInfo extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            active: 0,
+            truckType: 0,
             truckInfo: {
                 truck_num: '',      //车牌号
                 brand_name: '',     //识别码
@@ -54,14 +59,25 @@ class TruckInfo extends Component {
         this.renderTruckRecord = this.renderTruckRecord.bind(this)
         this.onPressSegment = this.onPressSegment.bind(this)
         this.onSelect = this.onSelect.bind(this)
+        this.onChangeTruckStatus = this.onChangeTruckStatus.bind(this)
     }
 
     componentWillReceiveProps(nextProps) {
-        const { truckInfo, truckInsureRel, truckRecord } = nextProps.truckInfoReducer
+        const { truckInfo, truckInsureRel, truckRecord,changeTruckFirstStatus,changeTruckTrailerStatus } = nextProps.truckInfoReducer
         /*truckInfo*/
         if (truckInfo.isExecStatus == 2) {
             if (truckInfo.isResultStatus == 0) {
                 console.log('truckInfo', '执行成功')
+                Actions.refresh({
+                    rightType: 1,
+                    truckStatus: nextProps.truckInfoReducer.data.truckInfo.truck_status,
+                    onPressRight: () => this.onChangeTruckStatus({
+                        truckType: nextProps.truckInfoReducer.data.truckInfo.truck_type,
+                        userId: nextProps.userReducer.data.user.userId,
+                        truckId: nextProps.truckInfoReducer.data.truckInfo.id,
+                        truckStatus: nextProps.truckInfoReducer.data.truckInfo.truck_status
+                    })
+                })
                 this.props.resetGetTruckInfo()
             }
             else if (truckInfo.isResultStatus == 1) {
@@ -109,7 +125,7 @@ class TruckInfo extends Component {
                 this.props.resetGetTruckRecord()
             }
             else if (truckRecord.isResultStatus == 1) {
-                console.log('truckRecord', '异常')
+                console.log('truckRecord异常', truckRecord.errorMsg)
                 this.props.resetGetTruckRecord()
             }
             else if (truckRecord.isResultStatus == 2) {
@@ -122,9 +138,58 @@ class TruckInfo extends Component {
             }
         }
         /************************************ */
+
+
+        /*changeTruckFirstStatus*/
+        
+        if (changeTruckFirstStatus.isExecStatus == 2) {
+            if (changeTruckFirstStatus.isResultStatus == 0) {
+                this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
+                console.log('changeTruckFirstStatus', '执行成功')
+                this.props.resetChangeTruckFirstStatus()
+            }
+            else if (changeTruckFirstStatus.isResultStatus == 1) {
+                console.log('changeTruckFirstStatus异常', changeTruckFirstStatus.errorMsg)
+                this.props.resetChangeTruckFirstStatus()    
+            }
+            else if (changeTruckFirstStatus.isResultStatus == 2) {
+                console.log('changeTruckFirstStatus', '执行失败')
+                this.props.resetChangeTruckFirstStatus()   
+            }
+            else if (changeTruckFirstStatus.isResultStatus == 3) {
+                console.log('changeTruckFirstStatus', '服务器异常')
+                this.props.resetChangeTruckFirstStatus()    
+            }
+        }
+        /************************************ */
+
+
+        /*changeTruckTrailerStatus*/
+        if (changeTruckTrailerStatus.isExecStatus == 2) {
+            if (changeTruckTrailerStatus.isResultStatus == 0) {
+                this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
+                console.log('changeTruckTrailerStatus', '执行成功')
+                this.props.resetChangeTruckTrailerStatus()
+            }
+            else if (changeTruckTrailerStatus.isResultStatus == 1) {
+                console.log('changeTruckTrailerStatus异常', changeTruckTrailerStatus.errorMsg)
+                this.props.resetChangeTruckTrailerStatus()        
+            }
+            else if (changeTruckTrailerStatus.isResultStatus == 2) {
+                console.log('changeTruckTrailerStatus', '执行失败')
+                this.props.resetChangeTruckTrailerStatus()              
+            }
+            else if (changeTruckTrailerStatus.isResultStatus == 3) {
+                console.log('changeTruckTrailerStatus', '服务器异常')
+                this.props.resetChangeTruckTrailerStatus()                
+            }
+        }
+        /************************************ */
+
     }
 
     componentDidMount() {
+        // console.log(this.props.initParam)
         this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
         this.props.getTruckInsureRel({ OptionalParam: { truckId: this.props.initParam.truckId, active: 1 } })
         this.props.getTruckRecord({ requiredParam: { userId: this.props.userReducer.data.user.userId, truckNum: this.props.initParam.truck_num } })
@@ -132,7 +197,7 @@ class TruckInfo extends Component {
 
     onPressSegment(index) {
         if (this.state.truckType != index)
-            this.setState({ active: index })
+            this.setState({ truckType: index })
     }
 
     updateTruckInfo() {
@@ -152,7 +217,7 @@ class TruckInfo extends Component {
     }
 
     onSelect(param) {
-        // console.log(param)
+
     }
 
     unBindDriver() {
@@ -161,6 +226,34 @@ class TruckInfo extends Component {
 
     bindDriver() {
 
+    }
+
+    onChangeTruckStatus(param) {
+        const { truckId, truckType, userId, truckStatus } = param
+        // let truckStatus
+        // if (param.truckStatus == 0) {
+        //     truckStatus = 1
+        // } else if (param.truckStatus == 0) {
+        //     truckStatus = 0
+        // }
+        if (truckType == 1) {
+            this.props.changeTruckFirstStatus({
+                requiredParam: {
+                    truckId,
+                    truckStatus: truckStatus == 0 ? 1 : 0,
+                    userId
+                }
+            })
+        } else if (truckType == 2) {
+            this.props.changeTruckTrailerStatus({
+                requiredParam: {
+                    truckId,
+                    truckStatus: truckStatus == 0 ? 1 : 0,
+                    userId
+                }
+            })
+        }
+        // console.log(param)
     }
 
     renderTractorInfoEnable() {
@@ -175,8 +268,7 @@ class TruckInfo extends Component {
                                     paddingVertical: 5,
                                     paddingHorizontal: 10
                                 }}
-                                value={this.state.truck_num}
-                                defaultValue={''}
+                                value={this.props.truckInfoReducer.data.truckInfo.truck_num}
                                 /*verifications={[{
                                     type: 'isLength',
                                     arguments: [0, 17],
@@ -190,57 +282,43 @@ class TruckInfo extends Component {
                     </View>
                     <Select
                         title='品牌：'
-                        //value={this.state.queryCar.routeStart}
-                        showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
+                        value={this.props.truckInfoReducer.data.truckInfo.brand_name}
+                        showList={RouterDirection.selectMake(this.props.parent)}
                         onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
-                        defaultValue={'请选择'}
                     />
                     <TextBox
                         title='联系电话：'
-                        //value={this.state.queryCar.vinCode}
-                        defaultValue={''}
-                        /*verifications={[{
-                            type: 'isLength',
-                            arguments: [0, 17],
-                            message: '长度不能超过17位'
-                        }]}*/
+                        value={this.props.truckInfoReducer.data.truckInfo.truck_tel}
                         onValueChange={(param) => this.onSelect({ vinCode: param })}
                         placeholder='请输入联系电话'
                     />
                     <TextBox
                         title='识别代码：'
-                        //value={this.state.queryCar.vinCode}
-                        defaultValue={''}
-                        /*verifications={[{
-                            type: 'isLength',
-                            arguments: [0, 17],
-                            message: '长度不能超过17位'
-                        }]}*/
+                        value={this.props.truckInfoReducer.data.truckInfo.the_code}
                         onValueChange={(param) => this.onSelect({ vinCode: param })}
                         placeholder='请输入识别代码'
                     />
                     <Select
                         title='所属公司：'
-                        //value={this.state.queryCar.routeStart}
+                        value={this.props.truckInfoReducer.data.truckInfo.company_name}
                         showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
                         onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
-                        defaultValue={'请选择'}
                     />
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View><Text style={{ fontSize: 12 }}>关联挂车：辽B12345</Text></View>
+                        <View><Text style={{ fontSize: 12 }}>关联挂车：{this.props.truckInfoReducer.data.truckInfo.trail_num}</Text></View>
                         <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                             <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
                         </View>
                     </View>
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View><Text style={{ fontSize: 12 }}>关联司机：张宝全</Text></View>
+                        <View><Text style={{ fontSize: 12 }}>关联司机：{this.props.truckInfoReducer.data.truckInfo.drive_name}</Text></View>
                         <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                             <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
                         </View>
                     </View>
                     <TextBox
                         title='副驾司机：'
-                        //value={this.state.queryCar.vinCode}
+                        value={this.props.truckInfoReducer.data.truckInfo.copilot}
                         defaultValue={''}
                         /*verifications={[{
                             type: 'isLength',
@@ -257,19 +335,16 @@ class TruckInfo extends Component {
                         </View>
                     </View>
                     <DateTimePicker
-                        // value={this.state.queryCar.enterEnd}
+                        value={this.props.truckInfoReducer.data.truckInfo.driving_date}
                         title='行驶证检证日期：'
-                        defaultValue={'请选择'}
                         onValueChange={(param) => this.onSelect({ enterEnd: param })}
                     />
                     <DateTimePicker
-                        // value={this.state.queryCar.enterEnd}
+                        value={this.props.truckInfoReducer.data.truckInfo.license_date}
                         title='营运证检证日期：'
-                        defaultValue={'请选择'}
                         onValueChange={(param) => this.onSelect({ enterEnd: param })}
                     />
                     <RichTextBox
-                        // isRequire={false}
                         title='备注：'
                         //verifications={[{
                         //     type: 'isLength',
@@ -277,9 +352,8 @@ class TruckInfo extends Component {
                         //      message: '长度0-300位'
                         //  }]}
                         // value={remark}
-                        defaultValue={'请填写'}
+                        value={this.props.truckInfoReducer.data.truckInfo.remark}
                         onValueChange={(param) => this.props.changeAddCarField({ remark: param })}
-                        // onRequire={(flag) => { this.setState({ remarkRequire: flag }) }}
                         showRichText={RouterDirection.richText(this.props.parent)}
                     />
                     <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
@@ -630,7 +704,7 @@ class TruckInfo extends Component {
     }
 
     render() {
-        console.log(this.props)
+        // console.log(this.props)
         const { truck_status, truck_type } = this.props.truckInfoReducer.data.truckInfo
         return (
             <View style={{ flex: 1 }}>
@@ -693,6 +767,18 @@ const mapDispatchToProps = (dispatch) => ({
     updateTruckInfo: (param) => {
         dispatch(updateTruckInfo(param))
     },
+    changeTruckFirstStatus: (param) => {
+        dispatch(changeTruckFirstStatus(param))
+    },
+    changeTruckTrailerStatus: (param) => {
+        dispatch(changeTruckTrailerStatus(param))
+    },
+    resetChangeTruckFirstStatus: () => {
+        dispatch(resetChangeTruckFirstStatus())
+    },
+    resetChangeTruckTrailerStatus: () => {
+        dispatch(resetChangeTruckTrailerStatus())
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TruckInfo)
