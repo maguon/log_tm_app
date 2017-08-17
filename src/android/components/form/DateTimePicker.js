@@ -48,40 +48,39 @@ export default class DateTimePicker extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            dataTime: '',
             warnMessageList: []
         }
         this.changeDateTime = this.changeDateTime.bind(this)
+        this.validate = this.validate.bind(this)
     }
 
     componentWillMount() {
-        this.setState({ dataTime: this.props.defaultValue })
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value) {
-            this.setState({ dataTime: nextProps.value })
-        } else {
-            this.setState({ dataTime: nextProps.defaultValue })
-        }
+        this.validate(this.props.value)
     }
 
     changeDateTime(value) {
-        let state = { dataTime: value }
-        let warnMessageList = validate(value, this.props.verifications)
-        if (warnMessageList.length > 0) {
-            state.warnMessageList = warnMessageList
-        } else {
-            state.warnMessageList = []
-        }
-        this.setState({ ...state })
+        this.validate(value)
         this.props.onValueChange(value)
-        let flag = !(warnMessageList.length > 0)
 
+    }
+
+    validate(value) {
         if (this.props.isRequire) {
-            flag = !((value == this.props.defaultValue) || !flag)
+            const warnMessageList = validate(value, this.props.verifications)
+            this.setState({ warnMessageList })
+            const flag = !(warnMessageList.length > 0)
+            this.props.onRequire(value && flag)
+        } else {
+            if (value === '') {
+                this.setState({ warnMessageList: [] })
+                this.props.onRequire(true)
+            }
+            else {
+                const warnMessageList = validate(value, this.props.verifications)
+                this.setState({ warnMessageList })
+                this.props.onRequire(!(warnMessageList.length > 0))
+            }
         }
-        this.props.onRequire(flag)
     }
 
     static defaultProps = {
@@ -93,7 +92,6 @@ export default class DateTimePicker extends Component {
         messageSytle: styles.messageSytle,
         onRequire: (param) => { }
     }
-
 
     async showPicker(options) {
         try {
@@ -124,24 +122,20 @@ export default class DateTimePicker extends Component {
             <TouchableHighlight
                 underlayColor='rgba(0,0,0,0.1)'
                 onPress={() => this.showPicker({ date: new Date(), mode: 'spinner' })}>
-
                 <View style={this.props.containerSytle}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1 }}>
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={{ width: 10, textAlign: 'right', color: 'red' }}>{this.props.isRequire && '*'}</Text>
                             <Text style={this.props.labelStyle}>{this.props.title} </Text>
-                            <Text style={this.props.textStyle}>{this.state.dataTime}</Text>
+                            <Text style={this.props.textStyle}>{this.props.value}</Text>
                         </View>
                         {/*<Text style={this.props.labelStyle}>{this.props.isRequire && '*'}{this.props.title}<Text style={this.props.textStyle}>{this.state.dataTime}</Text></Text>*/}
-
                         <Icon
                             name='md-calendar'
                             style={this.props.iconSytle} />
                     </View>
                     {this.renderValidateMessage()}
-
                 </View>
-
             </TouchableHighlight>
         )
     }

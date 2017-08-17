@@ -51,31 +51,38 @@ export default class Truck extends Component {
     }
 
     onShowTruckFirstList() {
-        console.log({
-            truckNum: this.state.truckNumTruckFirst,
-            brandId: this.state.brandIdTruckFirst,
-            companyId: this.state.companyIdTruckFirst,
-            repairStatus: this.state.repairStatusTruckFirst,
-            drivingDateStart: this.state.drivingDateStartTruckFirst,
-            drivingDateEnd: this.state.drivingDateEndTruckFirst,
-            licenseDateStart: this.state.licenseDateStartTruckFirst,
-            licenseDateEnd: this.state.licenseDateEndTruckFirst
+        RouterDirection.truckList(this.props.parent)({
+            initParam: {
+                truckNum: this.state.truckNumTruckFirst,
+                brandId: this.state.brandIdTruckFirst,
+                companyId: this.state.companyIdTruckFirst,
+                repairStatus: this.state.repairStatusTruckFirst,
+                drivingDateStart: this.state.drivingDateStartTruckFirst,
+                drivingDateEnd: this.state.drivingDateEndTruckFirst,
+                licenseDateStart: this.state.licenseDateStartTruckFirst,
+                licenseDateEnd: this.state.licenseDateEndTruckFirst,
+                truckType: this.state.truckType
+            }
         })
-        //RouterDirection.truckList(this.props.parent)
         //RouterDirection.truckList(this.props.parent)
     }
 
     onShowTruckTrailerList() {
-       console.log({
-            truckNum: this.state.truckNumTruckTrailer,
-            companyId: this.state.companyIdTruckTrailer,
-            repairStatus: this.state.repairStatusTruckTrailer,
-            drivingDateStart: this.state.drivingDateStartTruckTrailer,
-            drivingDateEnd: this.state.drivingDateEndTruckTrailer,
-            licenseDateStart: this.state.licenseDateStartTruckTrailer,
-            licenseDateEnd: this.state.licenseDateEndTruckTrailer
+        RouterDirection.truckList(this.props.parent)({
+            initParam: {
+                truckNum: this.state.truckNumTruckTrailer,
+                companyId: this.state.companyIdTruckTrailer,
+                repairStatus: this.state.repairStatusTruckTrailer,
+                drivingDateStart: this.state.drivingDateStartTruckTrailer,
+                drivingDateEnd: this.state.drivingDateEndTruckTrailer,
+                licenseDateStart: this.state.licenseDateStartTruckTrailer,
+                licenseDateEnd: this.state.licenseDateEndTruckTrailer,
+                truckType: this.state.truckType
+            }
         })
+
     }
+
 
     renderTruckFirst() {
         return (
@@ -83,21 +90,21 @@ export default class Truck extends Component {
                 <View>
                     <TextBox
                         title='车牌：'
-                        value={this.state.truckNumTruckFirst}
+                        value={this.state.truckNumTruckFirst ? this.state.truckNumTruckFirst : ''}
                         defaultValue={''}
                         onValueChange={(param) => this.setState({ truckNumTruckFirst: param })}
                         placeholder='请输入车牌'
                     />
                     <Select
                         title='品牌：'
-                        value={this.state.brandNameTruckFirst}
+                        value={this.state.brandNameTruckFirst ? this.state.brandNameTruckFirst : '请选择'}
                         showList={RouterDirection.selectMake(this.props.parent)}
                         onValueChange={(param) => this.setState({ brandIdTruckFirst: param.id, brandNameTruckFirst: param.value })}
                         defaultValue={'请选择'}
                     />
                     <Select
                         title='车辆所属：'
-                        value={this.state.companyNameTruckFirst}
+                        value={this.state.companyNameTruckFirst ? this.state.companyNameTruckFirst : '请选择'}
                         showList={(param) => RouterDirection.selectCompanyType(this.props.parent)({ router: RouterDirection.selectCompany(this.props.parent), ...param })}
                         onValueChange={(param) => this.setState({ companyIdTruckFirst: param.id, companyNameTruckFirst: param.value })}
                         defaultValue={'请选择'}
@@ -109,7 +116,7 @@ export default class Truck extends Component {
                             <DateTimePicker
                                 isRequire={false}
                                 title='营运证检证日期：'
-                                value={this.state.licenseDateStartTruckFirst}
+                                value={this.state.licenseDateStartTruckFirst ? this.state.licenseDateStartTruckFirst : '请选择'}
                                 defaultValue={'请选择'}
                                 onValueChange={(param) => this.setState({ licenseDateStartTruckFirst: param })}
                             />
@@ -117,7 +124,7 @@ export default class Truck extends Component {
                         <View style={{ flex: 2 }}>
                             <DateTimePicker
                                 isRequire={false}
-                                value={this.state.licenseDateEndTruckFirst}
+                                value={this.state.licenseDateEndTruckFirst ? this.state.licenseDateEndTruckFirst : '请选择'}
                                 title='至：'
                                 defaultValue={'请选择'}
                                 onValueChange={(param) => this.setState({ licenseDateEndTruckFirst: param })}
@@ -130,14 +137,14 @@ export default class Truck extends Component {
                                 isRequire={false}
                                 title='行驶证检证日期：'
                                 defaultValue={'请选择'}
-                                value={this.state.drivingDateStartTruckFirst}
+                                value={this.state.drivingDateStartTruckFirst ? this.state.drivingDateStartTruckFirst : '请选择'}
                                 onValueChange={(param) => this.setState({ drivingDateStartTruckFirst: param })}
                             />
                         </View>
                         <View style={{ flex: 2 }}>
                             <DateTimePicker
                                 isRequire={false}
-                                value={this.state.drivingDateEndTruckFirst}
+                                value={this.state.drivingDateEndTruckFirst ? this.state.drivingDateEndTruckFirst : '请选择'}
                                 title='至：'
                                 defaultValue={'请选择'}
                                 onValueChange={(param) => this.setState({ drivingDateEndTruckFirst: param })}
@@ -160,17 +167,16 @@ export default class Truck extends Component {
                 <View>
                     <TextBox
                         title='车牌：'
-                        value={this.state.truckNumTruckTrailer}
+                        value={this.state.truckNumTruckTrailer ? this.state.truckNumTruckTrailer : ''}
                         defaultValue={''}
                         onValueChange={(param) => this.setState({ truckNumTruckTrailer: param })}
                         placeholder='请输入车牌'
                     />
                     <Select
                         title='车辆所属：'
-                        value={this.state.companyNameTruckTrailer}
+                        value={this.state.companyNameTruckTrailer ? this.state.companyNameTruckTrailer : '请选择'}
                         showList={(param) => RouterDirection.selectCompanyType(this.props.parent)({ router: RouterDirection.selectCompany(this.props.parent), ...param })}
                         onValueChange={(param) => this.setState({ companyIdTruckTrailer: param.id, companyNameTruckTrailer: param.value })}
-                        defaultValue={'请选择'}
                     />
                     <CheckBox listTitle='维修状态' title='维修状态：' value={this.state.repairStatusValueTruckTrailer ? this.state.repairStatusValueTruckTrailer : '请选择'} itemList={[{ id: 0, value: '正常' }, { id: 1, value: '维修' }]}
                         onCheck={(param) => this.setState({ repairStatusTruckTrailer: param.id, repairStatusValueTruckTrailer: param.value })} />
@@ -179,17 +185,15 @@ export default class Truck extends Component {
                             <DateTimePicker
                                 isRequire={false}
                                 title='营运证检证日期：'
-                                value={this.state.licenseDateStartTruckTrailer}
-                                defaultValue={'请选择'}
+                                value={this.state.licenseDateStartTruckTrailer ? this.state.licenseDateStartTruckTrailer : '请选择'}
                                 onValueChange={(param) => this.setState({ licenseDateStartTruckTrailer: param })}
                             />
                         </View>
                         <View style={{ flex: 2 }}>
                             <DateTimePicker
                                 isRequire={false}
-                                value={this.state.licenseDateEndTruckTrailer}
+                                value={this.state.licenseDateEndTruckTrailer ? this.state.licenseDateEndTruckTrailer : '请选择'}
                                 title='至：'
-                                defaultValue={'请选择'}
                                 onValueChange={(param) => this.setState({ licenseDateEndTruckTrailer: param })}
                             />
                         </View>
@@ -199,17 +203,15 @@ export default class Truck extends Component {
                             <DateTimePicker
                                 isRequire={false}
                                 title='行驶证检证日期：'
-                                defaultValue={'请选择'}
-                                value={this.state.drivingDateStartTruckTrailer}
+                                value={this.state.drivingDateStartTruckTrailer ? this.state.drivingDateStartTruckTrailer : '请选择'}
                                 onValueChange={(param) => this.setState({ drivingDateStartTruckTrailer: param })}
                             />
                         </View>
                         <View style={{ flex: 2 }}>
                             <DateTimePicker
                                 isRequire={false}
-                                value={this.state.drivingDateEndTruckTrailer}
+                                value={this.state.drivingDateEndTruckTrailer ? this.state.drivingDateEndTruckTrailer : '请选择'}
                                 title='至：'
-                               // defaultValue={this.state.drivingDateEndTruckTrailer}
                                 onValueChange={(param) => this.setState({ drivingDateEndTruckTrailer: param })}
                             />
                         </View>

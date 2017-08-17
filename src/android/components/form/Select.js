@@ -18,8 +18,6 @@ const styles = StyleSheet.create({
         flex: 1,
         borderColor: '#dddddd',
         paddingRight: 10
-        //alignItems: 'center',
-        //backgroundColor: 'blue'
     },
     labelStyle: {
         fontSize: 12,
@@ -36,36 +34,26 @@ const styles = StyleSheet.create({
 const baseStyles = {
     iconSytle: {
         fontSize: 18,
-        //textAlign: 'right',
         color: '#7a7a7a'
     }
 }
-// export const Select=()=>{}
+
 export default class Select extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            value: '',
+            //value: '',
             warnMessageList: []
         }
         this.changeValue = this.changeValue.bind(this)
         this.showList = this.showList.bind(this)
         this.renderEnable = this.renderEnable.bind(this)
         this.renderDisable = this.renderDisable.bind(this)
+        this.validate=this.validate.bind(this)
     }
 
     componentWillMount() {
-        this.setState({ value: this.props.defaultValue })
-    }
-
-    componentWillReceiveProps(nextProps) {
-        // console.log(nextProps)
-        if (nextProps.value) {
-            this.setState({ value: nextProps.value })
-        } 
-        else {
-            this.setState({ value: nextProps.defaultValue })
-        }
+       this.validate(this.props.value)
     }
 
     shouldComponentUpdate(nextProps,nextState){
@@ -75,27 +63,31 @@ export default class Select extends Component {
         return true
     }
 
-    changeValue(param) {
-        let state = {}
-        if (!this.props.value) {
-            state.value = param.value
-        }
-        let warnMessageList = validate(param.value, this.props.verifications)
-        if (warnMessageList.length > 0) {
-            state.warnMessageList = warnMessageList
-        } else {
-            state.warnMessageList = []
-        }
-        this.setState({ ...state })
-        this.props.onValueChange(param)
-        let flag = !(warnMessageList.length > 0)
-        if (this.props.isRequire) {
-            flag = !((param.value == this.props.defaultValue) || !flag)
-        }
-        this.props.onRequire(flag)
+
+    changeValue(value) {
+        this.validate(value)
+        this.props.onValueChange(value)
+
     }
 
-
+    validate(value) {
+        if (this.props.isRequire) {
+            const warnMessageList = validate(value, this.props.verifications)
+            this.setState({ warnMessageList })
+            const flag = !(warnMessageList.length > 0)
+            this.props.onRequire(value && flag)
+        } else {
+            if (value === '') {
+                this.setState({ warnMessageList: [] })
+                this.props.onRequire(true)
+            }
+            else {
+                const warnMessageList = validate(value, this.props.verifications)
+                this.setState({ warnMessageList })
+                this.props.onRequire(!(warnMessageList.length > 0))
+            }
+        }
+    }
 
     showList() {
         this.props.showList({ onSelect: this.changeValue })
@@ -136,7 +128,7 @@ export default class Select extends Component {
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={{ width: 10, textAlign: 'right', color: 'red' }}>{this.props.isRequire && '*'}</Text>
                             <Text style={this.props.labelStyle}>{this.props.title} </Text>
-                            <Text style={this.props.textStyle}>{this.state.value}</Text>
+                            <Text style={this.props.textStyle}>{this.props.value}</Text>
                         </View>
                         <Icon
                             name='ios-arrow-forward'
@@ -154,7 +146,7 @@ export default class Select extends Component {
                     <View style={{ flexDirection: 'row' }}>
                         <Text style={{ width: 10, textAlign: 'right', color: 'red' }}>{this.props.isRequire && '*'}</Text>
                         <Text style={this.props.labelStyle}>{this.props.title}</Text>
-                        <Text style={this.props.textStyle}>{this.state.value}</Text>
+                        <Text style={this.props.textStyle}>{this.props.value}</Text>
                     </View>
                     <Icon
                         name='ios-arrow-forward'
@@ -166,7 +158,6 @@ export default class Select extends Component {
     }
 
     render() {
-        // console.log(1111122222)
         return (
             <View>
                 {this.props.isEnable ? this.renderEnable() : this.renderDisable()}

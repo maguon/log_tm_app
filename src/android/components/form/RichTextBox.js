@@ -16,18 +16,13 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0.5,
         paddingRight: 10,
         borderColor: '#dddddd',
-        paddingVertical: 10,
-        //justifyContent: 'space-between',
-        //alignItems: 'center'
+        paddingVertical: 10
     },
     labelStyle: {
-        fontSize: 12,
-        //flex: 4,
-        //textAlign: 'right'
+        fontSize: 12
     },
     textStyle: {
-        fontSize: 12,
-        //flex: 12
+        fontSize: 12
     },
     messageSytle: {
         color: 'red',
@@ -38,8 +33,6 @@ const styles = StyleSheet.create({
 const baseStyles = {
     iconSytle: {
         fontSize: 18,
-        //flex: 1,
-        //textAlign: 'right',
         color: '#7a7a7a'
     }
 }
@@ -66,6 +59,8 @@ export default class RichTextBox extends Component {
             this.setState({ value: nextProps.defaultValue })
         }
     }
+
+
 
     changeValue(param) {
         this.setState({ value: param.value })
