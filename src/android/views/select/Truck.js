@@ -20,7 +20,8 @@ class Truck extends Component {
             truckNum: ''
         }
         this.tractorListFilter = this.tractorListFilter.bind(this)
-        this._onPress=this._onPress.bind(this)
+        this.trailerListFilter = this.trailerListFilter.bind(this)
+        this._onPress = this._onPress.bind(this)
     }
 
     static defaultProps = {
@@ -44,14 +45,23 @@ class Truck extends Component {
         Actions.pop()
     }
 
+
     tractorListFilter() {
         return this.props.selectTruckReducer.data.tractorList.filter((item) => {
             return item.truck_num.toUpperCase().indexOf(this.state.truckNum) >= 0 || item.truck_num.toLowerCase().indexOf(this.state.truckNum) >= 0
         })
     }
 
+
+    trailerListFilter() {
+        return this.props.selectTruckReducer.data.trailerList.filter((item) => {
+            return item.truck_num.toUpperCase().indexOf(this.state.truckNum) >= 0 || item.truck_num.toLowerCase().indexOf(this.state.truckNum) >= 0
+        })
+    }
+
     render() {
-        
+        console.log(this.props.initParam.type)
+        console.log(this.props)
         return (
             <View>
                 <View style={{ backgroundColor: '#edf1f4' }}>
@@ -71,7 +81,7 @@ class Truck extends Component {
                     />
                 </View>
                 <FlatList showsVerticalScrollIndicator={false}
-                    data={this.tractorListFilter()}
+                    data={this.props.initParam.type == 1 ? this.tractorListFilter() : this.trailerListFilter()}
                     renderItem={({ item }) => {
                         return (
                             <TouchableNativeFeedback key={item.id} onPress={() => this._onPress({ id: item.id, value: item.truck_num })} background={TouchableNativeFeedback.SelectableBackground()}>

@@ -157,9 +157,12 @@ export const unBindTruck = (param) => async (dispatch) => {
 
 export const bindDriver = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/drive/${param.requiredParam.driverId}/bind`
+    console.log(url)
     dispatch({ type: actionTypes.truckInfoTypes.BindDriver_WAITING, payload: {} })
     try {
         let res = await httpRequest.put(url, {})
+    console.log('res',res)
+        
         if (res.success) {
             dispatch({ type: actionTypes.truckInfoTypes.BindDriver_SUCCESS, payload: { data: { driverId: param.driverId, driver: param.driver } } })
         } else {

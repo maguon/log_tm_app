@@ -37,7 +37,7 @@ class Driver extends Component {
     }
 
     driverListFilter() {
-        console.log(this.props.selectDriverReducer)
+        //console.log(this.props.selectDriverReducer)
         return this.props.selectDriverReducer.data.driverList.filter((item) => {
             return item.drive_name.indexOf(this.state.driveName) >= 0 
         })
@@ -89,8 +89,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getDriverList: (param) => {
-        dispatch(getDriverList(param))
+    getDriverList: () => {
+        dispatch(getDriverList())
     }
 })
 

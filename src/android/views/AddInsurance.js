@@ -39,7 +39,7 @@ class AddInsurance extends Component {
         const { insureId, insureType, insureNum, insureMoney, startDate, endDate } = this.props.addInsuranceReducer.data
         const { userId } = this.props.userReducer.data.user
         const { truckId } = this.props.initParam
-        console.log(this.props)
+       // console.log(this.props)
         this.props.createInsurance({
             requiredParam: {
                 userId
@@ -59,7 +59,7 @@ class AddInsurance extends Component {
     componentWillReceiveProps(nextProps) {
         const { createInsurance } = nextProps.addInsuranceReducer
         const param = nextProps.addInsuranceReducer.data
-        console.log(nextProps.addInsuranceReducer.data)
+       // console.log(nextProps.addInsuranceReducer.data)
         /*createInsurance*/
         if (createInsurance.isExecStatus == 2) {
             if (createInsurance.isResultStatus == 0) {

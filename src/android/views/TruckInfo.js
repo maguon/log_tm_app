@@ -42,6 +42,7 @@ import {
     resetUnBindDriver
 } from '../../actions/TruckInfoAction'
 import { Actions } from 'react-native-router-flux'
+import insuranceTypeList from '../../../config/insuranceType.json'
 
 class TruckInfo extends Component {
     constructor(props) {
@@ -69,6 +70,7 @@ class TruckInfo extends Component {
         this.onPressSegment = this.onPressSegment.bind(this)
         this.onSelect = this.onSelect.bind(this)
         this.onChangeTruckStatus = this.onChangeTruckStatus.bind(this)
+        this.renderInsuranceList = this.renderInsuranceList.bind(this)
         this.unBindDriver = this.unBindDriver.bind(this)
         this.bindDriver = this.bindDriver.bind(this)
         this.bindTrail = this.bindTrail.bind(this)
@@ -77,7 +79,7 @@ class TruckInfo extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const { truckInfo, truckInsureRel, truckRecord, changeTruckFirstStatus, changeTruckTrailerStatus } = nextProps.truckInfoReducer
+        const { truckInfo, truckInsureRel, truckRecord, changeTruckFirstStatus, changeTruckTrailerStatus,bindTrail,unBindTrail,bindDriver,unBindDriver } = nextProps.truckInfoReducer
         /*truckInfo*/
         if (truckInfo.isExecStatus == 2) {
             if (truckInfo.isResultStatus == 0) {
@@ -200,6 +202,97 @@ class TruckInfo extends Component {
         }
         /************************************ */
 
+
+        /*bindTrail*/
+        if (bindTrail.isExecStatus == 2) {
+            if (bindTrail.isResultStatus == 0) {
+                this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
+                console.log('bindTrail执行成功')
+                this.props.resetBindTruck()
+            }
+            else if (bindTrail.isResultStatus == 1) {
+                console.log('bindTrail异常', bindTrail.errorMsg)
+                this.props.resetBindTruck()
+            }
+            else if (bindTrail.isResultStatus == 2) {
+                console.log('bindTrail执行失败',bindTrail.failedMsg)
+                this.props.resetBindTruck()
+            }
+            else if (bindTrail.isResultStatus == 3) {
+                console.log('bindTrail', '服务器异常')
+                this.props.resetBindTruck()
+            }
+        }
+        /************************************ */
+
+
+        /*unBindTrail*/
+        if (unBindTrail.isExecStatus == 2) {
+            if (unBindTrail.isResultStatus == 0) {
+                this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
+                console.log('unBindTrail', '执行成功')
+                this.props.resetUnBindTruck()
+            }
+            else if (unBindTrail.isResultStatus == 1) {
+                console.log('unBindTrail异常', unBindTrail.errorMsg)
+                this.props.resetUnBindTruck()
+            }
+            else if (unBindTrail.isResultStatus == 2) {
+                console.log('unBindTrail', '执行失败')
+                this.props.resetUnBindTruck()
+            }
+            else if (unBindTrail.isResultStatus == 3) {
+                console.log('unBindTrail', '服务器异常')
+                this.props.resetUnBindTruck()
+            }
+        }
+        /************************************ */
+
+        /*bindDriver*/
+        if (bindDriver.isExecStatus == 2) {
+            if (bindDriver.isResultStatus == 0) {
+                this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
+                console.log('bindDriver', '执行成功')
+                this.props.resetBindDriver()
+            }
+            else if (bindDriver.isResultStatus == 1) {
+                console.log('bindDriver异常', unBindTrail.errorMsg)
+                this.props.resetBindDriver()
+            }
+            else if (bindDriver.isResultStatus == 2) {
+                console.log('bindDriver', '执行失败')
+                this.props.resetBindDriver()
+            }
+            else if (bindDriver.isResultStatus == 3) {
+                console.log('bindDriver', '服务器异常')
+               this.props.resetBindDriver()
+            }
+        }
+        /************************************ */
+
+
+        /*bindDriver*/
+        if (unBindDriver.isExecStatus == 2) {
+            if (unBindDriver.isResultStatus == 0) {
+                this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
+                console.log('unBindDriver', '执行成功')
+                this.props.resetUnBindDriver()
+            }
+            else if (unBindDriver.isResultStatus == 1) {
+                console.log('unBindDriver异常', unBindTrail.errorMsg)
+                this.props.resetUnBindDriver()
+            }
+            else if (unBindDriver.isResultStatus == 2) {
+                console.log('unBindDriver', '执行失败')
+                this.props.resetUnBindDriver()
+            }
+            else if (unBindDriver.isResultStatus == 3) {
+                console.log('unBindDriver', '服务器异常')
+                this.props.resetUnBindDriver()
+            }
+        }
+        /************************************ */
+
     }
 
     componentDidMount() {
@@ -235,22 +328,64 @@ class TruckInfo extends Component {
     }
 
     unBindDriver() {
-        console.log('unBindDriver')
-
+        this.props.unBindDriver({
+            requiredParam: {
+                userId: this.props.userReducer.data.user.userId,
+                truckId: this.props.truckInfoReducer.data.truckInfo.id,
+                driverId: this.props.truckInfoReducer.data.truckInfo.drive_id,
+            }
+        })
     }
 
-    bindDriver() {
-        console.log('bindDriver')
-
+    bindDriver(param) {
+        //console.log(param)
+        this.props.bindDriver({
+            requiredParam: {
+                userId: this.props.userReducer.data.user.userId,
+                truckId: this.props.truckInfoReducer.data.truckInfo.id,
+                driverId: param.id,
+            }
+        })
     }
 
-    bindTrail() {
-        console.log('bindTrail')
-
+    bindTrail(param) {
+        if (this.props.truckInfoReducer.data.truckInfo.truck_type == 1) {
+            this.props.bindTruck({
+                requiredParam: {
+                    userId: this.props.userReducer.data.user.userId,
+                    truckId: this.props.truckInfoReducer.data.truckInfo.id,
+                    trailId: param.id,
+                }
+            })
+        } else if (this.props.truckInfoReducer.data.truckInfo.truck_type == 2) {
+            this.props.bindTruck({
+                requiredParam: {
+                    userId: this.props.userReducer.data.user.userId,
+                    truckId: param.id,
+                    trailId: this.props.truckInfoReducer.data.truckInfo.id,
+                }
+            })
+        }
     }
 
     unBindTrail() {
-        console.log('unBindTrail')
+        if (this.props.truckInfoReducer.data.truckInfo.truck_type == 1) {
+            this.props.unBindTruck({
+                requiredParam: {
+                    userId: this.props.userReducer.data.user.userId,
+                    truckId: this.props.truckInfoReducer.data.truckInfo.id,
+                    trailId: this.props.truckInfoReducer.data.truckInfo.trail_id,
+                }
+            })
+        } else if (this.props.truckInfoReducer.data.truckInfo.truck_type == 2) {
+            this.props.unBindTruck({
+                requiredParam: {
+                    userId: this.props.userReducer.data.user.userId,
+                    truckId: this.props.truckInfoReducer.data.truckInfo.first_id,
+                    trailId: this.props.truckInfoReducer.data.truckInfo.id,
+                }
+            })
+        }
     }
 
     onChangeTruckStatus(param) {
@@ -326,7 +461,7 @@ class TruckInfo extends Component {
                     />
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View><Text style={{ fontSize: 12 }}>关联挂车：{this.props.truckInfoReducer.data.truckInfo.trail_num ? this.props.truckInfoReducer.data.truckInfo.trail_num : '您还没有关联挂车'}</Text></View>
-                        {!this.props.truckInfoReducer.data.truckInfo.trail_id ? <TouchableNativeFeedback onPress={this.bindTrail} background={TouchableNativeFeedback.SelectableBackground()}>
+                        {!this.props.truckInfoReducer.data.truckInfo.trail_id ? <TouchableNativeFeedback onPress={()=>RouterDirection.selectTruck(this.props.parent)({initParam:{type:2},onSelect:(param)=>this.bindTrail(param)})} background={TouchableNativeFeedback.SelectableBackground()}>
                             <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                 <Text style={{ fontSize: 10, color: '#fff' }}>绑定</Text>
                             </View>
@@ -338,7 +473,7 @@ class TruckInfo extends Component {
                     </View>
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View><Text style={{ fontSize: 12 }}>关联司机：{this.props.truckInfoReducer.data.truckInfo.drive_name ? this.props.truckInfoReducer.data.truckInfo.drive_name : '您还没有关联司机'}</Text></View>
-                        {!this.props.truckInfoReducer.data.truckInfo.drive_id ? <TouchableNativeFeedback onPress={this.bindDriver} background={TouchableNativeFeedback.SelectableBackground()}>
+                        {!this.props.truckInfoReducer.data.truckInfo.drive_id ? <TouchableNativeFeedback onPress={()=>RouterDirection.selectDriver(this.props.parent)({initParam:{type:2},onSelect:(param)=>this.bindDriver(param)})} background={TouchableNativeFeedback.SelectableBackground()}>
                             <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                 <Text style={{ fontSize: 10, color: '#fff' }}>绑定</Text>
                             </View>
@@ -721,16 +856,63 @@ class TruckInfo extends Component {
         return (
             <FlatList
                 showsVerticalScrollIndicator={false}
-                data={[{ key: 'a' }, { key: 'b' }, { key: 'c' }, { key: 'd' }, { key: 'e' }, { key: 'f' }, { key: 'g' }, { key: 'h' }, { key: 'i' }, { key: 'j' },
-                { key: 'k' }, { key: 'l' }, { key: 'm' }, { key: 'n' }, { key: 'o' }, { key: 'p' }, { key: 'q' }, { key: 'r' }, { key: 's' }, { key: 't' }, { key: 'u' },
-                { key: 'v' }, { key: 'w' }, { key: 'x' }, { key: 'y' }, { key: 'z' }]}
-                renderItem={({ item }) => <View style={{ borderColor: '#ddd', borderBottomWidth: 0.5, paddingHorizontal: 10 }}><RecordListItem /></View>}
+                data={this.props.truckInfoReducer.data.recordList}
+                renderItem={({ item }) => <View style={{ borderColor: '#ddd', borderBottomWidth: 0.5, paddingHorizontal: 10 }}><RecordListItem content={item.content} name={item.name} time={new Date(item.timez).toLocaleString()}/></View>}
             />
         )
     }
 
+    renderInsuranceList() {
+        let insuranceList = this.props.truckInfoReducer.data.truckInsureRelList.map((item, i) => {
+            let panelStyle = (i == this.props.truckInfoReducer.data.truckInsureRelList.length - 1) ? { marginVertical: 10 } : { marginTop: 10 }
+            return (
+                <View key={i} style={{ backgroundColor: '#edf1f4' }}>
+                    <View style={{ marginHorizontal: 10, paddingHorizontal: 10, paddingVertical: 10, backgroundColor: '#fff', borderColor: '#e8e8e8', borderWidth: 0.5, ...panelStyle }}>
+                        <View style={{ flexDirection: 'row', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#e8e8e8', alignItems: 'flex-end' }}>
+                            <View style={{ flex: 1 }}>
+                                <Text style={{ color: '#00cade' }}>{item.insureTypeName}</Text>
+                            </View>
+                            <View style={{ flex: 2 }}>
+                                <Text style={{ fontSize: 11 }}>编号：{item.insure_num}</Text>
+                            </View>
+                        </View>
+                        <View style={{ flexDirection: 'row', paddingVertical: 10 }}>
+                            <View style={{ flex: 1 }}>
+                                <Text style={{ fontSize: 11 }}>保险公司：{item.insure_name}</Text>
+                            </View>
+                            <View style={{ flex: 1 }}>
+                                <Text style={{ fontSize: 11 }}>投保日期：{item.createDate}</Text>
+                            </View>
+                        </View>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <View>
+                                <Text style={{ fontSize: 11 }}>生效期 {item.startDate} 到：{item.endDate}</Text>
+                            </View>
+                            <View>
+                                <Text style={{ fontSize: 11 }}>¥ <Text style={{ color: 'red' }}>{item.insure_money}</Text>元</Text>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            )
+        })
+
+        let addInsuranceBtn = (
+            <View style={{ paddingVertical: 10, paddingHorizontal: 10, backgroundColor: '#fff' }}>
+                <Button
+                    small
+                    onPress={() => Actions.addInsurance({ initParam: this.props.initParam })}
+                    style={{ backgroundColor: '#00cade', alignSelf: 'flex-end' }}>
+                    <Text style={{ color: '#fff', fontSize: 12 }}>增加保单</Text>
+                </Button>
+            </View>
+        )
+
+        return [...insuranceList, addInsuranceBtn]
+    }
+
     render() {
-        // console.log(this.props)
+         console.log(this.props)
         const { truck_status, truck_type } = this.props.truckInfoReducer.data.truckInfo
         return (
             <View style={{ flex: 1 }}>
@@ -756,6 +938,9 @@ class TruckInfo extends Component {
                     {this.state.truckType == 0 && truck_status == 0 && truck_type == 2 && this.renderTrailerInfoDisable()}
 
                     {this.state.truckType == 1 && this.renderTruckPhoto()}
+                    {this.state.truckType == 2 && <FlatList showsVerticalScrollIndicator={false}
+                        data={this.renderInsuranceList()}
+                        renderItem={({ item }) => item} />}
                     {this.state.truckType == 3 && this.renderTruckRecord()}
                 </View>
             </View>

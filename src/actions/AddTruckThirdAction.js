@@ -96,14 +96,10 @@ export const delTruckImage = (param) => async (dispatch) => {
     const recordUrl = `${record_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckNum}/record`
     dispatch({ type: actionTypes.addTruckThirdTypes.DEL_TruckThirdTruckImage_WAITING, payload: {} })
     try {
-        let recordRes = await httpRequest.get(recordUrl)
-            console.log(recordRes)
-        
+        let recordRes = await httpRequest.get(recordUrl)    
         if (recordRes.success) {
             const url = `${record_host}/user/${param.requiredParam.userId}/record/${recordRes.result[0]._id}/truck/${param.requiredParam.truckNum}/image/${param.requiredParam.url}`
-            console.log(url)
             let res = await httpRequest.del(url, {})
-            console.log(res)
             if (res.success) {
                 dispatch({ type: actionTypes.addTruckThirdTypes.DEL_TruckThirdTruckImage_SUCCESS, payload: { data: res.result.images } })
             }
