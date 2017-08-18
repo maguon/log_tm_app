@@ -3,7 +3,8 @@ import {
     Text,
     View,
     FlatList,
-    ScrollView
+    ScrollView,
+    TouchableNativeFeedback
 } from 'react-native'
 
 import { Button } from 'native-base'
@@ -30,7 +31,15 @@ import {
     resetChangeTruckFirstStatus,
     changeTruckFirstStatus,
     changeTruckTrailerStatus,
-    resetChangeTruckTrailerStatus
+    resetChangeTruckTrailerStatus,
+    bindTruck,
+    unBindTruck,
+    bindDriver,
+    unBindDriver,
+    resetBindTruck,
+    resetUnBindTruck,
+    resetBindDriver,
+    resetUnBindDriver
 } from '../../actions/TruckInfoAction'
 import { Actions } from 'react-native-router-flux'
 
@@ -60,10 +69,15 @@ class TruckInfo extends Component {
         this.onPressSegment = this.onPressSegment.bind(this)
         this.onSelect = this.onSelect.bind(this)
         this.onChangeTruckStatus = this.onChangeTruckStatus.bind(this)
+        this.unBindDriver = this.unBindDriver.bind(this)
+        this.bindDriver = this.bindDriver.bind(this)
+        this.bindTrail = this.bindTrail.bind(this)
+        this.unBindTrail = this.unBindTrail.bind(this)
+
     }
 
     componentWillReceiveProps(nextProps) {
-        const { truckInfo, truckInsureRel, truckRecord,changeTruckFirstStatus,changeTruckTrailerStatus } = nextProps.truckInfoReducer
+        const { truckInfo, truckInsureRel, truckRecord, changeTruckFirstStatus, changeTruckTrailerStatus } = nextProps.truckInfoReducer
         /*truckInfo*/
         if (truckInfo.isExecStatus == 2) {
             if (truckInfo.isResultStatus == 0) {
@@ -141,7 +155,7 @@ class TruckInfo extends Component {
 
 
         /*changeTruckFirstStatus*/
-        
+
         if (changeTruckFirstStatus.isExecStatus == 2) {
             if (changeTruckFirstStatus.isResultStatus == 0) {
                 this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
@@ -150,15 +164,15 @@ class TruckInfo extends Component {
             }
             else if (changeTruckFirstStatus.isResultStatus == 1) {
                 console.log('changeTruckFirstStatus异常', changeTruckFirstStatus.errorMsg)
-                this.props.resetChangeTruckFirstStatus()    
+                this.props.resetChangeTruckFirstStatus()
             }
             else if (changeTruckFirstStatus.isResultStatus == 2) {
                 console.log('changeTruckFirstStatus', '执行失败')
-                this.props.resetChangeTruckFirstStatus()   
+                this.props.resetChangeTruckFirstStatus()
             }
             else if (changeTruckFirstStatus.isResultStatus == 3) {
                 console.log('changeTruckFirstStatus', '服务器异常')
-                this.props.resetChangeTruckFirstStatus()    
+                this.props.resetChangeTruckFirstStatus()
             }
         }
         /************************************ */
@@ -173,15 +187,15 @@ class TruckInfo extends Component {
             }
             else if (changeTruckTrailerStatus.isResultStatus == 1) {
                 console.log('changeTruckTrailerStatus异常', changeTruckTrailerStatus.errorMsg)
-                this.props.resetChangeTruckTrailerStatus()        
+                this.props.resetChangeTruckTrailerStatus()
             }
             else if (changeTruckTrailerStatus.isResultStatus == 2) {
                 console.log('changeTruckTrailerStatus', '执行失败')
-                this.props.resetChangeTruckTrailerStatus()              
+                this.props.resetChangeTruckTrailerStatus()
             }
             else if (changeTruckTrailerStatus.isResultStatus == 3) {
                 console.log('changeTruckTrailerStatus', '服务器异常')
-                this.props.resetChangeTruckTrailerStatus()                
+                this.props.resetChangeTruckTrailerStatus()
             }
         }
         /************************************ */
@@ -221,11 +235,22 @@ class TruckInfo extends Component {
     }
 
     unBindDriver() {
+        console.log('unBindDriver')
 
     }
 
     bindDriver() {
+        console.log('bindDriver')
 
+    }
+
+    bindTrail() {
+        console.log('bindTrail')
+
+    }
+
+    unBindTrail() {
+        console.log('unBindTrail')
     }
 
     onChangeTruckStatus(param) {
@@ -251,6 +276,7 @@ class TruckInfo extends Component {
     }
 
     renderTractorInfoEnable() {
+        console.log(this.props.truckInfoReducer)
         return (
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View>
@@ -299,16 +325,28 @@ class TruckInfo extends Component {
                         onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
                     />
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View><Text style={{ fontSize: 12 }}>关联挂车：{this.props.truckInfoReducer.data.truckInfo.trail_num}</Text></View>
-                        <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
-                            <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
-                        </View>
+                        <View><Text style={{ fontSize: 12 }}>关联挂车：{this.props.truckInfoReducer.data.truckInfo.trail_num ? this.props.truckInfoReducer.data.truckInfo.trail_num : '您还没有关联挂车'}</Text></View>
+                        {!this.props.truckInfoReducer.data.truckInfo.trail_id ? <TouchableNativeFeedback onPress={this.bindTrail} background={TouchableNativeFeedback.SelectableBackground()}>
+                            <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                                <Text style={{ fontSize: 10, color: '#fff' }}>绑定</Text>
+                            </View>
+                        </TouchableNativeFeedback> : <TouchableNativeFeedback onPress={this.unBindTrail} background={TouchableNativeFeedback.SelectableBackground()}>
+                                <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                                    <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
+                                </View>
+                            </TouchableNativeFeedback>}
                     </View>
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View><Text style={{ fontSize: 12 }}>关联司机：{this.props.truckInfoReducer.data.truckInfo.drive_name}</Text></View>
-                        <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
-                            <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
-                        </View>
+                        <View><Text style={{ fontSize: 12 }}>关联司机：{this.props.truckInfoReducer.data.truckInfo.drive_name ? this.props.truckInfoReducer.data.truckInfo.drive_name : '您还没有关联司机'}</Text></View>
+                        {!this.props.truckInfoReducer.data.truckInfo.drive_id ? <TouchableNativeFeedback onPress={this.bindDriver} background={TouchableNativeFeedback.SelectableBackground()}>
+                            <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                                <Text style={{ fontSize: 10, color: '#fff' }}>绑定</Text>
+                            </View>
+                        </TouchableNativeFeedback> : <TouchableNativeFeedback onPress={this.unBindDriver} background={TouchableNativeFeedback.SelectableBackground()}>
+                                <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                                    <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
+                                </View>
+                            </TouchableNativeFeedback>}
                     </View>
                     <TextBox
                         title='副驾司机：'
@@ -322,12 +360,6 @@ class TruckInfo extends Component {
                         onValueChange={(param) => this.onSelect({ vinCode: param })}
                         placeholder='请输入副驾司机'
                     />
-                    <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View><Text style={{ fontSize: 12 }}>车辆状态：正常</Text></View>
-                        <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
-                            <Text style={{ fontSize: 10, color: '#fff' }}>维修</Text>
-                        </View>
-                    </View>
                     <DateTimePicker
                         value={this.props.truckInfoReducer.data.truckInfo.driving_date}
                         title='行驶证检证日期：'
@@ -772,6 +804,30 @@ const mapDispatchToProps = (dispatch) => ({
     },
     resetChangeTruckTrailerStatus: () => {
         dispatch(resetChangeTruckTrailerStatus())
+    },
+    bindTruck: (param) => {
+        dispatch(bindTruck(param))
+    },
+    unBindTruck: (param) => {
+        dispatch(unBindTruck(param))
+    },
+    bindDriver: (param) => {
+        dispatch(bindDriver(param))
+    },
+    unBindDriver: (param) => {
+        dispatch(unBindDriver(param))
+    },
+    resetBindTruck: () => {
+        dispatch(resetBindTruck())
+    },
+    resetUnBindTruck: () => {
+        dispatch(resetUnBindTruck())
+    },
+    resetBindDriver: () => {
+        dispatch(resetBindDriver())
+    },
+    resetUnBindDriver: () => {
+        dispatch(resetUnBindDriver())
     }
 })
 
