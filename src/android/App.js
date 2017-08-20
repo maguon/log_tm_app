@@ -43,6 +43,11 @@ import SelectInsuranceType from './views/select/InsuranceType'
 
 import SinglePhotoView from './views/SinglePhotoView'  
 import CustomPhotoView from './views/CustomPhotoView'
+
+
+import UpdateRepair from './views/UpdateRepair'
+import AddRepair from './views/AddRepair'
+
 // import Orientation from 'react-native-orientation'
 // import * as sceneAction from '../actions/SceneAction'
 
@@ -164,6 +169,8 @@ class App extends Component {
                                 <Scene key="selectDriverAtTruckBlock" component={SelectDriver} title='选择司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectInsuranceAtTruckBlock" component={SelectInsurance} title='选择保险公司' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectInsuranceTypeAtTruckBlock" component={SelectInsuranceType} title='选择保险险种' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="addRepairAtTruckBlock" component={AddRepair} title='开始维修' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="updateRepairAtTruckBlock" component={UpdateRepair} title='维修完毕' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="richTextAtTruckBlock" component={RichText} title='备注' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="singlePhotoViewAtTruckBlock" component={SinglePhotoView} hideNavBar hideTabBar/>
                                 <Scene key="customPhotoViewAtTruckBlock" component={CustomPhotoView} hideNavBar hideTabBar/>                               

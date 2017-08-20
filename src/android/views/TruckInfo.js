@@ -42,13 +42,13 @@ import {
     resetUnBindDriver
 } from '../../actions/TruckInfoAction'
 import { Actions } from 'react-native-router-flux'
-import insuranceTypeList from '../../../config/insuranceType.json'
+import insuranceTypeList from '../../config/insuranceType.json'
 
 class TruckInfo extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            truckType: 0,
+            truckType: 4,
             truckInfo: {
                 truck_num: '',      //车牌号
                 brand_name: '',     //识别码
@@ -67,6 +67,7 @@ class TruckInfo extends Component {
         this.renderTrailerInfoDisable = this.renderTrailerInfoDisable.bind(this)
         this.renderTruckPhoto = this.renderTruckPhoto.bind(this)
         this.renderTruckRecord = this.renderTruckRecord.bind(this)
+        this.renderRepair=this.renderRepair.bind(this)
         this.onPressSegment = this.onPressSegment.bind(this)
         this.onSelect = this.onSelect.bind(this)
         this.onChangeTruckStatus = this.onChangeTruckStatus.bind(this)
@@ -862,6 +863,46 @@ class TruckInfo extends Component {
         )
     }
 
+    renderRepair(){
+        return(
+            <View style={{flex: 1}}>
+                {/* <View style={{ paddingVertical: 10, borderBottomWidth: 0.5, borderColor: '#e3e3e3'}}>
+                     <Button small onPress={Actions.addRepairAtTruckBlock} style={{ backgroundColor: '#f27d80',alignSelf:'center' }}>
+                        <Text style={{ color: '#fff' }}>维修</Text>
+                    </Button> 
+                </View> */}
+                <View style={{paddingHorizontal:10, paddingVertical: 10, borderBottomWidth: 0.5, borderColor: '#e3e3e3'}}>
+                   <View style={{flexDirection:'row',justifyContent:'space-between'}}> 
+                       <Text style={{fontSize:12}}>维修日期</Text>
+                       <Button small style={{backgroundColor:'#00cade'}} onPress={Actions.updateRepairAtTruckBlock}>
+                           <Text style={{color:'#fff'}}>结束</Text>
+                        </Button>
+                   </View>
+                   <View style={{paddingVertical:10}}> 
+                    <Text style={{fontSize:12,fontWeight:'bold'}}>维修原因</Text>
+                    </View>
+                    <View> 
+                         <Text style={{fontSize:12}}>维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因</Text>
+                    </View>
+                </View>
+                <View style={{flex: 1}} >
+                <FlatList
+                    showsVerticalScrollIndicator={false}
+                    data={[{ repair_date: '2017-08-10T02:17:30.000Z', repair_reason: '59+62', repair_money: '123123', end_date: '2017-08-12T02:17:30.000Z' },
+                    { repair_date: '2017-08-10T02:17:30.000Z', repair_reason: '59+62', repair_money: '123123', end_date: '2017-08-12T02:17:30.000Z' },
+                    { repair_date: '2017-08-10T02:17:30.000Z', repair_reason: '59+62', repair_money: '123123', end_date: '2017-08-12T02:17:30.000Z' }]}
+                    renderItem={({ item }) => <View style={{ paddingVertical: 10, paddingHorizontal: 10, borderBottomWidth: 0.5, borderColor: '#e3e3e3' }}>
+                        <Text style={{fontSize:12,fontWeight:'bold'}}>{new Date(item.repair_date).toLocaleDateString()} 至 {new Date(item.end_date).toLocaleDateString()}</Text>
+                        <Text numberOfLines={1} style={{fontSize:12,paddingVertical:5}}><Text style={{fontWeight:'bold'}}>维修描述：</Text>{item.repair_reason}</Text>
+                        <Text style={{ alignSelf: 'flex-end' ,fontSize:10}}>金额：<Text style={{ color: '#f27d80',fontSize:12 }}>{item.repair_money}</Text>元</Text>
+                    </View>}
+                />
+                </View>
+                
+            </View>
+        )
+    }
+
     renderInsuranceList() {
         let insuranceList = this.props.truckInfoReducer.data.truckInsureRelList.map((item, i) => {
             let panelStyle = (i == this.props.truckInfoReducer.data.truckInsureRelList.length - 1) ? { marginVertical: 10 } : { marginTop: 10 }
@@ -870,7 +911,7 @@ class TruckInfo extends Component {
                     <View style={{ marginHorizontal: 10, paddingHorizontal: 10, paddingVertical: 10, backgroundColor: '#fff', borderColor: '#e8e8e8', borderWidth: 0.5, ...panelStyle }}>
                         <View style={{ flexDirection: 'row', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#e8e8e8', alignItems: 'flex-end' }}>
                             <View style={{ flex: 1 }}>
-                                <Text style={{ color: '#00cade' }}>{item.insureTypeName}</Text>
+                                <Text style={{ color: '#00cade' }}>{insuranceTypeList.find((typeItem)=>typeItem.id==item.insure_type).insuranceType}</Text>
                             </View>
                             <View style={{ flex: 2 }}>
                                 <Text style={{ fontSize: 11 }}>编号：{item.insure_num}</Text>
@@ -881,12 +922,12 @@ class TruckInfo extends Component {
                                 <Text style={{ fontSize: 11 }}>保险公司：{item.insure_name}</Text>
                             </View>
                             <View style={{ flex: 1 }}>
-                                <Text style={{ fontSize: 11 }}>投保日期：{item.createDate}</Text>
+                                <Text style={{ fontSize: 11 }}>投保日期：{new Date(item.insure_date).toLocaleDateString()}</Text>
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View>
-                                <Text style={{ fontSize: 11 }}>生效期 {item.startDate} 到：{item.endDate}</Text>
+                                <Text style={{ fontSize: 11 }}>生效期：{new Date(item.start_date).toLocaleDateString()} 到：{new Date(item.end_date).toLocaleDateString()}</Text>
                             </View>
                             <View>
                                 <Text style={{ fontSize: 11 }}>¥ <Text style={{ color: 'red' }}>{item.insure_money}</Text>元</Text>
@@ -917,8 +958,8 @@ class TruckInfo extends Component {
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>
-                    <Button small style={{ flex: 2, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.truckType == 0 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(0)}>
-                        <Text style={{ color: this.state.truckType == 0 ? '#fff' : '#00cade' }}>基本信息</Text>
+                    <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.truckType == 0 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(0)}>
+                        <Text style={{ color: this.state.truckType == 0 ? '#fff' : '#00cade' }}>信息</Text>
                     </Button>
                     <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.truckType == 1 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(1)}>
                         <Text style={{ color: this.state.truckType == 1 ? '#fff' : '#00cade' }}>照片</Text>
@@ -926,8 +967,11 @@ class TruckInfo extends Component {
                     <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.truckType == 2 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(2)}>
                         <Text style={{ color: this.state.truckType == 2 ? '#fff' : '#00cade' }}>车保</Text>
                     </Button>
-                    <Button small style={{ flex: 1, borderRadius: 0, justifyContent: 'center', backgroundColor: this.state.truckType == 3 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(3)}>
+                    <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.truckType == 3 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(3)}>
                         <Text style={{ color: this.state.truckType == 3 ? '#fff' : '#00cade' }}>记录</Text>
+                    </Button>
+                    <Button small style={{ flex: 1, borderRadius: 0, justifyContent: 'center', backgroundColor: this.state.truckType == 4 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(4)}>
+                        <Text style={{ color: this.state.truckType == 4 ? '#fff' : '#00cade' }}>维修</Text>
                     </Button>
                 </View>
                 <View style={{ backgroundColor: '#fff', borderTopWidth: 1, borderColor: '#00cade', flex: 1 }}>
@@ -942,6 +986,7 @@ class TruckInfo extends Component {
                         data={this.renderInsuranceList()}
                         renderItem={({ item }) => item} />}
                     {this.state.truckType == 3 && this.renderTruckRecord()}
+                    {this.state.truckType == 4 && this.renderRepair()}
                 </View>
             </View>
         )
