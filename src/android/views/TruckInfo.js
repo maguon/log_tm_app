@@ -391,16 +391,21 @@ class TruckInfo extends Component {
         /*updateDrivingImage*/
         if (updateDrivingImage.isExecStatus == 2) {
             if (updateDrivingImage.isResultStatus == 0) {
+                this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
                 console.log('updateDrivingImage', '执行成功') 
+                this.props.resetUpdateDrivingImage()
             }
             else if (updateDrivingImage.isResultStatus == 1) {
                 console.log('updateDrivingImage异常', updateDrivingImage.errorMsg)  
+                this.props.resetUpdateDrivingImage()
             }
             else if (updateDrivingImage.isResultStatus == 2) {
-                console.log('updateDrivingImage', '执行失败')   
+                console.log('updateDrivingImage', '执行失败') 
+                this.props.resetUpdateDrivingImage()  
             }
             else if (updateDrivingImage.isResultStatus == 3) {
                 console.log('updateDrivingImage', '服务器异常')  
+                this.props.resetUpdateDrivingImage()
             }
         }
         /************************************ */
@@ -408,16 +413,21 @@ class TruckInfo extends Component {
         /*updateLicenseImage*/
         if (updateLicenseImage.isExecStatus == 2) {
             if (updateLicenseImage.isResultStatus == 0) {
+                this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
                 console.log('updateLicenseImage', '执行成功')
+                this.props.resetUpdateLicenseImage()
             }
             else if (updateLicenseImage.isResultStatus == 1) {
                 console.log('updateLicenseImage异常', updateLicenseImage.errorMsg)
+                this.props.resetUpdateLicenseImage()
             }
             else if (updateLicenseImage.isResultStatus == 2) {
                 console.log('updateLicenseImage', '执行失败')
+                this.props.resetUpdateLicenseImage()
             }
             else if (updateLicenseImage.isResultStatus == 3) {
                 console.log('updateLicenseImage', '服务器异常')
+                this.props.resetUpdateLicenseImage()
             }
         }
         /************************************ */
@@ -1079,7 +1089,6 @@ class TruckInfo extends Component {
         //         </View>]
         const { driving_image, license_image } = this.props.truckInfoReducer.data.truckInfo
         let  imageList  = [...this.props.truckInfoReducer.data.imageList]
-        // console.log(this.props.truckInfoReducer.data)
 
         let imageListFoot
         if (imageList.length % 2 == 0) {
@@ -1109,7 +1118,7 @@ class TruckInfo extends Component {
                     {driving_image
                         ? <PanelSingleItem title='行驶证' imageUrl={driving_image} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
                         : <Camera title='上传行驶证照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} onGetPhoto={this.updateDrivingImage} />}
-                    {driving_image
+                    {license_image
                         ? <PanelSingleItem title='营运证' imageUrl={license_image} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
                         : <Camera title='上传营运证照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} onGetPhoto={this.updateLicenseImage} />}
                 </View>}
