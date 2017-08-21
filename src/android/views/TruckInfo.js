@@ -384,6 +384,74 @@ class TruckInfo extends Component {
         }
         /************************************ */
 
+        /*updateDrivingImage*/
+        if (updateDrivingImage.isExecStatus == 2) {
+            if (updateDrivingImage.isResultStatus == 0) {
+                console.log('updateDrivingImage', '执行成功') 
+            }
+            else if (updateDrivingImage.isResultStatus == 1) {
+                console.log('updateDrivingImage异常', updateDrivingImage.errorMsg)  
+            }
+            else if (updateDrivingImage.isResultStatus == 2) {
+                console.log('updateDrivingImage', '执行失败')   
+            }
+            else if (updateDrivingImage.isResultStatus == 3) {
+                console.log('updateDrivingImage', '服务器异常')  
+            }
+        }
+        /************************************ */
+
+        /*updateLicenseImage*/
+        if (updateLicenseImage.isExecStatus == 2) {
+            if (updateLicenseImage.isResultStatus == 0) {
+                console.log('updateLicenseImage', '执行成功')
+            }
+            else if (updateLicenseImage.isResultStatus == 1) {
+                console.log('updateLicenseImage异常', updateLicenseImage.errorMsg)
+            }
+            else if (updateLicenseImage.isResultStatus == 2) {
+                console.log('updateLicenseImage', '执行失败')
+            }
+            else if (updateLicenseImage.isResultStatus == 3) {
+                console.log('updateLicenseImage', '服务器异常')
+            }
+        }
+        /************************************ */
+
+        /*createTruckImage*/
+        if (createTruckImage.isExecStatus == 2) {
+            if (createTruckImage.isResultStatus == 0) {
+                console.log('createTruckImage', '执行成功')
+            }
+            else if (createTruckImage.isResultStatus == 1) {
+                console.log('createTruckImage异常', createTruckImage.errorMsg)
+            }
+            else if (createTruckImage.isResultStatus == 2) {
+                console.log('createTruckImage', '执行失败')
+            }
+            else if (createTruckImage.isResultStatus == 3) {
+                console.log('createTruckImage', '服务器异常')
+            }
+        }
+        /************************************ */
+
+        /*delTruckImage*/
+        if (delTruckImage.isExecStatus == 2) {
+            if (delTruckImage.isResultStatus == 0) {
+                console.log('delTruckImage', '执行成功')
+            }
+            else if (delTruckImage.isResultStatus == 1) {
+                console.log('delTruckImage', delTruckImage.errorMsg)
+            }
+            else if (delTruckImage.isResultStatus == 2) {
+                console.log('delTruckImage', '执行失败')
+            }
+            else if (delTruckImage.isResultStatus == 3) {
+                console.log('delTruckImage', '服务器异常')
+            }
+        }
+        /************************************ */
+
     }
 
     componentDidMount() {
@@ -921,15 +989,15 @@ class TruckInfo extends Component {
     }
 
     updateLicenseImage(param){
-  console.log(param)
+        console.log(param)
     }
 
     createTruckImage(param){
-  console.log(param)
+        console.log(param)
     }
 
     delTruckImage(param){
-  console.log(param)
+        console.log(param)
     }
 
     renderTruckPhoto() {
