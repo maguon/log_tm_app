@@ -99,7 +99,35 @@ const initialState = {
         errorMsg: '',
         failedMsg: '',
         serviceFailedMsg: ''
-    }
+    },
+    updateDrivingImage:{
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
+    },
+    updateLicenseImage:{
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
+    },
+    createTruckImage:{
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
+    },
+    delTruckImage:{
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
+    },
 }
 
 //isResultStatus(执行结果状态):[0(成功)，1(错误)，2(执行失败),3(服务器错误)] 
@@ -395,7 +423,6 @@ export default handleActions({
             }
         }
     },
-
 
 
     [(actionTypes.truckInfoTypes.ChangeTruckTrailerStatus_SUCCESS)]: (state, action) => {
@@ -1062,8 +1089,8 @@ export default handleActions({
     [(actionTypes.truckInfoTypes.UPDATE_TruckInfoDrivingImage_SUCCESS)]: (state, action) => {
         return {
             ...state,
-            updateTruckRepairRel: {
-                ...state.updateTruckRepairRel,
+            updateDrivingImage: {
+                ...state.updateDrivingImage,
                 isResultStatus: 0,
                 isExecStatus: 2
             }
@@ -1073,8 +1100,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            updateTruckRepairRel: {
-                ...state.updateTruckRepairRel,
+            updateDrivingImage: {
+                ...state.updateDrivingImage,
                 isResultStatus: 2,
                 failedMsg: data,
                 isExecStatus: 2
@@ -1085,8 +1112,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            updateTruckRepairRel: {
-                ...state.updateTruckRepairRel,
+            updateDrivingImage: {
+                ...state.updateDrivingImage,
                 isResultStatus: 3,
                 serviceFailedMsg: data,
                 isExecStatus: 2
@@ -1097,8 +1124,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            updateTruckRepairRel: {
-                ...state.updateTruckRepairRel,
+            updateDrivingImage: {
+                ...state.updateDrivingImage,
                 isResultStatus: 1,
                 errorMsg: data,
                 isExecStatus: 2
@@ -1108,8 +1135,8 @@ export default handleActions({
     [(actionTypes.truckInfoTypes.UPDATE_TruckInfoDrivingImage_WAITING)]: (state, action) => {
         return {
             ...state,
-            updateTruckRepairRel: {
-                ...state.updateTruckRepairRel,
+            updateDrivingImage: {
+                ...state.updateDrivingImage,
                 isExecStatus: 1
             }
         }
@@ -1117,7 +1144,7 @@ export default handleActions({
     [(actionTypes.truckInfoTypes.RESET_UPDATE_TruckInfoDrivingImage)]: (state, action) => {
         return {
             ...state,
-            updateTruckRepairRel: {
+            updateDrivingImage: {
                 isResultStatus: 0,
                 isExecStatus: 0,
                 errorMsg: '',
@@ -1131,8 +1158,8 @@ export default handleActions({
     [(actionTypes.truckInfoTypes.UPDATE_TruckInfoLicenseImage_SUCCESS)]: (state, action) => {
         return {
             ...state,
-            updateTruckRepairRel: {
-                ...state.updateTruckRepairRel,
+            updateLicenseImage: {
+                ...state.updateLicenseImage,
                 isResultStatus: 0,
                 isExecStatus: 2
             }
@@ -1142,8 +1169,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            updateTruckRepairRel: {
-                ...state.updateTruckRepairRel,
+            updateLicenseImage: {
+                ...state.updateLicenseImage,
                 isResultStatus: 2,
                 failedMsg: data,
                 isExecStatus: 2
@@ -1154,8 +1181,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            updateTruckRepairRel: {
-                ...state.updateTruckRepairRel,
+            updateLicenseImage: {
+                ...state.updateLicenseImage,
                 isResultStatus: 3,
                 serviceFailedMsg: data,
                 isExecStatus: 2
@@ -1166,8 +1193,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            updateTruckRepairRel: {
-                ...state.updateTruckRepairRel,
+            updateLicenseImage: {
+                ...state.updateLicenseImage,
                 isResultStatus: 1,
                 errorMsg: data,
                 isExecStatus: 2
@@ -1177,8 +1204,8 @@ export default handleActions({
     [(actionTypes.truckInfoTypes.UPDATE_TruckInfoLicenseImage_WAITING)]: (state, action) => {
         return {
             ...state,
-            updateTruckRepairRel: {
-                ...state.updateTruckRepairRel,
+            updateLicenseImage: {
+                ...state.updateLicenseImage,
                 isExecStatus: 1
             }
         }
@@ -1186,7 +1213,7 @@ export default handleActions({
     [(actionTypes.truckInfoTypes.RESET_UPDATE_TruckInfoLicenseImage)]: (state, action) => {
         return {
             ...state,
-            updateTruckRepairRel: {
+            updateLicenseImage: {
                 isResultStatus: 0,
                 isExecStatus: 0,
                 errorMsg: '',
@@ -1200,8 +1227,8 @@ export default handleActions({
     [(actionTypes.truckInfoTypes.CREATE_TruckInfoTruckImage_SUCCESS)]: (state, action) => {
         return {
             ...state,
-            updateTruckRepairRel: {
-                ...state.updateTruckRepairRel,
+            createTruckImage: {
+                ...state.createTruckImage,
                 isResultStatus: 0,
                 isExecStatus: 2
             }
@@ -1211,8 +1238,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            updateTruckRepairRel: {
-                ...state.updateTruckRepairRel,
+            createTruckImage: {
+                ...state.createTruckImage,
                 isResultStatus: 2,
                 failedMsg: data,
                 isExecStatus: 2
@@ -1223,8 +1250,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            updateTruckRepairRel: {
-                ...state.updateTruckRepairRel,
+            createTruckImage: {
+                ...state.createTruckImage,
                 isResultStatus: 3,
                 serviceFailedMsg: data,
                 isExecStatus: 2
@@ -1235,8 +1262,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            updateTruckRepairRel: {
-                ...state.updateTruckRepairRel,
+            createTruckImage: {
+                ...state.createTruckImage,
                 isResultStatus: 1,
                 errorMsg: data,
                 isExecStatus: 2
@@ -1246,8 +1273,8 @@ export default handleActions({
     [(actionTypes.truckInfoTypes.CREATE_TruckInfoTruckImage_WAITING)]: (state, action) => {
         return {
             ...state,
-            updateTruckRepairRel: {
-                ...state.updateTruckRepairRel,
+            createTruckImage: {
+                ...state.createTruckImage,
                 isExecStatus: 1
             }
         }
@@ -1255,7 +1282,7 @@ export default handleActions({
     [(actionTypes.truckInfoTypes.RESET_CREATE_TruckInfoTruckImage)]: (state, action) => {
         return {
             ...state,
-            updateTruckRepairRel: {
+            createTruckImage: {
                 isResultStatus: 0,
                 isExecStatus: 0,
                 errorMsg: '',
@@ -1269,8 +1296,8 @@ export default handleActions({
     [(actionTypes.truckInfoTypes.DEL_TruckInfoTruckImage_SUCCESS)]: (state, action) => {
         return {
             ...state,
-            updateTruckRepairRel: {
-                ...state.updateTruckRepairRel,
+            delTruckImage: {
+                ...state.delTruckImage,
                 isResultStatus: 0,
                 isExecStatus: 2
             }
@@ -1280,8 +1307,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            updateTruckRepairRel: {
-                ...state.updateTruckRepairRel,
+            delTruckImage: {
+                ...state.delTruckImage,
                 isResultStatus: 2,
                 failedMsg: data,
                 isExecStatus: 2
@@ -1292,8 +1319,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            updateTruckRepairRel: {
-                ...state.updateTruckRepairRel,
+            delTruckImage: {
+                ...state.delTruckImage,
                 isResultStatus: 3,
                 serviceFailedMsg: data,
                 isExecStatus: 2
@@ -1304,8 +1331,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            updateTruckRepairRel: {
-                ...state.updateTruckRepairRel,
+            delTruckImage: {
+                ...state.delTruckImage,
                 isResultStatus: 1,
                 errorMsg: data,
                 isExecStatus: 2
@@ -1315,8 +1342,8 @@ export default handleActions({
     [(actionTypes.truckInfoTypes.DEL_TruckInfoTruckImage_WAITING)]: (state, action) => {
         return {
             ...state,
-            updateTruckRepairRel: {
-                ...state.updateTruckRepairRel,
+            delTruckImage: {
+                ...state.delTruckImage,
                 isExecStatus: 1
             }
         }
@@ -1324,7 +1351,7 @@ export default handleActions({
     [(actionTypes.truckInfoTypes.RESET_DEL_TruckInfoTruckImage)]: (state, action) => {
         return {
             ...state,
-            updateTruckRepairRel: {
+            delTruckImage: {
                 isResultStatus: 0,
                 isExecStatus: 0,
                 errorMsg: '',
