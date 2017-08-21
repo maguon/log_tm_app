@@ -6,11 +6,20 @@ import {
 import RichTextBox from '../components/form/RichTextBox'
 import * as RouterDirection from '../../util/RouterDirection'
 import { Button } from 'native-base'
-
+import { Actions } from 'react-native-router-flux'
 
 export default class AddRepair extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            repairReason: ''
+        }
+        this.OnRepairSave=this.OnRepairSave.bind(this)
+    }
+
+    OnRepairSave() {
+        this.props.OnRepairSave({ repairReason: this.state.repairReason })
+        Actions.pop()
     }
 
     render() {
@@ -27,13 +36,13 @@ export default class AddRepair extends Component {
                     //      message: '长度0-300位'
                     //  }]}
                     // value={remark}
-                    value={''}
-                    onValueChange={(param) => console.log({ remark: param })}
+                    value={this.state.repairReason}
+                    onValueChange={(param) => this.setState({ repairReason: param })}
                     showRichText={RouterDirection.richText(this.props.parent)}
                 />
 
                 <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
-                    <Button full onPress={() => { }} style={{ backgroundColor: '#00cade' }}>
+                    <Button full onPress={this.OnRepairSave} style={{ backgroundColor: '#00cade' }}>
                         <Text style={{ color: '#fff' }}>保存信息</Text>
                     </Button>
                 </View>

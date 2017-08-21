@@ -6,7 +6,8 @@ const initialState = {
         truckInfo: {},
         recordList: [],
         imageList: [],
-        truckInsureRelList: []
+        truckInsureRelList: [],
+        truckRepairRelList:[]
     },
     truckInfo: {
         isResultStatus: 0,
@@ -72,6 +73,27 @@ const initialState = {
         serviceFailedMsg: ''
     },
     changeTruckTrailerStatus: {
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
+    },
+    truckRepairRelList:{
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
+    },
+    createTruckRepairRel:{
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
+    },
+    updateTruckRepairRel:{
         isResultStatus: 0,
         isExecStatus: 0,
         errorMsg: '',
@@ -824,5 +846,216 @@ export default handleActions({
             }
         }
     },
+
+    [(actionTypes.truckInfoTypes.GET_TruckRepairRelList_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                truckRepairRelList: data
+            },
+            truckRepairRelList: {
+                ...state.truckRepairRelList,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.GET_TruckRepairRelList_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            truckRepairRelList: {
+                ...state.truckRepairRelList,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.GET_TruckRepairRelList_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            truckRepairRelList: {
+                ...state.truckRepairRelList,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.GET_TruckRepairRelList_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            truckRepairRelList: {
+                ...state.truckRepairRelList,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.GET_TruckRepairRelList_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            truckRepairRelList: {
+                ...state.truckRepairRelList,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.RESET_GET_TruckRepairRelList)]: (state, action) => {
+        return {
+            ...state,
+            truckRepairRelList: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
+
+    [(actionTypes.truckInfoTypes.CreateTruckRepairRel_SUCCESS)]: (state, action) => {
+        return {
+            ...state,
+            createTruckRepairRel: {
+                ...state.createTruckRepairRel,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.CreateTruckRepairRel_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            createTruckRepairRel: {
+                ...state.createTruckRepairRel,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.CreateTruckRepairRel_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            createTruckRepairRel: {
+                ...state.createTruckRepairRel,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.CreateTruckRepairRel_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            createTruckRepairRel: {
+                ...state.createTruckRepairRel,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.CreateTruckRepairRel_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            createTruckRepairRel: {
+                ...state.createTruckRepairRel,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.RESET_CreateTruckRepairRel)]: (state, action) => {
+        return {
+            ...state,
+            createTruckRepairRel: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    }, 
+    
+    
+    [(actionTypes.truckInfoTypes.UpdateTruckRepairRel_SUCCESS)]: (state, action) => {
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.UpdateTruckRepairRel_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.UpdateTruckRepairRel_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.UpdateTruckRepairRel_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.UpdateTruckRepairRel_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.RESET_UpdateTruckRepairRel)]: (state, action) => {
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
+
 
 }, initialState)

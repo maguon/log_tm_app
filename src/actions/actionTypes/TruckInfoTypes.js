@@ -19,6 +19,26 @@ export const GET_TruckRecord_SERVICEERROR = 'GET_TruckRecord_SERVICEERROR'
 export const GET_TruckRecord_ERROR = 'GET_TruckRecord_ERROR'
 export const RESET_GET_TruckRecord = 'RESET_GET_TruckRecord'
 
+export const GET_TruckRepairRelList_SUCCESS = 'GET_TruckRepairRelList_SUCCESS'
+export const GET_TruckRepairRelList_FAILED = 'GET_TruckRepairRelList_FAILED'
+export const GET_TruckRepairRelList_WAITING = 'GET_TruckRepairRelList_WAITING'
+export const GET_TruckRepairRelList_SERVICEERROR = 'GET_TruckRepairRelList_SERVICEERROR'
+export const GET_TruckRepairRelList_ERROR = 'GET_TruckRepairRelList_ERROR'
+export const RESET_GET_TruckRepairRelList = 'RESET_GET_TruckRepairRelList'
+
+export const CreateTruckRepairRel_SUCCESS = 'CreateTruckRepairRel_SUCCESS'
+export const CreateTruckRepairRel_FAILED = 'CreateTruckRepairRel_FAILED'
+export const CreateTruckRepairRel_WAITING = 'CreateTruckRepairRel_WAITING'
+export const CreateTruckRepairRel_SERVICEERROR = 'CreateTruckRepairRel_SERVICEERROR'
+export const CreateTruckRepairRel_ERROR = 'CreateTruckRepairRel_ERROR'
+export const RESET_CreateTruckRepairRel = 'RESET_CreateTruckRepairRel'
+
+export const UpdateTruckRepairRel_SUCCESS = 'UpdateTruckRepairRel_SUCCESS'
+export const UpdateTruckRepairRel_FAILED = 'UpdateTruckRepairRel_FAILED'
+export const UpdateTruckRepairRel_WAITING = 'UpdateTruckRepairRel_WAITING'
+export const UpdateTruckRepairRel_SERVICEERROR = 'UpdateTruckRepairRel_SERVICEERROR'
+export const UpdateTruckRepairRel_ERROR = 'UpdateTruckRepairRel_ERROR'
+export const RESET_UpdateTruckRepairRel = 'RESET_UpdateTruckRepairRel'
 
 export const ChangeTruckFirstStatus_SUCCESS = 'ChangeTruckFirstStatus_SUCCESS'
 export const ChangeTruckFirstStatus_FAILED = 'ChangeTruckFirstStatus_FAILED'
@@ -69,8 +89,6 @@ export const UpdateTruckInfo_WAITING = 'UpdateTruckInfo_WAITING'
 export const UpdateTruckInfo_SERVICEERROR = 'UpdateTruckInfo_SERVICEERROR'
 export const UpdateTruckInfo_ERROR = 'UpdateTruckInfo_ERROR'
 export const RESET_UpdateTruckInfo = 'RESET_UpdateTruckInfo'
-
-
 
 export const UpdateTruckCredentialsImage_SUCCESS = 'UpdateTruckCredentialsImage_SUCCESS'
 export const UpdateTruckCredentialsImage_FAILED = 'UpdateTruckCredentialsImage_FAILED'

@@ -203,3 +203,65 @@ export const resetBindDriver = () => (dispatch) => {
 export const resetUnBindDriver = () => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.RESET_UnBindDriver, payload: {} })
 }
+
+
+
+
+
+export const getTruckRepairRelList = (param) => async (dispatch) => {
+    const url = `${base_host}/truckRepairRel?${ObjectToUrl(param.OptionalParam)}`
+    dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRepairRelList_WAITING, payload: {} })
+    try {
+        let res = await httpRequest.get(url)
+        if (res.success) {
+            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRepairRelList_SUCCESS, payload: { data: res.result } })
+        } else {
+            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRepairRelList_FAILED, payload: { data: res.msg } })
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRepairRelList_ERROR, payload: { data: err } })
+    }
+}
+
+export const resetGetTruckRepairRelList = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.truckInfoTypes.RESET_GET_TruckRepairRelList, payload: {} })
+}
+
+///////////////////////////////////////////
+export const createTruckRepairRel = (param) => async (dispatch) => {
+    const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/truckRepairRel`
+    dispatch({ type: actionTypes.truckInfoTypes.CreateTruckRepairRel_WAITING, payload: {} })
+    try {
+        let res = await httpRequest.post(url, param.postParam)
+        if (res.success) {
+            dispatch({ type: actionTypes.truckInfoTypes.CreateTruckRepairRel_SUCCESS, payload: {} })
+        } else {
+            dispatch({ type: actionTypes.truckInfoTypes.CreateTruckRepairRel_FAILED, payload: { data: res.msg } })
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.truckInfoTypes.CreateTruckRepairRel_ERROR, payload: { data: err } })
+    }
+}
+
+export const resetCreateTruckRepairRel = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.truckInfoTypes.RESET_CreateTruckRepairRel, payload: {} })
+}
+
+export const updateTruckRepairRel = (param) => async (dispatch) => {
+    const url = `${base_host}/user/${param.requiredParam.userId}/truckRepairRel/${param.requiredParam.relId}`
+    dispatch({ type: actionTypes.truckInfoTypes.UpdateTruckRepairRel_WAITING, payload: {} })
+    try {
+        let res = await httpRequest.put(url, param.putParam)
+        if (res.success) {
+            dispatch({ type: actionTypes.truckInfoTypes.UpdateTruckRepairRel_SUCCESS, payload: {} })
+        } else {
+            dispatch({ type: actionTypes.truckInfoTypes.UpdateTruckRepairRel_FAILED, payload: { data: res.msg } })
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.truckInfoTypes.UpdateTruckRepairRel_ERROR, payload: { data: err } })
+    }
+}
+
+export const resetUpdateTruckRepairRel = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.truckInfoTypes.RESET_UpdateTruckRepairRel, payload: {} })
+}

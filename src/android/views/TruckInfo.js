@@ -39,7 +39,13 @@ import {
     resetBindTruck,
     resetUnBindTruck,
     resetBindDriver,
-    resetUnBindDriver
+    resetUnBindDriver,
+    updateTruckRepairRel,
+    resetUpdateTruckRepairRel,
+    createTruckRepairRel,
+    resetCreateTruckRepairRel,
+    getTruckRepairRelList,
+    resetGetTruckRepairRelList
 } from '../../actions/TruckInfoAction'
 import { Actions } from 'react-native-router-flux'
 import insuranceTypeList from '../../config/insuranceType.json'
@@ -76,11 +82,23 @@ class TruckInfo extends Component {
         this.bindDriver = this.bindDriver.bind(this)
         this.bindTrail = this.bindTrail.bind(this)
         this.unBindTrail = this.unBindTrail.bind(this)
-
+        this.OnRepairSave=this.OnRepairSave.bind(this)
+        this.onRepairUpdate=this.onRepairUpdate.bind(this)
     }
 
     componentWillReceiveProps(nextProps) {
-        const { truckInfo, truckInsureRel, truckRecord, changeTruckFirstStatus, changeTruckTrailerStatus,bindTrail,unBindTrail,bindDriver,unBindDriver } = nextProps.truckInfoReducer
+        const { truckInfo,
+            truckInsureRel,
+            truckRecord,
+            changeTruckFirstStatus,
+            changeTruckTrailerStatus,
+            bindTrail,
+            unBindTrail,
+            bindDriver,
+            unBindDriver,
+            truckRepairRelList,
+            createTruckRepairRel,
+            updateTruckRepairRel } = nextProps.truckInfoReducer
         /*truckInfo*/
         if (truckInfo.isExecStatus == 2) {
             if (truckInfo.isResultStatus == 0) {
@@ -112,7 +130,6 @@ class TruckInfo extends Component {
         }
         /************************************ */
 
-
         /*truckInsureRel*/
         if (truckInsureRel.isExecStatus == 2) {
             if (truckInsureRel.isResultStatus == 0) {
@@ -133,7 +150,6 @@ class TruckInfo extends Component {
             }
         }
         /************************************ */
-
 
         /*truckRecord*/
         if (truckRecord.isExecStatus == 2) {
@@ -156,6 +172,70 @@ class TruckInfo extends Component {
         }
         /************************************ */
 
+        /*truckRepairRelList*/
+        if (truckRepairRelList.isExecStatus == 2) {
+            if (truckRepairRelList.isResultStatus == 0) {
+                console.log('truckRepairRelList', '执行成功')
+                this.props.resetGetTruckRepairRelList()
+            }
+            else if (truckRepairRelList.isResultStatus == 1) {
+                console.log('truckRepairRelList异常', truckRepairRelList.errorMsg)
+                this.props.resetGetTruckRepairRelList()
+            }
+            else if (truckRepairRelList.isResultStatus == 2) {
+                console.log('truckRepairRelList', '执行失败')
+                this.props.resetGetTruckRepairRelList()
+            }
+            else if (truckRepairRelList.isResultStatus == 3) {
+                console.log('truckRepairRelList', '服务器异常')
+                this.props.resetGetTruckRepairRelList()
+            }
+        }
+        /************************************ */
+
+        /*createTruckRepairRel*/
+        if (createTruckRepairRel.isExecStatus == 2) {
+            if (createTruckRepairRel.isResultStatus == 0) {
+                this.props.getTruckRepairRelList({ OptionalParam: {  truckId: this.props.initParam.truckId } })
+                console.log('createTruckRepairRel执行成功')
+                this.props.resetCreateTruckRepairRel()
+            }
+            else if (createTruckRepairRel.isResultStatus == 1) {
+                console.log('createTruckRepairRel异常', createTruckRepairRel.errorMsg)
+                this.props.resetCreateTruckRepairRel()
+            }
+            else if (createTruckRepairRel.isResultStatus == 2) {
+                console.log('createTruckRepairRel执行失败', createTruckRepairRel.failedMsg)
+                this.props.resetCreateTruckRepairRel()
+            }
+            else if (createTruckRepairRel.isResultStatus == 3) {
+                console.log('createTruckRepairRel服务器异常')
+                this.props.resetCreateTruckRepairRel()
+            }
+        }
+        /************************************ */
+
+        /*updateTruckRepairRel*/
+        if (updateTruckRepairRel.isExecStatus == 2) {
+            if (updateTruckRepairRel.isResultStatus == 0) {
+                this.props.getTruckRepairRelList({ OptionalParam: {  truckId: this.props.initParam.truckId } })
+                console.log('updateTruckRepairRel', '执行成功')
+                this.props.resetUpdateTruckRepairRel()
+            }
+            else if (updateTruckRepairRel.isResultStatus == 1) {
+                console.log('updateTruckRepairRel异常', updateTruckRepairRel.errorMsg)
+                this.props.resetUpdateTruckRepairRel()
+            }
+            else if (updateTruckRepairRel.isResultStatus == 2) {
+                console.log('updateTruckRepairRel', '执行失败')
+                this.props.resetUpdateTruckRepairRel()
+            }
+            else if (updateTruckRepairRel.isResultStatus == 3) {
+                console.log('updateTruckRepairRel', '服务器异常')
+                this.props.resetUpdateTruckRepairRel()
+            }
+        }
+        /************************************ */
 
         /*changeTruckFirstStatus*/
 
@@ -180,7 +260,6 @@ class TruckInfo extends Component {
         }
         /************************************ */
 
-
         /*changeTruckTrailerStatus*/
         if (changeTruckTrailerStatus.isExecStatus == 2) {
             if (changeTruckTrailerStatus.isResultStatus == 0) {
@@ -203,7 +282,6 @@ class TruckInfo extends Component {
         }
         /************************************ */
 
-
         /*bindTrail*/
         if (bindTrail.isExecStatus == 2) {
             if (bindTrail.isResultStatus == 0) {
@@ -225,7 +303,6 @@ class TruckInfo extends Component {
             }
         }
         /************************************ */
-
 
         /*unBindTrail*/
         if (unBindTrail.isExecStatus == 2) {
@@ -271,7 +348,6 @@ class TruckInfo extends Component {
         }
         /************************************ */
 
-
         /*bindDriver*/
         if (unBindDriver.isExecStatus == 2) {
             if (unBindDriver.isResultStatus == 0) {
@@ -297,10 +373,11 @@ class TruckInfo extends Component {
     }
 
     componentDidMount() {
-        // console.log(this.props.initParam)
+
         this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
         this.props.getTruckInsureRel({ OptionalParam: { truckId: this.props.initParam.truckId, active: 1 } })
         this.props.getTruckRecord({ requiredParam: { userId: this.props.userReducer.data.user.userId, truckNum: this.props.initParam.truck_num } })
+        this.props.getTruckRepairRelList({ OptionalParam: {  truckId: this.props.initParam.truckId } })
     }
 
     onPressSegment(index) {
@@ -408,7 +485,6 @@ class TruckInfo extends Component {
                 }
             })
         }
-        // console.log(param)
     }
 
     renderTractorInfoEnable() {
@@ -863,34 +939,64 @@ class TruckInfo extends Component {
         )
     }
 
+    OnRepairSave(param) {
+        let p = {
+            requiredParam: {
+                userId: this.props.userReducer.data.user.userId,
+                truckId: this.props.truckInfoReducer.data.truckInfo.id
+            },
+            postParam:{
+                repairReason: param.repairReason
+            }
+        }
+        if (this.props.truckInfoReducer.data.truckInfo.drive_id && this.props.truckInfoReducer.data.truckInfo.drive_name) {
+            p.postParam.driveId = this.props.truckInfoReducer.data.truckInfo.drive_id
+            p.postParam.driveName = this.props.truckInfoReducer.data.truckInfo.drive_name
+        }
+        this.props.createTruckRepairRel(p)
+    }
+
+    onRepairUpdate(param) {
+        let truckRepairing = this.props.truckInfoReducer.data.truckRepairRelList.find((item) => item.repair_status == 0)
+        this.props.updateTruckRepairRel({
+            requiredParam: {
+                userId: this.props.userReducer.data.user.userId,
+                relId: truckRepairing.id
+            },
+            putParam: {
+                remark: param.remark,
+                repairMoney: param.repairMoney
+            }
+        })
+    }
+
     renderRepair(){
+        let truckRepairing=this.props.truckInfoReducer.data.truckRepairRelList.find((item)=>item.repair_status==0)
+       // console.log(truckRepairing)
         return(
             <View style={{flex: 1}}>
-                {/* <View style={{ paddingVertical: 10, borderBottomWidth: 0.5, borderColor: '#e3e3e3'}}>
-                     <Button small onPress={Actions.addRepairAtTruckBlock} style={{ backgroundColor: '#f27d80',alignSelf:'center' }}>
-                        <Text style={{ color: '#fff' }}>维修</Text>
-                    </Button> 
-                </View> */}
-                <View style={{paddingHorizontal:10, paddingVertical: 10, borderBottomWidth: 0.5, borderColor: '#e3e3e3'}}>
-                   <View style={{flexDirection:'row',justifyContent:'space-between'}}> 
-                       <Text style={{fontSize:12}}>维修日期</Text>
-                       <Button small style={{backgroundColor:'#00cade'}} onPress={Actions.updateRepairAtTruckBlock}>
-                           <Text style={{color:'#fff'}}>结束</Text>
+                {truckRepairing ? <View style={{ paddingHorizontal: 10, paddingVertical: 10, borderBottomWidth: 0.5, borderColor: '#e3e3e3' }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <Text style={{ fontSize: 12 }}>维修日期：{new Date(truckRepairing.repair_date).toLocaleDateString()}</Text>
+                        <Button small style={{ backgroundColor: '#00cade' }} onPress={()=>Actions.updateRepairAtTruckBlock({onRepairUpdate:this.onRepairUpdate})}>
+                            <Text style={{ color: '#fff' }}>结束</Text>
                         </Button>
-                   </View>
-                   <View style={{paddingVertical:10}}> 
-                    <Text style={{fontSize:12,fontWeight:'bold'}}>维修原因</Text>
                     </View>
-                    <View> 
-                         <Text style={{fontSize:12}}>维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因维修原因</Text>
+                    <View style={{ paddingVertical: 10 }}>
+                        <Text style={{ fontSize: 12, fontWeight: 'bold' }}>维修原因</Text>
                     </View>
-                </View>
+                    <View>
+                        <Text style={{ fontSize: 12 }}>{truckRepairing.repair_reason}</Text>
+                    </View>
+                </View> : <View style={{ paddingVertical: 10, borderBottomWidth: 0.5, borderColor: '#e3e3e3' }}>
+                        <Button small onPress={()=>Actions.addRepairAtTruckBlock({OnRepairSave:this.OnRepairSave})} style={{ backgroundColor: '#f27d80', alignSelf: 'center' }}>
+                            <Text style={{ color: '#fff' }}>维修</Text>
+                        </Button>
+                    </View>}
                 <View style={{flex: 1}} >
                 <FlatList
                     showsVerticalScrollIndicator={false}
-                    data={[{ repair_date: '2017-08-10T02:17:30.000Z', repair_reason: '59+62', repair_money: '123123', end_date: '2017-08-12T02:17:30.000Z' },
-                    { repair_date: '2017-08-10T02:17:30.000Z', repair_reason: '59+62', repair_money: '123123', end_date: '2017-08-12T02:17:30.000Z' },
-                    { repair_date: '2017-08-10T02:17:30.000Z', repair_reason: '59+62', repair_money: '123123', end_date: '2017-08-12T02:17:30.000Z' }]}
+                    data={this.props.truckInfoReducer.data.truckRepairRelList.filter((item)=>item.repair_status==1)}
                     renderItem={({ item }) => <View style={{ paddingVertical: 10, paddingHorizontal: 10, borderBottomWidth: 0.5, borderColor: '#e3e3e3' }}>
                         <Text style={{fontSize:12,fontWeight:'bold'}}>{new Date(item.repair_date).toLocaleDateString()} 至 {new Date(item.end_date).toLocaleDateString()}</Text>
                         <Text numberOfLines={1} style={{fontSize:12,paddingVertical:5}}><Text style={{fontWeight:'bold'}}>维修描述：</Text>{item.repair_reason}</Text>
@@ -953,7 +1059,6 @@ class TruckInfo extends Component {
     }
 
     render() {
-         console.log(this.props)
         const { truck_status, truck_type } = this.props.truckInfoReducer.data.truckInfo
         return (
             <View style={{ flex: 1 }}>
@@ -1058,6 +1163,24 @@ const mapDispatchToProps = (dispatch) => ({
     },
     resetUnBindDriver: () => {
         dispatch(resetUnBindDriver())
+    },
+    updateTruckRepairRel: (param) => {
+        dispatch(updateTruckRepairRel(param))
+    },
+    resetUpdateTruckRepairRel: () => {
+        dispatch(resetUpdateTruckRepairRel())
+    },
+    createTruckRepairRel: (param) => {
+        dispatch(createTruckRepairRel(param))
+    },
+    resetCreateTruckRepairRel: () => {
+        dispatch(resetCreateTruckRepairRel())
+    },
+    getTruckRepairRelList: (param) => {
+        dispatch(getTruckRepairRelList(param))
+    },
+    resetGetTruckRepairRelList: () => {
+        dispatch(resetGetTruckRepairRelList())
     }
 })
 
