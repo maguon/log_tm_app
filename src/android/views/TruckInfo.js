@@ -112,7 +112,11 @@ class TruckInfo extends Component {
             unBindDriver,
             truckRepairRelList,
             createTruckRepairRel,
-            updateTruckRepairRel } = nextProps.truckInfoReducer
+            updateTruckRepairRel,
+            updateDrivingImage,
+            updateLicenseImage,
+            createTruckImage,
+            delTruckImage } = nextProps.truckInfoReducer
         /*truckInfo*/
         if (truckInfo.isExecStatus == 2) {
             if (truckInfo.isResultStatus == 0) {
@@ -422,15 +426,20 @@ class TruckInfo extends Component {
         if (createTruckImage.isExecStatus == 2) {
             if (createTruckImage.isResultStatus == 0) {
                 console.log('createTruckImage', '执行成功')
+                 this.props.getTruckRecord({ requiredParam: { userId: this.props.userReducer.data.user.userId, truckNum: this.props.initParam.truck_num } })
+                this.props.resetCreateTruckImage()
             }
             else if (createTruckImage.isResultStatus == 1) {
                 console.log('createTruckImage异常', createTruckImage.errorMsg)
+                this.props.resetCreateTruckImage()
             }
             else if (createTruckImage.isResultStatus == 2) {
                 console.log('createTruckImage', '执行失败')
+                this.props.resetCreateTruckImage()
             }
             else if (createTruckImage.isResultStatus == 3) {
                 console.log('createTruckImage', '服务器异常')
+                this.props.resetCreateTruckImage()
             }
         }
         /************************************ */
@@ -985,18 +994,71 @@ class TruckInfo extends Component {
 
 
     updateDrivingImage(param){
-        console.log(param)
+        this.props.updateDrivingImage({
+            requiredParam: {
+                userId: this.props.userReducer.data.user.userId,
+                truckId: this.props.initParam.truckId
+            },
+            OptionalParam: {
+                imageType: 2
+            },
+            putParam: {
+                imageType: 1
+            },
+            postFileParam: {
+                ...param.postFileParam,
+                key: "image"
+            }
+        })
     }
 
     updateLicenseImage(param){
-        console.log(param)
+        this.props.updateLicenseImage({
+            requiredParam: {
+                userId: this.props.userReducer.data.user.userId,
+                truckId: this.props.initParam.truckId
+            },
+            OptionalParam: {
+                imageType: 2
+            },
+            putParam: {
+                imageType: 2
+            },
+            postFileParam: {
+                ...param.postFileParam,
+                key: "image"
+            }
+        })
     }
 
     createTruckImage(param){
-        console.log(param)
+        this.props.createTruckImage({
+            requiredParam: {
+                userId: this.props.userReducer.data.user.userId,
+                truckId: this.props.truckInfoReducer.data.truckInfo.id,
+                truckCode: this.props.truckInfoReducer.data.truckInfo.truck_num
+            },
+            OptionalParam: {
+                imageType: 2
+            },
+            postParam: {
+                username: this.props.userReducer.data.user.mobile,
+                userid: this.props.userReducer.data.user.userId,
+                userType: this.props.userReducer.data.user.userType,
+            },
+            postFileParam: {
+                ...param.postFileParam,
+                key: "image"
+            }
+        })
     }
 
     delTruckImage(param){
+        //         let p={
+        //     requiredParam:{},
+        //     OptionalParam:{},
+        //     postFileParam:param.postFileParam
+        // }
         console.log(param)
     }
 
@@ -1016,8 +1078,8 @@ class TruckInfo extends Component {
         //             <Camera title='上传车辆照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} onGetPhoto={(param)=>{console.log(param)}} />
         //         </View>]
         const { driving_image, license_image } = this.props.truckInfoReducer.data.truckInfo
-        let { imageList } = this.props.truckInfoReducer.data
-        console.log(this.props.truckInfoReducer.data)
+        let  imageList  = [...this.props.truckInfoReducer.data.imageList]
+        // console.log(this.props.truckInfoReducer.data)
 
         let imageListFoot
         if (imageList.length % 2 == 0) {
@@ -1027,20 +1089,20 @@ class TruckInfo extends Component {
         } else {
             const lastImage = imageList.pop()
             imageListFoot = <View key={'f'} style={{ flexDirection: 'row' }}>
-                <PanelCustomItem onShowPhoto={() => this.onShowTruckImage(imageList.length)} imageUrl={lastImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                <Camera onGetPhoto={this.createTruckImage} title='上传车辆照片' containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
+                <PanelCustomItem onShowPhoto={() => this.onShowTruckImage(imageList.length)} imageUrl={lastImage.url} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                 <Camera onGetPhoto={this.createTruckImage} title='上传车辆照片' containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} /> 
             </View>
         }
 
         let imageBody = []
         for (let i = 0; i < imageList.length; i += 2) {
             const viewItem = (<View key={i} style={{ flexDirection: 'row' }}>
-                <PanelCustomItem onShowPhoto={() => this.onShowTruckImage(i)} imageUrl={imageList[i]} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                <PanelCustomItem onShowPhoto={() => this.onShowTruckImage(i + 1)} imageUrl={imageList[i + 1]} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
+                <PanelCustomItem onShowPhoto={() => this.onShowTruckImage(i)} imageUrl={imageList[i].url} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                <PanelCustomItem onShowPhoto={() => this.onShowTruckImage(i + 1)} imageUrl={imageList[i + 1].url} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
             </View>)
             imageBody.push(viewItem)
         }
-        console.log([...imageBody, imageListFoot])
+
         return (
             <FlatList showsVerticalScrollIndicator={false}
                 ListHeaderComponent={<View style={{ flexDirection: 'row' }}>
@@ -1191,6 +1253,7 @@ class TruckInfo extends Component {
 
     render() {
         const { truck_status, truck_type } = this.props.truckInfoReducer.data.truckInfo
+        console.log(this.props)
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>
