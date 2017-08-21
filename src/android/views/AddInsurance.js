@@ -35,6 +35,11 @@ class AddInsurance extends Component {
     }
 
 
+    static defaultProps = {
+        onAddInsurance:()=>{}
+    }
+
+
     onPressCreateInsurance() {
         const { insureId, insureType, insureNum, insureMoney, startDate, endDate } = this.props.addInsuranceReducer.data
         const { userId } = this.props.userReducer.data.user
@@ -63,6 +68,8 @@ class AddInsurance extends Component {
         /*createInsurance*/
         if (createInsurance.isExecStatus == 2) {
             if (createInsurance.isResultStatus == 0) {
+                console.log(this.props)
+                this.props.onAddInsurance()
                 this.props.addInsurance(param)
                 this.setState({
                     insuranceCompanyValidater: false,

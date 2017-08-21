@@ -54,7 +54,7 @@ class TruckInfo extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            truckType: 4,
+            truckType: 1,
             truckInfo: {
                 truck_num: '',      //车牌号
                 brand_name: '',     //识别码
@@ -84,6 +84,7 @@ class TruckInfo extends Component {
         this.unBindTrail = this.unBindTrail.bind(this)
         this.OnRepairSave=this.OnRepairSave.bind(this)
         this.onRepairUpdate=this.onRepairUpdate.bind(this)
+        this.onAddInsurance=this.onAddInsurance.bind(this)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -902,28 +903,57 @@ class TruckInfo extends Component {
     }
 
     renderTruckPhoto() {
+        // [ <View style={{ flexDirection: 'row' }}>
+        //             <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+        //             <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
+        //         </View>, <View style={{ flexDirection: 'row' }}>
+        //             <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+        //             <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
+        //         </View>,
+        //         <View style={{ flexDirection: 'row' }}>
+        //             <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+        //             <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
+        //         </View>,
+        //         <View style={{ flexDirection: 'row' }}>
+        //             <Camera title='上传车辆照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} onGetPhoto={(param)=>{console.log(param)}} />
+        //         </View>]
         const { driving_image, license_image } = this.props.truckInfoReducer.data.truckInfo
-        console.log(driving_image)
-        console.log(license_image)
+        let { imageList } = this.props.truckInfoReducer.data
+        console.log(this.props.truckInfoReducer.data)
+
+        let imageListFoot
+        if (imageList.length % 2 == 0) {
+            imageListFoot = <View key={'f'} style={{ flexDirection: 'row' }}>
+                <Camera onGetPhoto={(param)=>{console.log(param)}} title='上传车辆照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+            </View>
+        } else {
+            const lastImage = imageList.pop()
+            imageListFoot = <View key={'f'} style={{ flexDirection: 'row' }}>
+                <PanelCustomItem onShowPhoto={() => this.onShowTruckImage(imageList.length)} imageUrl={lastImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                <Camera onGetPhoto={(param)=>{console.log(param)}} title='上传车辆照片' containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
+            </View>
+        }
+
+        let imageBody = []
+        for (let i = 0; i < imageList.length; i += 2) {
+            const viewItem = (<View key={i} style={{ flexDirection: 'row' }}>
+                <PanelCustomItem onShowPhoto={() => this.onShowTruckImage(i)} imageUrl={imageList[i]} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                <PanelCustomItem onShowPhoto={() => this.onShowTruckImage(i + 1)} imageUrl={imageList[i + 1]} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
+            </View>)
+            imageBody.push(viewItem)
+        }
+        console.log([...imageBody, imageListFoot])
         return (
             <FlatList showsVerticalScrollIndicator={false}
-                data={[<View style={{ flexDirection: 'row' }}>
-                    <PanelSingleItem title='行驶证' imageUrl={driving_image} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                    <PanelSingleItem title='营运证' imageUrl={license_image} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                </View>, <View style={{ flexDirection: 'row' }}>
-                    <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                    <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
-                </View>, <View style={{ flexDirection: 'row' }}>
-                    <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                    <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
-                </View>,
-                <View style={{ flexDirection: 'row' }}>
-                    <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                    <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
-                </View>,
-                <View style={{ flexDirection: 'row' }}>
-                    <Camera title='上传车辆照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                </View>]}
+                ListHeaderComponent={<View style={{ flexDirection: 'row' }}>
+                    {driving_image
+                        ? <PanelSingleItem title='行驶证' imageUrl={driving_image} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                        : <Camera title='上传行驶证照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} onGetPhoto={(param)=>{console.log(param)}} />}
+                    {driving_image
+                        ? <PanelSingleItem title='营运证' imageUrl={license_image} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                        : <Camera title='上传营运证照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} onGetPhoto={(param)=>{console.log(param)}} />}
+                </View>}
+                data={[...imageBody, imageListFoot]}
                 renderItem={({ item }) => item}
             />
         )
@@ -1009,6 +1039,9 @@ class TruckInfo extends Component {
         )
     }
 
+    onAddInsurance() {
+        this.props.getTruckInsureRel({ OptionalParam: { truckId: this.props.initParam.truckId, active: 1 } })
+    }
     renderInsuranceList() {
         let insuranceList = this.props.truckInfoReducer.data.truckInsureRelList.map((item, i) => {
             let panelStyle = (i == this.props.truckInfoReducer.data.truckInsureRelList.length - 1) ? { marginVertical: 10 } : { marginTop: 10 }
@@ -1048,7 +1081,7 @@ class TruckInfo extends Component {
             <View style={{ paddingVertical: 10, paddingHorizontal: 10, backgroundColor: '#fff' }}>
                 <Button
                     small
-                    onPress={() => Actions.addInsurance({ initParam: this.props.initParam })}
+                    onPress={() => Actions.addInsurance({ initParam: this.props.initParam ,onAddInsurance:this.onAddInsurance})}
                     style={{ backgroundColor: '#00cade', alignSelf: 'flex-end' }}>
                     <Text style={{ color: '#fff', fontSize: 12 }}>增加保单</Text>
                 </Button>
