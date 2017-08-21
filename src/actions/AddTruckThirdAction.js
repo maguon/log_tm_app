@@ -91,8 +91,6 @@ export const resetCreateTruckImage = () => (dispatch) => {
 }
 
 export const delTruckImage = (param) => async (dispatch) => {
-    // http://stg.myxxjs.com:9004/api/user/38/truck/%E8%BE%BDB55560/record
-    // http://stg.myxxjs.com:9004/api/user/38/record/5989156c34ef59c532104a82/truck/B55560/image/598c092b100f67405a12341e
     const recordUrl = `${record_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckNum}/record`
     dispatch({ type: actionTypes.addTruckThirdTypes.DEL_TruckThirdTruckImage_WAITING, payload: {} })
     try {

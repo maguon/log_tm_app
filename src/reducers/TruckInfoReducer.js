@@ -1058,4 +1058,280 @@ export default handleActions({
     },
 
 
+    //////////////////////
+    [(actionTypes.truckInfoTypes.UPDATE_TruckInfoDrivingImage_SUCCESS)]: (state, action) => {
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.UPDATE_TruckInfoDrivingImage_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.UPDATE_TruckInfoDrivingImage_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.UPDATE_TruckInfoDrivingImage_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.UPDATE_TruckInfoDrivingImage_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.RESET_UPDATE_TruckInfoDrivingImage)]: (state, action) => {
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
+
+
+    [(actionTypes.truckInfoTypes.UPDATE_TruckInfoLicenseImage_SUCCESS)]: (state, action) => {
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.UPDATE_TruckInfoLicenseImage_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.UPDATE_TruckInfoLicenseImage_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.UPDATE_TruckInfoLicenseImage_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.UPDATE_TruckInfoLicenseImage_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.RESET_UPDATE_TruckInfoLicenseImage)]: (state, action) => {
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
+
+
+    [(actionTypes.truckInfoTypes.CREATE_TruckInfoTruckImage_SUCCESS)]: (state, action) => {
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.CREATE_TruckInfoTruckImage_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.CREATE_TruckInfoTruckImage_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.CREATE_TruckInfoTruckImage_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.CREATE_TruckInfoTruckImage_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.RESET_CREATE_TruckInfoTruckImage)]: (state, action) => {
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
+
+
+    [(actionTypes.truckInfoTypes.DEL_TruckInfoTruckImage_SUCCESS)]: (state, action) => {
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.DEL_TruckInfoTruckImage_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.DEL_TruckInfoTruckImage_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.DEL_TruckInfoTruckImage_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.DEL_TruckInfoTruckImage_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                ...state.updateTruckRepairRel,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.RESET_DEL_TruckInfoTruckImage)]: (state, action) => {
+        return {
+            ...state,
+            updateTruckRepairRel: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
+
 }, initialState)

@@ -45,7 +45,15 @@ import {
     createTruckRepairRel,
     resetCreateTruckRepairRel,
     getTruckRepairRelList,
-    resetGetTruckRepairRelList
+    resetGetTruckRepairRelList,
+    updateDrivingImage,
+    updateLicenseImage,
+    createTruckImage,
+    delTruckImage,
+    resetUpdateDrivingImage,
+    resetUpdateLicenseImage,
+    resetCreateTruckImage,
+    resetDelTruckImage
 } from '../../actions/TruckInfoAction'
 import { Actions } from 'react-native-router-flux'
 import insuranceTypeList from '../../config/insuranceType.json'
@@ -83,8 +91,13 @@ class TruckInfo extends Component {
         this.bindTrail = this.bindTrail.bind(this)
         this.unBindTrail = this.unBindTrail.bind(this)
         this.OnRepairSave=this.OnRepairSave.bind(this)
-        this.onRepairUpdate=this.onRepairUpdate.bind(this)
-        this.onAddInsurance=this.onAddInsurance.bind(this)
+        this.onRepairUpdate = this.onRepairUpdate.bind(this)
+        this.onAddInsurance = this.onAddInsurance.bind(this)
+        this.updateDrivingImage = this.updateDrivingImage.bind(this)
+        this.updateLicenseImage = this.updateLicenseImage.bind(this)
+        this.createTruckImage = this.createTruckImage.bind(this)
+        this.delTruckImage = this.delTruckImage.bind(this)
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -902,6 +915,23 @@ class TruckInfo extends Component {
         )
     }
 
+
+    updateDrivingImage(param){
+        console.log(param)
+    }
+
+    updateLicenseImage(param){
+  console.log(param)
+    }
+
+    createTruckImage(param){
+  console.log(param)
+    }
+
+    delTruckImage(param){
+  console.log(param)
+    }
+
     renderTruckPhoto() {
         // [ <View style={{ flexDirection: 'row' }}>
         //             <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
@@ -924,13 +954,13 @@ class TruckInfo extends Component {
         let imageListFoot
         if (imageList.length % 2 == 0) {
             imageListFoot = <View key={'f'} style={{ flexDirection: 'row' }}>
-                <Camera onGetPhoto={(param)=>{console.log(param)}} title='上传车辆照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                <Camera onGetPhoto={this.createTruckImage} title='上传车辆照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
             </View>
         } else {
             const lastImage = imageList.pop()
             imageListFoot = <View key={'f'} style={{ flexDirection: 'row' }}>
                 <PanelCustomItem onShowPhoto={() => this.onShowTruckImage(imageList.length)} imageUrl={lastImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                <Camera onGetPhoto={(param)=>{console.log(param)}} title='上传车辆照片' containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
+                <Camera onGetPhoto={this.createTruckImage} title='上传车辆照片' containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
             </View>
         }
 
@@ -948,10 +978,10 @@ class TruckInfo extends Component {
                 ListHeaderComponent={<View style={{ flexDirection: 'row' }}>
                     {driving_image
                         ? <PanelSingleItem title='行驶证' imageUrl={driving_image} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                        : <Camera title='上传行驶证照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} onGetPhoto={(param)=>{console.log(param)}} />}
+                        : <Camera title='上传行驶证照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} onGetPhoto={this.updateDrivingImage} />}
                     {driving_image
                         ? <PanelSingleItem title='营运证' imageUrl={license_image} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                        : <Camera title='上传营运证照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} onGetPhoto={(param)=>{console.log(param)}} />}
+                        : <Camera title='上传营运证照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} onGetPhoto={this.updateLicenseImage} />}
                 </View>}
                 data={[...imageBody, imageListFoot]}
                 renderItem={({ item }) => item}
@@ -1214,6 +1244,30 @@ const mapDispatchToProps = (dispatch) => ({
     },
     resetGetTruckRepairRelList: () => {
         dispatch(resetGetTruckRepairRelList())
+    },
+    updateDrivingImage: (param) => {
+        dispatch(updateDrivingImage(param))
+    },
+    updateLicenseImage: (param) => {
+        dispatch(updateLicenseImage(param))   
+    },
+    createTruckImage: (param) => {
+        dispatch(createTruckImage(param)) 
+    },
+    delTruckImage: (param) => {
+        dispatch(delTruckImage(param)) 
+    },
+    resetUpdateDrivingImage: () => {
+        dispatch(resetUpdateDrivingImage())
+    },
+    resetUpdateLicenseImage: () => {
+        dispatch(resetUpdateLicenseImage())
+    },
+    resetCreateTruckImage: () => {
+        dispatch(resetCreateTruckImage())
+    },
+    resetDelTruckImage: () => {
+        dispatch(resetDelTruckImage())
     }
 })
 
