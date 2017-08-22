@@ -181,6 +181,7 @@ class App extends Component {
                                 <Scene key="addDriverFirst"  component={AddDriverFirst} title='新增司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="addDriverSecond" component={AddDriverSecond} title='新增司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="addDriverThird" initial={true} component={AddDriverThird} title='新增司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="singlePhotoViewAtDriverBlock" component={SinglePhotoView} hideNavBar hideTabBar/>
                                 <Scene key="driverListAtDriverBlock" component={DriverList} title='司机列表' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="richTextAtDriverBlock" component={RichText} title='备注' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="driverInfoAtDriverBlock" rightType={1} component={DriverInfo} title='司机详情' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
