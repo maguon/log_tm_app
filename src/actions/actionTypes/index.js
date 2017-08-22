@@ -14,6 +14,12 @@ import * as addTruckFourthTypes from './AddTruckFourthTypes'
 import * as customPhotoViewTypes from './CustomPhotoViewTypes' 
 import * as singlePhotoViewTypes from './SinglePhotoViewTypes' 
 
+
+import * as addDriverFirstTypes from './AddDriverFirstTypes' 
+import * as addDriverSecondTypes from './AddDriverSecondTypes' 
+import * as driverInfoTypes from './DriverInfoTypes' 
+import * as driverListTypes from './DriverListTypes' 
+
 export {
     homeTypes,
     truckInfoTypes,
@@ -29,6 +35,10 @@ export {
     selectInsuranceTypes,
     addTruckFourthTypes,
     customPhotoViewTypes,
-    singlePhotoViewTypes
+    singlePhotoViewTypes,
+    addDriverFirstTypes,
+    addDriverSecondTypes,
+    driverInfoTypes,
+    driverListTypes
 }
 
