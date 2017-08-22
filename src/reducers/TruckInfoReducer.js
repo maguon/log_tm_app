@@ -1294,8 +1294,14 @@ export default handleActions({
 
 
     [(actionTypes.truckInfoTypes.DEL_TruckInfoTruckImage_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
+        // console.log('data',data)
         return {
             ...state,
+            data: {
+                ...state.data,
+                imageList: data,
+            },
             delTruckImage: {
                 ...state.delTruckImage,
                 isResultStatus: 0,

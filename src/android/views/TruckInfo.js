@@ -57,6 +57,29 @@ import {
 } from '../../actions/TruckInfoAction'
 import { Actions } from 'react-native-router-flux'
 import insuranceTypeList from '../../config/insuranceType.json'
+import ImageResizer from 'react-native-image-resizer'
+import ImagePicker from 'react-native-image-picker'
+import ImageCropPicker from 'react-native-image-crop-picker'
+import { setPhoto } from '../../actions/SinglePhotoViewAction'
+import { initPhotoList, delPhoto } from '../../actions/CustomPhotoViewAction'
+
+var photoOptions = {
+    //底部弹出框选项
+    title: '请选择',
+    cancelButtonTitle: '取消',
+    takePhotoButtonTitle: '拍照',
+    chooseFromLibraryButtonTitle: null,
+    customButtons: [{ title: '选择照片', name: 'choosePhoto' }],
+    quality: 0.75,
+    allowsEditing: true,
+    noData: false,
+    maxWidth: 960,
+    maxHeight: 960,
+    storageOptions: {
+        skipBackup: true,
+        path: 'images'
+    }
+}
 
 class TruckInfo extends Component {
     constructor(props) {
@@ -81,7 +104,7 @@ class TruckInfo extends Component {
         this.renderTrailerInfoDisable = this.renderTrailerInfoDisable.bind(this)
         this.renderTruckPhoto = this.renderTruckPhoto.bind(this)
         this.renderTruckRecord = this.renderTruckRecord.bind(this)
-        this.renderRepair=this.renderRepair.bind(this)
+        this.renderRepair = this.renderRepair.bind(this)
         this.onPressSegment = this.onPressSegment.bind(this)
         this.onSelect = this.onSelect.bind(this)
         this.onChangeTruckStatus = this.onChangeTruckStatus.bind(this)
@@ -90,14 +113,20 @@ class TruckInfo extends Component {
         this.bindDriver = this.bindDriver.bind(this)
         this.bindTrail = this.bindTrail.bind(this)
         this.unBindTrail = this.unBindTrail.bind(this)
-        this.OnRepairSave=this.OnRepairSave.bind(this)
+        this.OnRepairSave = this.OnRepairSave.bind(this)
         this.onRepairUpdate = this.onRepairUpdate.bind(this)
         this.onAddInsurance = this.onAddInsurance.bind(this)
         this.updateDrivingImage = this.updateDrivingImage.bind(this)
         this.updateLicenseImage = this.updateLicenseImage.bind(this)
         this.createTruckImage = this.createTruckImage.bind(this)
         this.delTruckImage = this.delTruckImage.bind(this)
-
+        this.launchCamera = this.launchCamera.bind(this)
+        this.openPicker = this.openPicker.bind(this)
+        this.onPressUpdateDrivingImage = this.onPressUpdateDrivingImage.bind(this)
+        this.onPressUpdateLicenseImage = this.onPressUpdateLicenseImage.bind(this)
+        this.onShowLicenseImage = this.onShowLicenseImage.bind(this)
+        this.onShowTruckImage = this.onShowTruckImage.bind(this)
+        this.onShowDrivingImage = this.onShowDrivingImage.bind(this)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -214,7 +243,7 @@ class TruckInfo extends Component {
         /*createTruckRepairRel*/
         if (createTruckRepairRel.isExecStatus == 2) {
             if (createTruckRepairRel.isResultStatus == 0) {
-                this.props.getTruckRepairRelList({ OptionalParam: {  truckId: this.props.initParam.truckId } })
+                this.props.getTruckRepairRelList({ OptionalParam: { truckId: this.props.initParam.truckId } })
                 console.log('createTruckRepairRel执行成功')
                 this.props.resetCreateTruckRepairRel()
             }
@@ -236,7 +265,7 @@ class TruckInfo extends Component {
         /*updateTruckRepairRel*/
         if (updateTruckRepairRel.isExecStatus == 2) {
             if (updateTruckRepairRel.isResultStatus == 0) {
-                this.props.getTruckRepairRelList({ OptionalParam: {  truckId: this.props.initParam.truckId } })
+                this.props.getTruckRepairRelList({ OptionalParam: { truckId: this.props.initParam.truckId } })
                 console.log('updateTruckRepairRel', '执行成功')
                 this.props.resetUpdateTruckRepairRel()
             }
@@ -312,7 +341,7 @@ class TruckInfo extends Component {
                 this.props.resetBindTruck()
             }
             else if (bindTrail.isResultStatus == 2) {
-                console.log('bindTrail执行失败',bindTrail.failedMsg)
+                console.log('bindTrail执行失败', bindTrail.failedMsg)
                 this.props.resetBindTruck()
             }
             else if (bindTrail.isResultStatus == 3) {
@@ -361,7 +390,7 @@ class TruckInfo extends Component {
             }
             else if (bindDriver.isResultStatus == 3) {
                 console.log('bindDriver', '服务器异常')
-               this.props.resetBindDriver()
+                this.props.resetBindDriver()
             }
         }
         /************************************ */
@@ -392,19 +421,19 @@ class TruckInfo extends Component {
         if (updateDrivingImage.isExecStatus == 2) {
             if (updateDrivingImage.isResultStatus == 0) {
                 this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
-                console.log('updateDrivingImage', '执行成功') 
+                console.log('updateDrivingImage', '执行成功')
                 this.props.resetUpdateDrivingImage()
             }
             else if (updateDrivingImage.isResultStatus == 1) {
-                console.log('updateDrivingImage异常', updateDrivingImage.errorMsg)  
+                console.log('updateDrivingImage异常', updateDrivingImage.errorMsg)
                 this.props.resetUpdateDrivingImage()
             }
             else if (updateDrivingImage.isResultStatus == 2) {
-                console.log('updateDrivingImage', '执行失败') 
-                this.props.resetUpdateDrivingImage()  
+                console.log('updateDrivingImage', '执行失败')
+                this.props.resetUpdateDrivingImage()
             }
             else if (updateDrivingImage.isResultStatus == 3) {
-                console.log('updateDrivingImage', '服务器异常')  
+                console.log('updateDrivingImage', '服务器异常')
                 this.props.resetUpdateDrivingImage()
             }
         }
@@ -436,7 +465,7 @@ class TruckInfo extends Component {
         if (createTruckImage.isExecStatus == 2) {
             if (createTruckImage.isResultStatus == 0) {
                 console.log('createTruckImage', '执行成功')
-                 this.props.getTruckRecord({ requiredParam: { userId: this.props.userReducer.data.user.userId, truckNum: this.props.initParam.truck_num } })
+                this.props.getTruckRecord({ requiredParam: { userId: this.props.userReducer.data.user.userId, truckNum: this.props.initParam.truck_num } })
                 this.props.resetCreateTruckImage()
             }
             else if (createTruckImage.isResultStatus == 1) {
@@ -458,15 +487,20 @@ class TruckInfo extends Component {
         if (delTruckImage.isExecStatus == 2) {
             if (delTruckImage.isResultStatus == 0) {
                 console.log('delTruckImage', '执行成功')
+                this.props.initPhotoList(nextProps.truckInfoReducer.data.imageList.map((item) => item.url))
+                this.props.resetDelTruckImage()
             }
             else if (delTruckImage.isResultStatus == 1) {
                 console.log('delTruckImage', delTruckImage.errorMsg)
+                this.props.resetDelTruckImage()
             }
             else if (delTruckImage.isResultStatus == 2) {
                 console.log('delTruckImage', '执行失败')
+                this.props.resetDelTruckImage()
             }
             else if (delTruckImage.isResultStatus == 3) {
                 console.log('delTruckImage', '服务器异常')
+                this.props.resetDelTruckImage()
             }
         }
         /************************************ */
@@ -474,11 +508,10 @@ class TruckInfo extends Component {
     }
 
     componentDidMount() {
-
         this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
         this.props.getTruckInsureRel({ OptionalParam: { truckId: this.props.initParam.truckId, active: 1 } })
         this.props.getTruckRecord({ requiredParam: { userId: this.props.userReducer.data.user.userId, truckNum: this.props.initParam.truck_num } })
-        this.props.getTruckRepairRelList({ OptionalParam: {  truckId: this.props.initParam.truckId } })
+        this.props.getTruckRepairRelList({ OptionalParam: { truckId: this.props.initParam.truckId } })
     }
 
     onPressSegment(index) {
@@ -639,7 +672,7 @@ class TruckInfo extends Component {
                     />
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View><Text style={{ fontSize: 12 }}>关联挂车：{this.props.truckInfoReducer.data.truckInfo.trail_num ? this.props.truckInfoReducer.data.truckInfo.trail_num : '您还没有关联挂车'}</Text></View>
-                        {!this.props.truckInfoReducer.data.truckInfo.trail_id ? <TouchableNativeFeedback onPress={()=>RouterDirection.selectTruck(this.props.parent)({initParam:{type:2},onSelect:(param)=>this.bindTrail(param)})} background={TouchableNativeFeedback.SelectableBackground()}>
+                        {!this.props.truckInfoReducer.data.truckInfo.trail_id ? <TouchableNativeFeedback onPress={() => RouterDirection.selectTruck(this.props.parent)({ initParam: { type: 2 }, onSelect: (param) => this.bindTrail(param) })} background={TouchableNativeFeedback.SelectableBackground()}>
                             <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                 <Text style={{ fontSize: 10, color: '#fff' }}>绑定</Text>
                             </View>
@@ -651,7 +684,7 @@ class TruckInfo extends Component {
                     </View>
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View><Text style={{ fontSize: 12 }}>关联司机：{this.props.truckInfoReducer.data.truckInfo.drive_name ? this.props.truckInfoReducer.data.truckInfo.drive_name : '您还没有关联司机'}</Text></View>
-                        {!this.props.truckInfoReducer.data.truckInfo.drive_id ? <TouchableNativeFeedback onPress={()=>RouterDirection.selectDriver(this.props.parent)({initParam:{type:2},onSelect:(param)=>this.bindDriver(param)})} background={TouchableNativeFeedback.SelectableBackground()}>
+                        {!this.props.truckInfoReducer.data.truckInfo.drive_id ? <TouchableNativeFeedback onPress={() => RouterDirection.selectDriver(this.props.parent)({ initParam: { type: 2 }, onSelect: (param) => this.bindDriver(param) })} background={TouchableNativeFeedback.SelectableBackground()}>
                             <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                 <Text style={{ fontSize: 10, color: '#fff' }}>绑定</Text>
                             </View>
@@ -1002,8 +1035,67 @@ class TruckInfo extends Component {
         )
     }
 
+    launchCamera = (onGetPhoto) => {
+        ImagePicker.showImagePicker(photoOptions, (response) => {
+            if (response.didCancel) {
+                //console.log('User cancelled video picker')
+            } else if (response.error) {
+                //console.log('ImagePicker Error: ', response.error)
+            } else if (response.customButton) {
+                if (response.customButton == 'choosePhoto') {
+                    this.openPicker(onGetPhoto)
+                }
+            } else {
+                ImageResizer.createResizedImage(response.uri, 960, 960, 'JPEG', 100)
+                    .then((resizedImageUri) => {
+                        let param = {
+                            postFileParam: {
+                                imageUrl: resizedImageUri,
+                                imageType: response.type,
+                                imageName: encodeURI(response.fileName)
+                            }
+                        }
+                        onGetPhoto(param)
+                    }).catch((err) => {
+                        // return console.log(err)
+                    })
+            }
+        })
+    }
 
-    updateDrivingImage(param){
+    openPicker(onGetPhoto) {
+        ImageCropPicker.openPicker({
+            multiple: false
+        }).then(image => {
+            let pos = image.path.lastIndexOf('/')
+            ImageResizer.createResizedImage(image.path, 960, 960, 'JPEG', 100)
+                .then((resizedImageUri) => {
+                    let param = {
+                        postFileParam: {
+                            imageUrl: resizedImageUri,
+                            imageType: image.mime,
+                            imageName: encodeURI(image.path.substring(pos + 1))
+                        }
+                    }
+                    onGetPhoto(param)
+                }).catch((err) => {
+                    // return console.log(err)
+                })
+        }).catch(err => {
+            // console.log('err')
+        })
+    }
+
+
+    onPressUpdateDrivingImage() {
+        this.launchCamera(this.updateDrivingImage)
+    }
+
+    onPressUpdateLicenseImage() {
+        this.launchCamera(this.updateLicenseImage)
+    }
+
+    updateDrivingImage(param) {
         this.props.updateDrivingImage({
             requiredParam: {
                 userId: this.props.userReducer.data.user.userId,
@@ -1022,7 +1114,7 @@ class TruckInfo extends Component {
         })
     }
 
-    updateLicenseImage(param){
+    updateLicenseImage(param) {
         this.props.updateLicenseImage({
             requiredParam: {
                 userId: this.props.userReducer.data.user.userId,
@@ -1041,7 +1133,36 @@ class TruckInfo extends Component {
         })
     }
 
-    createTruckImage(param){
+    onShowDrivingImage() {
+        this.props.setPhoto(this.props.truckInfoReducer.data.truckInfo.driving_image)
+        RouterDirection.singlePhotoView(this.props.parent)({
+            initParam: {
+                onUpdateImage: () => this.launchCamera(this.updateDrivingImage)
+            }
+        })
+    }
+
+    onShowLicenseImage() {
+        this.props.setPhoto(this.props.truckInfoReducer.data.truckInfo.license_image)
+        RouterDirection.singlePhotoView(this.props.parent)({
+            initParam: {
+                onUpdateImage: () => this.launchCamera(this.updateLicenseImage)
+            }
+        })
+
+    }
+
+    onShowTruckImage(index) {
+        this.props.initPhotoList(this.props.truckInfoReducer.data.imageList.map((item) => item.url))
+        RouterDirection.customPhotoView(this.props.parent)({
+            initParam: {
+                onDelImage: this.delTruckImage,
+                index
+            }
+        })
+    }
+
+    createTruckImage(param) {
         this.props.createTruckImage({
             requiredParam: {
                 userId: this.props.userReducer.data.user.userId,
@@ -1063,13 +1184,21 @@ class TruckInfo extends Component {
         })
     }
 
-    delTruckImage(param){
+    delTruckImage(param) {
         //         let p={
         //     requiredParam:{},
         //     OptionalParam:{},
         //     postFileParam:param.postFileParam
         // }
-        console.log(param)
+        //this.props.delTruckImage
+        this.props.delTruckImage({
+            requiredParam: {
+                userId: this.props.userReducer.data.user.userId,
+                url: param,
+                truckNum: this.props.initParam.truck_num
+            }
+        })
+        //console.log(this.props.initParam)
     }
 
     renderTruckPhoto() {
@@ -1088,7 +1217,7 @@ class TruckInfo extends Component {
         //             <Camera title='上传车辆照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} onGetPhoto={(param)=>{console.log(param)}} />
         //         </View>]
         const { driving_image, license_image } = this.props.truckInfoReducer.data.truckInfo
-        let  imageList  = [...this.props.truckInfoReducer.data.imageList]
+        let imageList = [...this.props.truckInfoReducer.data.imageList]
 
         let imageListFoot
         if (imageList.length % 2 == 0) {
@@ -1099,7 +1228,7 @@ class TruckInfo extends Component {
             const lastImage = imageList.pop()
             imageListFoot = <View key={'f'} style={{ flexDirection: 'row' }}>
                 <PanelCustomItem onShowPhoto={() => this.onShowTruckImage(imageList.length)} imageUrl={lastImage.url} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                 <Camera onGetPhoto={this.createTruckImage} title='上传车辆照片' containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} /> 
+                <Camera onGetPhoto={this.createTruckImage} title='上传车辆照片' containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
             </View>
         }
 
@@ -1116,10 +1245,10 @@ class TruckInfo extends Component {
             <FlatList showsVerticalScrollIndicator={false}
                 ListHeaderComponent={<View style={{ flexDirection: 'row' }}>
                     {driving_image
-                        ? <PanelSingleItem title='行驶证' imageUrl={driving_image} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                        ? <PanelSingleItem onUpdateImage={this.onPressUpdateDrivingImage} title='行驶证' onShowPhoto={this.onShowDrivingImage} imageUrl={driving_image} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
                         : <Camera title='上传行驶证照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} onGetPhoto={this.updateDrivingImage} />}
                     {license_image
-                        ? <PanelSingleItem title='营运证' imageUrl={license_image} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                        ? <PanelSingleItem onUpdateImage={this.onPressUpdateLicenseImage} onShowPhoto={this.onShowLicenseImage} title='营运证' imageUrl={license_image} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
                         : <Camera title='上传营运证照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} onGetPhoto={this.updateLicenseImage} />}
                 </View>}
                 data={[...imageBody, imageListFoot]}
@@ -1133,7 +1262,7 @@ class TruckInfo extends Component {
             <FlatList
                 showsVerticalScrollIndicator={false}
                 data={this.props.truckInfoReducer.data.recordList}
-                renderItem={({ item }) => <View style={{ borderColor: '#ddd', borderBottomWidth: 0.5, paddingHorizontal: 10 }}><RecordListItem content={item.content} name={item.name} time={new Date(item.timez).toLocaleString()}/></View>}
+                renderItem={({ item }) => <View style={{ borderColor: '#ddd', borderBottomWidth: 0.5, paddingHorizontal: 10 }}><RecordListItem content={item.content} name={item.name} time={new Date(item.timez).toLocaleString()} /></View>}
             />
         )
     }
@@ -1144,7 +1273,7 @@ class TruckInfo extends Component {
                 userId: this.props.userReducer.data.user.userId,
                 truckId: this.props.truckInfoReducer.data.truckInfo.id
             },
-            postParam:{
+            postParam: {
                 repairReason: param.repairReason
             }
         }
@@ -1169,15 +1298,15 @@ class TruckInfo extends Component {
         })
     }
 
-    renderRepair(){
-        let truckRepairing=this.props.truckInfoReducer.data.truckRepairRelList.find((item)=>item.repair_status==0)
-       // console.log(truckRepairing)
-        return(
-            <View style={{flex: 1}}>
+    renderRepair() {
+        let truckRepairing = this.props.truckInfoReducer.data.truckRepairRelList.find((item) => item.repair_status == 0)
+        // console.log(truckRepairing)
+        return (
+            <View style={{ flex: 1 }}>
                 {truckRepairing ? <View style={{ paddingHorizontal: 10, paddingVertical: 10, borderBottomWidth: 0.5, borderColor: '#e3e3e3' }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 12 }}>维修日期：{new Date(truckRepairing.repair_date).toLocaleDateString()}</Text>
-                        <Button small style={{ backgroundColor: '#00cade' }} onPress={()=>Actions.updateRepairAtTruckBlock({onRepairUpdate:this.onRepairUpdate})}>
+                        <Button small style={{ backgroundColor: '#00cade' }} onPress={() => Actions.updateRepairAtTruckBlock({ onRepairUpdate: this.onRepairUpdate })}>
                             <Text style={{ color: '#fff' }}>结束</Text>
                         </Button>
                     </View>
@@ -1188,22 +1317,22 @@ class TruckInfo extends Component {
                         <Text style={{ fontSize: 12 }}>{truckRepairing.repair_reason}</Text>
                     </View>
                 </View> : <View style={{ paddingVertical: 10, borderBottomWidth: 0.5, borderColor: '#e3e3e3' }}>
-                        <Button small onPress={()=>Actions.addRepairAtTruckBlock({OnRepairSave:this.OnRepairSave})} style={{ backgroundColor: '#f27d80', alignSelf: 'center' }}>
+                        <Button small onPress={() => Actions.addRepairAtTruckBlock({ OnRepairSave: this.OnRepairSave })} style={{ backgroundColor: '#f27d80', alignSelf: 'center' }}>
                             <Text style={{ color: '#fff' }}>维修</Text>
                         </Button>
                     </View>}
-                <View style={{flex: 1}} >
-                <FlatList
-                    showsVerticalScrollIndicator={false}
-                    data={this.props.truckInfoReducer.data.truckRepairRelList.filter((item)=>item.repair_status==1)}
-                    renderItem={({ item }) => <View style={{ paddingVertical: 10, paddingHorizontal: 10, borderBottomWidth: 0.5, borderColor: '#e3e3e3' }}>
-                        <Text style={{fontSize:12,fontWeight:'bold'}}>{new Date(item.repair_date).toLocaleDateString()} 至 {new Date(item.end_date).toLocaleDateString()}</Text>
-                        <Text numberOfLines={1} style={{fontSize:12,paddingVertical:5}}><Text style={{fontWeight:'bold'}}>维修描述：</Text>{item.repair_reason}</Text>
-                        <Text style={{ alignSelf: 'flex-end' ,fontSize:10}}>金额：<Text style={{ color: '#f27d80',fontSize:12 }}>{item.repair_money}</Text>元</Text>
-                    </View>}
-                />
+                <View style={{ flex: 1 }} >
+                    <FlatList
+                        showsVerticalScrollIndicator={false}
+                        data={this.props.truckInfoReducer.data.truckRepairRelList.filter((item) => item.repair_status == 1)}
+                        renderItem={({ item }) => <View style={{ paddingVertical: 10, paddingHorizontal: 10, borderBottomWidth: 0.5, borderColor: '#e3e3e3' }}>
+                            <Text style={{ fontSize: 12, fontWeight: 'bold' }}>{new Date(item.repair_date).toLocaleDateString()} 至 {new Date(item.end_date).toLocaleDateString()}</Text>
+                            <Text numberOfLines={1} style={{ fontSize: 12, paddingVertical: 5 }}><Text style={{ fontWeight: 'bold' }}>维修描述：</Text>{item.repair_reason}</Text>
+                            <Text style={{ alignSelf: 'flex-end', fontSize: 10 }}>金额：<Text style={{ color: '#f27d80', fontSize: 12 }}>{item.repair_money}</Text>元</Text>
+                        </View>}
+                    />
                 </View>
-                
+
             </View>
         )
     }
@@ -1219,7 +1348,7 @@ class TruckInfo extends Component {
                     <View style={{ marginHorizontal: 10, paddingHorizontal: 10, paddingVertical: 10, backgroundColor: '#fff', borderColor: '#e8e8e8', borderWidth: 0.5, ...panelStyle }}>
                         <View style={{ flexDirection: 'row', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#e8e8e8', alignItems: 'flex-end' }}>
                             <View style={{ flex: 1 }}>
-                                <Text style={{ color: '#00cade' }}>{insuranceTypeList.find((typeItem)=>typeItem.id==item.insure_type).insuranceType}</Text>
+                                <Text style={{ color: '#00cade' }}>{insuranceTypeList.find((typeItem) => typeItem.id == item.insure_type).insuranceType}</Text>
                             </View>
                             <View style={{ flex: 2 }}>
                                 <Text style={{ fontSize: 11 }}>编号：{item.insure_num}</Text>
@@ -1250,7 +1379,7 @@ class TruckInfo extends Component {
             <View style={{ paddingVertical: 10, paddingHorizontal: 10, backgroundColor: '#fff' }}>
                 <Button
                     small
-                    onPress={() => Actions.addInsurance({ initParam: this.props.initParam ,onAddInsurance:this.onAddInsurance})}
+                    onPress={() => Actions.addInsurance({ initParam: this.props.initParam, onAddInsurance: this.onAddInsurance })}
                     style={{ backgroundColor: '#00cade', alignSelf: 'flex-end' }}>
                     <Text style={{ color: '#fff', fontSize: 12 }}>增加保单</Text>
                 </Button>
@@ -1389,13 +1518,13 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(updateDrivingImage(param))
     },
     updateLicenseImage: (param) => {
-        dispatch(updateLicenseImage(param))   
+        dispatch(updateLicenseImage(param))
     },
     createTruckImage: (param) => {
-        dispatch(createTruckImage(param)) 
+        dispatch(createTruckImage(param))
     },
     delTruckImage: (param) => {
-        dispatch(delTruckImage(param)) 
+        dispatch(delTruckImage(param))
     },
     resetUpdateDrivingImage: () => {
         dispatch(resetUpdateDrivingImage())
@@ -1408,6 +1537,15 @@ const mapDispatchToProps = (dispatch) => ({
     },
     resetDelTruckImage: () => {
         dispatch(resetDelTruckImage())
+    },
+    initPhotoList: (param) => {
+        dispatch(initPhotoList(param))
+    },
+    delPhoto: (param) => {
+        dispatch(delPhoto(param))
+    },
+    setPhoto: (param) => {
+        dispatch(setPhoto(param))
     }
 })
 
