@@ -3,7 +3,8 @@ import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
     data:{
-        driverInfo:{}
+        driverInfo:{},
+        driverId:''
     },
     createDriverFirst:{
         isResultStatus: 0,
@@ -23,7 +24,7 @@ export default handleActions({
             ...state,
             data: {
                 ...state.data,
-                driverInfo: data
+                driverId: data
             },
             createDriverFirst: {
                 ...state.createDriverFirst,

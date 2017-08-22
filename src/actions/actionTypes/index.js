@@ -20,6 +20,7 @@ import * as addDriverSecondTypes from './AddDriverSecondTypes'
 import * as driverInfoTypes from './DriverInfoTypes' 
 import * as driverListTypes from './DriverListTypes' 
 
+
 export {
     homeTypes,
     truckInfoTypes,
