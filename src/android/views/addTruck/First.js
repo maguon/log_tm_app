@@ -45,15 +45,6 @@ class First extends Component {
             licenseDateTrailerValidater: false,
             theCodeTrailerValidater: false,
 
-            //               "truckNum": "辽B11222",
-            //   "brandId": 22,
-            //   "companyId": 40,
-            //   "truckType": 2,
-            //   "number": 14,
-            //   "drivingDate": "2017-08-15",
-            //   "licenseDate": "2017-08-15",
-            //   "theCode":"1233344",
-            //   "remark": "1111"
             truckType: 1
         }
         this.onSelect = this.onSelect.bind(this)
@@ -76,7 +67,6 @@ class First extends Component {
 
     componentWillReceiveProps(nextProps) {
         const { createTruckFirst, data } = nextProps.addTruckFirstReducer
-        console.log(data)
         /*createTruckFirst*/
         if (createTruckFirst.isExecStatus == 2) {
             if (createTruckFirst.isResultStatus == 0) {
@@ -160,7 +150,6 @@ class First extends Component {
     }
 
     renderCreateTruckFist() {
-        console.log(this.state)
         return <ScrollView showsVerticalScrollIndicator={false} style={{ borderTopWidth: 1, borderColor: '#00cade' }}>
             <View>
                 <TextBox
@@ -297,10 +286,6 @@ class First extends Component {
                     isRequire={true}
                     title='挂车货位：'
                     value={this.props.addTruckFirstReducer.data.truckTrailer.number ? this.props.addTruckFirstReducer.data.truckTrailer.number : ''}
-                     /* verifications={[{
-                        type: 'isVehicleNumber',
-                        message: '不是车牌号'
-                    }]}  */
                     onValueChange={(param) => this.props.changeTruckTrailerField({ number: param })}
                     onRequire={(flag) => this.setState({ numberTrailerValidater: flag })}
                     placeholder='请输入车牌号码'

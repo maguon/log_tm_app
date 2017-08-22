@@ -206,7 +206,6 @@ export default handleActions({
         }
     },
 
-
     [(actionTypes.truckInfoTypes.GET_TruckRecord_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         return {
@@ -281,7 +280,6 @@ export default handleActions({
         }
     },
 
-
     [(actionTypes.truckInfoTypes.GET_TruckInsureRel_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         return {
@@ -355,7 +353,6 @@ export default handleActions({
         }
     },
 
-
     [(actionTypes.truckInfoTypes.ChangeTruckFirstStatus_SUCCESS)]: (state, action) => {
         return {
             ...state,
@@ -424,7 +421,6 @@ export default handleActions({
         }
     },
 
-
     [(actionTypes.truckInfoTypes.ChangeTruckTrailerStatus_SUCCESS)]: (state, action) => {
         return {
             ...state,
@@ -492,7 +488,6 @@ export default handleActions({
             }
         }
     },
-
 
     [(actionTypes.truckInfoTypes.BindTrail_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
@@ -595,7 +590,6 @@ export default handleActions({
         }
     },
 
-
     [(actionTypes.truckInfoTypes.UnBindTrail_SUCCESS)]: (state, action) => {
         return {
             ...state,
@@ -663,7 +657,6 @@ export default handleActions({
             }
         }
     },
-
 
     [(actionTypes.truckInfoTypes.BindDriver_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
@@ -733,7 +726,6 @@ export default handleActions({
             }
         }
     },
-
 
     [(actionTypes.truckInfoTypes.UnBindDriver_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
@@ -945,7 +937,6 @@ export default handleActions({
         }
     }, 
     
-    
     [(actionTypes.truckInfoTypes.UpdateTruckRepairRel_SUCCESS)]: (state, action) => {
         return {
             ...state,
@@ -1013,7 +1004,6 @@ export default handleActions({
             }
         }
     },
-
 
     [(actionTypes.truckInfoTypes.UPDATE_TruckInfoDrivingImage_SUCCESS)]: (state, action) => {
         return {
@@ -1083,7 +1073,6 @@ export default handleActions({
         }
     },
 
-
     [(actionTypes.truckInfoTypes.UPDATE_TruckInfoLicenseImage_SUCCESS)]: (state, action) => {
         return {
             ...state,
@@ -1152,7 +1141,6 @@ export default handleActions({
         }
     },
 
-
     [(actionTypes.truckInfoTypes.CREATE_TruckInfoTruckImage_SUCCESS)]: (state, action) => {
         return {
             ...state,
@@ -1220,7 +1208,6 @@ export default handleActions({
             }
         }
     },
-
 
     [(actionTypes.truckInfoTypes.DEL_TruckInfoTruckImage_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
@@ -1295,6 +1282,19 @@ export default handleActions({
         }
     },
 
+    [(actionTypes.truckInfoTypes.CHANGE_TruckInfo_FIELD)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                truckInfo: {
+                    ...state.data.truckInfo,
+                    ...data
+                }
+            }
+        }
+    },
 
     [(actionTypes.truckInfoTypes.UpdateTruckInfo_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
@@ -1363,7 +1363,5 @@ export default handleActions({
                 serviceFailedMsg: ''
             }
         }
-    },
-
-
+    }
 }, initialState)

@@ -376,3 +376,7 @@ export const resetDelTruckImage = () => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.RESET_DEL_TruckInfoTruckImage, payload: {} })
 }
 
+export const changeTruckInfoField = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.truckInfoTypes.CHANGE_TruckInfo_FIELD, payload: { data: param } })
+}
+
