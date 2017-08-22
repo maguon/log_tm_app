@@ -61,17 +61,18 @@ export const resetGetTruckInsureRel = (param) => (dispatch) => {
 }
 
 export const updateTruckInfo = (param) => async (dispatch) => {
-    const url = `${record_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}`
-    dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_WAITING, payload: {} })
+    const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}`
+    dispatch({ type: actionTypes.truckInfoTypes.UpdateTruckInfo_WAITING, payload: {} })
     try {
         let res = await httpRequest.put(url, param.putParam)
+        console.log('res',res)
         if (res.success) {
-            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_SUCCESS, payload: { data: res.result } })
+            dispatch({ type: actionTypes.truckInfoTypes.UpdateTruckInfo_SUCCESS, payload: { data: res.result } })
         } else {
-            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_FAILED, payload: { data: res.msg } })
+            dispatch({ type: actionTypes.truckInfoTypes.UpdateTruckInfo_FAILED, payload: { data: res.msg } })
         }
     } catch (err) {
-        dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_ERROR, payload: { data: err } })
+        dispatch({ type: actionTypes.truckInfoTypes.UpdateTruckInfo_ERROR, payload: { data: err } })
     }
 }
 
@@ -261,7 +262,6 @@ export const resetUpdateTruckRepairRel = (param) => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.RESET_UpdateTruckRepairRel, payload: {} })
 }
 
-/////////////////////////////////////////
 export const updateDrivingImage = (param) => async (dispatch) => {
     const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
     dispatch({ type: actionTypes.truckInfoTypes.UPDATE_TruckInfoDrivingImage_WAITING, payload: {} })

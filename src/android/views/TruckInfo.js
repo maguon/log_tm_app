@@ -54,7 +54,8 @@ import {
     resetUpdateLicenseImage,
     resetCreateTruckImage,
     resetDelTruckImage,
-    changeTruckInfoField
+    changeTruckInfoField,
+    resetUpdateTruckInfo
 } from '../../actions/TruckInfoAction'
 import { Actions } from 'react-native-router-flux'
 import insuranceTypeList from '../../config/insuranceType.json'
@@ -128,6 +129,7 @@ class TruckInfo extends Component {
         this.onShowLicenseImage = this.onShowLicenseImage.bind(this)
         this.onShowTruckImage = this.onShowTruckImage.bind(this)
         this.onShowDrivingImage = this.onShowDrivingImage.bind(this)
+        this.updateTruckInfo=this.updateTruckInfo.bind(this)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -146,7 +148,8 @@ class TruckInfo extends Component {
             updateDrivingImage,
             updateLicenseImage,
             createTruckImage,
-            delTruckImage } = nextProps.truckInfoReducer
+            delTruckImage,
+            updateTruckInfo } = nextProps.truckInfoReducer
         /*truckInfo*/
         if (truckInfo.isExecStatus == 2) {
             if (truckInfo.isResultStatus == 0) {
@@ -506,6 +509,30 @@ class TruckInfo extends Component {
         }
         /************************************ */
 
+        /*updateTruckInfo*/
+        if (updateTruckInfo.isExecStatus == 2) {
+            if (updateTruckInfo.isResultStatus == 0) {
+                console.log('updateTruckInfo', '执行成功')
+                this.props.resetUpdateTruckInfo()
+            }
+            else if (updateTruckInfo.isResultStatus == 1) {
+                console.log('updateTruckInfo', updateTruckInfo.errorMsg)
+                this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
+                this.props.resetUpdateTruckInfo()
+            }
+            else if (updateTruckInfo.isResultStatus == 2) {
+                console.log('updateTruckInfo执行失败', updateTruckInfo.failedMsg)
+                this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
+                this.props.resetUpdateTruckInfo()
+            }
+            else if (updateTruckInfo.isResultStatus == 3) {
+                console.log('updateTruckInfo', '服务器异常')
+                this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
+                this.props.resetUpdateTruckInfo()
+            }
+        }
+        /************************************ */
+        
     }
 
     componentDidMount() {
@@ -521,19 +548,24 @@ class TruckInfo extends Component {
     }
 
     updateTruckInfo() {
-        this.props.updateTruckInfo({
+        let param = {
             requiredParam: {
                 userId: this.props.userReducer.data.user.userId,
                 truckId: this.props.initParam.truckId
             },
             putParam: {
-                truckNum: "辽B1al12",
-                companyId: 40,
-                remark: "234234",
-                truckType: 2,
-                number: 8
+                truckNum: this.props.truckInfoReducer.data.truckInfo.truck_num,
+                companyId: this.props.truckInfoReducer.data.truckInfo.company_id,
+                truckType: this.props.truckInfoReducer.data.truckInfo.truck_type,
             }
-        })
+        }
+        if (this.props.truckInfoReducer.data.truckInfo.brand_id) param.putParam.brandId = this.props.truckInfoReducer.data.truckInfo.brand_id
+        if (this.props.truckInfoReducer.data.truckInfo.truck_tel) param.putParam.truckTel = this.props.truckInfoReducer.data.truckInfo.truck_tel
+        if (this.props.truckInfoReducer.data.truckInfo.the_code) param.putParam.theCode = this.props.truckInfoReducer.data.truckInfo.the_code
+        if (this.props.truckInfoReducer.data.truckInfo.driving_date) param.putParam.drivingDate = new Date(this.props.truckInfoReducer.data.truckInfo.driving_date).toLocaleDateString()
+        if (this.props.truckInfoReducer.data.truckInfo.license_date) param.putParam.licenseDate = new Date(this.props.truckInfoReducer.data.truckInfo.license_date).toLocaleDateString()
+        if (this.props.truckInfoReducer.data.truckInfo.remark) param.putParam.remark = this.props.truckInfoReducer.data.truckInfo.remark
+        this.props.updateTruckInfo(param) 
     }
 
     onSelect(param) {
@@ -541,7 +573,6 @@ class TruckInfo extends Component {
     }
 
     renderTractorInfoEnable() {
-        console.log(this.props.truckInfoReducer.data.truckInfo)
         return (
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View>
@@ -564,7 +595,7 @@ class TruckInfo extends Component {
                         title='品牌：'
                         value={this.props.truckInfoReducer.data.truckInfo.brand_name?this.props.truckInfoReducer.data.truckInfo.brand_name:''}
                         showList={RouterDirection.selectMake(this.props.parent)}
-                        onValueChange={(param) => this.props.changeTruckInfoField({ brand_name: param.id, brand_name: param.value })}
+                        onValueChange={(param) => this.props.changeTruckInfoField({ brand_id: param.id, brand_name: param.value })}
                     />
                     <TextBox
                         title='联系电话：'
@@ -581,7 +612,7 @@ class TruckInfo extends Component {
                     <Select
                         title='所属公司：'
                         value={this.props.truckInfoReducer.data.truckInfo.company_name?this.props.truckInfoReducer.data.truckInfo.company_name:''}
-                        showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
+                        showList={(param) => RouterDirection.selectCompanyType(this.props.parent)({ router: RouterDirection.selectCompany(this.props.parent), ...param })}
                         onValueChange={(param) => this.props.changeTruckInfoField({ company_id: param.id, company_name: param.value })}
                     />
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -608,19 +639,13 @@ class TruckInfo extends Component {
                                 </View>
                             </TouchableNativeFeedback>}
                     </View>
-                    <TextBox
-                        title='副驾司机：'
-                        value={this.props.truckInfoReducer.data.truckInfo.copilot?this.props.truckInfoReducer.data.truckInfo.copilot:''}
-                        onValueChange={(param) => this.props.changeTruckInfoField({ copilot: param })}
-                        placeholder='请输入副驾司机'
-                    />
                     <DateTimePicker
-                        value={this.props.truckInfoReducer.data.truckInfo.driving_date?this.props.truckInfoReducer.data.truckInfo.driving_date:''}
+                        value={this.props.truckInfoReducer.data.truckInfo.driving_date?new Date(this.props.truckInfoReducer.data.truckInfo.driving_date).toLocaleDateString():''}
                         title='行驶证检证日期：'
                         onValueChange={(param) => this.props.changeTruckInfoField({ driving_date: param })}
                     />
                     <DateTimePicker
-                        value={this.props.truckInfoReducer.data.truckInfo.license_date?this.props.truckInfoReducer.data.truckInfo.license_date:''}
+                        value={this.props.truckInfoReducer.data.truckInfo.license_date?new Date(this.props.truckInfoReducer.data.truckInfo.license_date).toLocaleDateString():''}
                         title='营运证检证日期：'
                         onValueChange={(param) => this.props.changeTruckInfoField({ license_date: param })}
                     />
@@ -631,7 +656,7 @@ class TruckInfo extends Component {
                         showRichText={RouterDirection.richText(this.props.parent)}
                     />
                     <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
-                        <Button full onPress={() => { }} style={{ backgroundColor: '#00cade' }}>
+                        <Button full onPress={this.updateTruckInfo} style={{ backgroundColor: '#00cade' }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
                     </View>
@@ -652,8 +677,8 @@ class TruckInfo extends Component {
                                     paddingVertical: 5,
                                     paddingHorizontal: 10
                                 }}
-                                defaultValue={''}
-                                onValueChange={(param) => this.onSelect({ vinCode: param })}
+                                value={this.props.truckInfoReducer.data.truckInfo.truck_num?this.props.truckInfoReducer.data.truckInfo.truck_num:''}
+                                onValueChange={(param) => this.props.changeTruckInfoField({ truck_num: param })}
                                 placeholder='请输入车牌号'
                             />
                         </View>
@@ -662,42 +687,44 @@ class TruckInfo extends Component {
                     </View>
                     <Select
                         title='品牌：'
-                        showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
-                        onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
-                        defaultValue={'请选择'}
+                        value={this.props.truckInfoReducer.data.truckInfo.brand_name?this.props.truckInfoReducer.data.truckInfo.brand_name:''}
+                        showList={RouterDirection.selectMake(this.props.parent)}
+                        onValueChange={(param) => this.props.changeTruckInfoField({ brand_id: param.id, brand_name: param.value })}
                     />
                     <TextBox
                         title='联系电话：'
-                        defaultValue={''}
-                        onValueChange={(param) => this.onSelect({ vinCode: param })}
+                        value={this.props.truckInfoReducer.data.truckInfo.truck_tel?this.props.truckInfoReducer.data.truckInfo.truck_tel:''}
+                        onValueChange={(param) => this.props.changeTruckInfoField({ truck_tel: param })}
                         placeholder='请输入联系电话'
                     />
                     <TextBox
                         title='识别代码：'
-                        defaultValue={''}
-                        onValueChange={(param) => this.onSelect({ vinCode: param })}
+                        value={this.props.truckInfoReducer.data.truckInfo.the_code?this.props.truckInfoReducer.data.truckInfo.the_code:''}
+                        onValueChange={(param) => this.props.changeTruckInfoField({ the_code: param })}
                         placeholder='请输入识别代码'
                     />
                     <Select
                         title='所属公司：'
-                        showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
+                        value={this.props.truckInfoReducer.data.truckInfo.company_name?this.props.truckInfoReducer.data.truckInfo.company_name:''}
+                        showList={(param) => RouterDirection.selectCompanyType(this.props.parent)({ router: RouterDirection.selectCompany(this.props.parent), ...param })}
                         onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
-                        defaultValue={'请选择'}
                     />
                     <DateTimePicker
                         title='行驶证检证日期：'
+                        value={this.props.truckInfoReducer.data.truckInfo.driving_date?new Date(this.props.truckInfoReducer.data.truckInfo.driving_date).toLocaleDateString():''}
                         defaultValue={'请选择'}
-                        onValueChange={(param) => this.onSelect({ enterEnd: param })}
+                        onValueChange={(param) => this.props.changeTruckInfoField({ driving_date: param })}
                     />
                     <DateTimePicker
                         title='营运证检证日期：'
+                        value={this.props.truckInfoReducer.data.truckInfo.license_date?new Date(this.props.truckInfoReducer.data.truckInfo.license_date).toLocaleDateString():''}
                         defaultValue={'请选择'}
-                        onValueChange={(param) => this.onSelect({ enterEnd: param })}
+                        onValueChange={(param) => this.props.changeTruckInfoField({ license_date: param })}
                     />
                     <RichTextBox
                         title='备注：'
-                        defaultValue={'请填写'}
-                        onValueChange={(param) => this.props.changeAddCarField({ remark: param })}
+                        value={this.props.truckInfoReducer.data.truckInfo.remark?this.props.truckInfoReducer.data.truckInfo.remark:''}
+                        onValueChange={(param) => this.props.changeTruckInfoField({ remark: param })}
                         showRichText={RouterDirection.richText(this.props.parent)}
                     />
                     <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
@@ -1425,6 +1452,9 @@ const mapDispatchToProps = (dispatch) => ({
     changeTruckInfoField:(param)=>{
         dispatch(changeTruckInfoField(param))
         
+    },
+    resetUpdateTruckInfo:()=>{
+         dispatch(resetUpdateTruckInfo())
     }
 })
 
