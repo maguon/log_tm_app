@@ -707,7 +707,7 @@ class TruckInfo extends Component {
                         title='所属公司：'
                         value={this.props.truckInfoReducer.data.truckInfo.company_name?this.props.truckInfoReducer.data.truckInfo.company_name:''}
                         showList={(param) => RouterDirection.selectCompanyType(this.props.parent)({ router: RouterDirection.selectCompany(this.props.parent), ...param })}
-                        onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
+                        onValueChange={(param) => this.props.changeTruckInfoField({ company_id: param.id, company_name: param.value })}
                     />
                     <DateTimePicker
                         title='行驶证检证日期：'
