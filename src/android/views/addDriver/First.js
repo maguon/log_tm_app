@@ -30,21 +30,21 @@ class First extends Component {
 
 
     componentWillReceiveProps(nextProps) {
-        const { createDriverFirst } = nextProps.addDriverFirstReducer
+        const { createDriverFirst,data } = nextProps.addDriverFirstReducer
         /*createDriverFirst*/
         if (createDriverFirst.isExecStatus == 2) {
             if (createDriverFirst.isResultStatus == 0) {
-                 Actions.addTruckSecond({ initParam: { driverId: data.driverId} })
+                 Actions.addDriverSecond({ initParam: { driverId: data.driverId} })
                 this.props.resetCreateDriver()
-                console.log('createDriverFirst', '执行成功')
+                console.log('createDriverFirst执行成功')
             }
             else if (createDriverFirst.isResultStatus == 1) {
                 this.props.resetCreateDriver()
-                console.log('createDriverFirst', '异常')
+                console.log('createDriverFirst异常', createDriverFirst.errorMsg)
             }
             else if (createDriverFirst.isResultStatus == 2) {
                 this.props.resetCreateDriver()
-                console.log('createDriverFirst', '执行失败')
+                console.log('createDriverFirst执行失败', createDriverFirst.failedMsg)
             }
             else if (createDriverFirst.isResultStatus == 3) {
                 this.props.resetCreateDriver()
@@ -68,7 +68,7 @@ class First extends Component {
         console.log('driverInfo', this.props.addDriverFirstReducer.data.driverInfo)
         return (
             <View style={{ flex: 1 }}>
-                <StepIndicator stepList={[{ step: '1', title: '基本信息' }, { step: '2', title: '上传照片' }]} current={0} />
+                <StepIndicator stepList={[{ step: '1', title: '基本信息' }, { step: '2', title: '绑定货车' },{ step: '3', title: '上传照片' }]} current={0} />
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View>
                         <TextBox

@@ -2,18 +2,18 @@ import { handleActions } from 'redux-actions'
 import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
-    data:{
-        truckId:null,
-        truckNum:null
+    data: {
+        drivingImage: null,
+        licenseImage: null
     },
-    bindTruck:{
+    updateDrivingImage: {
         isResultStatus: 0,
         isExecStatus: 0,
         errorMsg: '',
         failedMsg: '',
         serviceFailedMsg: ''
     },
-    unBindTruck:{
+    updateLicenseImage: {
         isResultStatus: 0,
         isExecStatus: 0,
         errorMsg: '',
@@ -25,70 +25,70 @@ const initialState = {
 //isResultStatus(执行结果状态):[0(成功)，1(错误)，2(执行失败),3(服务器错误)] 
 //isExecuteStatus(执行状态):[0(未执行)，1(正在执行)，2(执行完毕)]
 export default handleActions({
-    [(actionTypes.addDriverSecondTypes.CREATE_DriverSecondBindTruck_SUCCESS)]: (state, action) => {
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDrivingImage_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
             data: {
-                truckId: data.truckId,
-                truckNum: data.truckNum
+                ...state.data,
+                drivingImage: data
             },
-            bindTruck: {
-                ...state.bindTruck,
+            updateDrivingImage: {
+                ...state.updateDrivingImage,
                 isResultStatus: 0,
                 isExecStatus: 2
             }
         }
     },
-    [(actionTypes.addDriverSecondTypes.CREATE_DriverSecondBindTruck_FAILED)]: (state, action) => {
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDrivingImage_FAILED)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
-            bindTruck: {
-                ...state.bindTruck,
+            updateDrivingImage: {
+                ...state.updateDrivingImage,
                 isResultStatus: 2,
                 failedMsg: data,
                 isExecStatus: 2
             }
         }
     },
-    [(actionTypes.addDriverSecondTypes.CREATE_DriverSecondBindTruck_SERVICEERROR)]: (state, action) => {
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDrivingImage_SERVICEERROR)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
-            bindTruck: {
-                ...state.bindTruck,
+            updateDrivingImage: {
+                ...state.updateDrivingImage,
                 isResultStatus: 3,
                 serviceFailedMsg: data,
                 isExecStatus: 2
             }
         }
     },
-    [(actionTypes.addDriverSecondTypes.CREATE_DriverSecondBindTruck_ERROR)]: (state, action) => {
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDrivingImage_ERROR)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
-            bindTruck: {
-                ...state.bindTruck,
+            updateDrivingImage: {
+                ...state.updateDrivingImage,
                 isResultStatus: 1,
                 errorMsg: data,
                 isExecStatus: 2
             }
         }
     },
-    [(actionTypes.addDriverSecondTypes.CREATE_DriverSecondBindTruck_WAITING)]: (state, action) => {
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDrivingImage_WAITING)]: (state, action) => {
         return {
             ...state,
-            bindTruck: {
-                ...state.bindTruck,
+            updateDrivingImage: {
+                ...state.updateDrivingImage,
                 isExecStatus: 1
             }
         }
     },
-    [(actionTypes.addDriverSecondTypes.RESET_CREATE_DriverSecondBindTruck)]: (state, action) => {
+    [(actionTypes.addDriverThirdTypes.RESET_UPDATE_DriverThirdDrivingImage)]: (state, action) => {
         return {
             ...state,
-            bindTruck: {
+            updateDrivingImage: {
                 isResultStatus: 0,
                 isExecStatus: 0,
                 errorMsg: '',
@@ -98,71 +98,70 @@ export default handleActions({
         }
     },
 
-
-    [(actionTypes.addDriverSecondTypes.CREATE_DriverSecondUnBindTruck_SUCCESS)]: (state, action) => {
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdLicenseImage_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
             data: {
-                bindDriverId: null,
-                bindDriver: null
+                ...state.data,
+                licenseImage: data
             },
-            unBindDriver: {
-                ...state.unBindDriver,
+            updateLicenseImage: {
+                ...state.updateLicenseImage,
                 isResultStatus: 0,
                 isExecStatus: 2
             }
         }
     },
-    [(actionTypes.addDriverSecondTypes.CREATE_DriverSecondUnBindTruck_FAILED)]: (state, action) => {
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdLicenseImage_FAILED)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
-            unBindTruck: {
-                ...state.unBindTruck,
+            updateLicenseImage: {
+                ...state.updateLicenseImage,
                 isResultStatus: 2,
                 failedMsg: data,
                 isExecStatus: 2
             }
         }
     },
-    [(actionTypes.addDriverSecondTypes.CREATE_DriverSecondUnBindTruck_SERVICEERROR)]: (state, action) => {
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdLicenseImage_SERVICEERROR)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
-            unBindTruck: {
-                ...state.unBindTruck,
+            updateLicenseImage: {
+                ...state.updateLicenseImage,
                 isResultStatus: 3,
                 serviceFailedMsg: data,
                 isExecStatus: 2
             }
         }
     },
-    [(actionTypes.addDriverSecondTypes.CREATE_DriverSecondUnBindTruck_ERROR)]: (state, action) => {
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdLicenseImage_ERROR)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
-            unBindTruck: {
-                ...state.unBindTruck,
+            updateLicenseImage: {
+                ...state.updateLicenseImage,
                 isResultStatus: 1,
                 errorMsg: data,
                 isExecStatus: 2
             }
         }
     },
-    [(actionTypes.addDriverSecondTypes.CREATE_DriverSecondUnBindTruck_WAITING)]: (state, action) => {
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdLicenseImage_WAITING)]: (state, action) => {
         return {
             ...state,
-            unBindTruck: {
-                ...state.unBindTruck,
+            updateLicenseImage: {
+                ...state.updateLicenseImage,
                 isExecStatus: 1
             }
         }
     },
-    [(actionTypes.addDriverSecondTypes.RESET_CREATE_DriverSecondUnBindTruck)]: (state, action) => {
+    [(actionTypes.addDriverThirdTypes.RESET_UPDATE_DriverThirdLicenseImage)]: (state, action) => {
         return {
             ...state,
-            unBindTruck: {
+            updateLicenseImage: {
                 isResultStatus: 0,
                 isExecStatus: 0,
                 errorMsg: '',

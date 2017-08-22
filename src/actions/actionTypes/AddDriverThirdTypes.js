@@ -1,0 +1,13 @@
+export const UPDATE_DriverThirdDrivingImage_SUCCESS = 'UPDATE_DriverThirdDrivingImage_SUCCESS'
+export const UPDATE_DriverThirdDrivingImage_FAILED = 'UPDATE_DriverThirdDrivingImage_FAILED'
+export const UPDATE_DriverThirdDrivingImage_WAITING = 'UPDATE_DriverThirdDrivingImage_WAITING'
+export const UPDATE_DriverThirdDrivingImage_SERVICEERROR = 'UPDATE_DriverThirdDrivingImage_SERVICEERROR'
+export const UPDATE_DriverThirdDrivingImage_ERROR = 'UPDATE_DriverThirdDrivingImage_ERROR'
+export const RESET_UPDATE_DriverThirdDrivingImage = 'RESET_UPDATE_DriverThirdDrivingImage'
+
+export const UPDATE_DriverThirdLicenseImage_SUCCESS = 'UPDATE_DriverThirdLicenseImage_SUCCESS'
+export const UPDATE_DriverThirdLicenseImage_FAILED = 'UPDATE_DriverThirdLicenseImage_FAILED'
+export const UPDATE_DriverThirdLicenseImage_WAITING = 'UPDATE_DriverThirdLicenseImage_WAITING'
+export const UPDATE_DriverThirdLicenseImage_SERVICEERROR = 'UPDATE_DriverThirdLicenseImage_SERVICEERROR'
+export const UPDATE_DriverThirdLicenseImage_ERROR = 'UPDATE_DriverThirdLicenseImage_ERROR'
+export const RESET_UPDATE_DriverThirdLicenseImage = 'RESET_UPDATE_DriverThirdLicenseImage'

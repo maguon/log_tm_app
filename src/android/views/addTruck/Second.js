@@ -33,12 +33,6 @@ class Second extends Component {
         this.onPressNextStep = this.onPressNextStep.bind(this)
     }
 
-    // static defaultProps = {
-    //     initParam: {
-    //         truckId: 172,
-    //         type: 1
-    //     }
-    // }
 
     onSelectTruck(param) {
         if (this.props.initParam.type == 1) {

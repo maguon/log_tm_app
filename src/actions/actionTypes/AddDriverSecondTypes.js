@@ -1,0 +1,16 @@
+export const CREATE_DriverSecondBindTruck_SUCCESS = 'CREATE_DriverSecondBindTruck_SUCCESS'
+export const CREATE_DriverSecondBindTruck_FAILED = 'CREATE_DriverSecondBindTruck_FAILED'
+export const CREATE_DriverSecondBindTruck_WAITING = 'CREATE_DriverSecondBindTruck_WAITING'
+export const CREATE_DriverSecondBindTruck_SERVICEERROR = 'CREATE_DriverSecondBindTruck_SERVICEERROR'
+export const CREATE_DriverSecondBindTruck_ERROR = 'CREATE_DriverSecondBindTruck_ERROR'
+export const RESET_CREATE_DriverSecondBindTruck = 'RESET_CREATE_DriverSecondBindTruck'
+
+export const CREATE_DriverSecondUnBindTruck_SUCCESS = 'CREATE_DriverSecondUnBindTruck_SUCCESS'
+export const CREATE_DriverSecondUnBindTruck_FAILED = 'CREATE_DriverSecondUnBindTruck_FAILED'
+export const CREATE_DriverSecondUnBindTruck_WAITING = 'CREATE_DriverSecondUnBindTruck_WAITING'
+export const CREATE_DriverSecondUnBindTruck_SERVICEERROR = 'CREATE_DriverSecondUnBindTruck_SERVICEERROR'
+export const CREATE_DriverSecondUnBindTruck_ERROR = 'CREATE_DriverSecondUnBindTruck_ERROR'
+export const RESET_CREATE_DriverSecondUnBindTruck = 'RESET_CREATE_DriverSecondUnBindTruck'
+
+
+export const CLEAN_AddDriverSecondReducer = 'CLEAN_AddDriverSecondReducer'

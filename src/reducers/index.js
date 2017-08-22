@@ -19,6 +19,7 @@ import singlePhotoViewReducer from './SinglePhotoViewReducer'
 
 import addDriverFirstReducer from './AddDriverFirstReducer'
 import addDriverSecondReducer from './AddDriverSecondReducer'
+import addDriverThirdReducer from './AddDriverThirdReducer'
 import driverInfoReducer from './DriverInfoReducer'
 import driverListReducer from './DriverListReducer'
 
@@ -41,6 +42,7 @@ export default combineReducers({
     singlePhotoViewReducer,
     addDriverFirstReducer,
     addDriverSecondReducer,
+    addDriverThirdReducer,
     driverInfoReducer,
     driverListReducer
 })

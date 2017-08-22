@@ -17,6 +17,7 @@ import * as singlePhotoViewTypes from './SinglePhotoViewTypes'
 
 import * as addDriverFirstTypes from './AddDriverFirstTypes' 
 import * as addDriverSecondTypes from './AddDriverSecondTypes' 
+import * as addDriverThirdTypes from './AddDriverThirdTypes' 
 import * as driverInfoTypes from './DriverInfoTypes' 
 import * as driverListTypes from './DriverListTypes' 
 
@@ -39,6 +40,7 @@ export {
     singlePhotoViewTypes,
     addDriverFirstTypes,
     addDriverSecondTypes,
+    addDriverThirdTypes,
     driverInfoTypes,
     driverListTypes
 }
