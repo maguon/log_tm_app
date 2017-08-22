@@ -16,6 +16,12 @@ import addTruckFourthReducer from './AddTruckFourthReducer'
 import customPhotoViewReducer from './CustomPhotoViewReducer'
 import singlePhotoViewReducer from './SinglePhotoViewReducer'
 
+
+import addDriverFirstReducer from './AddDriverFirstReducer'
+import addDriverSecondReducer from './AddDriverSecondReducer'
+import driverInfoReducer from './DriverInfoReducer'
+import driverListReducer from './DriverListReducer'
+
 export default combineReducers({
     homeReducer,
     truckListReducer,
@@ -32,5 +38,9 @@ export default combineReducers({
     selectDriverReducer,
     selectInsuranceReducer,
     customPhotoViewReducer,
-    singlePhotoViewReducer
+    singlePhotoViewReducer,
+    addDriverFirstReducer,
+    addDriverSecondReducer,
+    driverInfoReducer,
+    driverListReducer
 })
