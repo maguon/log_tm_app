@@ -493,76 +493,6 @@ export default handleActions({
         }
     },
 
-    //以下未测试
-    [(actionTypes.truckInfoTypes.UpdateTruckInfo_SUCCESS)]: (state, action) => {
-        const { payload: { data } } = action
-        return {
-            ...state,
-            updateTruckInfo: {
-                ...state.updateTruckInfo,
-                isResultStatus: 0,
-                isExecStatus: 2
-            }
-        }
-    },
-    [(actionTypes.truckInfoTypes.UpdateTruckInfo_FAILED)]: (state, action) => {
-        const { payload: { data } } = action
-        return {
-            ...state,
-            updateTruckInfo: {
-                ...state.updateTruckInfo,
-                isResultStatus: 2,
-                failedMsg: data,
-                isExecStatus: 2
-            }
-        }
-    },
-    [(actionTypes.truckInfoTypes.UpdateTruckInfo_SERVICEERROR)]: (state, action) => {
-        const { payload: { data } } = action
-        return {
-            ...state,
-            updateTruckInfo: {
-                ...state.updateTruckInfo,
-                isResultStatus: 3,
-                serviceFailedMsg: data,
-                isExecStatus: 2
-            }
-        }
-    },
-    [(actionTypes.truckInfoTypes.UpdateTruckInfo_ERROR)]: (state, action) => {
-        const { payload: { data } } = action
-        return {
-            ...state,
-            updateTruckInfo: {
-                ...state.updateTruckInfo,
-                isResultStatus: 1,
-                errorMsg: data,
-                isExecStatus: 2
-            }
-        }
-    },
-    [(actionTypes.truckInfoTypes.UpdateTruckInfo_WAITING)]: (state, action) => {
-        return {
-            ...state,
-            updateTruckInfo: {
-                ...state.updateTruckInfo,
-                isExecStatus: 1
-            }
-        }
-    },
-    [(actionTypes.truckInfoTypes.RESET_UpdateTruckInfo)]: (state, action) => {
-        return {
-            ...state,
-            updateTruckInfo: {
-                isResultStatus: 0,
-                isExecStatus: 0,
-                errorMsg: '',
-                failedMsg: '',
-                serviceFailedMsg: ''
-            }
-        }
-    },
-
 
     [(actionTypes.truckInfoTypes.BindTrail_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
@@ -1085,7 +1015,6 @@ export default handleActions({
     },
 
 
-    //////////////////////
     [(actionTypes.truckInfoTypes.UPDATE_TruckInfoDrivingImage_SUCCESS)]: (state, action) => {
         return {
             ...state,
@@ -1295,7 +1224,6 @@ export default handleActions({
 
     [(actionTypes.truckInfoTypes.DEL_TruckInfoTruckImage_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
-        // console.log('data',data)
         return {
             ...state,
             data: {
@@ -1366,5 +1294,76 @@ export default handleActions({
             }
         }
     },
+
+
+    [(actionTypes.truckInfoTypes.UpdateTruckInfo_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateTruckInfo: {
+                ...state.updateTruckInfo,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.UpdateTruckInfo_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateTruckInfo: {
+                ...state.updateTruckInfo,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.UpdateTruckInfo_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateTruckInfo: {
+                ...state.updateTruckInfo,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.UpdateTruckInfo_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateTruckInfo: {
+                ...state.updateTruckInfo,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.UpdateTruckInfo_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            updateTruckInfo: {
+                ...state.updateTruckInfo,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.RESET_UpdateTruckInfo)]: (state, action) => {
+        return {
+            ...state,
+            updateTruckInfo: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
+
 
 }, initialState)

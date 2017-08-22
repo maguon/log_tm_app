@@ -1086,7 +1086,6 @@ class TruckInfo extends Component {
         })
     }
 
-
     onPressUpdateDrivingImage() {
         this.launchCamera(this.updateDrivingImage)
     }
@@ -1185,12 +1184,6 @@ class TruckInfo extends Component {
     }
 
     delTruckImage(param) {
-        //         let p={
-        //     requiredParam:{},
-        //     OptionalParam:{},
-        //     postFileParam:param.postFileParam
-        // }
-        //this.props.delTruckImage
         this.props.delTruckImage({
             requiredParam: {
                 userId: this.props.userReducer.data.user.userId,
@@ -1198,24 +1191,9 @@ class TruckInfo extends Component {
                 truckNum: this.props.initParam.truck_num
             }
         })
-        //console.log(this.props.initParam)
     }
 
     renderTruckPhoto() {
-        // [ <View style={{ flexDirection: 'row' }}>
-        //             <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-        //             <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
-        //         </View>, <View style={{ flexDirection: 'row' }}>
-        //             <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-        //             <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
-        //         </View>,
-        //         <View style={{ flexDirection: 'row' }}>
-        //             <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-        //             <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
-        //         </View>,
-        //         <View style={{ flexDirection: 'row' }}>
-        //             <Camera title='上传车辆照片' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} onGetPhoto={(param)=>{console.log(param)}} />
-        //         </View>]
         const { driving_image, license_image } = this.props.truckInfoReducer.data.truckInfo
         let imageList = [...this.props.truckInfoReducer.data.imageList]
 
