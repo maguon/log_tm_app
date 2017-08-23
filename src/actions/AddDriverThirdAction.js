@@ -12,7 +12,7 @@ export const updateDrivingImage = (param) => async (dispatch) => {
         if (imageRes.success) {
             const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driverId}/image`
 
-            param.putParam.truckImage = imageRes.imageId
+            param.putParam.driveImage = imageRes.imageId
             let res = await httpRequest.put(url, param.putParam)
             if (res.success) {
                 dispatch({ type: actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDrivingImage_SUCCESS, payload: { data: imageRes.imageId } })
@@ -36,7 +36,7 @@ export const updateLicenseImage = (param) => async (dispatch) => {
         let imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)  
         if (imageRes.success) {
             const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driverId}/image`
-            param.putParam.truckImage = imageRes.imageId
+            param.putParam.driveImage = imageRes.imageId
             let res = await httpRequest.put(url, param.putParam)
             if (res.success) {
                 dispatch({ type: actionTypes.addDriverThirdTypes.UPDATE_DriverThirdLicenseImage_SUCCESS, payload: { data: imageRes.imageId } })

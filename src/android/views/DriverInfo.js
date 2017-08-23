@@ -36,6 +36,30 @@ import {
     resetUpdateLicenseImage
 } from '../../actions/DriverInfoAction'
 import { connect } from 'react-redux'
+import ImageResizer from 'react-native-image-resizer'
+import ImagePicker from 'react-native-image-picker'
+import ImageCropPicker from 'react-native-image-crop-picker'
+import { setPhoto } from '../../actions/SinglePhotoViewAction'
+
+
+var photoOptions = {
+    //底部弹出框选项
+    title: '请选择',
+    cancelButtonTitle: '取消',
+    takePhotoButtonTitle: '拍照',
+    chooseFromLibraryButtonTitle: null,
+    customButtons: [{ title: '选择照片', name: 'choosePhoto' }],
+    quality: 0.75,
+    allowsEditing: true,
+    noData: false,
+    maxWidth: 960,
+    maxHeight: 960,
+    storageOptions: {
+        skipBackup: true,
+        path: 'images'
+    }
+}
+
 
 class DriverInfo extends Component {
     constructor(props) {
@@ -49,15 +73,28 @@ class DriverInfo extends Component {
         this.renderDriverPhoto = this.renderDriverPhoto.bind(this)
         this.renderDriverRecord = this.renderDriverRecord.bind(this)
         this.onSelect = this.onSelect.bind(this)
+        this.updateDrivingImage = this.updateDrivingImage.bind(this)
+        this.updateLicenseImage = this.updateLicenseImage.bind(this)
+        this.onShowDrivingImage = this.onShowDrivingImage.bind(this)
+        this.onShowLicenseImage = this.onShowLicenseImage.bind(this)
+        this.onPressUpdateDrivingImage = this.onPressUpdateDrivingImage.bind(this)
+        this.onPressUpdateLicenseImage = this.onPressUpdateLicenseImage.bind(this)
+        this.launchCamera = this.launchCamera.bind(this)
+        this.openPicker = this.openPicker.bind(this)
     }
 
 
     static defaultProps = {
         initParam: {
-            companyId: 40
+            driverId: 113
         }
     }
 
+    componentDidMount() {
+        console.log(this.props.initParam.driverId )
+        this.props.getDriverInfo({OptionalParam:{ driveId: this.props.initParam.driverId }})
+        this.props.getDriverRecord({requiredParam:{userId:this.props.userReducer.data.user.userId, driverId: this.props.initParam.driverId }})
+    }
 
     componentWillReceiveProps(nextProps) {
         const { getDriverInfo,
@@ -189,6 +226,7 @@ class DriverInfo extends Component {
         if (updateDrivingImage.isExecStatus == 2) {
             if (updateDrivingImage.isResultStatus == 0) {
                 console.log('updateDrivingImage', '执行成功')
+                this.props.getDriverInfo({OptionalParam:{ driveId: this.props.initParam.driverId }})
                 this.props.resetUpdateDrivingImage()
             }
             else if (updateDrivingImage.isResultStatus == 1) {
@@ -210,6 +248,7 @@ class DriverInfo extends Component {
         if (updateLicenseImage.isExecStatus == 2) {
             if (updateLicenseImage.isResultStatus == 0) {
                 console.log('updateLicenseImage', '执行成功')
+                this.props.getDriverInfo({OptionalParam:{ driveId: this.props.initParam.driverId }})
                 this.props.resetUpdateLicenseImage()
             }
             else if (updateLicenseImage.isResultStatus == 1) {
@@ -256,6 +295,122 @@ class DriverInfo extends Component {
 
     onSelect(param) {
         console.log(param)
+    }
+
+    updateDrivingImage(param) {
+        console.log('param',param)
+        this.props.updateDrivingImage({
+            requiredParam: {
+                userId: this.props.userReducer.data.user.userId,
+                driverId: this.props.initParam.driverId
+            },
+            OptionalParam: {
+                imageType: 2
+            },
+            putParam: {
+                imageType: 1
+            },
+            postFileParam: {
+                ...param.postFileParam,
+                key: "image"
+            }
+        })
+    }
+
+    updateLicenseImage(param) {
+        this.props.updateLicenseImage({
+            requiredParam: {
+                userId: this.props.userReducer.data.user.userId,
+                driverId: this.props.initParam.driverId
+            },
+            OptionalParam: {
+                imageType: 2
+            },
+            putParam: {
+                imageType: 2
+            },
+            postFileParam: {
+                ...param.postFileParam,
+                key: "image"
+            }
+        })
+    }
+
+    onShowDrivingImage(){
+        this.props.setPhoto(this.props.driverInfoReducer.data.driverInfo.drive_image)
+        RouterDirection.singlePhotoView(this.props.parent)({
+            initParam: {
+                onUpdateImage: () => this.launchCamera(this.updateDrivingImage)
+            }
+        })
+    }
+
+    onShowLicenseImage(){
+        this.props.setPhoto(this.props.driverInfoReducer.data.driverInfo.license_image)
+        RouterDirection.singlePhotoView(this.props.parent)({
+            initParam: {
+                onUpdateImage: () => this.launchCamera(this.updateLicenseImage)
+            }
+        })
+    }
+
+    onPressUpdateDrivingImage() {
+        this.launchCamera(this.updateDrivingImage)
+    }
+
+    onPressUpdateLicenseImage() {
+        this.launchCamera(this.updateLicenseImage)
+    }
+
+    launchCamera(onGetPhoto){
+        ImagePicker.showImagePicker(photoOptions, (response) => {
+            if (response.didCancel) {
+                //console.log('User cancelled video picker')
+            } else if (response.error) {
+                //console.log('ImagePicker Error: ', response.error)
+            } else if (response.customButton) {
+                if (response.customButton == 'choosePhoto') {
+                    this.openPicker(onGetPhoto)
+                }
+            } else {
+                ImageResizer.createResizedImage(response.uri, 960, 960, 'JPEG', 100)
+                    .then((resizedImageUri) => {
+                        let param = {
+                            postFileParam: {
+                                imageUrl: resizedImageUri,
+                                imageType: response.type,
+                                imageName: encodeURI(response.fileName)
+                            }
+                        }
+                        onGetPhoto(param)
+                    }).catch((err) => {
+                        // return console.log(err)
+                    })
+            }
+        })
+    }
+
+    openPicker(onGetPhoto) {
+        ImageCropPicker.openPicker({
+            multiple: false
+        }).then(image => {
+            let pos = image.path.lastIndexOf('/')
+            ImageResizer.createResizedImage(image.path, 960, 960, 'JPEG', 100)
+                .then((resizedImageUri) => {
+                    let param = {
+                        postFileParam: {
+                            imageUrl: resizedImageUri,
+                            imageType: image.mime,
+                            imageName: encodeURI(image.path.substring(pos + 1))
+                        }
+                    }
+                    onGetPhoto(param)
+                }).catch((err) => {
+                    // return console.log(err)
+                })
+        }).catch(err => {
+            // console.log('err')
+        })
     }
 
     renderDriverInfoEnable() {
@@ -574,26 +729,26 @@ class DriverInfo extends Component {
 
     renderDriverPhoto() {
         return (
-            <FlatList showsVerticalScrollIndicator={false}
-                data={[<View style={{ flexDirection: 'row' }}>
-                    <PanelSingleItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                    <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
-                </View>, <View style={{ flexDirection: 'row' }}>
-                    <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                    <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
-                </View>, <View style={{ flexDirection: 'row' }}>
-                    <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                    <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
-                </View>,
-                <View style={{ flexDirection: 'row' }}>
-                    <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                    <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
-                </View>,
-                <View style={{ flexDirection: 'row' }}>
-                    <Camera containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                </View>]}
-                renderItem={({ item }) => item}
-            />
+            <View style={{ flex: 1 }}>
+                <View key={'w'} style={{ flexDirection: 'row' }}>
+                    {!this.props.driverInfoReducer.data.driverInfo.drive_image ?
+                        <Camera title='上传身份证照片' onGetPhoto={this.updateDrivingImage} /> :
+                        <PanelSingleItem
+                            onUpdateImage={this.onPressUpdateDrivingImage}
+                            onShowPhoto={this.onShowDrivingImage}
+                            title='身份证'
+                            imageUrl={this.props.driverInfoReducer.data.driverInfo.drive_image}
+                            containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
+                    {!this.props.driverInfoReducer.data.driverInfo.license_image ?
+                        <Camera title='上传行驶证照片' onGetPhoto={this.updateLicenseImage} /> :
+                        <PanelSingleItem
+                            title='行驶证'
+                            onUpdateImage={this.onPressUpdateLicenseImage}
+                            onShowPhoto={this.onShowLicenseImage}
+                            imageUrl={this.props.driverInfoReducer.data.driverInfo.license_image}
+                            containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
+                </View>
+            </View>
         )
     }
 
@@ -611,6 +766,7 @@ class DriverInfo extends Component {
 
     render() {
         console.log(this.props.initParam)
+        console.log(this.props.driverInfoReducer)
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>
@@ -690,6 +846,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     resetUpdateLicenseImage: () => {
         dispatch(resetUpdateLicenseImage())
+    },
+    setPhoto: (param) => {
+        dispatch(setPhoto(param))
     }
 })
 
