@@ -17,8 +17,27 @@ import Camera from '../components/camera/Camera'
 import PanelSingleItem from '../components/camera/PanelSingleItem'
 import PanelCustomItem from '../components/camera/PanelCustomItem'
 import * as RouterDirection from '../../util/RouterDirection'
+import {
+    getDriverInfo,
+    getDriverRecord,
+    resetGetDriverInfo,
+    resetGetDriverRecord,
+    updateDriverInfo,
+    resetUpdateDriverInfo,
+    changeDriverStatus,
+    resetChangeDriverStatus,
+    bindTruck,
+    unBindTruck,
+    resetBindTruck,
+    resetUnBindTruck,
+    updateDrivingImage,
+    updateLicenseImage,
+    resetUpdateDrivingImage,
+    resetUpdateLicenseImage
+} from '../../actions/DriverInfoAction'
+import { connect } from 'react-redux'
 
-export default class DriverInfo extends Component {
+class DriverInfo extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -76,7 +95,7 @@ export default class DriverInfo extends Component {
                     <Select
                         title='所属公司：'
                         //value={this.state.queryCar.routeStart}
-                        showList={RouterDirection.selectDriverCompany(this.props.parent)}
+                        //showList={RouterDirection.selectDriverCompany(this.props.parent)}
                         onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
                         defaultValue={'请选择'}
                     />
@@ -155,7 +174,7 @@ export default class DriverInfo extends Component {
                                     paddingVertical: 10,
                                     paddingHorizontal: 10
                                 }}
-                                showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
+                                //showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
                                 onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
                                 defaultValue={'请选择'}
                             />
@@ -167,7 +186,7 @@ export default class DriverInfo extends Component {
                     <Select
                         title='驾证类别：'
                         //value={this.state.queryCar.routeStart}
-                        showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
+                        //showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
                         onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
                         defaultValue={'请选择'}
                     />
@@ -237,7 +256,7 @@ export default class DriverInfo extends Component {
                     <Select
                         title='所属公司：'
                         //value={this.state.queryCar.routeStart}
-                        showList={RouterDirection.selectDriverCompany(this.props.parent)}
+                         //showList={RouterDirection.selectDriverCompany(this.props.parent)} 
                         onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
                         defaultValue={'请选择'}
                     />
@@ -423,3 +442,64 @@ export default class DriverInfo extends Component {
         )
     }
 }
+
+
+const mapStateToProps = (state) => {
+    return {
+        driverInfoReducer: state.driverInfoReducer,
+        userReducer: state.userReducer
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    getDriverInfo: (param) => {
+        dispatch(getDriverInfo(param))
+    },
+    getDriverRecord: (param) => {
+        dispatch(getDriverRecord(param))
+    },
+    resetGetDriverInfo: () => {
+        dispatch(resetGetDriverInfo())
+    },
+    resetGetDriverRecord: () => {
+        dispatch(resetGetDriverRecord())
+    },
+    updateDriverInfo: (param) => {
+        dispatch(updateDriverInfo(param))
+    },
+    resetUpdateDriverInfo: () => {
+        dispatch(resetUpdateDriverInfo())
+    },
+    changeDriverStatus: (param) => {
+        dispatch(changeDriverStatus(param))
+    },
+    resetChangeDriverStatus: () => {
+        dispatch(resetChangeDriverStatus())
+    },
+    bindTruck: (param) => {
+        dispatch(bindTruck(param))
+    },
+    unBindTruck: (param) => {
+        dispatch(unBindTruck(param))
+    },
+    resetBindTruck: () => {
+        dispatch(resetBindTruck())
+    },
+    resetUnBindTruck: () => {
+        dispatch(resetUnBindTruck())
+    },
+    updateDrivingImage: (param) => {
+        dispatch(updateDrivingImage(param))
+    },
+    updateLicenseImage: (param) => {
+        dispatch(updateLicenseImage(param))
+    },
+    resetUpdateDrivingImage: () => {
+        dispatch(resetUpdateDrivingImage())
+    },
+    resetUpdateLicenseImage: () => {
+        dispatch(resetUpdateLicenseImage())
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(DriverInfo)
