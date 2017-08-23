@@ -155,6 +155,12 @@ export const resetUpdateLicenseImage = () => (dispatch) => {
     dispatch({ type: actionTypes.driverInfoTypes.RESET_UPDATE_DriverInfoLicenseImage, payload: {} })
 }
 
+
+export const changeDriverInfoField = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.driverInfoTypes.CHANGE_DriverInfo_FIELD, payload: { data: param } })
+}
+
+
 ///////////////////////////////////////////
 export const updateDriverInfo = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.truckId}`

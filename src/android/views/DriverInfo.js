@@ -33,13 +33,15 @@ import {
     updateDrivingImage,
     updateLicenseImage,
     resetUpdateDrivingImage,
-    resetUpdateLicenseImage
+    resetUpdateLicenseImage,
+    changeDriverInfoField
 } from '../../actions/DriverInfoAction'
 import { connect } from 'react-redux'
 import ImageResizer from 'react-native-image-resizer'
 import ImagePicker from 'react-native-image-picker'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import { setPhoto } from '../../actions/SinglePhotoViewAction'
+import { Actions } from 'react-native-router-flux'
 
 
 var photoOptions = {
@@ -86,7 +88,7 @@ class DriverInfo extends Component {
 
     static defaultProps = {
         initParam: {
-            driverId: 113
+            driverId: 110
         }
     }
 
@@ -111,16 +113,16 @@ class DriverInfo extends Component {
         if (getDriverInfo.isExecStatus == 2) {
             if (getDriverInfo.isResultStatus == 0) {
                 console.log('getDriverInfo', '执行成功')
-                // Actions.refresh({
-                //     rightType: 1,
-                //     truckStatus: nextProps.truckInfoReducer.data.truckInfo.truck_status,
-                //     onPressRight: () => this.onChangeTruckStatus({
-                //         truckType: nextProps.truckInfoReducer.data.truckInfo.truck_type,
-                //         userId: nextProps.userReducer.data.user.userId,
-                //         truckId: nextProps.truckInfoReducer.data.truckInfo.id,
-                //         truckStatus: nextProps.truckInfoReducer.data.truckInfo.truck_status
-                //     })
-                // })
+                console.log(nextProps.driverInfoReducer.data.driverInfo.drive_status)
+                Actions.refresh({
+                    rightType: 1,
+                    truckStatus: nextProps.driverInfoReducer.data.driverInfo.drive_status,
+                    onPressRight: () => this.onChangeTruckStatus({
+                        userId: nextProps.userReducer.data.user.userId,
+                        driveId: nextProps.driverInfoReducer.data.driverInfo.id,
+                        driveStatus: nextProps.driverInfoReducer.data.driverInfo.truck_status == 1 ? 0 : 1
+                    })
+                })
                 this.props.resetGetDriverInfo()
             }
             else if (getDriverInfo.isResultStatus == 1) {
@@ -424,14 +426,8 @@ class DriverInfo extends Component {
                                     paddingVertical: 5,
                                     paddingHorizontal: 10
                                 }}
-                                //value={this.state.queryCar.vinCode}
-                                defaultValue={''}
-                                /*verifications={[{
-                                    type: 'isLength',
-                                    arguments: [0, 17],
-                                    message: '长度不能超过17位'
-                                }]}*/
-                                onValueChange={(param) => this.onSelect({ vinCode: param })}
+                                value={this.props.driverInfoReducer.data.driverInfo.drive_name ? this.props.driverInfoReducer.data.driverInfo.drive_name : ''}
+                                onValueChange={(param) => this.props.changeDriverInfoField({ drive_name: param })}
                                 placeholder='请输入姓名'
                             />
                         </View>
@@ -439,10 +435,9 @@ class DriverInfo extends Component {
                     </View>
                     <Select
                         title='所属公司：'
-                        //value={this.state.queryCar.routeStart}
-                        //showList={RouterDirection.selectDriverCompany(this.props.parent)}
-                        onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
-                        defaultValue={'请选择'}
+                        value={this.props.driverInfoReducer.data.driverInfo.company_name?this.props.driverInfoReducer.data.driverInfo.company_name:'请选择'}
+                        showList={(param) => RouterDirection.selectCompanyType(this.props.parent)({ router: RouterDirection.selectCompany(this.props.parent), ...param })}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ company_id: param.id, company_name: param.value })}
                     />
 
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -451,76 +446,46 @@ class DriverInfo extends Component {
                             <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
                         </View>
                     </View>
-                    <CheckBox listTitle='选择性别' itemList={[{ id: 0, value: '男' }, { id: 1, value: '女' }]} onCheck={(item) => { console.log(item) }} />
+                    <CheckBox
+                        listTitle='选择性别'
+                        value={this.props.driverInfoReducer.data.driverInfo.gender?this.props.driverInfoReducer.data.driverInfo.gender:'请选择'}
+                        itemList={[{ id: 0, value: '男' }, { id: 1, value: '女' }]}
+                        onCheck={(param) => this.props.changeDriverInfoField({gender: param.value })} />
                     <TextBox
                         title='联系电话：'
-                        //value={this.state.queryCar.vinCode}
-                        defaultValue={''}
-                        /*verifications={[{
-                            type: 'isLength',
-                            arguments: [0, 17],
-                            message: '长度不能超过17位'
-                        }]}*/
-                        onValueChange={(param) => this.onSelect({ vinCode: param })}
-                        //onRequire={(param) => this.setState({ vinRequire: param })}
+                        value={this.props.driverInfoReducer.data.driverInfo.tel?this.props.driverInfoReducer.data.driverInfo.tel:'请选择'}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ tel: param })}
                         placeholder='请输入联系电话'
-                    />
-                    <DateTimePicker
-                        // value={this.state.queryCar.enterEnd}
-                        title='入职时间：'
-                        defaultValue={'请选择'}
-                        onValueChange={(param) => this.onSelect({ enterEnd: param })}
                     />
                     <TextBox
                         title='身份证：'
-                        //value={this.state.queryCar.vinCode}
-                        defaultValue={''}
-                        /*verifications={[{
-                            type: 'isLength',
-                            arguments: [0, 17],
-                            message: '长度不能超过17位'
-                        }]}*/
-                        onValueChange={(param) => this.onSelect({ vinCode: param })}
-                        //onRequire={(param) => this.setState({ vinRequire: param })}
+                        value={this.props.driverInfoReducer.data.driverInfo.id_number?this.props.driverInfoReducer.data.driverInfo.id_number:'请选择'}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ id_number: param })}
                         placeholder='请输入身份证'
                     />
                     <TextBox
                         title='家庭住址：'
-                        //value={this.state.queryCar.vinCode}
-                        defaultValue={''}
-                        /*verifications={[{
-                            type: 'isLength',
-                            arguments: [0, 17],
-                            message: '长度不能超过17位'
-                        }]}*/
-                        onValueChange={(param) => this.onSelect({ vinCode: param })}
-                        //onRequire={(param) => this.setState({ vinRequire: param })}
+                        value={this.props.driverInfoReducer.data.driverInfo.address?this.props.driverInfoReducer.data.driverInfo.address:'请选择'}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ address: param })}
                         placeholder='请输入家庭住址'
                     />
                     <TextBox
                         title='紧急联系人电话：'
-                        //value={this.state.queryCar.vinCode}
-                        defaultValue={''}
-                        /*verifications={[{
-                            type: 'isLength',
-                            arguments: [0, 17],
-                            message: '长度不能超过17位'
-                        }]}*/
-                        onValueChange={(param) => this.onSelect({ vinCode: param })}
-                        //onRequire={(param) => this.setState({ vinRequire: param })}
+                        value={this.props.driverInfoReducer.data.driverInfo.sib_tel?this.props.driverInfoReducer.data.driverInfo.sib_tel:'请选择'}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ sib_tel: param })}
                         placeholder='请输入紧急联系人电话'
                     />
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.5, borderColor: '#ddd' }}>
                         <View style={{ flex: 6 }}>
                             <Select
                                 title='驾证类别：'
-                                //value={this.state.queryCar.routeStart}
+                                value={this.props.driverInfoReducer.data.driverInfo.license_type?this.props.driverInfoReducer.data.driverInfo.license_type:'请选择'}
                                 containerSytle={{
                                     paddingVertical: 10,
                                     paddingHorizontal: 10
                                 }}
-                                //showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
-                                onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
+                                showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
+                                onValueChange={(param) => this.props.changeDriverInfoField({license_type: param.value })}
                                 defaultValue={'请选择'}
                             />
                         </View>
@@ -528,37 +493,15 @@ class DriverInfo extends Component {
                             <FontTag size={16} title='检' color='#f87775' fontColor='#fff' />
                         </View>
                     </View>
-                    <Select
-                        title='驾证类别：'
-                        //value={this.state.queryCar.routeStart}
-                        //showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
-                        onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
-                        defaultValue={'请选择'}
-                    />
                     <DateTimePicker
-                        // value={this.state.queryCar.enterEnd}
-                        title='到期时间：'
-                        defaultValue={'请选择'}
-                        onValueChange={(param) => this.onSelect({ enterEnd: param })}
-                    />
-                    <DateTimePicker
-                        // value={this.state.queryCar.enterEnd}
-                        title='检证时间：'
-                        defaultValue={'请选择'}
-                        onValueChange={(param) => this.onSelect({ enterEnd: param })}
+                        value={this.props.driverInfoReducer.data.driverInfo.license_date?new Date(this.props.driverInfoReducer.data.driverInfo.license_date).toLocaleDateString():'请选择'}
+                        title='驾驶证到期时间：'
+                        onValueChange={(param) => this.props.changeDriverInfoField({ license_date: param })}
                     />
                     <RichTextBox
-                        // isRequire={false}
                         title='备注：'
-                        //verifications={[{
-                        //     type: 'isLength',
-                        //      arguments: [0, 300],
-                        //      message: '长度0-300位'
-                        //  }]}
-                        // value={remark}
-                        defaultValue={'请填写'}
-                        onValueChange={(param) => this.props.changeAddCarField({ remark: param })}
-                        // onRequire={(flag) => { this.setState({ remarkRequire: flag }) }}
+                        value={this.props.driverInfoReducer.data.driverInfo.remark?this.props.driverInfoReducer.data.driverInfo.remark:'请填写'}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ remark: param })}
                         showRichText={RouterDirection.richText(this.props.parent)}
                     />
                     <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
@@ -578,20 +521,14 @@ class DriverInfo extends Component {
                 <View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.5, borderColor: '#ddd' }}>
                         <View style={{ flex: 5 }}>
-                            <TextBox
+                           <TextBox
                                 title='姓名：'
                                 containerSytle={{
                                     paddingVertical: 5,
                                     paddingHorizontal: 10
                                 }}
-                                //value={this.state.queryCar.vinCode}
-                                defaultValue={''}
-                                /*verifications={[{
-                                    type: 'isLength',
-                                    arguments: [0, 17],
-                                    message: '长度不能超过17位'
-                                }]}*/
-                                onValueChange={(param) => this.onSelect({ vinCode: param })}
+                                value={this.props.driverInfoReducer.data.driverInfo.drive_name ? this.props.driverInfoReducer.data.driverInfo.drive_name : ''}
+                                onValueChange={(param) => this.props.changeDriverInfoField({ drive_name: param })}
                                 placeholder='请输入姓名'
                             />
                         </View>
@@ -600,81 +537,50 @@ class DriverInfo extends Component {
                     </View>
                     <Select
                         title='所属公司：'
-                        //value={this.state.queryCar.routeStart}
-                        //showList={RouterDirection.selectDriverCompany(this.props.parent)} 
-                        onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
-                        defaultValue={'请选择'}
+                        value={this.props.driverInfoReducer.data.driverInfo.company_name?this.props.driverInfoReducer.data.driverInfo.company_name:'请选择'}
+                        showList={(param) => RouterDirection.selectCompanyType(this.props.parent)({ router: RouterDirection.selectCompany(this.props.parent), ...param })}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ company_id: param.id, company_name: param.value })}
                     />
-                    <CheckBox listTitle='选择性别' itemList={[{ id: 0, value: '男' }, { id: 1, value: '女' }]} onCheck={(item) => { console.log(item) }} />
+                    <CheckBox
+                        listTitle='选择性别'
+                        value={this.props.driverInfoReducer.data.driverInfo.gender?this.props.driverInfoReducer.data.driverInfo.gender:'请选择'}
+                        itemList={[{ id: 0, value: '男' }, { id: 1, value: '女' }]}
+                        onCheck={(param) => this.props.changeDriverInfoField({gender: param.value })} />
                     <TextBox
                         title='联系电话：'
-                        //value={this.state.queryCar.vinCode}
-                        defaultValue={''}
-                        /*verifications={[{
-                            type: 'isLength',
-                            arguments: [0, 17],
-                            message: '长度不能超过17位'
-                        }]}*/
-                        onValueChange={(param) => this.onSelect({ vinCode: param })}
-                        //onRequire={(param) => this.setState({ vinRequire: param })}
+                        value={this.props.driverInfoReducer.data.driverInfo.tel?this.props.driverInfoReducer.data.driverInfo.tel:'请选择'}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ tel: param })}
                         placeholder='请输入联系电话'
-                    />
-                    <DateTimePicker
-                        // value={this.state.queryCar.enterEnd}
-                        title='入职时间：'
-                        defaultValue={'请选择'}
-                        onValueChange={(param) => this.onSelect({ enterEnd: param })}
                     />
                     <TextBox
                         title='身份证：'
-                        //value={this.state.queryCar.vinCode}
-                        defaultValue={''}
-                        /*verifications={[{
-                            type: 'isLength',
-                            arguments: [0, 17],
-                            message: '长度不能超过17位'
-                        }]}*/
-                        onValueChange={(param) => this.onSelect({ vinCode: param })}
-                        //onRequire={(param) => this.setState({ vinRequire: param })}
+                        value={this.props.driverInfoReducer.data.driverInfo.id_number?this.props.driverInfoReducer.data.driverInfo.id_number:'请选择'}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ id_number: param })}
                         placeholder='请输入身份证'
                     />
                     <TextBox
                         title='家庭住址：'
-                        //value={this.state.queryCar.vinCode}
-                        defaultValue={''}
-                        /*verifications={[{
-                            type: 'isLength',
-                            arguments: [0, 17],
-                            message: '长度不能超过17位'
-                        }]}*/
-                        onValueChange={(param) => this.onSelect({ vinCode: param })}
-                        //onRequire={(param) => this.setState({ vinRequire: param })}
+                        value={this.props.driverInfoReducer.data.driverInfo.address?this.props.driverInfoReducer.data.driverInfo.address:'请选择'}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ address: param })}
                         placeholder='请输入家庭住址'
                     />
                     <TextBox
                         title='紧急联系人电话：'
-                        //value={this.state.queryCar.vinCode}
-                        defaultValue={''}
-                        /*verifications={[{
-                            type: 'isLength',
-                            arguments: [0, 17],
-                            message: '长度不能超过17位'
-                        }]}*/
-                        onValueChange={(param) => this.onSelect({ vinCode: param })}
-                        //onRequire={(param) => this.setState({ vinRequire: param })}
+                        value={this.props.driverInfoReducer.data.driverInfo.sib_tel?this.props.driverInfoReducer.data.driverInfo.sib_tel:'请选择'}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ sib_tel: param })}
                         placeholder='请输入紧急联系人电话'
                     />
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.5, borderColor: '#ddd' }}>
                         <View style={{ flex: 6 }}>
                             <Select
                                 title='驾证类别：'
-                                //value={this.state.queryCar.routeStart}
+                                value={this.props.driverInfoReducer.data.driverInfo.license_type ? this.props.driverInfoReducer.data.driverInfo.license_type : '请选择'}
                                 containerSytle={{
                                     paddingVertical: 10,
                                     paddingHorizontal: 10
                                 }}
                                 showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
-                                onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
+                                onValueChange={(param) => this.props.changeDriverInfoField({ license_type: param.value })}
                                 defaultValue={'请选择'}
                             />
                         </View>
@@ -682,38 +588,15 @@ class DriverInfo extends Component {
                             <FontTag size={16} title='检' color='#f87775' fontColor='#fff' />
                         </View>
                     </View>
-                    <Select
-                        title='驾证类别：'
-                        //value={this.state.queryCar.routeStart}
-
-                        showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
-                        onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
-                        defaultValue={'请选择'}
-                    />
                     <DateTimePicker
-                        // value={this.state.queryCar.enterEnd}
-                        title='到期时间：'
-                        defaultValue={'请选择'}
-                        onValueChange={(param) => this.onSelect({ enterEnd: param })}
-                    />
-                    <DateTimePicker
-                        // value={this.state.queryCar.enterEnd}
-                        title='检证时间：'
-                        defaultValue={'请选择'}
-                        onValueChange={(param) => this.onSelect({ enterEnd: param })}
+                        value={this.props.driverInfoReducer.data.driverInfo.license_date?new Date(this.props.driverInfoReducer.data.driverInfo.license_date).toLocaleDateString():'请选择'}
+                        title='驾驶证到期时间：'
+                        onValueChange={(param) => this.props.changeDriverInfoField({ license_date: param })}
                     />
                     <RichTextBox
-                        // isRequire={false}
                         title='备注：'
-                        //verifications={[{
-                        //     type: 'isLength',
-                        //      arguments: [0, 300],
-                        //      message: '长度0-300位'
-                        //  }]}
-                        // value={remark}
-                        defaultValue={'请填写'}
-                        onValueChange={(param) => this.props.changeAddCarField({ remark: param })}
-                        // onRequire={(flag) => { this.setState({ remarkRequire: flag }) }}
+                        value={this.props.driverInfoReducer.data.driverInfo.remark?this.props.driverInfoReducer.data.driverInfo.remark:'请填写'}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ remark: param })}
                         showRichText={RouterDirection.richText(this.props.parent)}
                     />
                     <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
@@ -755,16 +638,15 @@ class DriverInfo extends Component {
         return (
             <FlatList
                 showsVerticalScrollIndicator={false}
-                data={[{ key: 'a' }, { key: 'b' }, { key: 'c' }, { key: 'd' }, { key: 'e' }, { key: 'f' }, { key: 'g' }, { key: 'h' }, { key: 'i' }, { key: 'j' },
-                { key: 'k' }, { key: 'l' }, { key: 'm' }, { key: 'n' }, { key: 'o' }, { key: 'p' }, { key: 'q' }, { key: 'r' }, { key: 's' }, { key: 't' }, { key: 'u' },
-                { key: 'v' }, { key: 'w' }, { key: 'x' }, { key: 'y' }, { key: 'z' }]}
-                renderItem={({ item }) => <View style={{ borderColor: '#ddd', borderBottomWidth: 0.5, paddingHorizontal: 10 }}><RecordListItem /></View>}
+                data={this.props.driverInfoReducer.data.recordList}
+                renderItem={({ item }) => <View style={{ borderColor: '#ddd', borderBottomWidth: 0.5, paddingHorizontal: 10 }}>
+                    <RecordListItem content={item.content} name={item.name} time={new Date(item.timez).toLocaleString()} />
+                </View>}
             />
         )
     }
 
     render() {
-        console.log(this.props.initParam)
         console.log(this.props.driverInfoReducer)
         return (
             <View style={{ flex: 1 }}>
@@ -780,7 +662,8 @@ class DriverInfo extends Component {
                     </Button>
                 </View>
                 <View style={{ backgroundColor: '#fff', borderTopWidth: 1, borderColor: '#00cade', flex: 1 }}>
-                    {this.state.active == 0 && this.renderDriverInfoDisable()}
+                    {this.state.active == 0 &&this.props.driverInfoReducer.data.driverInfo.drive_status==1&& this.renderDriverInfoEnable()}
+                    {this.state.active == 0 &&this.props.driverInfoReducer.data.driverInfo.drive_status==0&& this.renderDriverInfoDisable()}
                     {this.state.active == 1 && this.renderDriverPhoto()}
                     {this.state.active == 2 && this.renderDriverRecord()}
                 </View>
@@ -848,6 +731,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     setPhoto: (param) => {
         dispatch(setPhoto(param))
+    },
+    changeDriverInfoField: (param) => {
+        dispatch(changeDriverInfoField(param))
     }
 })
 

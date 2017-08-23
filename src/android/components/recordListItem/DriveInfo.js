@@ -3,7 +3,7 @@ import {
     Text,
     View
 } from 'react-native'
-import { Button, Ion } from 'native-base'
+import { Button } from 'native-base'
 
 export default class DriveInfo extends Component {
     constructor(props) {
@@ -15,11 +15,11 @@ export default class DriveInfo extends Component {
             <View style={{ paddingVertical: 10 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <View style={{ width: 6, height: 6, borderRadius: 3, marginRight: 4, backgroundColor: '#00cade' }} />
-                    <Text>重新启用</Text>
+                    <Text style={{ fontSize: 12}}>{this.props.content}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 5 }}>
-                    <Text style={{ marginLeft: 10, fontSize: 12, color: '#bfbfbf' }}>2017-3-30 11:30</Text>
-                    <Text style={{ fontSize: 12, color: '#bfbfbf' }}>操作员：王宝泉</Text>
+                    <Text style={{ marginLeft: 10, fontSize: 12, color: '#bfbfbf' }}>{this.props.time}</Text>
+                    <Text style={{ fontSize: 12, color: '#bfbfbf' }}>操作员：{this.props.name}</Text>
                 </View>
 
             </View>

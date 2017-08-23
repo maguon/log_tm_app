@@ -3,7 +3,7 @@ import {
     Text,
     View
 } from 'react-native'
-import { Button, Ion } from 'native-base'
+import { Button } from 'native-base'
 
 export default class TruckInfo extends Component {
     constructor(props) {
