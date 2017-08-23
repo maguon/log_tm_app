@@ -5,11 +5,9 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 
 export const getDriverInfo = (param) => async (dispatch) => {
     const url = `${base_host}/drive?${ObjectToUrl(param.OptionalParam)}`
-    console.log(url)
     dispatch({ type: actionTypes.driverInfoTypes.GET_DriverInfo_WAITING, payload: {} })
     try {
         let res = await httpRequest.get(url)
-        console.log('res',res)
         if (res.success) {
             dispatch({ type: actionTypes.driverInfoTypes.GET_DriverInfo_SUCCESS, payload: { data: res.result } })
         } else {
@@ -103,21 +101,13 @@ export const resetUnBindTruck = () => (dispatch) => {
 
 export const updateDrivingImage = (param) => async (dispatch) => {
     const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
-    console.log('imageUrl',imageUrl)
     dispatch({ type: actionTypes.driverInfoTypes.UPDATE_DriverInfoDrivingImage_WAITING, payload: {} })
     try {
         let imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
-    console.log('imageRes',imageRes)
-        
         if (imageRes.success) {
             const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driverId}/image`
-    console.log('url',url)
-            
             param.putParam.driveImage = imageRes.imageId
-            console.log(param)
-            let res = await httpRequest.put(url, param.putParam)
-    console.log('res',res)
-            
+            let res = await httpRequest.put(url, param.putParam)            
             if (res.success) {
                 dispatch({ type: actionTypes.driverInfoTypes.UPDATE_DriverInfoDrivingImage_SUCCESS, payload: { data: imageRes.imageId } })
             }

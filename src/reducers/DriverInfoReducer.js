@@ -419,8 +419,16 @@ export default handleActions({
     },
 
     [(actionTypes.driverInfoTypes.UPDATE_DriverInfoDrivingImage_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
         return {
             ...state,
+            data: {
+                ...state.data,
+                driverInfo: {
+                    ...state.data.driverInfo,
+                    drive_image: data
+                }
+            },
             updateDrivingImage: {
                 ...state.updateDrivingImage,
                 isResultStatus: 0,
@@ -487,8 +495,16 @@ export default handleActions({
     },
 
     [(actionTypes.driverInfoTypes.UPDATE_DriverInfoLicenseImage_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
         return {
             ...state,
+            data: {
+                ...state.data,
+                driverInfo: {
+                    ...state.data.driverInfo,
+                    license_image: data
+                }
+            },
             updateLicenseImage: {
                 ...state.updateLicenseImage,
                 isResultStatus: 0,

@@ -226,7 +226,7 @@ class DriverInfo extends Component {
         if (updateDrivingImage.isExecStatus == 2) {
             if (updateDrivingImage.isResultStatus == 0) {
                 console.log('updateDrivingImage', '执行成功')
-                this.props.getDriverInfo({OptionalParam:{ driveId: this.props.initParam.driverId }})
+                this.props.setPhoto(data.driverInfo.drive_image )
                 this.props.resetUpdateDrivingImage()
             }
             else if (updateDrivingImage.isResultStatus == 1) {
@@ -248,7 +248,7 @@ class DriverInfo extends Component {
         if (updateLicenseImage.isExecStatus == 2) {
             if (updateLicenseImage.isResultStatus == 0) {
                 console.log('updateLicenseImage', '执行成功')
-                this.props.getDriverInfo({OptionalParam:{ driveId: this.props.initParam.driverId }})
+                this.props.setPhoto(data.driverInfo.license_image)
                 this.props.resetUpdateLicenseImage()
             }
             else if (updateLicenseImage.isResultStatus == 1) {
@@ -298,7 +298,6 @@ class DriverInfo extends Component {
     }
 
     updateDrivingImage(param) {
-        console.log('param',param)
         this.props.updateDrivingImage({
             requiredParam: {
                 userId: this.props.userReducer.data.user.userId,
