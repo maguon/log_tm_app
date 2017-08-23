@@ -58,6 +58,197 @@ class DriverInfo extends Component {
         }
     }
 
+
+    componentWillReceiveProps(nextProps) {
+        const { getDriverInfo,
+            getDriverRecord,
+            updateDriverInfo,
+            bindTruck,
+            unBindTruck,
+            changeDriverStatus,
+            updateDrivingImage,
+            updateLicenseImage,
+            data } = nextProps.driverInfoReducer
+
+        /*getDriverInfo*/
+        if (getDriverInfo.isExecStatus == 2) {
+            if (getDriverInfo.isResultStatus == 0) {
+                console.log('getDriverInfo', '执行成功')
+                // Actions.refresh({
+                //     rightType: 1,
+                //     truckStatus: nextProps.truckInfoReducer.data.truckInfo.truck_status,
+                //     onPressRight: () => this.onChangeTruckStatus({
+                //         truckType: nextProps.truckInfoReducer.data.truckInfo.truck_type,
+                //         userId: nextProps.userReducer.data.user.userId,
+                //         truckId: nextProps.truckInfoReducer.data.truckInfo.id,
+                //         truckStatus: nextProps.truckInfoReducer.data.truckInfo.truck_status
+                //     })
+                // })
+                this.props.resetGetDriverInfo()
+            }
+            else if (getDriverInfo.isResultStatus == 1) {
+                console.log('getDriverInfo', '异常')
+                this.props.resetGetDriverInfo()
+            }
+            else if (getDriverInfo.isResultStatus == 2) {
+                console.log('getDriverInfo', '执行失败')
+                this.props.resetGetDriverInfo()
+            }
+            else if (getDriverInfo.isResultStatus == 3) {
+                console.log('getDriverInfo', '服务器异常')
+                this.props.resetGetDriverInfo()
+            }
+        }
+        /************************************ */
+
+        /*getDriverRecord*/
+        if (getDriverRecord.isExecStatus == 2) {
+            if (getDriverRecord.isResultStatus == 0) {
+                console.log('getDriverRecord', '执行成功')
+                this.props.resetGetDriverRecord()
+            }
+            else if (getDriverRecord.isResultStatus == 1) {
+                console.log('getDriverRecord', '异常')
+                this.props.resetGetDriverRecord()
+            }
+            else if (getDriverRecord.isResultStatus == 2) {
+                console.log('getDriverRecord', '执行失败')
+                this.props.resetGetDriverRecord()
+            }
+            else if (getDriverRecord.isResultStatus == 3) {
+                console.log('getDriverRecord', '服务器异常')
+                this.props.resetGetDriverRecord()
+            }
+        }
+        /************************************ */
+
+        /*bindTruck*/
+        if (bindTruck.isExecStatus == 2) {
+            if (bindTruck.isResultStatus == 0) {
+                console.log('bindTruck', '执行成功')
+                this.props.resetBindTruck()
+            }
+            else if (bindTruck.isResultStatus == 1) {
+                console.log('bindTruck', '异常')
+                this.props.resetBindTruck()
+            }
+            else if (bindTruck.isResultStatus == 2) {
+                console.log('bindTruck', '执行失败')
+                this.props.resetBindTruck()
+            }
+            else if (bindTruck.isResultStatus == 3) {
+                console.log('bindTruck', '服务器异常')
+                this.props.resetBindTruck()
+            }
+        }
+        /************************************ */
+
+        /*unBindTruck*/
+        if (unBindTruck.isExecStatus == 2) {
+            if (unBindTruck.isResultStatus == 0) {
+                console.log('unBindTruck', '执行成功')
+                this.props.resetUnBindTruck()
+            }
+            else if (unBindTruck.isResultStatus == 1) {
+                console.log('unBindTruck', '异常')
+                this.props.resetUnBindTruck()
+            }
+            else if (unBindTruck.isResultStatus == 2) {
+                console.log('unBindTruck', '执行失败')
+                this.props.resetUnBindTruck()
+            }
+            else if (unBindTruck.isResultStatus == 3) {
+                console.log('unBindTruck', '服务器异常')
+                this.props.resetUnBindTruck()
+            }
+        }
+        /************************************ */
+
+        /*changeDriverStatus*/
+        if (changeDriverStatus.isExecStatus == 2) {
+            if (changeDriverStatus.isResultStatus == 0) {
+                console.log('changeDriverStatus', '执行成功')
+                this.props.resetChangeDriverStatus()
+            }
+            else if (changeDriverStatus.isResultStatus == 1) {
+                console.log('changeDriverStatus', '异常')
+                this.props.resetChangeDriverStatus()
+            }
+            else if (changeDriverStatus.isResultStatus == 2) {
+                console.log('changeDriverStatus', '执行失败')
+                this.props.resetChangeDriverStatus()
+            }
+            else if (changeDriverStatus.isResultStatus == 3) {
+                console.log('changeDriverStatus', '服务器异常')
+                this.props.resetChangeDriverStatus()
+            }
+        }
+        /************************************ */
+
+        /*updateDrivingImage*/
+        if (updateDrivingImage.isExecStatus == 2) {
+            if (updateDrivingImage.isResultStatus == 0) {
+                console.log('updateDrivingImage', '执行成功')
+                this.props.resetUpdateDrivingImage()
+            }
+            else if (updateDrivingImage.isResultStatus == 1) {
+                console.log('updateDrivingImage', '异常')
+                this.props.resetUpdateDrivingImage()
+            }
+            else if (updateDrivingImage.isResultStatus == 2) {
+                console.log('updateDrivingImage', '执行失败')
+                this.props.resetUpdateDrivingImage()
+            }
+            else if (updateDrivingImage.isResultStatus == 3) {
+                console.log('updateDrivingImage', '服务器异常')
+                this.props.resetUpdateDrivingImage()
+            }
+        }
+        /************************************ */
+
+        /*updateLicenseImage*/
+        if (updateLicenseImage.isExecStatus == 2) {
+            if (updateLicenseImage.isResultStatus == 0) {
+                console.log('updateLicenseImage', '执行成功')
+                this.props.resetUpdateLicenseImage()
+            }
+            else if (updateLicenseImage.isResultStatus == 1) {
+                console.log('updateLicenseImage', '异常')
+                this.props.resetUpdateLicenseImage()
+            }
+            else if (updateLicenseImage.isResultStatus == 2) {
+                console.log('updateLicenseImage', '执行失败')
+                this.props.resetUpdateLicenseImage()
+            }
+            else if (updateLicenseImage.isResultStatus == 3) {
+                console.log('updateLicenseImage', '服务器异常')
+                this.props.resetUpdateLicenseImage()
+            }
+        }
+        /************************************ */
+
+        /*updateDriverInfo*/
+        if (updateDriverInfo.isExecStatus == 2) {
+            if (updateDriverInfo.isResultStatus == 0) {
+                console.log('updateDriverInfo', '执行成功')
+                this.props.resetUpdateDriverInfo()
+            }
+            else if (updateDriverInfo.isResultStatus == 1) {
+                console.log('updateDriverInfo', '异常')
+                this.props.resetUpdateDriverInfo()
+            }
+            else if (updateDriverInfo.isResultStatus == 2) {
+                console.log('updateDriverInfo', '执行失败')
+                this.props.resetUpdateDriverInfo()
+            }
+            else if (updateDriverInfo.isResultStatus == 3) {
+                console.log('updateDriverInfo', '服务器异常')
+                this.props.resetUpdateDriverInfo()
+            }
+        }
+        /************************************ */
+    }
+
     onPressSegment(index) {
         if (this.state.active != index)
             this.setState({ active: index })
@@ -256,7 +447,7 @@ class DriverInfo extends Component {
                     <Select
                         title='所属公司：'
                         //value={this.state.queryCar.routeStart}
-                         //showList={RouterDirection.selectDriverCompany(this.props.parent)} 
+                        //showList={RouterDirection.selectDriverCompany(this.props.parent)} 
                         onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
                         defaultValue={'请选择'}
                     />
@@ -436,7 +627,7 @@ class DriverInfo extends Component {
                 <View style={{ backgroundColor: '#fff', borderTopWidth: 1, borderColor: '#00cade', flex: 1 }}>
                     {this.state.active == 0 && this.renderDriverInfoDisable()}
                     {this.state.active == 1 && this.renderDriverPhoto()}
-                    {this.state.active  == 2 && this.renderDriverRecord()}
+                    {this.state.active == 2 && this.renderDriverRecord()}
                 </View>
             </View>
         )
