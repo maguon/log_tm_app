@@ -14,105 +14,86 @@ import * as RouterDirection from '../../../util/RouterDirection'
 export default class Driver extends Component {
     constructor(props) {
         super(props)
-        this.onSelect = this.onSelect.bind(this)
         this.onPressSearch = this.onPressSearch.bind(this)
-    }
-
-    onSelect(param) {
-
+        this.state = {
+            driverName: null,
+            tel: null,
+            companyId: null,
+            company: null,
+            truckNum: null,
+            driveStatus: null,
+            driveStatusValue: null,
+            licenseType: null,
+            licenseDateStart: null,
+            licenseDateEnd: null
+        }
     }
 
     onPressSearch() {
-        RouterDirection.driverList(this.props.parent)()
+        let param = { ...this.state }
+        delete param.company
+        delete param.driveStatusValue
+        for (var key in param) {
+            if (!param[key])
+                delete param[key]
+        }
+        RouterDirection.driverList(this.props.parent)({ initParam: param })
     }
 
     render() {
+        console.log(this.state)
         return (
             <ScrollView >
                 <View style={{ flex: 1 }}>
                     <TextBox
-                        //isRequire={false}
-                        title='姓名:'
-                        //value={this.state.queryCar.vinCode}
-                        defaultValue={''}
-                        /*verifications={[{
-                            type: 'isLength',
-                            arguments: [0, 17],
-                            message: '长度不能超过17位'
-                        }]}*/
-                        onValueChange={(param) => this.onSelect({ vinCode: param })}
-                        //onRequire={(param) => this.setState({ vinRequire: param })}
+                        title='姓名：'
+                        value={this.state.driverName ? this.state.driverName : ''}
+                        onValueChange={(param) => this.setState({ driverName: param })}
                         placeholder='请输入姓名'
                     />
-
-
                     <TextBox
-                        //isRequire={false}
-                        title='联系电话:'
-                        //value={this.state.queryCar.vinCode}
-                        defaultValue={''}
-                        /*verifications={[{
-                            type: 'isLength',
-                            arguments: [0, 17],
-                            message: '长度不能超过17位'
-                        }]}*/
-                        onValueChange={(param) => this.onSelect({ vinCode: param })}
-                        //onRequire={(param) => this.setState({ vinRequire: param })}
+                        title='联系电话：'
+                        value={this.state.tel ? this.state.tel : ''}
+                        onValueChange={(param) => this.setState({ tel: param })}
                         placeholder='请输入联系电话'
                     />
                     <Select
                         title='所属公司：'
-                        //value={this.state.queryCar.routeStart}
-                        showList={RouterDirection.selectCompany(this.props.parent)}
-                        onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
-                        defaultValue={'请选择'}
+                        value={this.state.company ? this.state.company : '请选择'}
+                        showList={(param) => RouterDirection.selectCompanyType(this.props.parent)({ router: RouterDirection.selectCompany(this.props.parent), ...param })}
+                        onValueChange={(param) => this.setState({ companyId: param.id, company: param.value })}
                     />
-
                     <Select
-                        //isRequire={false}
                         title='关联货车：'
-                        //value={this.state.queryCar.routeStart}
+                        value={this.state.truckNum ? this.state.truckNum : '请选择'}
                         showList={RouterDirection.selectTruck(this.props.parent)}
-                        onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
-                        defaultValue={'请选择'}
+                        onValueChange={(param) => this.setState({ truckNum: param.value })}
                     />
-                    <CheckBox listTitle='所有状态' title='司机状态：' itemList={[{ id: 0, value: '正常' }, { id: 1, value: '停用' }]} onCheck={(item) => { console.log(item) }} />
+                    <CheckBox
+                        listTitle='所有状态'
+                        title='司机状态：'
+                        value={this.state.driveStatusValue ? this.state.driveStatusValue : '请选择'}
+                        itemList={[{ id: 1, value: '正常' }, { id: 0, value: '停用' }]}
+                        onCheck={(param) => this.setState({ driveStatusValue: param.value, driveStatus: param.id })} />
                     <Select
-                        //isRequire={false}
                         title='驾证类型：'
-                        //value={this.state.queryCar.routeStart}
+                        value={this.state.licenseType ? this.state.licenseType : '请选择'}
                         showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
-                        onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
-                        defaultValue={'请选择'}
+                        onValueChange={(param) => this.setState({ licenseType: param.value })}
                     />
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ flex: 1 }}>
                             <DateTimePicker
-                                isRequire={false}
-                                // value={this.state.queryCar.enterStart}
-                                /*labelStyle={{
-                                    fontSize: 12,
-                                    flex: 13,
-                                    textAlign: 'right'
-                                }}
-                                iconSytle={{
-                                    fontSize: 18,
-                                    flex: 2,
-                                    textAlign: 'right',
-                                    color: '#7a7a7a'
-                                }}*/
                                 title='检证日期：'
-                                defaultValue={'请选择'}
-                                onValueChange={(param) => this.onSelect({ enterStart: param })}
+                                value={this.state.licenseDateStart ? this.state.licenseDateStart : '请选择'}
+                                onValueChange={(param) => this.setState({ licenseDateStart: param })}
                             />
                         </View>
                         <View style={{ flex: 1 }}>
                             <DateTimePicker
-                                isRequire={false}
-                                // value={this.state.queryCar.enterEnd}
+                                value={this.state.licenseDateEnd ? this.state.licenseDateEnd : '请选择'}
                                 title='至：'
-                                defaultValue={'请选择'}
-                                onValueChange={(param) => this.onSelect({ enterEnd: param })}
+                                onValueChange={(param) => this.setState({ licenseDateEnd: param })}
                             />
                         </View>
                     </View>

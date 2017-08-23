@@ -65,7 +65,6 @@ class First extends Component {
     }
 
     render() {
-        console.log('driverInfo', this.props.addDriverFirstReducer.data.driverInfo)
         return (
             <View style={{ flex: 1 }}>
                 <StepIndicator stepList={[{ step: '1', title: '基本信息' }, { step: '2', title: '绑定货车' },{ step: '3', title: '上传照片' }]} current={0} />
@@ -88,12 +87,6 @@ class First extends Component {
                             showList={(param) => RouterDirection.selectCompanyType(this.props.parent)({ router: RouterDirection.selectCompany(this.props.parent), ...param })}
                             onValueChange={(param) => this.props.changeDriverField({ companyId: param.id, company: param.value })}
                         />
-                        {/* <Select
-                            title='关联货车：'
-                            value={'第二步'}
-                            showList={RouterDirection.selectTruck(this.props.parent)}
-                            onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}  
-                        /> */}
                         <TextBox
                             title='联系电话：'
                             value={this.props.addDriverFirstReducer.data.driverInfo.tel ? this.props.addDriverFirstReducer.data.driverInfo.tel : ''}

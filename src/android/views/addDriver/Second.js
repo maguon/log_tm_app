@@ -26,11 +26,7 @@ class Second extends Component {
         this.onPressNextStep = this.onPressNextStep.bind(this)
     }
 
-    // static defaultProps = {
-    //     initParam: {
-    //         driverId: 117
-    //     }
-    // }
+
 
     componentWillReceiveProps(nextProps) {
         const { bindTruck, unBindTruck } = nextProps.addDriverSecondReducer

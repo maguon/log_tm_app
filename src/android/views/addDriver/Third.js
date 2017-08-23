@@ -23,6 +23,7 @@ import ImageResizer from 'react-native-image-resizer'
 import ImagePicker from 'react-native-image-picker'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import * as RouterDirection from '../../../util/RouterDirection'
+import { Actions } from 'react-native-router-flux'
 
 var photoOptions = {
     //底部弹出框选项
@@ -229,33 +230,6 @@ class Third extends Component {
         return (
             <View style={{ flex: 1 }}>
                 <StepIndicator stepList={[{ step: '1', title: '基本信息' }, { step: '2', title: '绑定货车' }, { step: '3', title: '上传照片' }]} current={2} />
-                {/* <FlatList showsVerticalScrollIndicator={false}
-                    data={[<View style={{ flexDirection: 'row' }}>
-                        <PanelSingleItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                        <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
-                    </View>,
-                    <View style={{ flexDirection: 'row' }}>
-                        <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                        <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
-                    </View>,
-                    <View style={{ flexDirection: 'row' }}>
-                        <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                        <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
-                    </View>,
-                    <View style={{ flexDirection: 'row' }}>
-                        <PanelCustomItem containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                        <PanelCustomItem containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />
-                    </View>,
-                    <View style={{ flexDirection: 'row' }}>
-                        <Camera containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                    </View>,
-                    <View style={{ paddingTop: btnPaddingTop,paddingBottom:10, paddingHorizontal: 10 }}>
-                        <Button full onPress={() => { }} style={{ backgroundColor: '#00cade' }}>
-                            <Text style={{ color: '#fff' }}>完成</Text>
-                        </Button>
-                    </View>]}
-                    renderItem={({ item }) => item}
-                /> */}
                 <View key={'w'} style={{ flexDirection: 'row' }}>
                     {!this.props.addDriverThirdReducer.data.drivingImage ?
                         <Camera title='上传身份证照片' onGetPhoto={this.updateDrivingImage} /> :
@@ -265,7 +239,7 @@ class Third extends Component {
                         <PanelSingleItem title='行驶证' onUpdateImage={this.onPressUpdateLicenseImage} onShowPhoto={this.onShowLicenseImage} imageUrl={this.props.addDriverThirdReducer.data.licenseImage} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
                 </View>
                 <View style={{ paddingTop: btnPaddingTop, paddingBottom: 10, paddingHorizontal: 10 }}>
-                    <Button full onPress={() => { }} style={{ backgroundColor: '#00cade' }}>
+                    <Button full onPress={()=>Actions.pop({popNum:3})} style={{ backgroundColor: '#00cade' }}>
                         <Text style={{ color: '#fff' }}>完成</Text>
                     </Button>
                 </View>
@@ -273,7 +247,6 @@ class Third extends Component {
         )
     }
 }
-
 
 const mapStateToProps = (state) => {
     return {
