@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import {
     Text,
     View,
-    FlatList
+    FlatList,
+    TouchableNativeFeedback
 } from 'react-native'
 
 import DriverListItem from '../components/DriverListItem'
@@ -18,27 +19,26 @@ class DriverList extends Component {
     static defaultProps = {
         initParam: {
             companyId: 40
-        } 
+        }
     }
 
     componentDidMount() {
         if (this.props.initParam) {
-            this.props.geDriverList({ OptionalParam: this.props.initParam })
+            this.props.getDriverList({ OptionalParam: this.props.initParam })
         }
     }
 
 
     render() {
-        console.log(this.props.initParam)
         return (
             <View style={{ flex: 1, paddingHorizontal: 10, paddingBottom: 10, backgroundColor: '#eff3f6' }}>
                 <FlatList showsVerticalScrollIndicator={false}
                     data={this.props.driverListReducer.data.driverList}
                     renderItem={({ item, i }) => {
                         return (
-                            <TouchableNativeFeedback key={i} onPress={() => this._onPress(item)} background={TouchableNativeFeedback.SelectableBackground()}>
-                                <DriverListItem onPress={RouterDirection.driverInfo(this.props.parent)} />
-                            </TouchableNativeFeedback>
+                            <DriverListItem
+                                initParam={item}
+                                onPress={() => RouterDirection.driverInfo(this.props.parent)({ initParam: this.props.initParam })} />
                         )
                     }}
                 />

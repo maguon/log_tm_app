@@ -102,7 +102,6 @@ export default class Driver extends Component {
                             <Text style={{ color: '#fff' }}>搜索</Text>
                         </Button>
                     </View>
-
                 </View>
             </ScrollView >
 

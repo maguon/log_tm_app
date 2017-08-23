@@ -177,14 +177,14 @@ class App extends Component {
                                 <Scene key="customPhotoViewAtTruckBlock" component={CustomPhotoView} hideNavBar hideTabBar />
                             </Scene>
                             <Scene key="driverBlock" initial={true} icon={TabIcon} online='ios-pin' outline='ios-pin-outline'>
-                                <Scene key="driver" initial={true} rightType={1} onPressRight={() => Actions.addDriverFirst()} component={Driver} title='司机信息' hideNavBar={false} navBar={TopBar} />
+                                <Scene key="driver" rightType={1} onPressRight={() => Actions.addDriverFirst()} component={Driver} title='司机信息' hideNavBar={false} navBar={TopBar} />
                                 <Scene key="addDriverFirst" component={AddDriverFirst} title='新增司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="addDriverSecond" component={AddDriverSecond} title='新增司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="addDriverThird" component={AddDriverThird} title='新增司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="singlePhotoViewAtDriverBlock" component={SinglePhotoView} hideNavBar hideTabBar />
                                 <Scene key="driverListAtDriverBlock" component={DriverList} title='司机列表' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="richTextAtDriverBlock" component={RichText} title='备注' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="driverInfoAtDriverBlock" rightType={1} component={DriverInfo} title='司机详情' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="driverInfoAtDriverBlock"  initial={true} rightType={1} component={DriverInfo} title='司机详情' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectCompanyTypeAtDriverBlock" component={CompanyType} title='公司类型' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectCompanyAtDriverBlock" component={Company} title='所属公司' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectDrivingLicenseTypeAtDriverBlock" component={DrivingLicenseType} title='驾照类型' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
