@@ -48,3 +48,10 @@ export const UPDATE_DriverInfoLicenseImage_WAITING = 'UPDATE_DriverInfoLicenseIm
 export const UPDATE_DriverInfoLicenseImage_SERVICEERROR = 'UPDATE_DriverInfoLicenseImage_SERVICEERROR'
 export const UPDATE_DriverInfoLicenseImage_ERROR = 'UPDATE_DriverInfoLicenseImage_ERROR'
 export const RESET_UPDATE_DriverInfoLicenseImage = 'RESET_UPDATE_DriverInfoLicenseImage'
+
+export const UpdateDriverInfo_SUCCESS = 'UpdateDriverInfo_SUCCESS'
+export const UpdateDriverInfo_FAILED = 'UpdateDriverInfo_FAILED'
+export const UpdateDriverInfo_WAITING = 'UpdateDriverInfo_WAITING'
+export const UpdateDriverInfo_SERVICEERROR = 'UpdateDriverInfo_SERVICEERROR'
+export const UpdateDriverInfo_ERROR = 'UpdateDriverInfo_ERROR'
+export const RESET_UpdateDriverInfo = 'RESET_UpdateDriverInfo'
