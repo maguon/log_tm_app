@@ -63,7 +63,6 @@ var photoOptions = {
     }
 }
 
-
 class DriverInfo extends Component {
     constructor(props) {
         super(props)
@@ -85,8 +84,8 @@ class DriverInfo extends Component {
         this.openPicker = this.openPicker.bind(this)
         this.bindTruck=this.bindTruck.bind(this)
         this.unBindTruck=this.unBindTruck.bind(this)
+        this.updateDriverInfo=this.updateDriverInfo.bind(this)
     }
-
 
     static defaultProps = {
         initParam: {
@@ -276,6 +275,7 @@ class DriverInfo extends Component {
         /*updateDriverInfo*/
         if (updateDriverInfo.isExecStatus == 2) {
             if (updateDriverInfo.isResultStatus == 0) {
+                this.props.getDriverInfo({ OptionalParam: { driveId: this.props.initParam.driverId } })
                 console.log('updateDriverInfo', '执行成功')
                 this.props.resetUpdateDriverInfo()
             }
@@ -435,6 +435,28 @@ class DriverInfo extends Component {
         })
     }
 
+    updateDriverInfo() {
+        let param = {
+            requiredParam: {
+                userId: this.props.userReducer.data.user.userId,
+                truckId: this.props.initParam.driverId
+            },
+            putParam: {
+                driveName: this.props.driverInfoReducer.data.driverInfo.drive_name,
+                companyId: this.props.driverInfoReducer.data.driverInfo.company_id,
+                gender: this.props.driverInfoReducer.data.driverInfo.gender
+            }
+        }
+        if (this.props.driverInfoReducer.data.driverInfo.license_date) param.putParam.licenseDate = new Date(this.props.driverInfoReducer.data.driverInfo.license_date).toLocaleDateString()
+        if (this.props.driverInfoReducer.data.driverInfo.address) param.putParam.address = this.props.truckInfoReducer.data.driverInfo.address
+        if (this.props.driverInfoReducer.data.driverInfo.license_type) param.putParam.licenseType = this.props.driverInfoReducer.data.driverInfo.license_type
+        if (this.props.driverInfoReducer.data.driverInfo.id_number) param.putParam.idNumber = this.props.driverInfoReducer.data.driverInfo.id_number
+        if (this.props.driverInfoReducer.data.driverInfo.tel) param.putParam.tel = this.props.driverInfoReducer.data.driverInfo.tel
+        if (this.props.driverInfoReducer.data.driverInfo.sib_tel) param.putParam.sibTel = this.props.driverInfoReducer.data.driverInfo.sib_tel
+        if (this.props.driverInfoReducer.data.driverInfo.remark) param.putParam.remark = this.props.driverInfoReducer.data.driverInfo.remark
+        this.props.updateDriverInfo(param)
+    }
+
     renderDriverInfoEnable() {
         return (
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -533,7 +555,7 @@ class DriverInfo extends Component {
                         showRichText={RouterDirection.richText(this.props.parent)}
                     />
                     <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
-                        <Button full onPress={() => { }} style={{ backgroundColor: '#00cade' }}>
+                        <Button full onPress={this.updateDriverInfo} style={{ backgroundColor: '#00cade' }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
                     </View>
@@ -628,7 +650,7 @@ class DriverInfo extends Component {
                         showRichText={RouterDirection.richText(this.props.parent)}
                     />
                     <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
-                        <Button full onPress={() => { }} style={{ backgroundColor: '#00cade' }}>
+                        <Button full onPress={this.updateDriverInfo} style={{ backgroundColor: '#00cade' }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
                     </View>
