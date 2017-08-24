@@ -112,7 +112,10 @@ export default class TagTextBox extends Component {
                         />
                     </View>
                     <View style={{ flexDirection: 'row' }}>
-                        {this.props.isDisable && <View style={{ justifyContent: 'center' }}><Text style={{ color: '#ccc', fontSize: 10 }}>已停用</Text></View>}
+                        {this.props.isDisable &&
+                            <View style={{ justifyContent: 'center' }}>
+                                <Text style={{ color: '#ccc', fontSize: 10 }}>已停用</Text>
+                            </View>}
                         <View style={{ flexDirection: 'row', justifyContent: 'center', paddingLeft: 10 }}>
                             {this.props.companyType == 1 && <FontTag size={26} title='自' color='#12c3eb' fontColor='#fff' />}
                             {this.props.companyType == 2 && <FontTag size={26} title='协' color='#73de8a' fontColor='#fff' />}

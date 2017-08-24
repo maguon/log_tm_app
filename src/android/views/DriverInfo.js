@@ -4,7 +4,8 @@ import {
     View,
     ScrollView,
     FlatList,
-    TouchableNativeFeedback
+    TouchableNativeFeedback,
+    ToastAndroid
 } from 'react-native'
 import { Button } from 'native-base'
 import TextBox from '../components/form/TextBox'
@@ -91,7 +92,7 @@ class DriverInfo extends Component {
 
     static defaultProps = {
         initParam: {
-            driverId: 110
+            driverId: 111
         }
     }
 
@@ -114,7 +115,6 @@ class DriverInfo extends Component {
         /*getDriverInfo*/
         if (getDriverInfo.isExecStatus == 2) {
             if (getDriverInfo.isResultStatus == 0) {
-                console.log('getDriverInfo', '执行成功')
                 Actions.refresh({
                     rightType: 1,
                     truckStatus: nextProps.driverInfoReducer.data.driverInfo.drive_status,
@@ -129,15 +129,12 @@ class DriverInfo extends Component {
                 this.props.resetGetDriverInfo()
             }
             else if (getDriverInfo.isResultStatus == 1) {
-                console.log('getDriverInfo', '异常')
                 this.props.resetGetDriverInfo()
             }
             else if (getDriverInfo.isResultStatus == 2) {
-                console.log('getDriverInfo', '执行失败')
                 this.props.resetGetDriverInfo()
             }
             else if (getDriverInfo.isResultStatus == 3) {
-                console.log('getDriverInfo', '服务器异常')
                 this.props.resetGetDriverInfo()
             }
         }
@@ -146,19 +143,15 @@ class DriverInfo extends Component {
         /*getDriverRecord*/
         if (getDriverRecord.isExecStatus == 2) {
             if (getDriverRecord.isResultStatus == 0) {
-                console.log('getDriverRecord', '执行成功')
                 this.props.resetGetDriverRecord()
             }
             else if (getDriverRecord.isResultStatus == 1) {
-                console.log('getDriverRecord', '异常')
                 this.props.resetGetDriverRecord()
             }
             else if (getDriverRecord.isResultStatus == 2) {
-                console.log('getDriverRecord', '执行失败')
                 this.props.resetGetDriverRecord()
             }
             else if (getDriverRecord.isResultStatus == 3) {
-                console.log('getDriverRecord', '服务器异常')
                 this.props.resetGetDriverRecord()
             }
         }
@@ -167,20 +160,19 @@ class DriverInfo extends Component {
         /*bindTruck*/
         if (bindTruck.isExecStatus == 2) {
             if (bindTruck.isResultStatus == 0) {
-                this.props.getDriverInfo({ OptionalParam: { driveId: this.props.initParam.driverId } })
-                console.log('bindTruck', '执行成功')
+                ToastAndroid.showWithGravity('绑定成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetBindTruck()
             }
             else if (bindTruck.isResultStatus == 1) {
-                console.log('bindTruck', '异常')
+                ToastAndroid.showWithGravity('绑定失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetBindTruck()
             }
             else if (bindTruck.isResultStatus == 2) {
-                console.log('bindTruck', '执行失败')
+                ToastAndroid.showWithGravity(`绑定失败，${bindTruck.failedMsg}！`, ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetBindTruck()
             }
             else if (bindTruck.isResultStatus == 3) {
-                console.log('bindTruck', '服务器异常')
+                ToastAndroid.showWithGravity('绑定失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetBindTruck()
             }
         }
@@ -189,20 +181,19 @@ class DriverInfo extends Component {
         /*unBindTruck*/
         if (unBindTruck.isExecStatus == 2) {
             if (unBindTruck.isResultStatus == 0) {
-                this.props.getDriverInfo({ OptionalParam: { driveId: this.props.initParam.driverId } })
-                console.log('unBindTruck', '执行成功')
+                ToastAndroid.showWithGravity('解绑成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindTruck()
             }
             else if (unBindTruck.isResultStatus == 1) {
-                console.log('unBindTruck', '异常')
+                ToastAndroid.showWithGravity('解绑失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindTruck()
             }
             else if (unBindTruck.isResultStatus == 2) {
-                console.log('unBindTruck', '执行失败')
+                ToastAndroid.showWithGravity(`解绑失败，${unBindTruck.failedMsg}！`, ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindTruck()
             }
             else if (unBindTruck.isResultStatus == 3) {
-                console.log('unBindTruck', '服务器异常')
+                ToastAndroid.showWithGravity('解绑失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindTruck()
             }
         }
@@ -211,20 +202,33 @@ class DriverInfo extends Component {
         /*changeDriverStatus*/
         if (changeDriverStatus.isExecStatus == 2) {
             if (changeDriverStatus.isResultStatus == 0) {
-                this.props.getDriverInfo({ OptionalParam: { driveId: this.props.initParam.driverId } })
-                console.log('changeDriverStatus', '执行成功')
+                let msg
+                if (data.driverInfo.drive_status == 0) msg = '停用成功！'
+                if (data.driverInfo.drive_status == 1) msg = '启用成功！'
+                ToastAndroid.showWithGravity(msg, ToastAndroid.SHORT, ToastAndroid.CENTER)
+                Actions.refresh({
+                    rightType: 1,
+                    truckStatus: nextProps.driverInfoReducer.data.driverInfo.drive_status,
+                    onPressRight: () => this.props.changeDriverStatus({
+                        requiredParam: {
+                            userId: nextProps.userReducer.data.user.userId,
+                            driveId: nextProps.driverInfoReducer.data.driverInfo.id,
+                            driveStatus: nextProps.driverInfoReducer.data.driverInfo.drive_status == 1 ? 0 : 1
+                        }
+                    })
+                })
                 this.props.resetChangeDriverStatus()
             }
             else if (changeDriverStatus.isResultStatus == 1) {
-                console.log('changeDriverStatus', '异常')
+                ToastAndroid.showWithGravity('操作失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetChangeDriverStatus()
             }
             else if (changeDriverStatus.isResultStatus == 2) {
-                console.log('changeDriverStatus执行失败', changeDriverStatus.failedMsg)
+                ToastAndroid.showWithGravity(`操作失败，${changeDriverStatus.failedMsg}！`, ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetChangeDriverStatus()
             }
             else if (changeDriverStatus.isResultStatus == 3) {
-                console.log('changeDriverStatus', '服务器异常')
+                ToastAndroid.showWithGravity('操作失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetChangeDriverStatus()
             }
         }
@@ -233,20 +237,20 @@ class DriverInfo extends Component {
         /*updateDrivingImage*/
         if (updateDrivingImage.isExecStatus == 2) {
             if (updateDrivingImage.isResultStatus == 0) {
-                console.log('updateDrivingImage', '执行成功')
+                ToastAndroid.showWithGravity('身份证图片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.setPhoto(data.driverInfo.drive_image)
                 this.props.resetUpdateDrivingImage()
             }
             else if (updateDrivingImage.isResultStatus == 1) {
-                console.log('updateDrivingImage', '异常')
+                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDrivingImage()
             }
             else if (updateDrivingImage.isResultStatus == 2) {
-                console.log('updateDrivingImage', '执行失败')
+                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDrivingImage()
             }
             else if (updateDrivingImage.isResultStatus == 3) {
-                console.log('updateDrivingImage', '服务器异常')
+                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDrivingImage()
             }
         }
@@ -255,20 +259,20 @@ class DriverInfo extends Component {
         /*updateLicenseImage*/
         if (updateLicenseImage.isExecStatus == 2) {
             if (updateLicenseImage.isResultStatus == 0) {
-                console.log('updateLicenseImage', '执行成功')
+                ToastAndroid.showWithGravity('驾驶证图片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.setPhoto(data.driverInfo.license_image)
                 this.props.resetUpdateLicenseImage()
             }
             else if (updateLicenseImage.isResultStatus == 1) {
-                console.log('updateLicenseImage', '异常')
+                ToastAndroid.showWithGravity('驾驶证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateLicenseImage()
             }
             else if (updateLicenseImage.isResultStatus == 2) {
-                console.log('updateLicenseImage', '执行失败')
+                ToastAndroid.showWithGravity('驾驶证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateLicenseImage()
             }
             else if (updateLicenseImage.isResultStatus == 3) {
-                console.log('updateLicenseImage', '服务器异常')
+                ToastAndroid.showWithGravity('驾驶证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateLicenseImage()
             }
         }
@@ -277,20 +281,19 @@ class DriverInfo extends Component {
         /*updateDriverInfo*/
         if (updateDriverInfo.isExecStatus == 2) {
             if (updateDriverInfo.isResultStatus == 0) {
-                this.props.getDriverInfo({ OptionalParam: { driveId: this.props.initParam.driverId } })
-                console.log('updateDriverInfo', '执行成功')
+                ToastAndroid.showWithGravity('修改成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDriverInfo()
             }
             else if (updateDriverInfo.isResultStatus == 1) {
-                console.log('updateDriverInfo', '异常')
+                ToastAndroid.showWithGravity('修改失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDriverInfo()
             }
             else if (updateDriverInfo.isResultStatus == 2) {
-                console.log('updateDriverInfo', '执行失败')
+                ToastAndroid.showWithGravity('修改失败', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDriverInfo()
             }
             else if (updateDriverInfo.isResultStatus == 3) {
-                console.log('updateDriverInfo', '服务器异常')
+                ToastAndroid.showWithGravity('修改失败', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDriverInfo()
             }
         }
@@ -423,7 +426,9 @@ class DriverInfo extends Component {
                 userId: this.props.userReducer.data.user.userId,
                 truckId: param.id,
                 driverId: this.props.driverInfoReducer.data.driverInfo.id
-            }
+            },
+            truck_id: param.id,
+            truck_num: param.value
         })
     }
 
@@ -460,7 +465,9 @@ class DriverInfo extends Component {
     }
 
     renderDriverInfoEnable() {
-        //
+        let gender
+        if (this.props.driverInfoReducer.data.driverInfo.gender == 0) gender = '女'
+        if (this.props.driverInfoReducer.data.driverInfo.gender == 1) gender = '男'
         return (
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View>
@@ -468,7 +475,7 @@ class DriverInfo extends Component {
                         title='姓名：'
                         leftTag={10}
                         companyType={this.props.driverInfoReducer.data.driverInfo.operate_type ? this.props.driverInfoReducer.data.driverInfo.operate_type : 10}
-                        isDisable={this.props.driverInfoReducer.data.driverInfo.drive_status && this.props.driverInfoReducer.data.driverInfo.drive_status == 0}
+                        isDisable={this.props.driverInfoReducer.data.driverInfo.drive_status == 0}
                         value={this.props.driverInfoReducer.data.driverInfo.drive_name ? this.props.driverInfoReducer.data.driverInfo.drive_name : ''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ drive_name: param })}
                         placeholder='请输入姓名'
@@ -495,9 +502,9 @@ class DriverInfo extends Component {
                     </View>
                     <CheckBox
                         listTitle='选择性别'
-                        value={this.props.driverInfoReducer.data.driverInfo.gender ? this.props.driverInfoReducer.data.driverInfo.gender : '请选择'}
-                        itemList={[{ id: 0, value: '男' }, { id: 1, value: '女' }]}
-                        onCheck={(param) => this.props.changeDriverInfoField({ gender: param.value })} />
+                        value={gender ? gender : '请选择'}
+                        itemList={[{ id: 1, value: '男' }, { id: 0, value: '女' }]}
+                        onCheck={(param) => this.props.changeDriverInfoField({ gender: param.id })} />
                     <TextBox
                         title='联系电话：'
                         value={this.props.driverInfoReducer.data.driverInfo.tel ? this.props.driverInfoReducer.data.driverInfo.tel : ''}
@@ -554,36 +561,32 @@ class DriverInfo extends Component {
 
 
     renderDriverInfoDisable() {
+        let gender
+        if (this.props.driverInfoReducer.data.driverInfo.gender == 0) gender = '女'
+        if (this.props.driverInfoReducer.data.driverInfo.gender == 1) gender = '男'
         return (
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.5, borderColor: '#ddd' }}>
-                        <View style={{ flex: 5 }}>
-                            <TextBox
-                                title='姓名：'
-                                containerSytle={{
-                                    paddingVertical: 5,
-                                    paddingHorizontal: 10
-                                }}
-                                value={this.props.driverInfoReducer.data.driverInfo.drive_name ? this.props.driverInfoReducer.data.driverInfo.drive_name : ''}
-                                onValueChange={(param) => this.props.changeDriverInfoField({ drive_name: param })}
-                                placeholder='请输入姓名'
-                            />
-                        </View>
-                        <View style={{ flex: 1, justifyContent: 'center' }}><Text style={{ color: '#ccc', fontSize: 10 }}>已停用</Text></View>
-                        <View style={{ flex: 1, justifyContent: 'center' }}><FontTag size={26} title='自' color='#12c3eb' fontColor='#fff' /></View>
-                    </View>
+                    <TagTextBox
+                        title='姓名：'
+                        leftTag={10}
+                        companyType={this.props.driverInfoReducer.data.driverInfo.operate_type ? this.props.driverInfoReducer.data.driverInfo.operate_type : 10}
+                        isDisable={this.props.driverInfoReducer.data.driverInfo.drive_status == 0}
+                        value={this.props.driverInfoReducer.data.driverInfo.drive_name ? this.props.driverInfoReducer.data.driverInfo.drive_name : ''}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ drive_name: param })}
+                        placeholder='请输入姓名'
+                    />
                     <Select
                         title='所属公司：'
                         value={this.props.driverInfoReducer.data.driverInfo.company_name ? this.props.driverInfoReducer.data.driverInfo.company_name : '请选择'}
                         showList={(param) => RouterDirection.selectCompanyType(this.props.parent)({ router: RouterDirection.selectCompany(this.props.parent), ...param })}
-                        onValueChange={(param) => this.props.changeDriverInfoField({ company_id: param.id, company_name: param.value })}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ company_id: param.id, company_name: param.value, operate_type: param.operateType })}
                     />
                     <CheckBox
                         listTitle='选择性别'
-                        value={this.props.driverInfoReducer.data.driverInfo.gender ? this.props.driverInfoReducer.data.driverInfo.gender : '请选择'}
-                        itemList={[{ id: 0, value: '男' }, { id: 1, value: '女' }]}
-                        onCheck={(param) => this.props.changeDriverInfoField({ gender: param.value })} />
+                        value={gender ? gender : '请选择'}
+                        itemList={[{ id: 1, value: '男' }, { id: 0, value: '女' }]}
+                        onCheck={(param) => this.props.changeDriverInfoField({ gender: param.id })} />
                     <TextBox
                         title='联系电话：'
                         value={this.props.driverInfoReducer.data.driverInfo.tel ? this.props.driverInfoReducer.data.driverInfo.tel : ''}
@@ -608,24 +611,14 @@ class DriverInfo extends Component {
                         onValueChange={(param) => this.props.changeDriverInfoField({ sib_tel: param })}
                         placeholder='请输入紧急联系人电话'
                     />
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.5, borderColor: '#ddd' }}>
-                        <View style={{ flex: 6 }}>
-                            <Select
-                                title='驾证类别：'
-                                value={this.props.driverInfoReducer.data.driverInfo.license_type ? this.props.driverInfoReducer.data.driverInfo.license_type : '请选择'}
-                                containerSytle={{
-                                    paddingVertical: 10,
-                                    paddingHorizontal: 10
-                                }}
-                                showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
-                                onValueChange={(param) => this.props.changeDriverInfoField({ license_type: param.value })}
-                                defaultValue={'请选择'}
-                            />
-                        </View>
-                        <View style={{ flex: 1, justifyContent: 'center' }}>
-                            <FontTag size={16} title='检' color='#f87775' fontColor='#fff' />
-                        </View>
-                    </View>
+                    <TagSelect
+                        title='驾证类别：'
+                        value={this.props.driverInfoReducer.data.driverInfo.license_type ? this.props.driverInfoReducer.data.driverInfo.license_type : '请选择'}
+                        showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
+                        isCheck={this.props.driverInfoReducer.data.driverInfo.license_date && ((Date.parse(new Date(this.props.driverInfoReducer.data.driverInfo.license_date))) < (Date.parse(new Date()) + 30 * 24 * 60 * 60 * 1000))}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ license_type: param.value })}
+                        defaultValue={'请选择'}
+                    />
                     <DateTimePicker
                         value={this.props.driverInfoReducer.data.driverInfo.license_date ? new Date(this.props.driverInfoReducer.data.driverInfo.license_date).toLocaleDateString() : '请选择'}
                         title='驾驶证到期时间：'

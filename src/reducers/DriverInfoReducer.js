@@ -214,8 +214,16 @@ export default handleActions({
     },
 
     [(actionTypes.driverInfoTypes.ChangeDriverStatus_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
         return {
             ...state,
+            data: {
+                ...state.data,
+                driverInfo: {
+                    ...state.data.driverInfo,
+                    drive_status: data
+                }
+            },
             changeDriverStatus: {
                 ...state.changeDriverStatus,
                 isResultStatus: 0,
@@ -282,15 +290,23 @@ export default handleActions({
     },
 
     [(actionTypes.driverInfoTypes.BindTruck_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
         return {
             ...state,
+            data: {
+                ...state.data,
+                driverInfo: {
+                    ...state.data.driverInfo,
+                    truck_id: data.truck_id,
+                    truck_num: data.truck_num
+                }
+            },
             bindTruck:{
                 ...state.bindTruck,
                     isResultStatus: 0,
                     isExecStatus: 2
             }
         }
-
     },
     [(actionTypes.driverInfoTypes.BindTruck_FAILED)]: (state, action) => {
         const { payload: { data } } = action
@@ -353,6 +369,14 @@ export default handleActions({
     [(actionTypes.driverInfoTypes.UnBindTruck_SUCCESS)]: (state, action) => {
         return {
             ...state,
+            data: {
+                ...state.data,
+                driverInfo: {
+                    ...state.data.driverInfo,
+                    truck_id: null,
+                    truck_num: null
+                }
+            },
             unBindTruck: {
                 ...state.unBindTruck,
                 isResultStatus: 0,
@@ -414,6 +438,89 @@ export default handleActions({
                 errorMsg: '',
                 failedMsg: '',
                 serviceFailedMsg: ''
+            }
+        }
+    },
+
+    [(actionTypes.driverInfoTypes.UpdateDriverInfo_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateDriverInfo: {
+                ...state.updateDriverInfo,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.driverInfoTypes.UpdateDriverInfo_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateDriverInfo: {
+                ...state.updateDriverInfo,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.driverInfoTypes.UpdateDriverInfo_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateDriverInfo: {
+                ...state.updateDriverInfo,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.driverInfoTypes.UpdateDriverInfo_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateDriverInfo: {
+                ...state.updateDriverInfo,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.driverInfoTypes.UpdateDriverInfo_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            updateDriverInfo: {
+                ...state.updateDriverInfo,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.driverInfoTypes.RESET_UpdateDriverInfo)]: (state, action) => {
+        return {
+            ...state,
+            updateDriverInfo: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
+
+    [(actionTypes.driverInfoTypes.CHANGE_DriverInfo_FIELD)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                driverInfo: {
+                    ...state.data.driverInfo,
+                    ...data
+                }
             }
         }
     },
@@ -570,86 +677,5 @@ export default handleActions({
         }
     },
 
-    [(actionTypes.driverInfoTypes.UpdateDriverInfo_SUCCESS)]: (state, action) => {
-        const { payload: { data } } = action
-        return {
-            ...state,
-            updateDriverInfo: {
-                ...state.updateDriverInfo,
-                isResultStatus: 0,
-                isExecStatus: 2
-            }
-        }
-    },
-    [(actionTypes.driverInfoTypes.UpdateDriverInfo_FAILED)]: (state, action) => {
-        const { payload: { data } } = action
-        return {
-            ...state,
-            updateDriverInfo: {
-                ...state.updateDriverInfo,
-                isResultStatus: 2,
-                failedMsg: data,
-                isExecStatus: 2
-            }
-        }
-    },
-    [(actionTypes.driverInfoTypes.UpdateDriverInfo_SERVICEERROR)]: (state, action) => {
-        const { payload: { data } } = action
-        return {
-            ...state,
-            updateDriverInfo: {
-                ...state.updateDriverInfo,
-                isResultStatus: 3,
-                serviceFailedMsg: data,
-                isExecStatus: 2
-            }
-        }
-    },
-    [(actionTypes.driverInfoTypes.UpdateDriverInfo_ERROR)]: (state, action) => {
-        const { payload: { data } } = action
-        return {
-            ...state,
-            updateDriverInfo: {
-                ...state.updateDriverInfo,
-                isResultStatus: 1,
-                errorMsg: data,
-                isExecStatus: 2
-            }
-        }
-    },
-    [(actionTypes.driverInfoTypes.UpdateDriverInfo_WAITING)]: (state, action) => {
-        return {
-            ...state,
-            updateDriverInfo: {
-                ...state.updateDriverInfo,
-                isExecStatus: 1
-            }
-        }
-    },
-    [(actionTypes.driverInfoTypes.RESET_UpdateDriverInfo)]: (state, action) => {
-        return {
-            ...state,
-            updateDriverInfo: {
-                isResultStatus: 0,
-                isExecStatus: 0,
-                errorMsg: '',
-                failedMsg: '',
-                serviceFailedMsg: ''
-            }
-        }
-    },
 
-    [(actionTypes.driverInfoTypes.CHANGE_DriverInfo_FIELD)]: (state, action) => {
-        const { payload: { data } } = action
-        return {
-            ...state,
-            data: {
-                ...state.data,
-                driverInfo: {
-                    ...state.data.driverInfo,
-                    ...data
-                }
-            }
-        }
-    }
 }, initialState)

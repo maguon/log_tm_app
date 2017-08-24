@@ -47,7 +47,7 @@ export const changeDriverStatus = (param) => async (dispatch) => {
     try {
         let res = await httpRequest.put(url, {})
         if (res.success) {
-            dispatch({ type: actionTypes.driverInfoTypes.ChangeDriverStatus_SUCCESS, payload: {} })
+            dispatch({ type: actionTypes.driverInfoTypes.ChangeDriverStatus_SUCCESS, payload: {data:param.requiredParam.driveStatus} })
         } else {
             dispatch({ type: actionTypes.driverInfoTypes.ChangeDriverStatus_FAILED, payload: { data: res.msg } })
         }
@@ -66,7 +66,7 @@ export const bindTruck = (param) => async (dispatch) => {
     try {
         let res = await httpRequest.put(url, {}) 
         if (res.success) {
-            dispatch({ type: actionTypes.driverInfoTypes.BindTruck_SUCCESS, payload: { data: { driverId: param.driverId, driver: param.driver } } })
+            dispatch({ type: actionTypes.driverInfoTypes.BindTruck_SUCCESS, payload: { data: { truck_num: param.truck_num, truck_id: param.truck_id } } })
         } else {
             dispatch({ type: actionTypes.driverInfoTypes.BindTruck_FAILED, payload: { data: res.msg } })
         }
