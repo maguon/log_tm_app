@@ -24,7 +24,6 @@ export const resetGetDriverInfo = (param) => (dispatch) => {
 
 export const getDriverRecord = (param) => async (dispatch) => {
     const url = `${record_host}/user/${param.requiredParam.userId}/tuser/${param.requiredParam.driverId}/record`
-
     dispatch({ type: actionTypes.driverInfoTypes.GET_DriverRecord_WAITING, payload: {} })
     try {
         let res = await httpRequest.get(url)
@@ -43,7 +42,7 @@ export const resetGetDriverRecord = (param) => (dispatch) => {
 }
 
 export const changeDriverStatus = (param) => async (dispatch) => {
-    const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driverId}/driveStatus/${param.requiredParam.driverStatus}`
+    const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driveId}/driveStatus/${param.requiredParam.driveStatus}`
     dispatch({ type: actionTypes.driverInfoTypes.ChangeDriverStatus_WAITING, payload: {} })
     try {
         let res = await httpRequest.put(url, {})
@@ -77,7 +76,7 @@ export const bindTruck = (param) => async (dispatch) => {
 }
 
 export const unBindTruck = (param) => async (dispatch) => {
-    const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/trail/${param.requiredParam.trailId}/unbind`
+    const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/drive/${param.requiredParam.driverId}/unbind`
     dispatch({ type: actionTypes.driverInfoTypes.UnBindTruck_WAITING, payload: {} })
     try {
         let res = await httpRequest.put(url, {})

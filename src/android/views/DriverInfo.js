@@ -3,7 +3,8 @@ import {
     Text,
     View,
     ScrollView,
-    FlatList
+    FlatList,
+    TouchableNativeFeedback
 } from 'react-native'
 import { Button } from 'native-base'
 import TextBox from '../components/form/TextBox'
@@ -74,7 +75,6 @@ class DriverInfo extends Component {
         this.renderDriverInfoDisable = this.renderDriverInfoDisable.bind(this)
         this.renderDriverPhoto = this.renderDriverPhoto.bind(this)
         this.renderDriverRecord = this.renderDriverRecord.bind(this)
-        this.onSelect = this.onSelect.bind(this)
         this.updateDrivingImage = this.updateDrivingImage.bind(this)
         this.updateLicenseImage = this.updateLicenseImage.bind(this)
         this.onShowDrivingImage = this.onShowDrivingImage.bind(this)
@@ -83,6 +83,8 @@ class DriverInfo extends Component {
         this.onPressUpdateLicenseImage = this.onPressUpdateLicenseImage.bind(this)
         this.launchCamera = this.launchCamera.bind(this)
         this.openPicker = this.openPicker.bind(this)
+        this.bindTruck=this.bindTruck.bind(this)
+        this.unBindTruck=this.unBindTruck.bind(this)
     }
 
 
@@ -93,7 +95,6 @@ class DriverInfo extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.initParam.driverId )
         this.props.getDriverInfo({OptionalParam:{ driveId: this.props.initParam.driverId }})
         this.props.getDriverRecord({requiredParam:{userId:this.props.userReducer.data.user.userId, driverId: this.props.initParam.driverId }})
     }
@@ -113,14 +114,15 @@ class DriverInfo extends Component {
         if (getDriverInfo.isExecStatus == 2) {
             if (getDriverInfo.isResultStatus == 0) {
                 console.log('getDriverInfo', '执行成功')
-                console.log(nextProps.driverInfoReducer.data.driverInfo.drive_status)
                 Actions.refresh({
                     rightType: 1,
                     truckStatus: nextProps.driverInfoReducer.data.driverInfo.drive_status,
-                    onPressRight: () => this.onChangeTruckStatus({
-                        userId: nextProps.userReducer.data.user.userId,
-                        driveId: nextProps.driverInfoReducer.data.driverInfo.id,
-                        driveStatus: nextProps.driverInfoReducer.data.driverInfo.truck_status == 1 ? 0 : 1
+                    onPressRight: () => this.props.changeDriverStatus({
+                        requiredParam: {
+                            userId: nextProps.userReducer.data.user.userId,
+                            driveId: nextProps.driverInfoReducer.data.driverInfo.id,
+                            driveStatus: nextProps.driverInfoReducer.data.driverInfo.drive_status == 1 ? 0 : 1
+                        }
                     })
                 })
                 this.props.resetGetDriverInfo()
@@ -164,6 +166,7 @@ class DriverInfo extends Component {
         /*bindTruck*/
         if (bindTruck.isExecStatus == 2) {
             if (bindTruck.isResultStatus == 0) {
+                this.props.getDriverInfo({ OptionalParam: { driveId: this.props.initParam.driverId } })
                 console.log('bindTruck', '执行成功')
                 this.props.resetBindTruck()
             }
@@ -185,6 +188,7 @@ class DriverInfo extends Component {
         /*unBindTruck*/
         if (unBindTruck.isExecStatus == 2) {
             if (unBindTruck.isResultStatus == 0) {
+                this.props.getDriverInfo({ OptionalParam: { driveId: this.props.initParam.driverId } })
                 console.log('unBindTruck', '执行成功')
                 this.props.resetUnBindTruck()
             }
@@ -206,6 +210,7 @@ class DriverInfo extends Component {
         /*changeDriverStatus*/
         if (changeDriverStatus.isExecStatus == 2) {
             if (changeDriverStatus.isResultStatus == 0) {
+                this.props.getDriverInfo({ OptionalParam: { driveId: this.props.initParam.driverId } })
                 console.log('changeDriverStatus', '执行成功')
                 this.props.resetChangeDriverStatus()
             }
@@ -214,7 +219,7 @@ class DriverInfo extends Component {
                 this.props.resetChangeDriverStatus()
             }
             else if (changeDriverStatus.isResultStatus == 2) {
-                console.log('changeDriverStatus', '执行失败')
+                console.log('changeDriverStatus执行失败', changeDriverStatus.failedMsg)
                 this.props.resetChangeDriverStatus()
             }
             else if (changeDriverStatus.isResultStatus == 3) {
@@ -293,10 +298,6 @@ class DriverInfo extends Component {
     onPressSegment(index) {
         if (this.state.active != index)
             this.setState({ active: index })
-    }
-
-    onSelect(param) {
-        console.log(param)
     }
 
     updateDrivingImage(param) {
@@ -414,6 +415,26 @@ class DriverInfo extends Component {
         })
     }
 
+    bindTruck(param) {
+        this.props.bindTruck({
+            requiredParam: {
+                userId: this.props.userReducer.data.user.userId,
+                truckId: param.id,
+                driverId: this.props.driverInfoReducer.data.driverInfo.id
+            }
+        })
+    }
+
+    unBindTruck(){
+        this.props.unBindTruck({
+            requiredParam: {
+                userId: this.props.userReducer.data.user.userId,
+                truckId: this.props.driverInfoReducer.data.driverInfo.truck_id,
+                driverId: this.props.driverInfoReducer.data.driverInfo.id
+            }
+        })
+    }
+
     renderDriverInfoEnable() {
         return (
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -439,12 +460,19 @@ class DriverInfo extends Component {
                         showList={(param) => RouterDirection.selectCompanyType(this.props.parent)({ router: RouterDirection.selectCompany(this.props.parent), ...param })}
                         onValueChange={(param) => this.props.changeDriverInfoField({ company_id: param.id, company_name: param.value })}
                     />
-
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View><Text style={{ fontSize: 12 }}>关联货车：辽B12345</Text></View>
-                        <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
-                            <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
+                        <View>
+                            <Text style={{ fontSize: 12 }}>关联货车：{this.props.driverInfoReducer.data.driverInfo.truck_num?this.props.driverInfoReducer.data.driverInfo.truck_num:'未绑定货车'}</Text>
                         </View>
+                        {!this.props.driverInfoReducer.data.driverInfo.truck_num ? <TouchableNativeFeedback onPress={() => RouterDirection.selectTruck(this.props.parent)({ initParam: { type: 2 }, onSelect: (param) => this.bindTruck(param) })} background={TouchableNativeFeedback.SelectableBackground()}>
+                            <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                                <Text style={{ fontSize: 10, color: '#fff' }}>绑定</Text>
+                            </View>
+                        </TouchableNativeFeedback> : <TouchableNativeFeedback onPress={this.unBindTruck} background={TouchableNativeFeedback.SelectableBackground()}>
+                                <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                                    <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
+                                </View>
+                            </TouchableNativeFeedback>}
                     </View>
                     <CheckBox
                         listTitle='选择性别'
@@ -453,25 +481,25 @@ class DriverInfo extends Component {
                         onCheck={(param) => this.props.changeDriverInfoField({gender: param.value })} />
                     <TextBox
                         title='联系电话：'
-                        value={this.props.driverInfoReducer.data.driverInfo.tel?this.props.driverInfoReducer.data.driverInfo.tel:'请选择'}
+                        value={this.props.driverInfoReducer.data.driverInfo.tel?this.props.driverInfoReducer.data.driverInfo.tel:''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ tel: param })}
                         placeholder='请输入联系电话'
                     />
                     <TextBox
                         title='身份证：'
-                        value={this.props.driverInfoReducer.data.driverInfo.id_number?this.props.driverInfoReducer.data.driverInfo.id_number:'请选择'}
+                        value={this.props.driverInfoReducer.data.driverInfo.id_number?this.props.driverInfoReducer.data.driverInfo.id_number:''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ id_number: param })}
                         placeholder='请输入身份证'
                     />
                     <TextBox
                         title='家庭住址：'
-                        value={this.props.driverInfoReducer.data.driverInfo.address?this.props.driverInfoReducer.data.driverInfo.address:'请选择'}
+                        value={this.props.driverInfoReducer.data.driverInfo.address?this.props.driverInfoReducer.data.driverInfo.address:''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ address: param })}
                         placeholder='请输入家庭住址'
                     />
                     <TextBox
                         title='紧急联系人电话：'
-                        value={this.props.driverInfoReducer.data.driverInfo.sib_tel?this.props.driverInfoReducer.data.driverInfo.sib_tel:'请选择'}
+                        value={this.props.driverInfoReducer.data.driverInfo.sib_tel?this.props.driverInfoReducer.data.driverInfo.sib_tel:''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ sib_tel: param })}
                         placeholder='请输入紧急联系人电话'
                     />
@@ -548,25 +576,25 @@ class DriverInfo extends Component {
                         onCheck={(param) => this.props.changeDriverInfoField({gender: param.value })} />
                     <TextBox
                         title='联系电话：'
-                        value={this.props.driverInfoReducer.data.driverInfo.tel?this.props.driverInfoReducer.data.driverInfo.tel:'请选择'}
+                        value={this.props.driverInfoReducer.data.driverInfo.tel?this.props.driverInfoReducer.data.driverInfo.tel:''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ tel: param })}
                         placeholder='请输入联系电话'
                     />
                     <TextBox
                         title='身份证：'
-                        value={this.props.driverInfoReducer.data.driverInfo.id_number?this.props.driverInfoReducer.data.driverInfo.id_number:'请选择'}
+                        value={this.props.driverInfoReducer.data.driverInfo.id_number?this.props.driverInfoReducer.data.driverInfo.id_number:''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ id_number: param })}
                         placeholder='请输入身份证'
                     />
                     <TextBox
                         title='家庭住址：'
-                        value={this.props.driverInfoReducer.data.driverInfo.address?this.props.driverInfoReducer.data.driverInfo.address:'请选择'}
+                        value={this.props.driverInfoReducer.data.driverInfo.address?this.props.driverInfoReducer.data.driverInfo.address:''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ address: param })}
                         placeholder='请输入家庭住址'
                     />
                     <TextBox
                         title='紧急联系人电话：'
-                        value={this.props.driverInfoReducer.data.driverInfo.sib_tel?this.props.driverInfoReducer.data.driverInfo.sib_tel:'请选择'}
+                        value={this.props.driverInfoReducer.data.driverInfo.sib_tel?this.props.driverInfoReducer.data.driverInfo.sib_tel:''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ sib_tel: param })}
                         placeholder='请输入紧急联系人电话'
                     />
