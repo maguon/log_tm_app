@@ -30,6 +30,7 @@ class DriverList extends Component {
 
 
     render() {
+       
         return (
             <View style={{ flex: 1, paddingHorizontal: 10, paddingBottom: 10, backgroundColor: '#eff3f6' }}>
                 <FlatList showsVerticalScrollIndicator={false}
@@ -38,7 +39,7 @@ class DriverList extends Component {
                         return (
                             <DriverListItem
                                 initParam={item}
-                                onPress={() => RouterDirection.driverInfo(this.props.parent)({ initParam: this.props.initParam })} />
+                                onPress={() => RouterDirection.driverInfo(this.props.parent)({ initParam: {driverId:item.id}})} />
                         )
                     }}
                 />
