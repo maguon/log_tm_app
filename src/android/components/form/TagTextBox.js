@@ -3,10 +3,12 @@ import {
     StyleSheet,
     Text,
     View,
-    TextInput
+    TextInput,
+    Image
 } from 'react-native'
 import { Icon, Input } from 'native-base'
 import { validate } from '../../../util/Validator'
+import FontTag from '../../components/tag/FontTag'
 
 const styles = StyleSheet.create({
     containerSytle: {
@@ -95,22 +97,31 @@ export default class TagTextBox extends Component {
     render() {
         return (
             <View style={this.props.containerSytle}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', }}>
-                    <Text style={{ color: 'red', width: 10, textAlign: 'right' }}>{this.props.isRequire && '*'}</Text>
-                    <Text style={this.props.labelStyle}>{this.props.title}</Text>
-                    <TextInput
-                        underlineColorAndroid="transparent"
-                        placeholder={this.props.placeholder}
-                        placeholderTextColor='#ddd'
-                        value={this.props.value}
-                        onChangeText={(value) => { this.changeValue(value) }}
-                        style={this.props.inputStyle}
-                        disableFullscreenUI={false}
-                    />
+                <View style={{ flexDirection: 'row' }}>
+                    <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center' }}>
+                        <Text style={{ color: 'red', width: 10, textAlign: 'right' }}>{this.props.isRequire && '*'}*</Text>
+                        <Text style={this.props.labelStyle}>{this.props.title}</Text>
+                        <TextInput
+                            underlineColorAndroid="transparent"
+                            placeholder={this.props.placeholder}
+                            placeholderTextColor='#ddd'
+                            value={this.props.value}
+                            onChangeText={(value) => { this.changeValue(value) }}
+                            style={this.props.inputStyle}
+                            disableFullscreenUI={false}
+                        />
+                    </View>
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={{ justifyContent: 'center' }}><Text style={{ color: '#ccc', fontSize: 10 }}>已停用</Text></View>
+                        <View style={{ justifyContent: 'center', paddingLeft: 10 }}><FontTag size={26} title='自' color='#12c3eb' fontColor='#fff' /></View>
+                    </View>
                 </View>
                 {this.renderValidateMessage()}
+                <Image
+                    style={{ width: 20, height: 20, position: 'absolute', top: 0, left: 0 }}
+                    source={{ uri: 'truck_head' }}
+                />
             </View>
-
         )
     }
 }

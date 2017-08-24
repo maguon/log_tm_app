@@ -67,7 +67,6 @@ export default class Select extends Component {
     changeValue(value) {
         this.validate(value)
         this.props.onValueChange(value)
-
     }
 
     validate(value) {
@@ -117,8 +116,7 @@ export default class Select extends Component {
         return warnMessage
     }
 
-    renderEnable() {
-        
+    renderEnable() {      
         return (
             <TouchableHighlight
                 underlayColor='rgba(0,0,0,0.1)'
@@ -139,6 +137,7 @@ export default class Select extends Component {
             </TouchableHighlight>
         )
     }
+    
     renderDisable() {
         return (
             <View style={[this.props.containerSytle, { backgroundColor: 'rgba(0,0,0,0.1)' }]}>

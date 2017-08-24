@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import { Button } from 'native-base'
 import TextBox from '../components/form/TextBox'
+import TagTextBox from '../components/form/TagTextBox'
 import RecordListItem from '../components/recordListItem/DriveInfo'
 import Select from '../components/form/Select'
 import DateTimePicker from '../components/form/DateTimePicker'
@@ -502,6 +503,12 @@ class DriverInfo extends Component {
                         itemList={[{ id: 0, value: '男' }, { id: 1, value: '女' }]}
                         onCheck={(param) => this.props.changeDriverInfoField({gender: param.value })} />
                     <TextBox
+                        title='联系电话：'
+                        value={this.props.driverInfoReducer.data.driverInfo.tel?this.props.driverInfoReducer.data.driverInfo.tel:''}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ tel: param })}
+                        placeholder='请输入联系电话'
+                    />
+                    <TagTextBox
                         title='联系电话：'
                         value={this.props.driverInfoReducer.data.driverInfo.tel?this.props.driverInfoReducer.data.driverInfo.tel:''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ tel: param })}
