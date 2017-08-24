@@ -74,7 +74,8 @@ class DriverInfo extends Component {
             telValidater: true,
             sibTelValidater: true,
             driverNameValidater: true,
-            addressValidater: true
+            addressValidater: true,
+            cardNoValidater: true
         }
         this.onPressSegment = this.onPressSegment.bind(this)
         this.renderDriverInfoEnable = this.renderDriverInfoEnable.bind(this)
@@ -96,7 +97,7 @@ class DriverInfo extends Component {
 
     static defaultProps = {
         initParam: {
-            driverId: 111
+            driverId: 112
         }
     }
 
@@ -465,7 +466,7 @@ class DriverInfo extends Component {
         if (this.props.driverInfoReducer.data.driverInfo.tel) param.putParam.tel = this.props.driverInfoReducer.data.driverInfo.tel
         if (this.props.driverInfoReducer.data.driverInfo.sib_tel) param.putParam.sibTel = this.props.driverInfoReducer.data.driverInfo.sib_tel
         if (this.props.driverInfoReducer.data.driverInfo.remark) param.putParam.remark = this.props.driverInfoReducer.data.driverInfo.remark
-        
+
         this.props.updateDriverInfo(param)
     }
 
@@ -479,6 +480,12 @@ class DriverInfo extends Component {
                     <TagTextBox
                         title='姓名：'
                         leftTag={10}
+                        verifications={[{
+                            type: 'isLength',
+                            arguments: [0, 5],
+                            message: '长度0-5位'
+                        }]}
+                        onRequire={(flag) => this.setState({ driverNameValidater: flag })}
                         companyType={this.props.driverInfoReducer.data.driverInfo.operate_type ? this.props.driverInfoReducer.data.driverInfo.operate_type : 10}
                         isDisable={this.props.driverInfoReducer.data.driverInfo.drive_status == 0}
                         value={this.props.driverInfoReducer.data.driverInfo.drive_name ? this.props.driverInfoReducer.data.driverInfo.drive_name : ''}
@@ -518,23 +525,39 @@ class DriverInfo extends Component {
                             type: 'isPhone',
                             message: '不是手机号码'
                         }]}
-                        onRequire={(flag) => this.setState({telValidater:flag})}
+                        onRequire={(flag) => this.setState({ telValidater: flag })}
                         placeholder='请输入联系电话'
                     />
                     <TextBox
                         title='身份证：'
+                        verifications={[{
+                            type: 'isCardNo',
+                            message: '不是身份证号码'
+                        }]}
+                        onRequire={(flag) => this.setState({ cardNoValidater: flag })}
                         value={this.props.driverInfoReducer.data.driverInfo.id_number ? this.props.driverInfoReducer.data.driverInfo.id_number : ''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ id_number: param })}
                         placeholder='请输入身份证'
                     />
                     <TextBox
                         title='家庭住址：'
+                        verifications={[{
+                            type: 'isLength',
+                            arguments: [0, 100],
+                            message: '长度0-100位'
+                        }]}
+                        onRequire={(flag) => this.setState({ addressValidater: flag })}
                         value={this.props.driverInfoReducer.data.driverInfo.address ? this.props.driverInfoReducer.data.driverInfo.address : ''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ address: param })}
                         placeholder='请输入家庭住址'
                     />
                     <TextBox
                         title='紧急联系人电话：'
+                        verifications={[{
+                            type: 'isPhone',
+                            message: '不是手机号码'
+                        }]}
+                        onRequire={(flag) => this.setState({ sibTelValidater: flag })}
                         value={this.props.driverInfoReducer.data.driverInfo.sib_tel ? this.props.driverInfoReducer.data.driverInfo.sib_tel : ''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ sib_tel: param })}
                         placeholder='请输入紧急联系人电话'
@@ -554,13 +577,36 @@ class DriverInfo extends Component {
                     />
                     <RichTextBox
                         title='备注：'
+                        verifications={[{
+                            type: 'isLength',
+                            arguments: [0, 100],
+                            message: '长度0-100位'
+                        }]}
                         value={this.props.driverInfoReducer.data.driverInfo.remark ? this.props.driverInfoReducer.data.driverInfo.remark : ''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ remark: param })}
                         showRichText={RouterDirection.richText(this.props.parent)}
                         defaultValue={'请填写'}
                     />
                     <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
-                        <Button full onPress={this.updateDriverInfo} style={{ backgroundColor: '#00cade' }}>
+                        <Button
+                            full
+                            onPress={this.updateDriverInfo}
+                            disabled={!(
+                                this.state.telValidater &&
+                                this.state.sibTelValidater &&
+                                this.state.driverNameValidater &&
+                                this.state.addressValidater &&
+                                this.state.cardNoValidater
+                            )}
+                            style={{
+                                backgroundColor: (
+                                    this.state.telValidater &&
+                                    this.state.sibTelValidater &&
+                                    this.state.driverNameValidater &&
+                                    this.state.addressValidater &&
+                                    this.state.cardNoValidater
+                                ) ? '#00cade' : '#888888'
+                            }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
                     </View>
@@ -611,13 +657,18 @@ class DriverInfo extends Component {
                             type: 'isPhone',
                             message: '不是手机号码'
                         }]}
-                        onRequire={(flag) => this.setState({telValidater:flag})}
+                        onRequire={(flag) => this.setState({ telValidater: flag })}
                         placeholder='请输入联系电话'
                     />
                     <TextBox
                         title='身份证：'
                         value={this.props.driverInfoReducer.data.driverInfo.id_number ? this.props.driverInfoReducer.data.driverInfo.id_number : ''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ id_number: param })}
+                        verifications={[{
+                            type: 'isCardNo',
+                            message: '不是身份证号码'
+                        }]}
+                        onRequire={(flag) => this.setState({ cardNoValidater: flag })}
                         placeholder='请输入身份证'
                     />
                     <TextBox
@@ -675,14 +726,16 @@ class DriverInfo extends Component {
                                 this.state.telValidater &&
                                 this.state.sibTelValidater &&
                                 this.state.driverNameValidater &&
-                                this.state.addressValidater
+                                this.state.addressValidater &&
+                                this.state.cardNoValidater
                             )}
                             style={{
                                 backgroundColor: (
                                     this.state.telValidater &&
                                     this.state.sibTelValidater &&
                                     this.state.driverNameValidater &&
-                                    this.state.addressValidater
+                                    this.state.addressValidater &&
+                                    this.state.cardNoValidater
                                 ) ? '#00cade' : '#888888'
                             }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
@@ -698,7 +751,7 @@ class DriverInfo extends Component {
             <View style={{ flex: 1 }}>
                 <View key={'w'} style={{ flexDirection: 'row' }}>
                     {!this.props.driverInfoReducer.data.driverInfo.drive_image ?
-                        <Camera title='上传身份证照片' onGetPhoto={this.updateDrivingImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }}/> :
+                        <Camera title='上传身份证照片' onGetPhoto={this.updateDrivingImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> :
                         <PanelSingleItem
                             onUpdateImage={this.onPressUpdateDrivingImage}
                             onShowPhoto={this.onShowDrivingImage}
@@ -706,13 +759,13 @@ class DriverInfo extends Component {
                             imageUrl={this.props.driverInfoReducer.data.driverInfo.drive_image}
                             containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
                     {!this.props.driverInfoReducer.data.driverInfo.license_image ?
-                        <Camera title='上传行驶证照片' onGetPhoto={this.updateLicenseImage}  containerSytle={{marginLeft: 5, marginRight: 10, marginTop: 10 }}/> :
+                        <Camera title='上传行驶证照片' onGetPhoto={this.updateLicenseImage} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} /> :
                         <PanelSingleItem
                             title='行驶证'
                             onUpdateImage={this.onPressUpdateLicenseImage}
                             onShowPhoto={this.onShowLicenseImage}
                             imageUrl={this.props.driverInfoReducer.data.driverInfo.license_image}
-                            containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }}/>}
+                            containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
                 </View>
             </View>
         )
