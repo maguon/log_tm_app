@@ -9,6 +9,7 @@ import {
 import { Button } from 'native-base'
 import TextBox from '../components/form/TextBox'
 import TagTextBox from '../components/form/TagTextBox'
+import TagSelect from '../components/form/TagSelect'
 import RecordListItem from '../components/recordListItem/DriveInfo'
 import Select from '../components/form/Select'
 import DateTimePicker from '../components/form/DateTimePicker'
@@ -83,9 +84,9 @@ class DriverInfo extends Component {
         this.onPressUpdateLicenseImage = this.onPressUpdateLicenseImage.bind(this)
         this.launchCamera = this.launchCamera.bind(this)
         this.openPicker = this.openPicker.bind(this)
-        this.bindTruck=this.bindTruck.bind(this)
-        this.unBindTruck=this.unBindTruck.bind(this)
-        this.updateDriverInfo=this.updateDriverInfo.bind(this)
+        this.bindTruck = this.bindTruck.bind(this)
+        this.unBindTruck = this.unBindTruck.bind(this)
+        this.updateDriverInfo = this.updateDriverInfo.bind(this)
     }
 
     static defaultProps = {
@@ -95,8 +96,8 @@ class DriverInfo extends Component {
     }
 
     componentDidMount() {
-        this.props.getDriverInfo({OptionalParam:{ driveId: this.props.initParam.driverId }})
-        this.props.getDriverRecord({requiredParam:{userId:this.props.userReducer.data.user.userId, driverId: this.props.initParam.driverId }})
+        this.props.getDriverInfo({ OptionalParam: { driveId: this.props.initParam.driverId } })
+        this.props.getDriverRecord({ requiredParam: { userId: this.props.userReducer.data.user.userId, driverId: this.props.initParam.driverId } })
     }
 
     componentWillReceiveProps(nextProps) {
@@ -233,7 +234,7 @@ class DriverInfo extends Component {
         if (updateDrivingImage.isExecStatus == 2) {
             if (updateDrivingImage.isResultStatus == 0) {
                 console.log('updateDrivingImage', '执行成功')
-                this.props.setPhoto(data.driverInfo.drive_image )
+                this.props.setPhoto(data.driverInfo.drive_image)
                 this.props.resetUpdateDrivingImage()
             }
             else if (updateDrivingImage.isResultStatus == 1) {
@@ -339,7 +340,7 @@ class DriverInfo extends Component {
         })
     }
 
-    onShowDrivingImage(){
+    onShowDrivingImage() {
         this.props.setPhoto(this.props.driverInfoReducer.data.driverInfo.drive_image)
         RouterDirection.singlePhotoView(this.props.parent)({
             initParam: {
@@ -348,7 +349,7 @@ class DriverInfo extends Component {
         })
     }
 
-    onShowLicenseImage(){
+    onShowLicenseImage() {
         this.props.setPhoto(this.props.driverInfoReducer.data.driverInfo.license_image)
         RouterDirection.singlePhotoView(this.props.parent)({
             initParam: {
@@ -365,7 +366,7 @@ class DriverInfo extends Component {
         this.launchCamera(this.updateLicenseImage)
     }
 
-    launchCamera(onGetPhoto){
+    launchCamera(onGetPhoto) {
         ImagePicker.showImagePicker(photoOptions, (response) => {
             if (response.didCancel) {
                 //console.log('User cancelled video picker')
@@ -426,7 +427,7 @@ class DriverInfo extends Component {
         })
     }
 
-    unBindTruck(){
+    unBindTruck() {
         this.props.unBindTruck({
             requiredParam: {
                 userId: this.props.userReducer.data.user.userId,
@@ -462,30 +463,24 @@ class DriverInfo extends Component {
         return (
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.5, borderColor: '#ddd' }}>
-                        <View style={{ flex: 6 }}>
-                            <TextBox
-                                title='姓名：'
-                                containerSytle={{
-                                    paddingVertical: 5,
-                                    paddingHorizontal: 10
-                                }}
-                                value={this.props.driverInfoReducer.data.driverInfo.drive_name ? this.props.driverInfoReducer.data.driverInfo.drive_name : ''}
-                                onValueChange={(param) => this.props.changeDriverInfoField({ drive_name: param })}
-                                placeholder='请输入姓名'
-                            />
-                        </View>
-                        <View style={{ flex: 1, justifyContent: 'center' }}><FontTag size={26} title='自' color='#12c3eb' fontColor='#fff' /></View>
-                    </View>
+                    <TagTextBox
+                        title='姓名：'
+                        leftTag={10}
+                        companyType={this.props.driverInfoReducer.data.driverInfo.operate_type ? this.props.driverInfoReducer.data.driverInfo.operate_type : 10}
+                        isDisable={this.props.driverInfoReducer.data.driverInfo.drive_status && this.props.driverInfoReducer.data.driverInfo.drive_status == 0}
+                        value={this.props.driverInfoReducer.data.driverInfo.drive_name ? this.props.driverInfoReducer.data.driverInfo.drive_name : ''}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ drive_name: param })}
+                        placeholder='请输入姓名'
+                    />
                     <Select
                         title='所属公司：'
-                        value={this.props.driverInfoReducer.data.driverInfo.company_name?this.props.driverInfoReducer.data.driverInfo.company_name:'请选择'}
+                        value={this.props.driverInfoReducer.data.driverInfo.company_name ? this.props.driverInfoReducer.data.driverInfo.company_name : '请选择'}
                         showList={(param) => RouterDirection.selectCompanyType(this.props.parent)({ router: RouterDirection.selectCompany(this.props.parent), ...param })}
                         onValueChange={(param) => this.props.changeDriverInfoField({ company_id: param.id, company_name: param.value })}
                     />
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View>
-                            <Text style={{ fontSize: 12 }}>关联货车：{this.props.driverInfoReducer.data.driverInfo.truck_num?this.props.driverInfoReducer.data.driverInfo.truck_num:'未绑定货车'}</Text>
+                            <Text style={{ fontSize: 12 }}>关联货车：{this.props.driverInfoReducer.data.driverInfo.truck_num ? this.props.driverInfoReducer.data.driverInfo.truck_num : '未绑定货车'}</Text>
                         </View>
                         {!this.props.driverInfoReducer.data.driverInfo.truck_num ? <TouchableNativeFeedback onPress={() => RouterDirection.selectTruck(this.props.parent)({ initParam: { type: 2 }, onSelect: (param) => this.bindTruck(param) })} background={TouchableNativeFeedback.SelectableBackground()}>
                             <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
@@ -499,67 +494,52 @@ class DriverInfo extends Component {
                     </View>
                     <CheckBox
                         listTitle='选择性别'
-                        value={this.props.driverInfoReducer.data.driverInfo.gender?this.props.driverInfoReducer.data.driverInfo.gender:'请选择'}
+                        value={this.props.driverInfoReducer.data.driverInfo.gender ? this.props.driverInfoReducer.data.driverInfo.gender : '请选择'}
                         itemList={[{ id: 0, value: '男' }, { id: 1, value: '女' }]}
-                        onCheck={(param) => this.props.changeDriverInfoField({gender: param.value })} />
+                        onCheck={(param) => this.props.changeDriverInfoField({ gender: param.value })} />
                     <TextBox
                         title='联系电话：'
-                        value={this.props.driverInfoReducer.data.driverInfo.tel?this.props.driverInfoReducer.data.driverInfo.tel:''}
-                        onValueChange={(param) => this.props.changeDriverInfoField({ tel: param })}
-                        placeholder='请输入联系电话'
-                    />
-                    <TagTextBox
-                        title='联系电话：'
-                        value={this.props.driverInfoReducer.data.driverInfo.tel?this.props.driverInfoReducer.data.driverInfo.tel:''}
+                        value={this.props.driverInfoReducer.data.driverInfo.tel ? this.props.driverInfoReducer.data.driverInfo.tel : ''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ tel: param })}
                         placeholder='请输入联系电话'
                     />
                     <TextBox
                         title='身份证：'
-                        value={this.props.driverInfoReducer.data.driverInfo.id_number?this.props.driverInfoReducer.data.driverInfo.id_number:''}
+                        value={this.props.driverInfoReducer.data.driverInfo.id_number ? this.props.driverInfoReducer.data.driverInfo.id_number : ''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ id_number: param })}
                         placeholder='请输入身份证'
                     />
                     <TextBox
                         title='家庭住址：'
-                        value={this.props.driverInfoReducer.data.driverInfo.address?this.props.driverInfoReducer.data.driverInfo.address:''}
+                        value={this.props.driverInfoReducer.data.driverInfo.address ? this.props.driverInfoReducer.data.driverInfo.address : ''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ address: param })}
                         placeholder='请输入家庭住址'
                     />
                     <TextBox
                         title='紧急联系人电话：'
-                        value={this.props.driverInfoReducer.data.driverInfo.sib_tel?this.props.driverInfoReducer.data.driverInfo.sib_tel:''}
+                        value={this.props.driverInfoReducer.data.driverInfo.sib_tel ? this.props.driverInfoReducer.data.driverInfo.sib_tel : ''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ sib_tel: param })}
                         placeholder='请输入紧急联系人电话'
                     />
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.5, borderColor: '#ddd' }}>
-                        <View style={{ flex: 6 }}>
-                            <Select
-                                title='驾证类别：'
-                                value={this.props.driverInfoReducer.data.driverInfo.license_type?this.props.driverInfoReducer.data.driverInfo.license_type:'请选择'}
-                                containerSytle={{
-                                    paddingVertical: 10,
-                                    paddingHorizontal: 10
-                                }}
-                                showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
-                                onValueChange={(param) => this.props.changeDriverInfoField({license_type: param.value })}
-                                defaultValue={'请选择'}
-                            />
-                        </View>
-                        <View style={{ flex: 1, justifyContent: 'center' }}>
-                            <FontTag size={16} title='检' color='#f87775' fontColor='#fff' />
-                        </View>
-                    </View>
+                    <TagSelect
+                        title='驾证类别：'
+                        value={this.props.driverInfoReducer.data.driverInfo.license_type ? this.props.driverInfoReducer.data.driverInfo.license_type : '请选择'}
+                        showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
+                        isCheck={this.props.driverInfoReducer.data.driverInfo.license_date && ((Date.parse(new Date(this.props.driverInfoReducer.data.driverInfo.license_date))) < (Date.parse(new Date()) + 30 * 24 * 60 * 60 * 1000))}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ license_type: param.value })}
+                        defaultValue={'请选择'}
+                    />
                     <DateTimePicker
-                        value={this.props.driverInfoReducer.data.driverInfo.license_date?new Date(this.props.driverInfoReducer.data.driverInfo.license_date).toLocaleDateString():'请选择'}
+                        value={this.props.driverInfoReducer.data.driverInfo.license_date ? new Date(this.props.driverInfoReducer.data.driverInfo.license_date).toLocaleDateString() : '请选择'}
                         title='驾驶证到期时间：'
                         onValueChange={(param) => this.props.changeDriverInfoField({ license_date: param })}
                     />
                     <RichTextBox
                         title='备注：'
-                        value={this.props.driverInfoReducer.data.driverInfo.remark?this.props.driverInfoReducer.data.driverInfo.remark:'请填写'}
+                        value={this.props.driverInfoReducer.data.driverInfo.remark ? this.props.driverInfoReducer.data.driverInfo.remark : ''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ remark: param })}
                         showRichText={RouterDirection.richText(this.props.parent)}
+                        defaultValue={'请填写'}
                     />
                     <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
                         <Button full onPress={this.updateDriverInfo} style={{ backgroundColor: '#00cade' }}>
@@ -578,7 +558,7 @@ class DriverInfo extends Component {
                 <View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.5, borderColor: '#ddd' }}>
                         <View style={{ flex: 5 }}>
-                           <TextBox
+                            <TextBox
                                 title='姓名：'
                                 containerSytle={{
                                     paddingVertical: 5,
@@ -594,36 +574,36 @@ class DriverInfo extends Component {
                     </View>
                     <Select
                         title='所属公司：'
-                        value={this.props.driverInfoReducer.data.driverInfo.company_name?this.props.driverInfoReducer.data.driverInfo.company_name:'请选择'}
+                        value={this.props.driverInfoReducer.data.driverInfo.company_name ? this.props.driverInfoReducer.data.driverInfo.company_name : '请选择'}
                         showList={(param) => RouterDirection.selectCompanyType(this.props.parent)({ router: RouterDirection.selectCompany(this.props.parent), ...param })}
                         onValueChange={(param) => this.props.changeDriverInfoField({ company_id: param.id, company_name: param.value })}
                     />
                     <CheckBox
                         listTitle='选择性别'
-                        value={this.props.driverInfoReducer.data.driverInfo.gender?this.props.driverInfoReducer.data.driverInfo.gender:'请选择'}
+                        value={this.props.driverInfoReducer.data.driverInfo.gender ? this.props.driverInfoReducer.data.driverInfo.gender : '请选择'}
                         itemList={[{ id: 0, value: '男' }, { id: 1, value: '女' }]}
-                        onCheck={(param) => this.props.changeDriverInfoField({gender: param.value })} />
+                        onCheck={(param) => this.props.changeDriverInfoField({ gender: param.value })} />
                     <TextBox
                         title='联系电话：'
-                        value={this.props.driverInfoReducer.data.driverInfo.tel?this.props.driverInfoReducer.data.driverInfo.tel:''}
+                        value={this.props.driverInfoReducer.data.driverInfo.tel ? this.props.driverInfoReducer.data.driverInfo.tel : ''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ tel: param })}
                         placeholder='请输入联系电话'
                     />
                     <TextBox
                         title='身份证：'
-                        value={this.props.driverInfoReducer.data.driverInfo.id_number?this.props.driverInfoReducer.data.driverInfo.id_number:''}
+                        value={this.props.driverInfoReducer.data.driverInfo.id_number ? this.props.driverInfoReducer.data.driverInfo.id_number : ''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ id_number: param })}
                         placeholder='请输入身份证'
                     />
                     <TextBox
                         title='家庭住址：'
-                        value={this.props.driverInfoReducer.data.driverInfo.address?this.props.driverInfoReducer.data.driverInfo.address:''}
+                        value={this.props.driverInfoReducer.data.driverInfo.address ? this.props.driverInfoReducer.data.driverInfo.address : ''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ address: param })}
                         placeholder='请输入家庭住址'
                     />
                     <TextBox
                         title='紧急联系人电话：'
-                        value={this.props.driverInfoReducer.data.driverInfo.sib_tel?this.props.driverInfoReducer.data.driverInfo.sib_tel:''}
+                        value={this.props.driverInfoReducer.data.driverInfo.sib_tel ? this.props.driverInfoReducer.data.driverInfo.sib_tel : ''}
                         onValueChange={(param) => this.props.changeDriverInfoField({ sib_tel: param })}
                         placeholder='请输入紧急联系人电话'
                     />
@@ -646,13 +626,13 @@ class DriverInfo extends Component {
                         </View>
                     </View>
                     <DateTimePicker
-                        value={this.props.driverInfoReducer.data.driverInfo.license_date?new Date(this.props.driverInfoReducer.data.driverInfo.license_date).toLocaleDateString():'请选择'}
+                        value={this.props.driverInfoReducer.data.driverInfo.license_date ? new Date(this.props.driverInfoReducer.data.driverInfo.license_date).toLocaleDateString() : '请选择'}
                         title='驾驶证到期时间：'
                         onValueChange={(param) => this.props.changeDriverInfoField({ license_date: param })}
                     />
                     <RichTextBox
                         title='备注：'
-                        value={this.props.driverInfoReducer.data.driverInfo.remark?this.props.driverInfoReducer.data.driverInfo.remark:'请填写'}
+                        value={this.props.driverInfoReducer.data.driverInfo.remark ? this.props.driverInfoReducer.data.driverInfo.remark : '请填写'}
                         onValueChange={(param) => this.props.changeDriverInfoField({ remark: param })}
                         showRichText={RouterDirection.richText(this.props.parent)}
                     />
@@ -719,8 +699,8 @@ class DriverInfo extends Component {
                     </Button>
                 </View>
                 <View style={{ backgroundColor: '#fff', borderTopWidth: 1, borderColor: '#00cade', flex: 1 }}>
-                    {this.state.active == 0 &&this.props.driverInfoReducer.data.driverInfo.drive_status==1&& this.renderDriverInfoEnable()}
-                    {this.state.active == 0 &&this.props.driverInfoReducer.data.driverInfo.drive_status==0&& this.renderDriverInfoDisable()}
+                    {this.state.active == 0 && this.props.driverInfoReducer.data.driverInfo.drive_status == 1 && this.renderDriverInfoEnable()}
+                    {this.state.active == 0 && this.props.driverInfoReducer.data.driverInfo.drive_status == 0 && this.renderDriverInfoDisable()}
                     {this.state.active == 1 && this.renderDriverPhoto()}
                     {this.state.active == 2 && this.renderDriverRecord()}
                 </View>

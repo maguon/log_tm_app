@@ -6,7 +6,7 @@ import {
     TouchableHighlight,
     DatePickerAndroid
 } from 'react-native'
-
+import FontTag from '../../components/tag/FontTag'
 import { Icon } from 'native-base'
 import { validate } from '../../../util/Validator'
 import { Actions } from 'react-native-router-flux'
@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
 const baseStyles = {
     iconSytle: {
         fontSize: 18,
-        color: '#7a7a7a'
+        color: '#7a7a7a',
+         paddingLeft: 10
     }
 }
 
@@ -115,7 +116,7 @@ export default class TagSelect extends Component {
         return warnMessage
     }
 
-    renderEnable() {      
+    renderEnable() {
         return (
             <TouchableHighlight
                 underlayColor='rgba(0,0,0,0.1)'
@@ -127,16 +128,19 @@ export default class TagSelect extends Component {
                             <Text style={this.props.labelStyle}>{this.props.title} </Text>
                             <Text style={this.props.textStyle}>{this.props.value}</Text>
                         </View>
-                        <Icon
-                            name='ios-arrow-forward'
-                            style={this.props.iconSytle} />
+                        <View style={{ flexDirection: 'row' }}>
+                            {this.props.isCheck&&<FontTag size={16} title='检' color='#f87775' fontColor='#fff' />}
+                            <Icon
+                                name='ios-arrow-forward'
+                                style={this.props.iconSytle} />
+                        </View>
                     </View>
                     {this.renderValidateMessage()}
                 </View>
             </TouchableHighlight>
         )
     }
-    
+
     renderDisable() {
         return (
             <View style={[this.props.containerSytle, { backgroundColor: 'rgba(0,0,0,0.1)' }]}>

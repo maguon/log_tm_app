@@ -99,7 +99,7 @@ export default class TagTextBox extends Component {
             <View style={this.props.containerSytle}>
                 <View style={{ flexDirection: 'row' }}>
                     <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center' }}>
-                        <Text style={{ color: 'red', width: 10, textAlign: 'right' }}>{this.props.isRequire && '*'}*</Text>
+                        <Text style={{ color: 'red', width: 10, textAlign: 'right' }}>{this.props.isRequire && '*'}</Text>
                         <Text style={this.props.labelStyle}>{this.props.title}</Text>
                         <TextInput
                             underlineColorAndroid="transparent"
@@ -112,15 +112,24 @@ export default class TagTextBox extends Component {
                         />
                     </View>
                     <View style={{ flexDirection: 'row' }}>
-                        <View style={{ justifyContent: 'center' }}><Text style={{ color: '#ccc', fontSize: 10 }}>已停用</Text></View>
-                        <View style={{ justifyContent: 'center', paddingLeft: 10 }}><FontTag size={26} title='自' color='#12c3eb' fontColor='#fff' /></View>
+                        {this.props.isDisable && <View style={{ justifyContent: 'center' }}><Text style={{ color: '#ccc', fontSize: 10 }}>已停用</Text></View>}
+                        <View style={{ flexDirection: 'row', justifyContent: 'center', paddingLeft: 10 }}>
+                            {this.props.companyType == 1 && <FontTag size={26} title='自' color='#12c3eb' fontColor='#fff' />}
+                            {this.props.companyType == 2 && <FontTag size={26} title='协' color='#73de8a' fontColor='#fff' />}
+                            {this.props.companyType == 3 && <FontTag size={26} title='供' color='#efbb7a' fontColor='#fff' />}
+                            {this.props.companyType == 4 && <FontTag size={26} title='包' color='#e08ddd' fontColor='#fff' />}
+                        </View>
                     </View>
                 </View>
                 {this.renderValidateMessage()}
-                <Image
+                {this.props.leftTag == 0 && <Image
                     style={{ width: 20, height: 20, position: 'absolute', top: 0, left: 0 }}
                     source={{ uri: 'truck_head' }}
-                />
+                />}
+                {this.props.leftTag == 1 && <Image
+                    style={{ width: 20, height: 20, position: 'absolute', top: 0, left: 0 }}
+                    source={{ uri: 'truck_tail' }}
+                />}
             </View>
         )
     }
