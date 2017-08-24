@@ -25,16 +25,26 @@ class First extends Component {
     constructor(props) {
         super(props)
         this.createDriver = this.createDriver.bind(this)
-
+        this.state = {
+            telValidater: true,
+            sibTelValidater: true,
+            driverNameValidater: true,
+            genderValidater: true,
+            addressValidater: true,
+            cardNoValidater: true,
+            companyValidater: true,
+            licenseTypeValidater: true,
+            licenseDateValidater: true
+        }
     }
 
 
     componentWillReceiveProps(nextProps) {
-        const { createDriverFirst,data } = nextProps.addDriverFirstReducer
+        const { createDriverFirst, data } = nextProps.addDriverFirstReducer
         /*createDriverFirst*/
         if (createDriverFirst.isExecStatus == 2) {
             if (createDriverFirst.isResultStatus == 0) {
-                 Actions.addDriverSecond({ initParam: { driverId: data.driverId} })
+                Actions.addDriverSecond({ initParam: { driverId: data.driverId } })
                 this.props.resetCreateDriver()
                 console.log('createDriverFirst执行成功')
             }
@@ -65,73 +75,151 @@ class First extends Component {
     }
 
     render() {
+        let gender
+        if (this.props.addDriverFirstReducer.data.driverInfo.gender == 0) gender = '女'
+        if (this.props.addDriverFirstReducer.data.driverInfo.gender == 1) gender = '男'
         return (
             <View style={{ flex: 1 }}>
-                <StepIndicator stepList={[{ step: '1', title: '基本信息' }, { step: '2', title: '绑定货车' },{ step: '3', title: '上传照片' }]} current={0} />
+                <StepIndicator stepList={[{ step: '1', title: '基本信息' }, { step: '2', title: '绑定货车' }, { step: '3', title: '上传照片' }]} current={0} />
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View>
                         <TextBox
                             title='姓名：'
+                            isRequire={true}
+                            verifications={[{
+                                type: 'isLength',
+                                arguments: [0, 5],
+                                message: '长度0-5位'
+                            }]}
+                            onRequire={(flag) => this.setState({ driverNameValidater: flag })}
                             value={this.props.addDriverFirstReducer.data.driverInfo.driveName ? this.props.addDriverFirstReducer.data.driverInfo.driveName : ''}
                             onValueChange={(param) => this.props.changeDriverField({ driveName: param })}
                             placeholder='请输入姓名'
                         />
                         <CheckBox
+                            isRequire={true}
                             listTitle='选择性别'
-                            value={this.props.addDriverFirstReducer.data.driverInfo.gender ? this.props.addDriverFirstReducer.data.driverInfo.gender : '请选择'}
-                            itemList={[{ id: 0, value: '男' }, { id: 1, value: '女' }]}
-                            onCheck={(item) => this.props.changeDriverField({ gender: item.value })} />
+                            onRequire={(flag) => this.setState({ genderValidater: flag })}
+                            value={gender ? gender: '请选择'}
+                            itemList={[{ id: 1, value: '男' }, { id: 0, value: '女' }]}
+                            onCheck={(item) => this.props.changeDriverField({ gender: item.id })} />
                         <Select
                             title='所属公司：'
+                            isRequire={true}
+                            onRequire={(flag) => this.setState({ companyValidater: flag })}
                             value={this.props.addDriverFirstReducer.data.driverInfo.company ? this.props.addDriverFirstReducer.data.driverInfo.company : '请选择'}
                             showList={(param) => RouterDirection.selectCompanyType(this.props.parent)({ router: RouterDirection.selectCompany(this.props.parent), ...param })}
                             onValueChange={(param) => this.props.changeDriverField({ companyId: param.id, company: param.value })}
                         />
                         <TextBox
                             title='联系电话：'
+                            isRequire={true}
+                            verifications={[{
+                                type: 'isPhone',
+                                message: '不是手机号码'
+                            }]}
+                            onRequire={(flag) => this.setState({ telValidater: flag })}
                             value={this.props.addDriverFirstReducer.data.driverInfo.tel ? this.props.addDriverFirstReducer.data.driverInfo.tel : ''}
                             onValueChange={(param) => this.props.changeDriverField({ tel: param })}
                             placeholder='请输入联系电话'
                         />
                         <Select
                             title='驾证类别：'
+                            isRequire={true}
+                            onRequire={(flag) => this.setState({ licenseTypeValidater: flag })}
                             value={this.props.addDriverFirstReducer.data.driverInfo.licenseType ? this.props.addDriverFirstReducer.data.driverInfo.licenseType : '请选择'}
                             showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
                             onValueChange={(param) => this.props.changeDriverField({ licenseType: param.value })}
                             defaultValue={'请选择'}
                         />
                         <DateTimePicker
+                            isRequire={true}
+                            onRequire={(flag) => this.setState({ licenseDateValidater: flag })}
                             value={this.props.addDriverFirstReducer.data.driverInfo.licenseDate ? this.props.addDriverFirstReducer.data.driverInfo.licenseDate : '请选择'}
                             title='驾驶证到期时间：'
                             onValueChange={(param) => this.props.changeDriverField({ licenseDate: param })}
                         />
                         <TextBox
                             title='身份证：'
+                            isRequire={true}
+                            verifications={[{
+                                type: 'isCardNo',
+                                message: '不是身份证号码'
+                            }]}
+                            onRequire={(flag) => this.setState({ cardNoValidater: flag })}
                             value={this.props.addDriverFirstReducer.data.driverInfo.idNumber ? this.props.addDriverFirstReducer.data.driverInfo.idNumber : ''}
                             onValueChange={(param) => this.props.changeDriverField({ idNumber: param })}
                             placeholder='请输入身份证'
                         />
                         <TextBox
                             title='家庭住址：'
+                            verifications={[{
+                                type: 'isLength',
+                                arguments: [0, 100],
+                                message: '长度0-100位'
+                            }]}
+                            onRequire={(flag) => this.setState({ addressValidater: flag })}
                             value={this.props.addDriverFirstReducer.data.driverInfo.address ? this.props.addDriverFirstReducer.data.driverInfo.address : ''}
                             onValueChange={(param) => this.props.changeDriverField({ address: param })}
                             placeholder='请输入家庭住址'
                         />
                         <TextBox
                             title='紧急联系人电话：'
+                            verifications={[{
+                                type: 'isPhone',
+                                message: '不是手机号码'
+                            }]}
+                            onRequire={(flag) => this.setState({ sibTelValidater: flag })}
                             value={this.props.addDriverFirstReducer.data.driverInfo.sibTel ? this.props.addDriverFirstReducer.data.driverInfo.sibTel : ''}
                             onValueChange={(param) => this.props.changeDriverField({ sibTel: param })}
                             placeholder='请输入紧急联系人电话'
                         />
                         <RichTextBox
                             title='备注：'
+                            onRequire={(flag) => this.setState({ licenseDateValidater: flag })}
                             value={this.props.addDriverFirstReducer.data.driverInfo.remark ? this.props.addDriverFirstReducer.data.driverInfo.remark : ''}
                             defaultValue={'请填写'}
+                            verifications={[{
+                                type: 'isLength',
+                                arguments: [0, 100],
+                                message: '长度0-100位'
+                            }]}
                             onValueChange={(param) => this.props.changeDriverField({ remark: param })}
                             showRichText={RouterDirection.richText(this.props.parent)}
                         />
-                        <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
+                        {/* <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
                             <Button full onPress={this.createDriver} style={{ backgroundColor: '#00cade' }}>
+                                <Text style={{ color: '#fff' }}>下一步</Text>
+                            </Button>
+                        </View> */}
+                        <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
+                            <Button
+                                full
+                                onPress={this.createDriver}
+                                disabled={!(
+                                    this.state.telValidater &&
+                                    this.state.sibTelValidater &&
+                                    this.state.driverNameValidater &&
+                                    this.state.genderValidater &&
+                                    this.state.addressValidater &&
+                                    this.state.cardNoValidater &&
+                                    this.state.companyValidater &&
+                                    this.state.addressValidater &&
+                                    this.state.licenseTypeValidater
+                                )}
+                                style={{
+                                    backgroundColor: (
+                                        this.state.telValidater &&
+                                        this.state.sibTelValidater &&
+                                        this.state.driverNameValidater &&
+                                        this.state.genderValidater &&
+                                        this.state.addressValidater &&
+                                        this.state.cardNoValidater &&
+                                        this.state.companyValidater &&
+                                        this.state.addressValidater &&
+                                        this.state.licenseTypeValidater
+                                    ) ? '#00cade' : '#888888'
+                                }}>
                                 <Text style={{ color: '#fff' }}>下一步</Text>
                             </Button>
                         </View>
