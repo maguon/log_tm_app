@@ -460,6 +460,7 @@ class DriverInfo extends Component {
     }
 
     renderDriverInfoEnable() {
+        //
         return (
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View>
@@ -476,7 +477,7 @@ class DriverInfo extends Component {
                         title='所属公司：'
                         value={this.props.driverInfoReducer.data.driverInfo.company_name ? this.props.driverInfoReducer.data.driverInfo.company_name : '请选择'}
                         showList={(param) => RouterDirection.selectCompanyType(this.props.parent)({ router: RouterDirection.selectCompany(this.props.parent), ...param })}
-                        onValueChange={(param) => this.props.changeDriverInfoField({ company_id: param.id, company_name: param.value })}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ company_id: param.id, company_name: param.value, operate_type: param.operateType })}
                     />
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View>

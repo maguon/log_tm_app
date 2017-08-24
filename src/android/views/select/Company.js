@@ -19,8 +19,7 @@ class Company extends Component {
     }
 
     _onPress(param) {
-        this.props.initParam.onSelect({ id: param.id, value: param.company_name })
-        // console.log(param)
+        this.props.initParam.onSelect({ id: param.id, value: param.company_name,operateType:this.props.initParam.operateType })
         Actions.pop({ popNum: 2 })
     }
 
@@ -35,7 +34,7 @@ class Company extends Component {
     }
 
     render() {
-        // console.log(this.props)
+         //console.log(this.props)
         return (
             <View>
                 {this.renderItem()}
