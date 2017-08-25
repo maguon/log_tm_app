@@ -14,6 +14,19 @@ function get(url) {
     // })
 }
 
+function getCallBack(url,callBack) {
+     fetch(url, {
+        method: 'GET',
+        headers: requestHeaders.headers
+    }).then((response) => response.json())
+    .then((responseJson) => {
+        callback(null, responseJson)
+    })
+    .catch((error) => {
+        callback(error, null);
+    })
+}
+
 function post(url, params) {
     return fetch(url, {
         method: 'POST',
@@ -104,6 +117,6 @@ module.exports = {
     post: post,
     put: put,
     del: del,
-    postFile: postFile
-    // getAll: getAll
+    postFile: postFile,
+    getCallBack: getCallBack
 }

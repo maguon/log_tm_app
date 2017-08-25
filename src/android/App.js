@@ -121,9 +121,9 @@ class App extends Component {
                 //createReducer={this.reducerCreate} 
                 getSceneStyle={getSceneStyle} >
                 <Scene key="root">
-                    <Scene key="initialization" component={Initialization} hideNavBar hideTabBar />
+                    <Scene  initial={true}  key="initialization" component={Initialization} hideNavBar hideTabBar />
                     <Scene
-                        initial={true}
+                        //initial={true}
                         key="mainRoot"
                         //component={connect(mapStateToProps)(Switch)}
                         tabs={true}
@@ -140,8 +140,8 @@ class App extends Component {
                             }*/
                         }}
                     >
-                        <Scene key="login" component={Login} hideNavBar hideTabBar />
-                        <Scene key="main" initial={true} tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
+                        <Scene key="login"  initial={true} component={Login} hideNavBar hideTabBar />
+                        <Scene key="main"tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
                             <Scene key="homeBlock" icon={TabIcon} online='ios-home' outline='ios-home-outline' >
                                 <Scene key="home" initial={true} component={Home} title='车辆管理' hideNavBar={false} navBar={TopBar} />
                                 <Scene key="driverListAtHomeBlock" rightType={1} component={DriverList} title='司机列表' hideNavBar={false} navBar={NavBar} hideTabBar={true} />

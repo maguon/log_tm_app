@@ -19,7 +19,8 @@ import * as addDriverFirstTypes from './AddDriverFirstTypes'
 import * as addDriverSecondTypes from './AddDriverSecondTypes' 
 import * as addDriverThirdTypes from './AddDriverThirdTypes' 
 import * as driverInfoTypes from './DriverInfoTypes' 
-import * as driverListTypes from './DriverListTypes' 
+import * as driverListTypes from './DriverListTypes'  
+import * as initializationTypes from './InitializationTypes'
 
 
 export {
@@ -42,6 +43,7 @@ export {
     addDriverSecondTypes,
     addDriverThirdTypes,
     driverInfoTypes,
-    driverListTypes
+    driverListTypes,
+    initializationTypes
 }
 
