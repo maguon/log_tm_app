@@ -103,7 +103,7 @@ class DriverInfo extends Component {
 
     componentDidMount() {
         this.props.getDriverInfo({ OptionalParam: { driveId: this.props.initParam.driverId } })
-        this.props.getDriverRecord({ requiredParam: { userId: this.props.userReducer.data.user.userId, driverId: this.props.initParam.driverId } })
+        this.props.getDriverRecord({ requiredParam: { userId: this.props.userReducer.user.userId, driverId: this.props.initParam.driverId } })
     }
 
     componentWillReceiveProps(nextProps) {
@@ -313,7 +313,7 @@ class DriverInfo extends Component {
     updateDrivingImage(param) {
         this.props.updateDrivingImage({
             requiredParam: {
-                userId: this.props.userReducer.data.user.userId,
+                userId: this.props.userReducer.user.userId,
                 driverId: this.props.initParam.driverId
             },
             OptionalParam: {
@@ -332,7 +332,7 @@ class DriverInfo extends Component {
     updateLicenseImage(param) {
         this.props.updateLicenseImage({
             requiredParam: {
-                userId: this.props.userReducer.data.user.userId,
+                userId: this.props.userReducer.user.userId,
                 driverId: this.props.initParam.driverId
             },
             OptionalParam: {
@@ -428,7 +428,7 @@ class DriverInfo extends Component {
     bindTruck(param) {
         this.props.bindTruck({
             requiredParam: {
-                userId: this.props.userReducer.data.user.userId,
+                userId: this.props.userReducer.user.userId,
                 truckId: param.id,
                 driverId: this.props.driverInfoReducer.data.driverInfo.id
             },
@@ -440,7 +440,7 @@ class DriverInfo extends Component {
     unBindTruck() {
         this.props.unBindTruck({
             requiredParam: {
-                userId: this.props.userReducer.data.user.userId,
+                userId: this.props.userReducer.user.userId,
                 truckId: this.props.driverInfoReducer.data.driverInfo.truck_id,
                 driverId: this.props.driverInfoReducer.data.driverInfo.id
             }
@@ -450,7 +450,7 @@ class DriverInfo extends Component {
     updateDriverInfo() {
         let param = {
             requiredParam: {
-                userId: this.props.userReducer.data.user.userId,
+                userId: this.props.userReducer.user.userId,
                 truckId: this.props.initParam.driverId
             },
             putParam: {

@@ -38,7 +38,7 @@ class Second extends Component {
         if (this.props.initParam.type == 1) {
             this.props.bindTruck({
                 requiredParam: {
-                    userId: this.props.userReducer.data.user.userId,
+                    userId: this.props.userReducer.user.userId,
                     truckId: this.props.initParam.truckId,
                     trailId: param.id
                 },
@@ -49,7 +49,7 @@ class Second extends Component {
         } else if (this.props.initParam.type == 2) {
             this.props.bindTruck({
                 requiredParam: {
-                    userId: this.props.userReducer.data.user.userId,
+                    userId: this.props.userReducer.user.userId,
                     truckId: param.id,
                     trailId: this.props.initParam.truckId
                 },
@@ -64,7 +64,7 @@ class Second extends Component {
         if (this.props.initParam.type == 1) {
             this.props.unBindTruck({
                 requiredParam: {
-                    userId: this.props.userReducer.data.user.userId,
+                    userId: this.props.userReducer.user.userId,
                     truckId: this.props.initParam.truckId,
                     trailId: this.props.addTruckSecondReducer.data.bindTrailerId
                 }
@@ -72,7 +72,7 @@ class Second extends Component {
         } else if (this.props.initParam.type == 2) {
             this.props.unBindTruck({
                 requiredParam: {
-                    userId: this.props.userReducer.data.user.userId,
+                    userId: this.props.userReducer.user.userId,
                     truckId: this.props.addTruckSecondReducer.data.bindTractorId,
                     trailId: this.props.initParam.truckId
                 }
@@ -83,7 +83,7 @@ class Second extends Component {
     onSelectDriver(param) {
         this.props.bindDriver({
             requiredParam: {
-                userId: this.props.userReducer.data.user.userId,
+                userId: this.props.userReducer.user.userId,
                 truckId: this.props.initParam.truckId,
                 driverId: param.id
             },
@@ -95,7 +95,7 @@ class Second extends Component {
     onPressUnBindDriver() {
         this.props.unBindDriver({
             requiredParam: {
-                userId: this.props.userReducer.data.user.userId,
+                userId: this.props.userReducer.user.userId,
                 truckId: this.props.initParam.truckId,
                 driverId: this.props.addTruckSecondReducer.data.bindDriverId
             }

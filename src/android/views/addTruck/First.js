@@ -128,7 +128,7 @@ class First extends Component {
             this.props.createTruckFirst({
                 requiredParam:
                 {
-                    userId: this.props.userReducer.data.user.userId
+                    userId: this.props.userReducer.user.userId
                 },
                 postParam: {
                     ...this.props.addTruckFirstReducer.data.truckFirst,
@@ -139,7 +139,7 @@ class First extends Component {
             this.props.createTruckTrailer({
                 requiredParam:
                 {
-                    userId: this.props.userReducer.data.user.userId
+                    userId: this.props.userReducer.user.userId
                 },
                 postParam: {
                     ...this.props.addTruckFirstReducer.data.truckTrailer,

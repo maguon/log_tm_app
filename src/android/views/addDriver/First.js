@@ -69,7 +69,7 @@ class First extends Component {
     createDriver() {
         this.props.createDriver({
             requiredParam: {
-                userId: this.props.userReducer.data.user.userId
+                userId: this.props.userReducer.user.userId
             },
             postParam: this.props.addDriverFirstReducer.data.driverInfo
         })

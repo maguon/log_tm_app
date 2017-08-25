@@ -114,7 +114,7 @@ class Third extends Component {
     updateDrivingImage(param){
         this.props.updateDrivingImage({
             requiredParam: {
-                userId: this.props.userReducer.data.user.userId,
+                userId: this.props.userReducer.user.userId,
                 driverId: this.props.initParam.driverId
             },
             OptionalParam: {
@@ -133,7 +133,7 @@ class Third extends Component {
     updateLicenseImage(param){
         this.props.updateLicenseImage({
             requiredParam: {
-                userId: this.props.userReducer.data.user.userId,
+                userId: this.props.userReducer.user.userId,
                 driverId: this.props.initParam.driverId
             },
             OptionalParam: {

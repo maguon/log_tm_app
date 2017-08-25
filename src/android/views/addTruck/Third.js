@@ -170,7 +170,7 @@ class Third extends Component {
     updateDrivingImage(param) {
         this.props.updateDrivingImage({
             requiredParam: {
-                userId: this.props.userReducer.data.user.userId,
+                userId: this.props.userReducer.user.userId,
                 truckId: this.props.initParam.truckId
             },
             OptionalParam: {
@@ -189,7 +189,7 @@ class Third extends Component {
     updateLicenseImage(param) {
         this.props.updateLicenseImage({
             requiredParam: {
-                userId: this.props.userReducer.data.user.userId,
+                userId: this.props.userReducer.user.userId,
                 truckId: this.props.initParam.truckId
             },
             OptionalParam: {
@@ -208,7 +208,7 @@ class Third extends Component {
     createTruckImage(param) {
         this.props.createTruckImage({
             requiredParam: {
-                userId: this.props.userReducer.data.user.userId,
+                userId: this.props.userReducer.user.userId,
                 truckId: this.props.initParam.truckId,
                 truckCode: this.props.initParam.truckCode
             },
@@ -217,7 +217,7 @@ class Third extends Component {
             },
             postParam: {
                 username: this.props.userReducer.data.user.mobile,
-                userid: this.props.userReducer.data.user.userId,
+                userid: this.props.userReducer.user.userId,
                 userType: this.props.userReducer.data.user.userType,
             },
             postFileParam: {
@@ -322,7 +322,7 @@ class Third extends Component {
     delTruckImage(url) {
         this.props.delTruckImage({
             requiredParam: {
-                userId: this.props.userReducer.data.user.userId,
+                userId: this.props.userReducer.user.userId,
                 url: url,
                 truckNum: this.props.initParam.truckCode
             }

@@ -77,7 +77,7 @@ class Second extends Component {
     onPressUnBindTruck() {
         this.props.unBindTruck({
             requiredParam: {
-                userId: this.props.userReducer.data.user.userId,
+                userId: this.props.userReducer.user.userId,
                 truckId: this.props.addDriverSecondReducer.data.truckId,
                 driverId: this.props.initParam.driverId
             }
@@ -88,7 +88,7 @@ class Second extends Component {
     onPressBindTruck(param) {
         this.props.bindTruck({
             requiredParam: {
-                userId: this.props.userReducer.data.user.userId,
+                userId: this.props.userReducer.user.userId,
                 truckId: param.id,
                 driverId: this.props.initParam.driverId,
             },

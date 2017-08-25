@@ -147,5 +147,6 @@ module.exports = {
     del: del,
     postFile: postFile,
     getCallBack: getCallBack,
-    postCallBack:postCallBack
+    postCallBack:postCallBack,
+    putCallBack:putCallBack
 }
