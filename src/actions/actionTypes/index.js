@@ -14,7 +14,7 @@ import * as addTruckFourthTypes from './AddTruckFourthTypes'
 import * as customPhotoViewTypes from './CustomPhotoViewTypes' 
 import * as singlePhotoViewTypes from './SinglePhotoViewTypes' 
 
-
+import * as loginTypes from './LoginTypes'
 import * as addDriverFirstTypes from './AddDriverFirstTypes' 
 import * as addDriverSecondTypes from './AddDriverSecondTypes' 
 import * as addDriverThirdTypes from './AddDriverThirdTypes' 
@@ -44,6 +44,7 @@ export {
     addDriverThirdTypes,
     driverInfoTypes,
     driverListTypes,
-    initializationTypes
+    initializationTypes,
+    loginTypes
 }
 

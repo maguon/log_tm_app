@@ -20,10 +20,10 @@ function getCallBack(url,callBack) {
         headers: requestHeaders.headers
     }).then((response) => response.json())
     .then((responseJson) => {
-        callback(null, responseJson)
+        callBack(null, responseJson)
     })
     .catch((error) => {
-        callback(error, null);
+        callBack(error, null)
     })
 }
 
@@ -39,6 +39,20 @@ function post(url, params) {
     // .catch((error) => {
     //    console.log(error) //callback(error, null);
     // });
+}
+
+function postCallBack(url, params, callback) {
+    fetch(url, {
+        method: 'POST',
+        headers: requestHeaders.headers,
+        body: JSON.stringify(params)
+    }).then((response) => response.json())
+        .then((responseJson) => {
+            callback(null, responseJson)
+        })
+        .catch((error) => {
+            callback(error, null)
+        });
 }
 
 function put(url, params) {
@@ -118,5 +132,6 @@ module.exports = {
     put: put,
     del: del,
     postFile: postFile,
-    getCallBack: getCallBack
+    getCallBack: getCallBack,
+    postCallBack:postCallBack
 }

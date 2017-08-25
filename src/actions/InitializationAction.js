@@ -29,7 +29,7 @@ export const getAppLastVersion = (param) => async (dispatch) => {
 
 //验证localStorage中的token，请求更换token,请求更新userInformation
 export const validateToken = () => (dispatch) => {
-    // console.log(localStorage)
+     //console.log(localStorage)
     localStorage.loadKey(localStorageKey.USER, (localStorageErr, localStorageRes) => {
         if (localStorageErr) {
             if (localStorageErr.name == 'NotFoundError') {
@@ -59,46 +59,24 @@ export const validateToken = () => (dispatch) => {
                                     userId: changeTokenRes.result.userId,
                                     token: changeTokenRes.result.accessToken,
                                     userType: changeTokenRes.result.type,
-                                    userStatus: changeTokenRes.result.userStatus
+                                    userStatus: changeTokenRes.result.userStatus,
+                                    mobile:changeTokenRes.result.phone,
                                 })
                                 requestHeaders.set('auth-token', changeTokenRes.result.accessToken)
                                 requestHeaders.set('user-type', changeTokenRes.result.type)
-                                httpRequest
-                                    .getCallBack(`${base_host}/user/${localStorageRes.userId}`, (getUserInfoErr, getUserInfoRes) => {
-                                        if (getUserInfoErr) {
-                                            //console.log('getUserInfoErr', getUserInfoErr)
+                                requestHeaders.set('user-name', changeTokenRes.result.phone)
+                                dispatch({
+                                    type: actionTypes.loginTypes.LOGIN_SUCCESS, payload: {
+                                        data: {
+                                            userId: changeTokenRes.result.userId,
+                                            token: changeTokenRes.result.accessToken,
+                                            userType: changeTokenRes.result.type,
+                                            userStatus: changeTokenRes.result.userStatus,
+                                            mobile: changeTokenRes.result.phone
                                         }
-                                        else {
-                                            if (getUserInfoRes.success) {
-                                                localStorage.saveKey(localStorageKey.USER, {
-                                                    userId: changeTokenRes.result.userId,
-                                                    token: changeTokenRes.result.accessToken,
-                                                    userType: changeTokenRes.result.type,
-                                                    userStatus: changeTokenRes.result.userStatus,
-                                                    mobile: getUserInfoRes.result[0].mobile
-                                                })
-                                                requestHeaders.set('user-name', getUserInfoRes.result[0].mobile)
-                                                dispatch({
-                                                    type: actionTypes.loginTypes.LOGIN_SUCCESS, payload: {
-                                                        data: {
-                                                            userId: changeTokenRes.result.userId,
-                                                            token: changeTokenRes.result.accessToken,
-                                                            userType: changeTokenRes.result.type,
-                                                            userStatus: changeTokenRes.result.userStatus,
-                                                            mobile: getUserInfoRes.result[0].mobile
-                                                        }
-                                                    }
-                                                })
-                                                dispatch({ type: actionTypes.initializationTypes.VALIDATE_TOKEN_SUCCESS, payload: {} })
-
-
-                                            }
-                                            else {
-                                                //取用户名失败，错误处理
-                                               // console.log('getUserInfoResfailed', getUserInfoRes)
-                                            }
-                                        }
-                                    })
+                                    }
+                                })
+                                dispatch({ type: actionTypes.initializationTypes.VALIDATE_TOKEN_SUCCESS, payload: {} })
                             }
                             else {
                                 //判断请求是否成功，如果失败，跳转到登录页

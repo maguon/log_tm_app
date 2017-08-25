@@ -16,6 +16,7 @@ class Initialization extends Component {
     }
 
     componentDidMount() {
+        // localStorage.removeKey(localStorageKey.USER)
         this.getAppLastVersion()
     }
 
@@ -50,7 +51,7 @@ class Initialization extends Component {
         } else if (InitializationReducer.valdateToken.isExecStatus == 2) {
             if (InitializationReducer.valdateToken.isResultStatus == 0) {
                 this.props.resetInitialization()
-               // Actions.mainRoot()
+                Actions.mainRoot()
                 console.log('welcome.valdateToken 执行成功', InitializationReducer.getVersion.data)
             } else if (InitializationReducer.valdateToken.isResultStatus == 1) {
                 console.log('welcome.valdateToken 执行错误', InitializationReducer.getVersion.errorMsg)
@@ -58,7 +59,7 @@ class Initialization extends Component {
             else if (InitializationReducer.valdateToken.isResultStatus == 2) {
                 console.log('welcome.valdateToken 执行失败', InitializationReducer.getVersion.failedMsg)
                 this.props.resetInitialization()
-               // Actions.mainRoot()
+                Actions.mainRoot()
             }
         }
 
@@ -114,7 +115,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     getAppLastVersion: (param) => {
-        console.log(param)
         dispatch(InitializationAction.getAppLastVersion(param))
     },
     validateToken: () => {

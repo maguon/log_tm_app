@@ -15,8 +15,6 @@ import addTruckThirdReducer from './AddTruckThirdReducer'
 import addTruckFourthReducer from './AddTruckFourthReducer'
 import customPhotoViewReducer from './CustomPhotoViewReducer'
 import singlePhotoViewReducer from './SinglePhotoViewReducer'
-
-
 import addDriverFirstReducer from './AddDriverFirstReducer'
 import addDriverSecondReducer from './AddDriverSecondReducer'
 import addDriverThirdReducer from './AddDriverThirdReducer'

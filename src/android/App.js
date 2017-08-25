@@ -64,6 +64,12 @@ const styles = StyleSheet.create({
     }
 })
 
+const mapStateToProps = (state) => {
+    return {
+        LoginReducer: state.userReducer
+    }
+}
+
 const getSceneStyle = (/* NavigationSceneRendererProps */ props, computedProps) => {
     const style = {
         flex: 1,
@@ -80,13 +86,7 @@ const getSceneStyle = (/* NavigationSceneRendererProps */ props, computedProps) 
     return style
 }
 
-// const mapStateToProps = (state) => {
-//     return {
-//         LoginReducer: state.LoginReducer
-//     }
-// }
-
-class App extends Component {
+export default class App extends Component {
     constructor(props) {
         super(props)
         // this.reducerCreate = this.reducerCreate.bind(this)
@@ -114,6 +114,7 @@ class App extends Component {
 
     }
 
+    
     render() {
         console.disableYellowBox = true
         return (
@@ -123,21 +124,20 @@ class App extends Component {
                 <Scene key="root">
                     <Scene  initial={true}  key="initialization" component={Initialization} hideNavBar hideTabBar />
                     <Scene
-                        //initial={true}
                         key="mainRoot"
-                        //component={connect(mapStateToProps)(Switch)}
+                        component={connect(mapStateToProps)(Switch)}
                         tabs={true}
                         type={ActionConst.RESET}
                         selector={(props) => {
-                            /*if (props.LoginReducer.user.mobile
+                            if (props.LoginReducer.user.mobile
                                 && props.LoginReducer.user.token
                                 && props.LoginReducer.user.userId
                                 && props.LoginReducer.user.userStatus
-                                && props.LoginReducer.user.userType) {*/
-                            return 'main'
-                            /*} else {
+                                && props.LoginReducer.user.userType) {
+                                return 'main'
+                            } else {
                                 return 'login'
-                            }*/
+                            }
                         }}
                     >
                         <Scene key="login"  initial={true} component={Login} hideNavBar hideTabBar />
@@ -176,9 +176,9 @@ class App extends Component {
                                 <Scene key="singlePhotoViewAtTruckBlock" component={SinglePhotoView} hideNavBar hideTabBar />
                                 <Scene key="customPhotoViewAtTruckBlock" component={CustomPhotoView} hideNavBar hideTabBar />
                             </Scene>
-                            <Scene key="driverBlock" initial={true} icon={TabIcon} online='ios-pin' outline='ios-pin-outline'>
-                                <Scene key="driver" rightType={1} onPressRight={() => Actions.addDriverFirst()} component={Driver} title='司机信息' hideNavBar={false} navBar={TopBar} />
-                                <Scene key="addDriverFirst" initial={true}  component={AddDriverFirst} title='新增司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                            <Scene key="driverBlock" icon={TabIcon} online='ios-pin' outline='ios-pin-outline'>
+                                <Scene key="driver"  initial={true} rightType={1} onPressRight={() => Actions.addDriverFirst()} component={Driver} title='司机信息' hideNavBar={false} navBar={TopBar} />
+                                <Scene key="addDriverFirst"  component={AddDriverFirst} title='新增司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="addDriverSecond" component={AddDriverSecond} title='新增司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="addDriverThird" component={AddDriverThird} title='新增司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="singlePhotoViewAtDriverBlock" component={SinglePhotoView} hideNavBar hideTabBar />
@@ -201,18 +201,3 @@ class App extends Component {
         )
     }
 }
-
-const mapStateToProps = (state) => {
-    return {
-        //truckInfoReducer: state.truckInfoReducer,
-        // userReducer: state.userReducer
-    }
-}
-
-const mapDispatchToProps = (dispatch) => ({
-    changeScene: (param) => {
-        // dispatch(sceneAction.changeScene(param))
-    }
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
