@@ -55,23 +55,34 @@ export default handleActions({
     },
     [actionTypes.initializationTypes.GET_VERSION_SUCCESS]: (state, action) => {
         const { payload: { data } } = action
-        data.sort((a, b) => {
-            return b.id - a.id
-        })
-        const { version, force_update, url, remark } = data.shift()
-        return {
-            ...state,
-            getVersion: {
-                ...state.getVersion,
-                data: {
-                    ...state.getVersion.data,
-                    lastVersion: version,
-                    force_update: force_update,
-                    url: url,
-                    remark: remark
-                },
-                isExecStatus: 2,
-                isResultStatus: 0
+        if (data.length > 0) {
+            data.sort((a, b) => {
+                return b.id - a.id
+            })
+            const { version, force_update, url, remark } = data.shift()
+            return {
+                ...state,
+                getVersion: {
+                    ...state.getVersion,
+                    data: {
+                        ...state.getVersion.data,
+                        lastVersion: version,
+                        force_update: force_update,
+                        url: url,
+                        remark: remark
+                    },
+                    isExecStatus: 2,
+                    isResultStatus: 0
+                }
+            }
+        } else {
+            return {
+                ...state,
+                getVersion: {
+                    ...state.getVersion,
+                    isExecStatus: 2,
+                    isResultStatus: 0
+                }
             }
         }
     },
