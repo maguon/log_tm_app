@@ -4,7 +4,8 @@ import {
     View,
     FlatList,
     Dimensions,
-    StatusBar
+    StatusBar,
+    ToastAndroid
 } from 'react-native'
 import { Button, Icon } from 'native-base'
 import StepIndicator from '../../components/StepIndicator'
@@ -69,19 +70,19 @@ class Third extends Component {
         if (updateDrivingImage.isExecStatus == 2) {
             if (updateDrivingImage.isResultStatus == 0) {
                 this.props.setPhoto(data.drivingImage)
-                console.log('updateDrivingImage执行成功')
+                ToastAndroid.showWithGravity('身份证图片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDrivingImage()
             }
             else if (updateDrivingImage.isResultStatus == 1) {
-                console.log('updateDrivingImage错误')
+                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDrivingImage()   
             }
             else if (updateDrivingImage.isResultStatus == 2) {
-                console.log('updateDrivingImage失败')
+                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDrivingImage()             
             }
             else if (updateDrivingImage.isResultStatus == 3) {
-                console.log('updateDrivingImage服务器错误')
+                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDrivingImage()                
             }
         }
@@ -91,19 +92,19 @@ class Third extends Component {
         if (updateLicenseImage.isExecStatus == 2) {
             if (updateLicenseImage.isResultStatus == 0) {
                 this.props.setPhoto(data.licenseImage)
-                console.log('updateLicenseImage执行成功')
+                ToastAndroid.showWithGravity('驾驶证图片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateLicenseImage()   
             }
             else if (updateLicenseImage.isResultStatus == 1) {
-                console.log('updateLicenseImage错误')
+                ToastAndroid.showWithGravity('驾驶证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateLicenseImage()  
             }
             else if (updateLicenseImage.isResultStatus == 2) {
-                console.log('updateLicenseImage失败')
+                ToastAndroid.showWithGravity('驾驶证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateLicenseImage()   
             }
             else if (updateLicenseImage.isResultStatus == 3) {
-                console.log('updateLicenseImage服务器错误')
+                ToastAndroid.showWithGravity('驾驶证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateLicenseImage()   
             }
         }
