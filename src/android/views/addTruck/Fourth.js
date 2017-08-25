@@ -3,7 +3,8 @@ import {
     Text,
     View,
     FlatList,
-    PixelRatio
+    PixelRatio,
+    ToastAndroid
 } from 'react-native'
 import StepIndicator from '../../components/StepIndicator'
 import { Button } from 'native-base'

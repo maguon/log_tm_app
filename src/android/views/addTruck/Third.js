@@ -3,7 +3,8 @@ import {
     Text,
     View,
     FlatList,
-    TouchableNativeFeedback
+    TouchableNativeFeedback,
+    ToastAndroid
 } from 'react-native'
 import { Button, Icon } from 'native-base'
 import StepIndicator from '../../components/StepIndicator'

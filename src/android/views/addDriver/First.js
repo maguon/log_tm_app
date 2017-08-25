@@ -3,7 +3,8 @@ import {
     Text,
     View,
     StyleSheet,
-    ScrollView
+    ScrollView,
+    ToastAndroid
 } from 'react-native'
 import { Button, Icon } from 'native-base'
 import Select from '../../components/form/Select'
@@ -18,8 +19,7 @@ import { connect } from 'react-redux'
 import {
     createDriver,
     changeDriverField,
-    resetCreateDriver,
-    ToastAndroid
+    resetCreateDriver
 } from '../../../actions/AddDriverFirstAction'
 
 class First extends Component {
