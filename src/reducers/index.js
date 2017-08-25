@@ -21,6 +21,7 @@ import addDriverThirdReducer from './AddDriverThirdReducer'
 import driverInfoReducer from './DriverInfoReducer'
 import driverListReducer from './DriverListReducer'
 import InitializationReducer from './InitializationReducer'
+import PasswordReducer from './PasswordReducer'
 
 export default combineReducers({
     homeReducer,
@@ -44,5 +45,6 @@ export default combineReducers({
     addDriverThirdReducer,
     driverInfoReducer,
     driverListReducer,
-    InitializationReducer
+    InitializationReducer,
+    PasswordReducer
 })

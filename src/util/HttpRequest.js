@@ -69,6 +69,20 @@ function put(url, params) {
     // });
 }
 
+function putCallBack(url, params,callback) {
+    return fetch(url, {
+        method: 'PUT',
+        headers: requestHeaders.headers,
+        body: JSON.stringify(params)
+    }).then((response) => response.json())
+    .then((responseJson) => {
+        callback(null, responseJson)
+    })
+    .catch((error) => {
+       callback(error, null)
+    });
+}
+
 function del(url, callback) {
    return fetch(url, {
         method: 'DELETE',

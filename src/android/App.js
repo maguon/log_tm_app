@@ -31,6 +31,7 @@ import DriverInfo from './views/DriverInfo'
 import RichText from './views/RichText'
 
 import TruckInfo from './views/TruckInfo'
+import Password from './views/Password'
 
 import Company from './views/select/Company'
 import CompanyType from './views/select/CompanyType'
@@ -192,6 +193,7 @@ export default class App extends Component {
                             </Scene>
                             <Scene key="settingBlock" icon={TabIcon} online='ios-settings' outline='ios-settings-outline' >
                                 <Scene key="setting" component={Setting} initial={true} title='设置' hideNavBar={false} navBar={TopBar} />
+                                <Scene key="password" component={Password} title='修改密码' navBar={NavBar} hideTabBar hideNavBar={false} />
                             </Scene>
                         </Scene>
                     </Scene>

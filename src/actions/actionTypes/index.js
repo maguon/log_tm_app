@@ -21,7 +21,7 @@ import * as addDriverThirdTypes from './AddDriverThirdTypes'
 import * as driverInfoTypes from './DriverInfoTypes' 
 import * as driverListTypes from './DriverListTypes'  
 import * as initializationTypes from './InitializationTypes'
-
+import * as passwordTypes from './PasswordTypes'
 
 export {
     homeTypes,
@@ -45,6 +45,7 @@ export {
     driverInfoTypes,
     driverListTypes,
     initializationTypes,
-    loginTypes
+    loginTypes,
+    passwordTypes
 }
 
