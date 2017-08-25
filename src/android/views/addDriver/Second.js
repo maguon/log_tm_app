@@ -3,7 +3,8 @@ import {
     Text,
     View,
     ScrollView,
-    TouchableNativeFeedback
+    TouchableNativeFeedback,
+    ToastAndroid
 } from 'react-native'
 import { Button, Icon } from 'native-base'
 import StepIndicator from '../../components/StepIndicator'
@@ -33,15 +34,19 @@ class Second extends Component {
         /*bindTruck*/
         if (bindTruck.isExecStatus == 2) {
             if (bindTruck.isResultStatus == 0) {
+                ToastAndroid.showWithGravity('解绑成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetBindTruck()
             }
             else if (bindTruck.isResultStatus == 1) {
+                ToastAndroid.showWithGravity('解绑失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetBindTruck()
             }
             else if (bindTruck.isResultStatus == 2) {
+                ToastAndroid.showWithGravity(`解绑失败，${unBindTruck.failedMsg}！`, ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetBindTruck()
             }
             else if (bindTruck.isResultStatus == 3) {
+                ToastAndroid.showWithGravity('解绑失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetBindTruck()
             }
         }
@@ -50,15 +55,19 @@ class Second extends Component {
         /*unBindTruck*/
         if (unBindTruck.isExecStatus == 2) {
             if (unBindTruck.isResultStatus == 0) {
+                ToastAndroid.showWithGravity('绑定成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindTruck()
             }
             else if (unBindTruck.isResultStatus == 1) {
+                ToastAndroid.showWithGravity('绑定失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindTruck()
             }
             else if (unBindTruck.isResultStatus == 2) {
+                ToastAndroid.showWithGravity(`绑定失败，${bindTruck.failedMsg}！`, ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindTruck()
             }
             else if (unBindTruck.isResultStatus == 3) {
+                ToastAndroid.showWithGravity('绑定失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindTruck()
             }
         }

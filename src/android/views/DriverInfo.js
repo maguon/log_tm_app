@@ -784,7 +784,7 @@ class DriverInfo extends Component {
     }
 
     render() {
-        console.log(this.props.driverInfoReducer)
+        //console.log(this.props.driverInfoReducer)
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>

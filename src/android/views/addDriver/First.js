@@ -18,7 +18,8 @@ import { connect } from 'react-redux'
 import {
     createDriver,
     changeDriverField,
-    resetCreateDriver
+    resetCreateDriver,
+    ToastAndroid
 } from '../../../actions/AddDriverFirstAction'
 
 class First extends Component {
@@ -45,20 +46,20 @@ class First extends Component {
         if (createDriverFirst.isExecStatus == 2) {
             if (createDriverFirst.isResultStatus == 0) {
                 Actions.addDriverSecond({ initParam: { driverId: data.driverId } })
+                ToastAndroid.showWithGravity('车辆创建成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetCreateDriver()
-                console.log('createDriverFirst执行成功')
             }
             else if (createDriverFirst.isResultStatus == 1) {
+                ToastAndroid.showWithGravity('车辆创建失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetCreateDriver()
-                console.log('createDriverFirst异常', createDriverFirst.errorMsg)
             }
             else if (createDriverFirst.isResultStatus == 2) {
+                ToastAndroid.showWithGravity('车辆创建失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)                
                 this.props.resetCreateDriver()
-                console.log('createDriverFirst执行失败', createDriverFirst.failedMsg)
             }
             else if (createDriverFirst.isResultStatus == 3) {
+                ToastAndroid.showWithGravity('车辆创建失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)                
                 this.props.resetCreateDriver()
-                console.log('createDriverFirst', '服务器异常')
             }
         }
         /************************************ */
@@ -100,9 +101,10 @@ class First extends Component {
                             isRequire={true}
                             listTitle='选择性别'
                             onRequire={(flag) => this.setState({ genderValidater: flag })}
-                            value={gender ? gender: '请选择'}
+                            value={gender ? gender : '请选择'}
                             itemList={[{ id: 1, value: '男' }, { id: 0, value: '女' }]}
-                            onCheck={(item) => this.props.changeDriverField({ gender: item.id })} />
+                            onCheck={(item) => this.props.changeDriverField({ gender: item.id })}
+                            defaultValue={'请选择'} />
                         <Select
                             title='所属公司：'
                             isRequire={true}
@@ -130,7 +132,7 @@ class First extends Component {
                             value={this.props.addDriverFirstReducer.data.driverInfo.licenseType ? this.props.addDriverFirstReducer.data.driverInfo.licenseType : '请选择'}
                             showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
                             onValueChange={(param) => this.props.changeDriverField({ licenseType: param.value })}
-                            defaultValue={'请选择'}
+                            defaultValue={'请选择'} 
                         />
                         <DateTimePicker
                             isRequire={true}
@@ -138,6 +140,7 @@ class First extends Component {
                             value={this.props.addDriverFirstReducer.data.driverInfo.licenseDate ? this.props.addDriverFirstReducer.data.driverInfo.licenseDate : '请选择'}
                             title='驾驶证到期时间：'
                             onValueChange={(param) => this.props.changeDriverField({ licenseDate: param })}
+                            defaultValue={'请选择'} 
                         />
                         <TextBox
                             title='身份证：'
@@ -187,11 +190,6 @@ class First extends Component {
                             onValueChange={(param) => this.props.changeDriverField({ remark: param })}
                             showRichText={RouterDirection.richText(this.props.parent)}
                         />
-                        {/* <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
-                            <Button full onPress={this.createDriver} style={{ backgroundColor: '#00cade' }}>
-                                <Text style={{ color: '#fff' }}>下一步</Text>
-                            </Button>
-                        </View> */}
                         <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
                             <Button
                                 full
@@ -205,7 +203,8 @@ class First extends Component {
                                     this.state.cardNoValidater &&
                                     this.state.companyValidater &&
                                     this.state.addressValidater &&
-                                    this.state.licenseTypeValidater
+                                    this.state.licenseTypeValidater&&
+                                    this.state.licenseDateValidater
                                 )}
                                 style={{
                                     backgroundColor: (
@@ -217,7 +216,8 @@ class First extends Component {
                                         this.state.cardNoValidater &&
                                         this.state.companyValidater &&
                                         this.state.addressValidater &&
-                                        this.state.licenseTypeValidater
+                                        this.state.licenseTypeValidater&&
+                                        this.state.licenseDateValidater
                                     ) ? '#00cade' : '#888888'
                                 }}>
                                 <Text style={{ color: '#fff' }}>下一步</Text>

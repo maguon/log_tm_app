@@ -74,9 +74,9 @@ export default class Select extends Component {
             const warnMessageList = validate(value, this.props.verifications)
             this.setState({ warnMessageList })
             const flag = !(warnMessageList.length > 0)
-            this.props.onRequire(value && flag)
+            this.props.onRequire((value!=this.props.defaultValue) && flag)
         } else {
-            if (value === '') {
+            if (value ==this.props.defaultValue) {
                 this.setState({ warnMessageList: [] })
                 this.props.onRequire(true)
             }
