@@ -209,7 +209,7 @@ class First extends Component {
                 />
                 <DateTimePicker
                     isRequire={true}
-                    value={this.props.addTruckFirstReducer.data.truckFirst.drivingDate ? this.props.addTruckFirstReducer.data.truckFirst.drivingDate : ''}
+                    value={this.props.addTruckFirstReducer.data.truckFirst.drivingDate ? this.props.addTruckFirstReducer.data.truckFirst.drivingDate : '请选择'}
                     title='行驶证检证日期：'
                     defaultValue={'请选择'}
                     onRequire={(flag) => this.setState({ drivingDateFirstValidater: flag })}
@@ -217,7 +217,7 @@ class First extends Component {
                 />
                 <DateTimePicker
                     isRequire={true}
-                    value={this.props.addTruckFirstReducer.data.truckFirst.licenseDate ? this.props.addTruckFirstReducer.data.truckFirst.licenseDate : ''}
+                    value={this.props.addTruckFirstReducer.data.truckFirst.licenseDate ? this.props.addTruckFirstReducer.data.truckFirst.licenseDate : '请选择'}
                     title='营运证鉴证时间：'
                     defaultValue={'请选择'}
                     onRequire={(flag) => this.setState({ licenseDateFirstValidater: flag })}
@@ -306,7 +306,7 @@ class First extends Component {
                 <Select
                     title='所属公司：'
                     isRequire={true}
-                    value={this.props.addTruckFirstReducer.data.truckTrailer.companyName ? this.props.addTruckFirstReducer.data.truckTrailer.companyName : ''}
+                    value={this.props.addTruckFirstReducer.data.truckTrailer.companyName ? this.props.addTruckFirstReducer.data.truckTrailer.companyName : '请选择'}
                     showList={(param) => RouterDirection.selectCompanyType(this.props.parent)({ router: RouterDirection.selectCompany(this.props.parent), ...param })}
                     onValueChange={(param) => this.props.changeTruckTrailerField({ companyId: param.id, companyName: param.value })}
                     onRequire={(flag) => this.setState({ companyIdTrailerValidater: flag })}
@@ -314,7 +314,7 @@ class First extends Component {
                 />
                 <DateTimePicker
                     isRequire={true}
-                    value={this.props.addTruckFirstReducer.data.truckTrailer.drivingDate ? this.props.addTruckFirstReducer.data.truckTrailer.drivingDate : ''}
+                    value={this.props.addTruckFirstReducer.data.truckTrailer.drivingDate ? this.props.addTruckFirstReducer.data.truckTrailer.drivingDate : '请选择'}
                     title='行驶证检证日期：'
                     defaultValue={'请选择'}
                     onRequire={(flag) => this.setState({ drivingDateTrailerValidater: flag })}
@@ -322,7 +322,7 @@ class First extends Component {
                 />
                 <DateTimePicker
                     isRequire={true}
-                    value={this.props.addTruckFirstReducer.data.truckTrailer.licenseDate ? this.props.addTruckFirstReducer.data.truckTrailer.licenseDate : ''}
+                    value={this.props.addTruckFirstReducer.data.truckTrailer.licenseDate ? this.props.addTruckFirstReducer.data.truckTrailer.licenseDate : '请选择'}
                     title='营运证鉴证时间：'
                     defaultValue={'请选择'}
                     onRequire={(flag) => this.setState({ licenseDateTrailerValidater: flag })}
