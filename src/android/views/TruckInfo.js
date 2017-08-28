@@ -557,7 +557,7 @@ class TruckInfo extends Component {
     }
 
     componentDidMount() {
-        this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId },type:this.props.initParam.truckType })
+        this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId }, type: this.props.initParam.truckType })
         this.props.getTruckInsureRel({ OptionalParam: { truckId: this.props.initParam.truckId, active: 1 } })
         this.props.getTruckRecord({ requiredParam: { userId: this.props.userReducer.user.userId, truckNum: this.props.initParam.truck_num } })
         this.props.getTruckRepairRelList({ OptionalParam: { truckId: this.props.initParam.truckId } })
@@ -680,6 +680,7 @@ class TruckInfo extends Component {
                     />
                     <RichTextBox
                         title='备注：'
+                        onRequire={(flag) => this.setState({ remarkTractorValidater: flag })}
                         value={this.props.truckInfoReducer.data.truckInfo.remark ? this.props.truckInfoReducer.data.truckInfo.remark : ''}
                         onValueChange={(param) => this.props.changeTruckInfoField({ remark: param })}
                         showRichText={RouterDirection.richText(this.props.parent)}
@@ -692,13 +693,15 @@ class TruckInfo extends Component {
                             disabled={!(
                                 this.state.truckNumTractorValidater &&
                                 this.state.truckTelTractorValidater &&
-                                this.state.theCodeTractorValidater
+                                this.state.theCodeTractorValidater &&
+                                this.state.remarkTractorValidater
                             )}
                             style={{
                                 backgroundColor: (
                                     this.state.truckNumTractorValidater &&
                                     this.state.truckTelTractorValidater &&
-                                    this.state.theCodeTractorValidater
+                                    this.state.theCodeTractorValidater &&
+                                    this.state.remarkTractorValidater
                                 ) ? '#00cade' : '#888888'
                             }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
@@ -776,6 +779,7 @@ class TruckInfo extends Component {
                     />
                     <RichTextBox
                         title='备注：'
+                        onRequire={(flag) => this.setState({ remarkTractorValidater: flag })}
                         value={this.props.truckInfoReducer.data.truckInfo.remark ? this.props.truckInfoReducer.data.truckInfo.remark : ''}
                         onValueChange={(param) => this.props.changeTruckInfoField({ remark: param })}
                         showRichText={RouterDirection.richText(this.props.parent)}
@@ -788,13 +792,15 @@ class TruckInfo extends Component {
                             disabled={!(
                                 this.state.truckNumTractorValidater &&
                                 this.state.truckTelTractorValidater &&
-                                this.state.theCodeTractorValidater
+                                this.state.theCodeTractorValidater &&
+                                this.state.remarkTractorValidater
                             )}
                             style={{
                                 backgroundColor: (
                                     this.state.truckNumTractorValidater &&
                                     this.state.truckTelTractorValidater &&
-                                    this.state.theCodeTractorValidater
+                                    this.state.theCodeTractorValidater &&
+                                    this.state.remarkTractorValidater
                                 ) ? '#00cade' : '#888888'
                             }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
@@ -809,22 +815,7 @@ class TruckInfo extends Component {
         return (
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View>
-                    {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.5, borderColor: '#ddd' }}>
-                        <View style={{ flex: 6 }}>
-                            <TextBox
-                                title='车牌号：'
-                                containerSytle={{
-                                    paddingVertical: 5,
-                                    paddingHorizontal: 10
-                                }}
-                                defaultValue={''}
-                                onValueChange={(param) => this.onSelect({ vinCode: param })}
-                                placeholder='请输入车牌号'
-                            />
-                        </View>
-                        <View style={{ flex: 1, justifyContent: 'center' }}><FontTag size={26} title='自' color='#12c3eb' fontColor='#fff' /></View>
-                    </View> */}
-                     <TagTextBox
+                    <TagTextBox
                         title='车牌号：'
                         leftTag={10}
                         verifications={[{
@@ -837,15 +828,24 @@ class TruckInfo extends Component {
                         value={this.props.truckInfoReducer.data.truckInfo.truck_num ? this.props.truckInfoReducer.data.truckInfo.truck_num : ''}
                         onValueChange={(param) => this.props.changeTruckInfoField({ truck_num: param })}
                         placeholder='请输入车牌号'
-                    /> 
+                    />
                     <TextBox
                         title='挂车货位：'
-value={this.props.truckInfoReducer.data.truckInfo.number ? this.props.truckInfoReducer.data.truckInfo.number : ''}
-                        onValueChange={(param) => this.props.changeTruckInfoField({ vinCode: param })}
+                        verifications={[{
+                            type: 'isTrailerNumber',
+                            message: '货位不正确'
+                        }]}
+                        value={this.props.truckInfoReducer.data.truckInfo.number ? this.props.truckInfoReducer.data.truckInfo.number.toString() : ''}
+                        onValueChange={(param) => this.props.changeTruckInfoField({ number: param })}
                         placeholder='请输入挂车货位'
                     />
                     <TextBox
                         title='识别代码：'
+                        verifications={[{
+                            type: 'isLength',
+                            arguments: [0, 20],
+                            message: '长度不能超过20位'
+                        }]}
                         value={this.props.truckInfoReducer.data.truckInfo.the_code ? this.props.truckInfoReducer.data.truckInfo.the_code : ''}
                         onValueChange={(param) => this.props.changeTruckInfoField({ the_code: param })}
                         placeholder='请输入识别代码'
@@ -857,6 +857,18 @@ value={this.props.truckInfoReducer.data.truckInfo.number ? this.props.truckInfoR
                         onValueChange={(param) => this.props.changeTruckInfoField({ company_id: param.id, company_name: param.value, operate_type: param.operateType })}
                         defaultValue={'请选择'}
                     />
+                    <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View><Text style={{ fontSize: 12 }}>关联挂车：{this.props.truckInfoReducer.data.truckInfo.trail_num ? this.props.truckInfoReducer.data.truckInfo.trail_num : '您还没有关联挂车'}</Text></View>
+                        {!this.props.truckInfoReducer.data.truckInfo.trail_id ? <TouchableNativeFeedback onPress={() => RouterDirection.selectTruck(this.props.parent)({ initParam: { type: 2 }, onSelect: (param) => this.bindTrail(param) })} background={TouchableNativeFeedback.SelectableBackground()}>
+                            <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                                <Text style={{ fontSize: 10, color: '#fff' }}>绑定</Text>
+                            </View>
+                        </TouchableNativeFeedback> : <TouchableNativeFeedback onPress={this.unBindTrail} background={TouchableNativeFeedback.SelectableBackground()}>
+                                <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                                    <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
+                                </View>
+                            </TouchableNativeFeedback>}
+                    </View>
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View><Text style={{ fontSize: 12 }}>关联车头：辽B12345</Text></View>
                         <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
@@ -883,7 +895,7 @@ value={this.props.truckInfoReducer.data.truckInfo.number ? this.props.truckInfoR
                         showRichText={RouterDirection.richText(this.props.parent)}
                     />
                     <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
-                        <Button full onPress={() => { }} style={{ backgroundColor: '#00cade' }}>
+                        <Button full onPress={this.updateTruckInfo} style={{ backgroundColor: '#00cade' }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
                     </View>
@@ -896,7 +908,7 @@ value={this.props.truckInfoReducer.data.truckInfo.number ? this.props.truckInfoR
         return (
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.5, borderColor: '#ddd' }}>
+                    {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.5, borderColor: '#ddd' }}>
                         <View style={{ flex: 5 }}>
                             <TextBox
                                 title='车牌号：'
@@ -911,43 +923,70 @@ value={this.props.truckInfoReducer.data.truckInfo.number ? this.props.truckInfoR
                         </View>
                         <View style={{ flex: 1, justifyContent: 'center' }}><Text style={{ color: '#ccc', fontSize: 10 }}>已停用</Text></View>
                         <View style={{ flex: 1, justifyContent: 'center' }}><FontTag size={26} title='自' color='#12c3eb' fontColor='#fff' /></View>
-                    </View>
+                    </View> */}
+                    <TagTextBox
+                        title='车牌号：'
+                        leftTag={10}
+                        verifications={[{
+                            type: 'isVehicleNumber',
+                            message: '不是车牌号'
+                        }]}
+                        onRequire={(flag) => this.setState({ truckNumTrailerValidater: flag })}
+                        companyType={this.props.truckInfoReducer.data.truckInfo.operate_type ? this.props.truckInfoReducer.data.truckInfo.operate_type : 10}
+                        isDisable={this.props.truckInfoReducer.data.truckInfo.truck_status == 0}
+                        value={this.props.truckInfoReducer.data.truckInfo.truck_num ? this.props.truckInfoReducer.data.truckInfo.truck_num : ''}
+                        onValueChange={(param) => this.props.changeTruckInfoField({ truck_num: param })}
+                        placeholder='请输入车牌号'
+                    />
                     <TextBox
                         title='挂车货位：'
-                        defaultValue={''}
-                        onValueChange={(param) => this.onSelect({ vinCode: param })}
+                        verifications={[{
+                            type: 'isTrailerNumber',
+                            message: '货位不正确'
+                        }]}
+                        value={this.props.truckInfoReducer.data.truckInfo.number ? this.props.truckInfoReducer.data.truckInfo.number.toString() : ''}
+                        onValueChange={(param) => this.props.changeTruckInfoField({ number: param })}
                         placeholder='请输入挂车货位'
                     />
                     <TextBox
                         title='识别代码：'
-                        defaultValue={''}
-                        onValueChange={(param) => this.onSelect({ vinCode: param })}
+                        verifications={[{
+                            type: 'isLength',
+                            arguments: [0, 20],
+                            message: '长度不能超过20位'
+                        }]}
+                        value={this.props.truckInfoReducer.data.truckInfo.the_code ? this.props.truckInfoReducer.data.truckInfo.the_code : ''}
+                        onValueChange={(param) => this.props.changeTruckInfoField({ the_code: param })}
                         placeholder='请输入识别代码'
                     />
                     <Select
                         title='所属公司：'
-                        showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
-                        onValueChange={(param) => this.onSelect({ routeStartId: param.id, routeStart: param.value })}
+                        value={this.props.truckInfoReducer.data.truckInfo.company_name ? this.props.truckInfoReducer.data.truckInfo.company_name : '请选择'}
+                        showList={(param) => RouterDirection.selectCompanyType(this.props.parent)({ router: RouterDirection.selectCompany(this.props.parent), ...param })}
+                        onValueChange={(param) => this.props.changeTruckInfoField({ company_id: param.id, company_name: param.value, operate_type: param.operateType })}
                         defaultValue={'请选择'}
                     />
                     <DateTimePicker
                         title='行驶证检证日期：'
+                        value={this.props.truckInfoReducer.data.truckInfo.driving_date ? new Date(this.props.truckInfoReducer.data.truckInfo.driving_date).toLocaleDateString() : '请选择'}
                         defaultValue={'请选择'}
-                        onValueChange={(param) => this.onSelect({ enterEnd: param })}
+                        onValueChange={(param) => this.props.changeTruckInfoField({ driving_date: param })}
                     />
                     <DateTimePicker
                         title='营运证检证日期：'
+                        value={this.props.truckInfoReducer.data.truckInfo.license_date ? new Date(this.props.truckInfoReducer.data.truckInfo.license_date).toLocaleDateString() : '请选择'}
                         defaultValue={'请选择'}
-                        onValueChange={(param) => this.onSelect({ enterEnd: param })}
+                        onValueChange={(param) => this.props.changeTruckInfoField({ license_date: param })}
                     />
                     <RichTextBox
                         title='备注：'
                         defaultValue={'请填写'}
-                        onValueChange={(param) => this.props.changeAddCarField({ remark: param })}
+                        value={this.props.truckInfoReducer.data.truckInfo.remark ? new Date(this.props.truckInfoReducer.data.truckInfo.remark).toLocaleDateString() : ''}
+                        onValueChange={(param) => this.props.changeTruckInfoField({ remark: param })}
                         showRichText={RouterDirection.richText(this.props.parent)}
                     />
                     <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
-                        <Button full onPress={() => { }} style={{ backgroundColor: '#00cade' }}>
+                        <Button full onPress={this.updateTruckInfo} style={{ backgroundColor: '#00cade' }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
                     </View>
