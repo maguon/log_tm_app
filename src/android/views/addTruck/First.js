@@ -66,30 +66,25 @@ class First extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const { createTruckFirst, data } = nextProps.addTruckFirstReducer
+        const { createTruckFirst,createTruckTrailer, data } = nextProps.addTruckFirstReducer
         /*createTruckFirst*/
         if (createTruckFirst.isExecStatus == 2) {
             if (createTruckFirst.isResultStatus == 0) {
-                ToastAndroid.show('创建成功', ToastAndroid.SHORT)
+                ToastAndroid.showWithGravity('创建成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetCreateTruckFirst()
-
                 Actions.addTruckSecond({ initParam: { truckId: data.truckFirstId, type: this.state.truckType, truckCode: data.truckFirst.truckNum } })
-                console.log('createTruckFirst', '执行成功')
             }
             else if (createTruckFirst.isResultStatus == 1) {
-                ToastAndroid.show(createTruckFirst.errorMsg, ToastAndroid.SHORT)
+                ToastAndroid.showWithGravity('创建失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetCreateTruckFirst()
-                console.log('createTruckFirst', '异常')
             }
             else if (createTruckFirst.isResultStatus == 2) {
-                ToastAndroid.show(createTruckFirst.failedMsg, ToastAndroid.SHORT)
+                ToastAndroid.showWithGravity(`创建失败，${createTruckFirst.failedMsg}！`, ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetCreateTruckFirst()
-                console.log('createTruckFirst', '执行失败')
             }
             else if (createTruckFirst.isResultStatus == 3) {
-                ToastAndroid.show(createTruckFirst.serviceFailedMsg, ToastAndroid.SHORT)
+                ToastAndroid.showWithGravity('创建失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetCreateTruckFirst()
-                console.log('createTruckFirst', '服务器异常')
             }
         }
         /************************************ */
@@ -98,26 +93,21 @@ class First extends Component {
         /*createTruckTrailer*/
         if (createTruckTrailer.isExecStatus == 2) {
             if (createTruckTrailer.isResultStatus == 0) {
-                ToastAndroid.show('创建成功', ToastAndroid.SHORT)
+                ToastAndroid.show('创建成功！', ToastAndroid.SHORT)
                 this.props.resetCreateTruckTrailer()
-
                 Actions.addTruckSecond({ initParam: { truckId: data.truckTrailerId, type: this.state.truckType, truckCode: data.truckTrailer.truckNum } })
-                console.log('createTruckTrailer', '执行成功')
             }
             else if (createTruckTrailer.isResultStatus == 1) {
-                ToastAndroid.show(createTruckFirst.errorMsg, ToastAndroid.SHORT)
+                ToastAndroid.show(`创建失败，${createTruckTrailer.failedMsg}！`, ToastAndroid.SHORT)
                 this.props.resetCreateTruckTrailer()
-                console.log('createTruckTrailer', '异常')
             }
             else if (createTruckTrailer.isResultStatus == 2) {
-                ToastAndroid.show(createTruckFirst.failedMsg, ToastAndroid.SHORT)
+                ToastAndroid.show('创建失败！', ToastAndroid.SHORT)
                 this.props.resetCreateTruckTrailer()
-                console.log('createTruckTrailer', '执行失败')
             }
             else if (createTruckTrailer.isResultStatus == 3) {
-                ToastAndroid.show(createTruckFirst.serviceFailedMsg, ToastAndroid.SHORT)
+                ToastAndroid.show('创建失败！', ToastAndroid.SHORT)
                 this.props.resetCreateTruckTrailer()
-                console.log('createTruckTrailer', '服务器异常')
             }
         }
         /************************************ */
@@ -406,7 +396,7 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(createTruckFirst(param))
     },
     createTruckTrailer: (param) => {
-        dispatch(createTruckFirst(param))
+        dispatch(createTruckTrailer(param))
     },
     changeTruckFirstField: (param) => {
         dispatch(changeTruckFirstField(param))

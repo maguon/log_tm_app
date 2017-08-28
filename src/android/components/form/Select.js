@@ -49,15 +49,15 @@ export default class Select extends Component {
         this.showList = this.showList.bind(this)
         this.renderEnable = this.renderEnable.bind(this)
         this.renderDisable = this.renderDisable.bind(this)
-        this.validate=this.validate.bind(this)
+        this.validate = this.validate.bind(this)
     }
 
     componentWillMount() {
-       this.validate(this.props.value)
+        this.validate(this.props.value)
     }
 
-    shouldComponentUpdate(nextProps,nextState){
-        if(nextProps.value===this.state.value){
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.value === this.state.value) {
             return false
         }
         return true
@@ -74,9 +74,9 @@ export default class Select extends Component {
             const warnMessageList = validate(value, this.props.verifications)
             this.setState({ warnMessageList })
             const flag = !(warnMessageList.length > 0)
-            this.props.onRequire((value!=this.props.defaultValue) && flag)
+            this.props.onRequire((value != this.props.defaultValue) && flag)
         } else {
-            if (value ==this.props.defaultValue) {
+            if (value == this.props.defaultValue) {
                 this.setState({ warnMessageList: [] })
                 this.props.onRequire(true)
             }
@@ -116,7 +116,7 @@ export default class Select extends Component {
         return warnMessage
     }
 
-    renderEnable() {      
+    renderEnable() {
         return (
             <TouchableHighlight
                 underlayColor='rgba(0,0,0,0.1)'
@@ -137,7 +137,7 @@ export default class Select extends Component {
             </TouchableHighlight>
         )
     }
-    
+
     renderDisable() {
         return (
             <View style={[this.props.containerSytle, { backgroundColor: 'rgba(0,0,0,0.1)' }]}>

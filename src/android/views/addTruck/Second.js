@@ -120,6 +120,7 @@ class Second extends Component {
             }
             else if (bindTruck.isResultStatus == 2) {
                 ToastAndroid.show(bindTruck.failedMsg, ToastAndroid.SHORT)
+                
                 this.props.resetBindTruck()
             }
             else if (bindTruck.isResultStatus == 3) {
@@ -195,7 +196,6 @@ class Second extends Component {
     }
 
     render() {
-        // console.log(this.props)
         return (
             <View style={{ flex: 1 }}>
                 <StepIndicator
@@ -209,7 +209,7 @@ class Second extends Component {
                         title='关联挂车：'
                         isRequire={false}
                         value={this.props.addTruckSecondReducer.data.bindTrailer}
-                        showList={RouterDirection.selectTruck(this.props.parent)}
+                        showList={(param) => RouterDirection.selectTruck(this.props.parent)({ initParam: { type: 2 }, ...param })}
                         onValueChange={(param) => this.onSelectTruck(param)}
                         defaultValue={'请选择'}
                     />}
@@ -226,7 +226,7 @@ class Second extends Component {
                         title='关联车头：'
                         isRequire={false}
                         value={this.props.addTruckSecondReducer.data.bindTractor}
-                        showList={RouterDirection.selectTruck(this.props.parent)}
+                        showList={(param) => RouterDirection.selectTruck(this.props.parent)({ initParam: { type: 1 }, ...param })}
                         onValueChange={(param) => this.onSelectTruck(param)}
                         defaultValue={'请选择'}
                     />}

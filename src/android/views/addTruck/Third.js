@@ -370,6 +370,7 @@ class Third extends Component {
     }
 
     render() {
+        this.props.addTruckThirdReducer
         return (
             <View style={{ flex: 1 }}>
                 <StepIndicator

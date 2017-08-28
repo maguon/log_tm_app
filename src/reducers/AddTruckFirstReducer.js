@@ -38,7 +38,7 @@ export default handleActions({
             ...state,
             data: {
                 ...state.data,
-                truckTrailerId: data
+                truckFirstId: data
             },
             createTruckFirst: {
                 ...state.createTruckFirst,
@@ -120,11 +120,12 @@ export default handleActions({
 
     [(actionTypes.addTruckFirstTypes.CREATE_TruckTrailer_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
+        console.log('data',data)
         return {
             ...state,
             data: {
                 ...state.data,
-                truckFirstId: data
+                truckTrailerId: data
             },
             createTruckTrailer: {
                 ...state.createTruckTrailer,

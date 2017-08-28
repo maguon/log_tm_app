@@ -20,11 +20,13 @@ export const createTruckFirst = (param) => async (dispatch) => {
 
 export const createTruckTrailer = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/truckTrailer`
+    console.log(url)
     dispatch({ type: actionTypes.addTruckFirstTypes.CREATE_TruckTrailer_WAITING, payload: {} })
     try {
-        let res = await httpRequest.get(url, param.postParam)
+        let res = await httpRequest.post(url, param.postParam)
+        console.log('res',res)
         if (res.success) {
-            dispatch({ type: actionTypes.addTruckFirstTypes.CREATE_TruckTrailer_SUCCESS, payload: { data: res.result } })
+            dispatch({ type: actionTypes.addTruckFirstTypes.CREATE_TruckTrailer_SUCCESS, payload: { data: res.id } })
         } else {
             dispatch({ type: actionTypes.addTruckFirstTypes.CREATE_TruckTrailer_FAILED, payload: { data: res.msg } })
         }
