@@ -120,7 +120,6 @@ export default handleActions({
 
     [(actionTypes.addTruckFirstTypes.CREATE_TruckTrailer_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
-        console.log('data',data)
         return {
             ...state,
             data: {

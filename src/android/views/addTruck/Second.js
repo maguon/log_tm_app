@@ -111,21 +111,19 @@ class Second extends Component {
         /*bindTruck*/
         if (bindTruck.isExecStatus == 2) {
             if (bindTruck.isResultStatus == 0) {
-                ToastAndroid.show('绑定成功', ToastAndroid.SHORT)
+                ToastAndroid.showWithGravity('绑定成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetBindTruck()
             }
             else if (bindTruck.isResultStatus == 1) {
-                ToastAndroid.show('程序错误，请联系管理员', ToastAndroid.SHORT)
+                ToastAndroid.showWithGravity('绑定失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetBindTruck()
             }
             else if (bindTruck.isResultStatus == 2) {
-                ToastAndroid.show(bindTruck.failedMsg, ToastAndroid.SHORT)
-                
+                ToastAndroid.showWithGravity(`绑定失败，${bindTruck.failedMsg}！`, ToastAndroid.SHORT, ToastAndroid.CENTER)               
                 this.props.resetBindTruck()
             }
             else if (bindTruck.isResultStatus == 3) {
-                ToastAndroid.show('程序错误，请联系管理员', ToastAndroid.SHORT)
-
+                ToastAndroid.showWithGravity('绑定失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetBindTruck()
             }
         }
@@ -134,19 +132,19 @@ class Second extends Component {
         /*unBindTruck*/
         if (unBindTruck.isExecStatus == 2) {
             if (unBindTruck.isResultStatus == 0) {
-                ToastAndroid.show('解绑成功', ToastAndroid.SHORT)
+                ToastAndroid.showWithGravity('解绑成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindTruck()
             }
             else if (unBindTruck.isResultStatus == 1) {
-                ToastAndroid.show('程序错误，请联系管理员', ToastAndroid.SHORT)
+                ToastAndroid.showWithGravity('解绑失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindTruck()
             }
             else if (unBindTruck.isResultStatus == 2) {
-                ToastAndroid.show(unBindTruck.failedMsg, ToastAndroid.SHORT)
+                ToastAndroid.showWithGravity(`解绑失败，${unBindTruck.failedMsg}！`, ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindTruck()
             }
             else if (unBindTruck.isResultStatus == 3) {
-                ToastAndroid.show('程序错误，请联系管理员', ToastAndroid.SHORT)
+                ToastAndroid.showWithGravity('解绑失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindTruck()
             }
         }
@@ -155,19 +153,19 @@ class Second extends Component {
         /*bindDriver*/
         if (bindDriver.isExecStatus == 2) {
             if (bindDriver.isResultStatus == 0) {
-                ToastAndroid.show('绑定成功', ToastAndroid.SHORT)
+                ToastAndroid.showWithGravity('绑定成功', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetBindDriver()
             }
             else if (bindDriver.isResultStatus == 1) {
-                ToastAndroid.show('程序错误，请联系管理员', ToastAndroid.SHORT)
+                ToastAndroid.showWithGravity('绑定失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetBindDriver()
             }
             else if (bindDriver.isResultStatus == 2) {
-                ToastAndroid.show(bindDriver.failedMsg, ToastAndroid.SHORT)
+                ToastAndroid.showWithGravity(`绑定失败，${bindDriver.failedMsg}！`, ToastAndroid.SHORT, ToastAndroid.CENTER) 
                 this.props.resetBindDriver()
             }
             else if (bindDriver.isResultStatus == 3) {
-                ToastAndroid.show('程序错误，请联系管理员', ToastAndroid.SHORT)
+                ToastAndroid.showWithGravity('绑定失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetBindDriver()
             }
         }
@@ -176,19 +174,19 @@ class Second extends Component {
         /*unBindDriver*/
         if (unBindDriver.isExecStatus == 2) {
             if (unBindDriver.isResultStatus == 0) {
-                ToastAndroid.show('解绑定成功', ToastAndroid.SHORT)
+                ToastAndroid.showWithGravity('解绑定成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindDriver()
             }
             else if (unBindDriver.isResultStatus == 1) {
-                ToastAndroid.show('程序错误，请联系管理员', ToastAndroid.SHORT)
+                ToastAndroid.showWithGravity('解绑失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindDriver()
             }
             else if (unBindDriver.isResultStatus == 2) {
-                ToastAndroid.show(unBindDriver.failedMsg, ToastAndroid.SHORT)
+                ToastAndroid.showWithGravity(`解绑失败，${unBindDriver.failedMsg}！`, ToastAndroid.SHORT, ToastAndroid.CENTER) 
                 this.props.resetUnBindDriver()
             }
             else if (unBindDriver.isResultStatus == 3) {
-                ToastAndroid.show('程序错误，请联系管理员', ToastAndroid.SHORT)
+                ToastAndroid.showWithGravity('解绑失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindDriver()
             }
         }
