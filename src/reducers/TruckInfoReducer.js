@@ -354,8 +354,16 @@ export default handleActions({
     },
 
     [(actionTypes.truckInfoTypes.ChangeTruckFirstStatus_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
         return {
             ...state,
+            data: {
+                ...state.data,
+                truckInfo: {
+                    ...state.data.truckInfo,
+                    truck_status: data
+                }
+            },
             changeTruckFirstStatus: {
                 ...state.changeTruckFirstStatus,
                 isResultStatus: 0,
