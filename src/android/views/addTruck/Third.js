@@ -68,34 +68,26 @@ class Third extends Component {
         this.delTruckImage = this.delTruckImage.bind(this)
     }
 
-    // static defaultProps = {
-    //     initParam: {
-    //         truckId: 172,
-    //         type: 1,
-    //         truckCode: '辽B55560'
-    //     }
-    // }
-
     componentWillReceiveProps(nextProps) {
         const { updateDrivingImage, updateLicenseImage, createTruckImage,delTruckImage, data } = nextProps.addTruckThirdReducer
         /*updateDrivingImage*/
         if (updateDrivingImage.isExecStatus == 2) {
             if (updateDrivingImage.isResultStatus == 0) {
                 this.props.setPhoto(data.drivingImage)
+                ToastAndroid.showWithGravity('上传行驶证照片成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDrivingImage()
-                console.log('updateDrivingImage成功')
             }
             else if (updateDrivingImage.isResultStatus == 1) {
+                ToastAndroid.showWithGravity('上传行驶证照片失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)                
                 this.props.resetUpdateDrivingImage()
-                console.log('updateDrivingImage错误')
             }
             else if (updateDrivingImage.isResultStatus == 2) {
+                ToastAndroid.showWithGravity('上传行驶证照片失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDrivingImage()
-                console.log('updateDrivingImage失败')
             }
             else if (updateDrivingImage.isResultStatus == 3) {
+                ToastAndroid.showWithGravity('上传行驶证照片失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)                
                 this.props.resetUpdateDrivingImage()
-                console.log('updateDrivingImage服务错误')
             }
         }
         /************************************ */
@@ -104,20 +96,20 @@ class Third extends Component {
         if (updateLicenseImage.isExecStatus == 2) {
             if (updateLicenseImage.isResultStatus == 0) {
                 this.props.setPhoto(data.licenseImage)
+                ToastAndroid.showWithGravity('上传营运证照片成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateLicenseImage()
-                console.log('updateLicenseImage成功')
             }
             else if (updateLicenseImage.isResultStatus == 1) {
+                ToastAndroid.showWithGravity('上传营运证照片失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateLicenseImage()
-                console.log('updateLicenseImage错误')
             }
             else if (updateLicenseImage.isResultStatus == 2) {
+                ToastAndroid.showWithGravity('上传营运证照片失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateLicenseImage()
-                console.log('updateLicenseImage失败')
             }
             else if (updateLicenseImage.isResultStatus == 3) {
+                ToastAndroid.showWithGravity('上传营运证照片失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateLicenseImage()
-                console.log('updateLicenseImage服务错误')
             }
         }
         /************************************ */
@@ -125,20 +117,20 @@ class Third extends Component {
         /*createTruckImage*/
         if (createTruckImage.isExecStatus == 2) {
             if (createTruckImage.isResultStatus == 0) {
+                ToastAndroid.showWithGravity('上传车辆照片成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetCreateTruckImage()
-                console.log('createTruckImage成功')
             }
             else if (createTruckImage.isResultStatus == 1) {
+                ToastAndroid.showWithGravity('上传车辆照片失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetCreateTruckImage()
-                console.log('createTruckImage错误')
             }
             else if (createTruckImage.isResultStatus == 2) {
+                ToastAndroid.showWithGravity('上传车辆照片失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)       
                 this.props.resetCreateTruckImage()
-                console.log('createTruckImage失败')
             }
             else if (createTruckImage.isResultStatus == 3) {
+                ToastAndroid.showWithGravity('上传车辆照片失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)                
                 this.props.resetCreateTruckImage()
-                console.log('createTruckImage服务错误')
             }
         }
         /************************************ */
@@ -149,25 +141,32 @@ class Third extends Component {
         if (delTruckImage.isExecStatus == 2) {
             if (delTruckImage.isResultStatus == 0) {
                 this.props.initPhotoList(data.truckImageList)
+                ToastAndroid.showWithGravity('删除车辆照片成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetDelTruckImage()
-                console.log('delTruckImage成功')
             }
             else if (delTruckImage.isResultStatus == 1) {
+                ToastAndroid.showWithGravity('删除车辆照片失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)                
                 this.props.resetDelTruckImage()
-                console.log('delTruckImage错误')
             }
             else if (delTruckImage.isResultStatus == 2) {
+                ToastAndroid.showWithGravity('删除车辆照片失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)                
                 this.props.resetDelTruckImage()
-                console.log('delTruckImage失败')
             }
             else if (delTruckImage.isResultStatus == 3) {
+                ToastAndroid.showWithGravity('删除车辆照片失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)                
                 this.props.resetDelTruckImage()
-                console.log('delTruckImage服务错误')
             }
         }
         /************************************ */
     }
 
+    // static defaultProps = {
+    //     initParam: {
+    //         truckId: 195,
+    //         type: 1,
+    //         truckCode: '辽B12390'
+    //     }
+    // }
     updateDrivingImage(param) {
         this.props.updateDrivingImage({
             requiredParam: {
@@ -217,9 +216,9 @@ class Third extends Component {
                 imageType: 2
             },
             postParam: {
-                username: this.props.userReducer.data.user.mobile,
+                username: this.props.userReducer.user.mobile,
                 userid: this.props.userReducer.user.userId,
-                userType: this.props.userReducer.data.user.userType,
+                userType: this.props.userReducer.user.userType,
             },
             postFileParam: {
                 ...param.postFileParam,

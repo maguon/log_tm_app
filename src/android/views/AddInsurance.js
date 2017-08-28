@@ -34,17 +34,10 @@ class AddInsurance extends Component {
         this.onPressCreateInsurance = this.onPressCreateInsurance.bind(this)
     }
 
-
-    static defaultProps = {
-        onAddInsurance:()=>{}
-    }
-
-
     onPressCreateInsurance() {
         const { insureId, insureType, insureNum, insureMoney, startDate, endDate } = this.props.addInsuranceReducer.data
-        const { userId } = this.props.userReducer.data.user
+        const { userId } = this.props.userReducer.user
         const { truckId } = this.props.initParam
-       // console.log(this.props)
         this.props.createInsurance({
             requiredParam: {
                 userId
@@ -64,12 +57,9 @@ class AddInsurance extends Component {
     componentWillReceiveProps(nextProps) {
         const { createInsurance } = nextProps.addInsuranceReducer
         const param = nextProps.addInsuranceReducer.data
-       // console.log(nextProps.addInsuranceReducer.data)
         /*createInsurance*/
         if (createInsurance.isExecStatus == 2) {
             if (createInsurance.isResultStatus == 0) {
-                console.log(this.props)
-                this.props.onAddInsurance()
                 this.props.addInsurance(param)
                 this.setState({
                     insuranceCompanyValidater: false,
@@ -91,7 +81,7 @@ class AddInsurance extends Component {
             }
             else if (createInsurance.isResultStatus == 2) {
                 console.log('createInsurance执行失败', createInsurance.failedMsg)
-                ToastAndroid.show(`执行失败:${createInsurance.failedMsg}`, ToastAndroid.SHORT)
+                ToastAndroid.show(`执行失败，${createInsurance.failedMsg}！`, ToastAndroid.SHORT)
                 this.props.resetCreateInsurance()
             }
             else if (createInsurance.isResultStatus == 3) {
@@ -111,7 +101,7 @@ class AddInsurance extends Component {
                         <Select
                             title='保险公司：'
                             isRequire={true}
-                            value={this.props.addInsuranceReducer.data.insure ? this.props.addInsuranceReducer.data.insure : ''}
+                            value={this.props.addInsuranceReducer.data.insure ? this.props.addInsuranceReducer.data.insure : '请选择'}
                             showList={RouterDirection.selectInsurance(this.props.parent)}
                             onValueChange={(param) => this.props.changeInsuranceField({ insureId: param.id, insure: param.value })}
                             onRequire={(flag) => this.setState({ insuranceCompanyValidater: flag })}
@@ -120,7 +110,7 @@ class AddInsurance extends Component {
                         <Select
                             title='保险险种：'
                             isRequire={true}
-                            value={this.props.addInsuranceReducer.data.insureTypeName ? this.props.addInsuranceReducer.data.insureTypeName : ''}
+                            value={this.props.addInsuranceReducer.data.insureTypeName ? this.props.addInsuranceReducer.data.insureTypeName : '请选择'}
                             showList={RouterDirection.selectInsuranceType(this.props.parent)}
                             onValueChange={(param) => this.props.changeInsuranceField({ insureType: param.id, insureTypeName: param.value })}
                             onRequire={(flag) => this.setState({ insuranceTypeValidater: flag })}
@@ -155,7 +145,7 @@ class AddInsurance extends Component {
                             <View style={{ flex: 1 }}>
                                 <DateTimePicker
                                     isRequire={true}
-                                    value={this.props.addInsuranceReducer.data.startDate ? this.props.addInsuranceReducer.data.startDate : ''}
+                                    value={this.props.addInsuranceReducer.data.startDate ? this.props.addInsuranceReducer.data.startDate : '请选择'}
                                     title='保险生效日期：'
                                     defaultValue={'请选择'}
                                     onRequire={(flag) => this.setState({ insuranceStartDateValidater: flag })}
@@ -165,7 +155,7 @@ class AddInsurance extends Component {
                             <View style={{ flex: 1 }}>
                                 <DateTimePicker
                                     isRequire={true}
-                                    value={this.props.addInsuranceReducer.data.endDate ? this.props.addInsuranceReducer.data.endDate : ''}
+                                    value={this.props.addInsuranceReducer.data.endDate ? this.props.addInsuranceReducer.data.endDate : '请选择'}
                                     title='到：'
                                     defaultValue={'请选择'}
                                     onRequire={(flag) => this.setState({ insuranceEndDateValidater: flag })}

@@ -17,13 +17,6 @@ class Fourth extends Component {
         this.renderInsuranceList = this.renderInsuranceList.bind(this)
     }
 
-
-    // static defaultProps = {
-    //     initParam: {
-    //         truckId: 172
-    //     }
-    // }
-
     renderInsuranceList() {
         let insuranceList = this.props.addTruckFourthReducer.data.insuranceLsit.map((item, i) => {
             let panelStyle = (i == this.props.addTruckFourthReducer.data.insuranceLsit.length - 1) ? { marginVertical: 10 } : { marginTop: 10 }
@@ -73,10 +66,7 @@ class Fourth extends Component {
         return [...insuranceList, addInsuranceBtn]
     }
 
-
     render() {
-        console.log(this.props.initParam)
-        console.log(PixelRatio.getFontScale())
         return (
             <View style={{ flex: 1 }}>
                 <StepIndicator
@@ -99,14 +89,6 @@ class Fourth extends Component {
                         </View>}
                     />
                 </View>
-                {/* <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
-                    <Button
-                        full
-                        onPress={() => { }}
-                        style={{ backgroundColor: '#00cade' }}>
-                        <Text style={{ color: '#fff' }}>完成</Text>
-                    </Button>
-                </View> */}
             </View>
         )
     }
