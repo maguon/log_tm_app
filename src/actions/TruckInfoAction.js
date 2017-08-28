@@ -4,7 +4,9 @@ import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
 export const getTruckInfo = (param) => async (dispatch) => {
-    const url = `${base_host}/truckFirst?${ObjectToUrl(param.OptionalParam)}`
+    let url
+    if (param.type == 1) { url = `${base_host}/truckFirst?${ObjectToUrl(param.OptionalParam)}` }
+    if (param.type == 2) { url = `${base_host}/truckTrailer?${ObjectToUrl(param.OptionalParam)}` }
     dispatch({ type: actionTypes.truckInfoTypes.GET_TruckInfo_WAITING, payload: {} })
     try {
         let res = await httpRequest.get(url)

@@ -22,7 +22,7 @@ class TruckList extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-         let { getTruckList } = nextProps.truckListReducer
+        let { getTruckList } = nextProps.truckListReducer
         /*getTruckList*/
         if (getTruckList.isExecStatus == 2) {
             if (getTruckList.isResultStatus == 0) {
@@ -35,7 +35,7 @@ class TruckList extends Component {
                 console.log('getTruckList执行失败')
             }
             else if (getTruckList.isResultStatus == 3) {
-                console.log('getTruckList服务器异常')         
+                console.log('getTruckList服务器异常')
             }
         }
         /************************************ */
@@ -50,7 +50,7 @@ class TruckList extends Component {
                 truckType={0}
                 isInspect={true}
                 truck={item}
-                onPress={() => RouterDirection.truckInfo(this.props.parent)({ initParam: { truckId: item.id, truck_num: item.truck_num } })}
+                onPress={() => RouterDirection.truckInfo(this.props.parent)({ initParam: { truckId: item.id, truck_num: item.truck_num, truckType: this.props.initParam.truckType } })}
                 isRepair={true}
             />
         })
