@@ -9,7 +9,8 @@ const initialState = {
             cCount: 0,
             wCount: 0
         },
-        waitingInspectCount: 0
+        waitingInspectCount: 0,
+        truckRepairRelCount:0
     },
     operateTypeCount: {
         isResultStatus: 0,
@@ -19,6 +20,13 @@ const initialState = {
         serviceFailedMsg: ''
     },
     waitingInspectCount: {
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
+    },
+    getTruckRepairRelCount:{
         isResultStatus: 0,
         isExecStatus: 0,
         errorMsg: '',
@@ -196,6 +204,80 @@ export default handleActions({
                 serviceFailedMsg: ''
             }
         }
+    },
+
+    [(actionTypes.homeTypes.GET_TruckRepairRelCount_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                truckRepairRelCount: data[0].repair_count
+            },
+            getTruckRepairRelCount: {
+                ...state.getTruckRepairRelCount,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.homeTypes.GET_TruckRepairRelCount_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            getTruckRepairRelCount: {
+                ...state.getTruckRepairRelCount,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.homeTypes.GET_TruckRepairRelCount_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            getTruckRepairRelCount: {
+                ...state.getTruckRepairRelCount,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.homeTypes.GET_TruckRepairRelCount_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            getTruckRepairRelCount: {
+                ...state.getTruckRepairRelCount,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.homeTypes.GET_TruckRepairRelCount_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            getTruckRepairRelCount: {
+                ...state.getTruckRepairRelCount,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.homeTypes.RESET_GET_TruckRepairRelCount)]: (state, action) => {      
+        return {
+            ...state,
+            getTruckRepairRelCount: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
     }
+
 
 }, initialState)

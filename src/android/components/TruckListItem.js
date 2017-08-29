@@ -18,6 +18,7 @@ export default class TruckListItem extends Component {
     // }
 
     render() {
+
         if (this.props.truck.driving_date) {
             confirmFlag = (Date.parse(new Date(this.props.truck.driving_date))) < (Date.parse(new Date()) + 30 * 24 * 60 * 60 * 1000)
         }
@@ -35,15 +36,15 @@ export default class TruckListItem extends Component {
                         {this.props.truck.operate_type == 4 && <FontTag size={26} title='包' color='#e08ddd' fontColor='#fff' />}
                     </View>
                     <View style={{ paddingVertical: 10, paddingHorizontal: 10,flex:5 }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'flex-end'}}>
                             <Text style={{ lineHeight: 18, fontSize: 18, color: '#00cade' }}>{this.props.truck.truck_num}</Text>
-                            {this.props.truck.truck_type == 1 && <Text style={{ fontSize: 12, color: '#b9c8cf', paddingLeft: 10 }}>{this.props.truck.brand_name ? this.props.truck.brand_name : ''}</Text>}
-                            {this.props.truck.truck_type == 2 && <Text style={{ fontSize: 12, color: '#b9c8cf', paddingLeft: 10 }}>车位：{this.props.truck.number ? this.props.truck.number : ''}</Text>}
+                            {this.props.truck.truck_type == 1 && <Text style={{ fontSize: 12, color: '#b9c8cf', paddingLeft: 10 }}>{this.props.truck.brand_name ? this.props.truck.brand_name : '未绑定'}</Text>}
+                            {this.props.truck.truck_type == 2 && <Text style={{ fontSize: 12, color: '#b9c8cf', paddingLeft: 10 }}>车位：{this.props.truck.number ? this.props.truck.number : '未设置'}</Text>}
                         </View>
-                        <View style={{ flexDirection: 'row', paddingTop: 10 }}>
-                            <Text style={{ fontSize: 12, color: '#b9c8cf' }}>{this.props.truck.company_name}</Text>
-                            {this.props.truck.truck_type == 1 && <Text style={{ fontSize: 12, color: '#b9c8cf', paddingLeft: 20 }}>主驾：张宝全</Text>}
-                            {this.props.truck.truck_type == 2 && <Text style={{ fontSize: 12, color: '#b9c8cf', paddingLeft: 20 }}>车头：张宝全</Text>}
+                        <View style={{ flexDirection: 'row', paddingTop: 10  }}>
+                            <Text style={{ fontSize: 12, color: '#b9c8cf',flex:1 }}>{this.props.truck.company_name}</Text>
+                            {this.props.truck.truck_type == 1 && <Text style={{ fontSize: 12, color: '#b9c8cf', paddingLeft: 20 ,flex:1}}>主驾：{this.props.truck.drive_name ? this.props.truck.drive_name : '未绑定'}</Text>}
+                            {this.props.truck.truck_type == 2 && <Text style={{ fontSize: 12, color: '#b9c8cf', paddingLeft: 20,flex:1 }}>车头：{this.props.truck.first_num ? this.props.truck.first_num : '未绑定'}</Text>}
                         </View>
                     </View>
                     <View style={{ flexDirection: 'row', width: 62,flex:2 }}>

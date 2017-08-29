@@ -15,7 +15,9 @@ import {
     getOperateTypeCount,
     getWaitingInspectCount,
     resetGetOperateTypeCount,
-    resetGetWaitingInspectCount
+    resetGetWaitingInspectCount,
+    resetGetTruckRepairRelCount,
+    getTruckRepairRelCount
 } from '../../../actions/HomeAction'
 
 class Home extends Component {
@@ -35,11 +37,12 @@ class Home extends Component {
                 drivingDateEnd: new Date(now + 30 * 24 * 60 * 60 * 1000).toLocaleDateString()
             }
         })
+        this.props.getTruckRepairRelCount()
 
     }
 
     componentWillReceiveProps(nextProps) {
-        let { operateTypeCount, waitingInspectCount } = nextProps.homeReducer
+        let { operateTypeCount, waitingInspectCount, getTruckRepairRelCount } = nextProps.homeReducer
 
         /*operateTypeCount*/
         if (operateTypeCount.isExecStatus == 2) {
@@ -79,6 +82,27 @@ class Home extends Component {
             else if (waitingInspectCount.isResultStatus == 3) {
                 console.log('waitingInspectCount服务器异常')
                 this.props.resetGetWaitingInspectCount()
+            }
+        }
+        /************************************ */
+
+        /*getTruckRepairRelCount*/
+        if (getTruckRepairRelCount.isExecStatus == 2) {
+            if (getTruckRepairRelCount.isResultStatus == 0) {
+                console.log('getTruckRepairRelCount执行成功')
+                this.props.resetGetTruckRepairRelCount()
+            }
+            else if (getTruckRepairRelCount.isResultStatus == 1) {
+                console.log('getTruckRepairRelCount异常')
+                this.props.resetGetTruckRepairRelCount()
+            }
+            else if (getTruckRepairRelCount.isResultStatus == 2) {
+                console.log('getTruckRepairRelCount执行失败')
+                this.props.resetGetTruckRepairRelCount()
+            }
+            else if (getTruckRepairRelCount.isResultStatus == 3) {
+                console.log('getTruckRepairRelCount服务器异常')
+                this.props.resetGetTruckRepairRelCount()
             }
         }
         /************************************ */
@@ -137,7 +161,8 @@ class Home extends Component {
 
     render() {
         const { zCount, wCount, gCount, cCount } = this.props.homeReducer.data.operateTypeCount
-        const { waitingInspectCount } = this.props.homeReducer.data
+        const { waitingInspectCount, truckRepairRelCount } = this.props.homeReducer.data
+        console.log(this.props)
         return (
             <View style={{ flex: 1 }}>
                 <ScrollView showsVerticalScrollIndicator={false}>
@@ -159,9 +184,16 @@ class Home extends Component {
                             </View>
                         </View>
                         <View>
-                            {this.renderTruckStatusItem({ status: 0, count: 97, isWarn: false, title: '维修中车辆', router: RouterDirection.truckList(this.props.parent) })}
                             {this.renderTruckStatusItem({
-                                status: 1, count: waitingInspectCount, isWarn: true, title: '待检车辆', router: () => RouterDirection.truckList(this.props.parent)({
+                                status: 0, count: truckRepairRelCount ? truckRepairRelCount.toString() : 0, isWarn: false, title: '维修中车头', router: () => RouterDirection.truckList(this.props.parent)({
+                                    initParam: {
+                                        repairStatus: 0,
+                                        truckType:1
+                                    }
+                                })
+                            })}
+                            {this.renderTruckStatusItem({
+                                status: 1, count: waitingInspectCount ? waitingInspectCount.toString() : 0, isWarn: true, title: '待检车辆', router: () => RouterDirection.truckList(this.props.parent)({
                                     initParam: {
                                         truckStatus: 1,
                                         drivingDateStart: new Date(Date.now()).toLocaleDateString(),
@@ -197,6 +229,12 @@ const mapDispatchToProps = (dispatch) => ({
     },
     resetGetWaitingInspectCount: () => {
         dispatch(resetGetWaitingInspectCount())
+    },
+    resetGetTruckRepairRelCount: () => {
+        dispatch(resetGetTruckRepairRelCount())
+    },
+    getTruckRepairRelCount: () => {
+        dispatch(getTruckRepairRelCount())
 
     }
 })

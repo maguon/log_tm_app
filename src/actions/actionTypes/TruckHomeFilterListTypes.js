@@ -1,0 +1,6 @@
+export const GET_TruckHomeFilterList_SUCCESS = 'GET_TruckHomeFilterList_SUCCESS'
+export const GET_TruckHomeFilterList_FAILED = 'GET_TruckHomeFilterList_FAILED'
+export const GET_TruckHomeFilterList_WAITING = 'GET_TruckHomeFilterList_WAITING'
+export const GET_TruckHomeFilterList_SERVICEERROR = 'GET_TruckHomeFilterList_SERVICEERROR'
+export const GET_TruckHomeFilterList_ERROR = 'GET_TruckHomeFilterList_ERROR'
+export const RESET_GET_TruckHomeFilterList = 'RESET_GET_TruckHomeFilterList'

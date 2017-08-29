@@ -11,7 +11,6 @@ const initialState = {
 export default handleActions({
     [(actionTypes.singlePhotoViewTypes.SET_PHOTO)]: (state, action) => {
         const { payload: { data } } = action
-        console.log('data',data)
         return {
             data: {
                 photo: [data]

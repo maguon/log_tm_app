@@ -12,4 +12,11 @@ export const GET_WaitingInspectCount_SERVICEERROR = 'GET_WaitingInspectCount_SER
 export const GET_WaitingInspectCount_ERROR = 'GET_WaitingInspectCount_ERROR'
 export const RESET_GET_WaitingInspectCount = 'RESET_GET_WaitingInspectCount'
 
+export const GET_TruckRepairRelCount_SUCCESS = 'GET_TruckRepairRelCount_SUCCESS'
+export const GET_TruckRepairRelCount_FAILED = 'GET_TruckRepairRelCount_FAILED'
+export const GET_TruckRepairRelCount_WAITING = 'GET_TruckRepairRelCount_WAITING'
+export const GET_TruckRepairRelCount_SERVICEERROR = 'GET_TruckRepairRelCount_SERVICEERROR'
+export const GET_TruckRepairRelCount_ERROR = 'GET_TruckRepairRelCount_ERROR'
+export const RESET_GET_TruckRepairRelCount = 'RESET_GET_TruckRepairRelCount'
+
 export const CLEAN_HomeReducer = 'CLEAN_HomeReducer'
