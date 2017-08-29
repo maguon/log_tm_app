@@ -497,48 +497,24 @@ export default handleActions({
         }
     },
 
+    //完成
     [(actionTypes.truckInfoTypes.BindTrail_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
-            bindTrail:{
+            data: {
+                ...state.data,
+                truckInfo: {
+                    ...state.data.truckInfo,
+                    ...data
+                }
+            },
+            bindTrail: {
                 ...state.bindTrail,
-                    isResultStatus: 0,
-                    isExecStatus: 2
+                isResultStatus: 0,
+                isExecStatus: 2
             }
         }
-        // let newState
-        // if (data.type == 1) {
-        //     newState = {
-        //         ...state,
-        //         data: {
-        //             ...state.data,
-        //             bindTrailerId: data.truckId,
-        //             bindTrailer: data.truck,
-        //         },
-        //         bindTruck: {
-        //             ...state.bindTruck,
-        //             isResultStatus: 0,
-        //             isExecStatus: 2
-        //         }
-        //     }
-        // } else if (data.type == 2) {
-        //     newState = {
-        //         ...state,
-        //         data: {
-        //             ...state.data,
-        //             bindTractorId: data.truckId,
-        //             bindTractor: data.truck,
-        //         },
-        //         bindTruck: {
-        //             ...state.bindTruck,
-        //             isResultStatus: 0,
-        //             isExecStatus: 2
-        //         }
-        //     }
-        // }
-        // return newState
-
     },
     [(actionTypes.truckInfoTypes.BindTrail_FAILED)]: (state, action) => {
         const { payload: { data } } = action
@@ -598,9 +574,18 @@ export default handleActions({
         }
     },
 
+    //完成
     [(actionTypes.truckInfoTypes.UnBindTrail_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
         return {
             ...state,
+            data: {
+                ...state.data,
+                truckInfo: {
+                    ...state.data.truckInfo,
+                    ...data
+                }
+            },
             unBindTrail: {
                 ...state.unBindTrail,
                 isResultStatus: 0,
@@ -666,10 +651,18 @@ export default handleActions({
         }
     },
 
+    //完成
     [(actionTypes.truckInfoTypes.BindDriver_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
+            data: {
+                ...state.data,
+                truckInfo: {
+                    ...state.data.truckInfo,
+                    ...data
+                }
+            },
             bindDriver: {
                 ...state.bindDriver,
                 isResultStatus: 0,
@@ -735,10 +728,18 @@ export default handleActions({
         }
     },
 
+    //完成
     [(actionTypes.truckInfoTypes.UnBindDriver_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
+            data: {
+                ...state.data,
+                truckInfo: {
+                    ...state.data.truckInfo,
+                    ...data
+                }
+            },
             unBindDriver: {
                 ...state.unBindDriver,
                 isResultStatus: 0,

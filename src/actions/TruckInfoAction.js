@@ -3,6 +3,7 @@ import { base_host, record_host,file_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
+//完成
 export const getTruckInfo = (param) => async (dispatch) => {
     let url
     if (param.type == 1) { url = `${base_host}/truckFirst?${ObjectToUrl(param.OptionalParam)}` }
@@ -20,6 +21,7 @@ export const getTruckInfo = (param) => async (dispatch) => {
     }
 }
 
+//完成
 export const getTruckRecord = (param) => async (dispatch) => {
     const url = `${record_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckNum}/record`
     dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_WAITING, payload: {} })
@@ -35,6 +37,7 @@ export const getTruckRecord = (param) => async (dispatch) => {
     }
 }
 
+//完成
 export const getTruckInsureRel = (param) => async (dispatch) => {
     const url = `${base_host}/truckInsureRel?${ObjectToUrl(param.OptionalParam)}`
     dispatch({ type: actionTypes.truckInfoTypes.GET_TruckInsureRel_WAITING, payload: {} })
@@ -50,14 +53,17 @@ export const getTruckInsureRel = (param) => async (dispatch) => {
     }
 }
 
+//完成
 export const resetGetTruckInfo = (param) => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.RESET_GET_TruckInfo, payload: {} })
 }
 
+//完成
 export const resetGetTruckRecord = (param) => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.RESET_GET_TruckRecord, payload: {} })
 }
 
+//完成
 export const resetGetTruckInsureRel = (param) => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.RESET_GET_TruckInsureRel, payload: {} })
 }
@@ -120,6 +126,7 @@ export const resetChangeTruckTrailerStatus = () => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.RESET_ChangeTruckTrailerStatus, payload: {} })
 }
 
+//完成
 export const bindTruck = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/trail/${param.requiredParam.trailId}/bind`
     dispatch({ type: actionTypes.truckInfoTypes.BindTrail_WAITING, payload: {} })
@@ -128,11 +135,7 @@ export const bindTruck = (param) => async (dispatch) => {
         if (res.success) {
             dispatch({
                 type: actionTypes.truckInfoTypes.BindTrail_SUCCESS, payload: {
-                    data: {
-                        type: param.type,
-                        truck: param.truck,
-                        truckId: param.truckId
-                    }
+                    data: param.reducerParam
                 }
             })
         } else {
@@ -143,13 +146,14 @@ export const bindTruck = (param) => async (dispatch) => {
     }
 }
 
+//完成
 export const unBindTruck = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/trail/${param.requiredParam.trailId}/unbind`
     dispatch({ type: actionTypes.truckInfoTypes.UnBindTrail_WAITING, payload: {} })
     try {
         let res = await httpRequest.put(url, {})
         if (res.success) {
-            dispatch({ type: actionTypes.truckInfoTypes.UnBindTrail_SUCCESS, payload: {} })
+            dispatch({ type: actionTypes.truckInfoTypes.UnBindTrail_SUCCESS, payload: { data: param.reducerParam } })
         } else {
             dispatch({ type: actionTypes.truckInfoTypes.UnBindTrail_FAILED, payload: { data: res.msg } })
         }
@@ -158,13 +162,15 @@ export const unBindTruck = (param) => async (dispatch) => {
     }
 }
 
+//完成
 export const bindDriver = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/drive/${param.requiredParam.driverId}/bind`
     dispatch({ type: actionTypes.truckInfoTypes.BindDriver_WAITING, payload: {} })
     try {
         let res = await httpRequest.put(url, {})     
+        console.log(res)
         if (res.success) {
-            dispatch({ type: actionTypes.truckInfoTypes.BindDriver_SUCCESS, payload: { data: { driverId: param.driverId, driver: param.driver } } })
+            dispatch({ type: actionTypes.truckInfoTypes.BindDriver_SUCCESS, payload: { data: param.reducerParam} })
         } else {
             dispatch({ type: actionTypes.truckInfoTypes.BindDriver_FAILED, payload: { data: res.msg } })
         }
@@ -173,13 +179,14 @@ export const bindDriver = (param) => async (dispatch) => {
     }
 }
 
+//完成
 export const unBindDriver = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/drive/${param.requiredParam.driverId}/unbind`
     dispatch({ type: actionTypes.truckInfoTypes.UnBindDriver_WAITING, payload: {} })
     try {
         let res = await httpRequest.put(url, {})
         if (res.success) {
-            dispatch({ type: actionTypes.truckInfoTypes.UnBindDriver_SUCCESS, payload: {} })
+            dispatch({ type: actionTypes.truckInfoTypes.UnBindDriver_SUCCESS, payload: { data: param.reducerParam} })
         } else {
             dispatch({ type: actionTypes.truckInfoTypes.UnBindDriver_FAILED, payload: { data: res.msg } })
         }
@@ -188,18 +195,22 @@ export const unBindDriver = (param) => async (dispatch) => {
     }
 }
 
+//完成
 export const resetBindTruck = () => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.RESET_BindTrail, payload: {} })
 }
 
+//完成
 export const resetUnBindTruck = () => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.RESET_UnBindTrail, payload: {} })
 }
 
+//完成
 export const resetBindDriver = () => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.RESET_BindDriver, payload: {} })
 }
 
+//完成
 export const resetUnBindDriver = () => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.RESET_UnBindDriver, payload: {} })
 }

@@ -96,7 +96,7 @@ class TruckInfo extends Component {
             remarkTractorValidater: true,
 
             truckNumTrailerValidater: true,
-            truckTelTrailerValidater: true,
+            numberTrailerValidater: true,
             theCodeTrailerValidater: true,
             remarkTrailerValidater: true
             // truckInfo: {
@@ -177,7 +177,7 @@ class TruckInfo extends Component {
                 this.props.resetGetTruckInfo()
             }
             else if (truckInfo.isResultStatus == 1) {
-                console.log('truckInfo', '异常')
+                console.log('truckInfo异常', truckInfo.errorMsg)
                 this.props.resetGetTruckInfo()
             }
             else if (truckInfo.isResultStatus == 2) {
@@ -299,7 +299,6 @@ class TruckInfo extends Component {
         /************************************ */
 
         /*changeTruckFirstStatus*/
-
         if (changeTruckFirstStatus.isExecStatus == 2) {
             if (changeTruckFirstStatus.isResultStatus == 0) {
                 // this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
@@ -353,89 +352,85 @@ class TruckInfo extends Component {
         }
         /************************************ */
 
-        /*bindTrail*/
+        /*bindTrail */ //完成
         if (bindTrail.isExecStatus == 2) {
             if (bindTrail.isResultStatus == 0) {
-                this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
-                console.log('bindTrail执行成功')
+                ToastAndroid.showWithGravity('绑定成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetBindTruck()
             }
             else if (bindTrail.isResultStatus == 1) {
-                console.log('bindTrail异常', bindTrail.errorMsg)
+                ToastAndroid.showWithGravity('绑定失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetBindTruck()
             }
             else if (bindTrail.isResultStatus == 2) {
-                console.log('bindTrail执行失败', bindTrail.failedMsg)
+                ToastAndroid.showWithGravity(`绑定失败，${bindTrail.failedMsg}！`, ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetBindTruck()
             }
             else if (bindTrail.isResultStatus == 3) {
-                console.log('bindTrail', '服务器异常')
+                ToastAndroid.showWithGravity('绑定失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetBindTruck()
             }
         }
         /************************************ */
 
-        /*unBindTrail*/
+        /*unBindTrail*/ //完成
         if (unBindTrail.isExecStatus == 2) {
             if (unBindTrail.isResultStatus == 0) {
-                this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
-                console.log('unBindTrail', '执行成功')
+                ToastAndroid.showWithGravity('解绑成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindTruck()
             }
             else if (unBindTrail.isResultStatus == 1) {
-                console.log('unBindTrail异常', unBindTrail.errorMsg)
+                ToastAndroid.showWithGravity('解绑失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindTruck()
             }
             else if (unBindTrail.isResultStatus == 2) {
-                console.log('unBindTrail', '执行失败')
+                ToastAndroid.showWithGravity(`解绑失败，${unBindTrail.failedMsg}！`, ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindTruck()
             }
             else if (unBindTrail.isResultStatus == 3) {
-                console.log('unBindTrail', '服务器异常')
+                ToastAndroid.showWithGravity('解绑失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindTruck()
             }
         }
         /************************************ */
 
-        /*bindDriver*/
+        /*bindDriver*/ //完成
         if (bindDriver.isExecStatus == 2) {
             if (bindDriver.isResultStatus == 0) {
-                this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
-                console.log('bindDriver', '执行成功')
+                ToastAndroid.showWithGravity('绑定成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetBindDriver()
             }
             else if (bindDriver.isResultStatus == 1) {
-                console.log('bindDriver异常', unBindTrail.errorMsg)
+                ToastAndroid.showWithGravity('绑定失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetBindDriver()
             }
             else if (bindDriver.isResultStatus == 2) {
-                console.log('bindDriver', '执行失败')
+                ToastAndroid.showWithGravity(`绑定失败，${bindDriver.failedMsg}！`, ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetBindDriver()
             }
             else if (bindDriver.isResultStatus == 3) {
-                console.log('bindDriver', '服务器异常')
+                ToastAndroid.showWithGravity('绑定失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetBindDriver()
             }
         }
         /************************************ */
 
-        /*bindDriver*/
+        /*bindDriver*/ //完成
         if (unBindDriver.isExecStatus == 2) {
             if (unBindDriver.isResultStatus == 0) {
-                this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
-                console.log('unBindDriver', '执行成功')
+                ToastAndroid.showWithGravity('解绑成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindDriver()
             }
             else if (unBindDriver.isResultStatus == 1) {
-                console.log('unBindDriver异常', unBindTrail.errorMsg)
+                ToastAndroid.showWithGravity('解绑失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindDriver()
             }
             else if (unBindDriver.isResultStatus == 2) {
-                console.log('unBindDriver', '执行失败')
+                ToastAndroid.showWithGravity(`解绑失败，${unBindDriver.failedMsg}！`, ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindDriver()
             }
             else if (unBindDriver.isResultStatus == 3) {
-                console.log('unBindDriver', '服务器异常')
+                ToastAndroid.showWithGravity('解绑失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUnBindDriver()
             }
         }
@@ -863,8 +858,8 @@ class TruckInfo extends Component {
                         defaultValue={'请选择'}
                     />
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View><Text style={{ fontSize: 12 }}>关联车头：{this.props.truckInfoReducer.data.truckInfo.trail_num ? this.props.truckInfoReducer.data.truckInfo.trail_num : '您还没有关联挂车'}</Text></View>
-                        {!this.props.truckInfoReducer.data.truckInfo.trail_id ? <TouchableNativeFeedback onPress={() => RouterDirection.selectTruck(this.props.parent)({ initParam: { type: 2 }, onSelect: (param) => this.bindTrail(param) })} background={TouchableNativeFeedback.SelectableBackground()}>
+                        <View><Text style={{ fontSize: 12 }}>关联车头：{this.props.truckInfoReducer.data.truckInfo.first_num ? this.props.truckInfoReducer.data.truckInfo.first_num : '您还没有关联挂车'}</Text></View>
+                        {!this.props.truckInfoReducer.data.truckInfo.first_id ? <TouchableNativeFeedback onPress={() => RouterDirection.selectTruck(this.props.parent)({ initParam: { type: 1 }, onSelect: (param) => this.bindTrail(param) })} background={TouchableNativeFeedback.SelectableBackground()}>
                             <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                 <Text style={{ fontSize: 10, color: '#fff' }}>绑定</Text>
                             </View>
@@ -900,27 +895,27 @@ class TruckInfo extends Component {
                         onValueChange={(param) => this.props.changeTruckInfoField({ remark: param })}
                         showRichText={RouterDirection.richText(this.props.parent)}
                     />
-                       <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
+                    <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
                         <Button
                             full
                             onPress={this.updateTruckInfo}
                             disabled={!(
                                 this.state.truckNumTrailerValidater &&
-                                this.state.truckTelTrailerValidater &&
+                                this.state.numberTrailerValidater &&
                                 this.state.theCodeTrailerValidater &&
                                 this.state.remarkTrailerValidater
                             )}
                             style={{
                                 backgroundColor: (
                                     this.state.truckNumTrailerValidater &&
-                                    this.state.truckTelTrailerValidater &&
+                                    this.state.numberTrailerValidater &&
                                     this.state.theCodeTrailerValidater &&
                                     this.state.remarkTrailerValidater
                                 ) ? '#00cade' : '#888888'
                             }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
-                       </View>
+                    </View>
                 </View>
             </ScrollView>
         )
@@ -966,6 +961,7 @@ class TruckInfo extends Component {
                             type: 'isTrailerNumber',
                             message: '货位不正确'
                         }]}
+                        onRequire={(flag) => this.setState({ numberTrailerValidater: flag })}
                         value={this.props.truckInfoReducer.data.truckInfo.number ? this.props.truckInfoReducer.data.truckInfo.number.toString() : ''}
                         onValueChange={(param) => this.props.changeTruckInfoField({ number: param })}
                         placeholder='请输入挂车货位'
@@ -977,6 +973,7 @@ class TruckInfo extends Component {
                             arguments: [0, 20],
                             message: '长度不能超过20位'
                         }]}
+                        onRequire={(flag) => this.setState({ theCodeTrailerValidater: flag })}
                         value={this.props.truckInfoReducer.data.truckInfo.the_code ? this.props.truckInfoReducer.data.truckInfo.the_code : ''}
                         onValueChange={(param) => this.props.changeTruckInfoField({ the_code: param })}
                         placeholder='请输入识别代码'
@@ -1007,20 +1004,20 @@ class TruckInfo extends Component {
                         onValueChange={(param) => this.props.changeTruckInfoField({ remark: param })}
                         showRichText={RouterDirection.richText(this.props.parent)}
                     />
-                       <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
+                    <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
                         <Button
                             full
                             onPress={this.updateTruckInfo}
                             disabled={!(
                                 this.state.truckNumTrailerValidater &&
-                                this.state.truckTelTrailerValidater &&
+                                this.state.numberTrailerValidater &&
                                 this.state.theCodeTrailerValidater &&
                                 this.state.remarkTrailerValidater
                             )}
                             style={{
                                 backgroundColor: (
                                     this.state.truckNumTrailerValidater &&
-                                    this.state.truckTelTrailerValidater &&
+                                    this.state.numberTrailerValidater &&
                                     this.state.theCodeTrailerValidater &&
                                     this.state.remarkTrailerValidater
                                 ) ? '#00cade' : '#888888'
@@ -1039,17 +1036,24 @@ class TruckInfo extends Component {
                 userId: this.props.userReducer.user.userId,
                 truckId: this.props.truckInfoReducer.data.truckInfo.id,
                 driverId: this.props.truckInfoReducer.data.truckInfo.drive_id,
+            },
+            reducerParam: {
+                drive_id: null,
+                drive_name: null
             }
         })
     }
 
     bindDriver(param) {
-        //console.log(param)
         this.props.bindDriver({
             requiredParam: {
                 userId: this.props.userReducer.user.userId,
                 truckId: this.props.truckInfoReducer.data.truckInfo.id,
                 driverId: param.id,
+            },
+            reducerParam: {
+                drive_id: param.id,
+                drive_name: param.value
             }
         })
     }
@@ -1061,6 +1065,10 @@ class TruckInfo extends Component {
                     userId: this.props.userReducer.user.userId,
                     truckId: this.props.truckInfoReducer.data.truckInfo.id,
                     trailId: param.id,
+                },
+                reducerParam: {
+                    trail_id: param.id,
+                    trail_num: param.value
                 }
             })
         } else if (this.props.truckInfoReducer.data.truckInfo.truck_type == 2) {
@@ -1069,6 +1077,10 @@ class TruckInfo extends Component {
                     userId: this.props.userReducer.user.userId,
                     truckId: param.id,
                     trailId: this.props.truckInfoReducer.data.truckInfo.id,
+                },
+                reducerParam: {
+                    first_id: param.id,
+                    first_num: param.value
                 }
             })
         }
@@ -1081,6 +1093,10 @@ class TruckInfo extends Component {
                     userId: this.props.userReducer.user.userId,
                     truckId: this.props.truckInfoReducer.data.truckInfo.id,
                     trailId: this.props.truckInfoReducer.data.truckInfo.trail_id,
+                },
+                reducerParam: {
+                    trail_id: null,
+                    trail_num: null
                 }
             })
         } else if (this.props.truckInfoReducer.data.truckInfo.truck_type == 2) {
@@ -1089,6 +1105,10 @@ class TruckInfo extends Component {
                     userId: this.props.userReducer.user.userId,
                     truckId: this.props.truckInfoReducer.data.truckInfo.first_id,
                     trailId: this.props.truckInfoReducer.data.truckInfo.id,
+                },
+                reducerParam: {
+                    first_id: null,
+                    first_num: null
                 }
             })
         }
