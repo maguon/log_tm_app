@@ -56,7 +56,8 @@ import {
     resetCreateTruckImage,
     resetDelTruckImage,
     changeTruckInfoField,
-    resetUpdateTruckInfo
+    resetUpdateTruckInfo,
+    addTruckInfoInsurance
 } from '../../actions/TruckInfoAction'
 import { Actions } from 'react-native-router-flux'
 import insuranceTypeList from '../../config/insuranceType.json'
@@ -159,11 +160,11 @@ class TruckInfo extends Component {
             updateLicenseImage,
             createTruckImage,
             delTruckImage,
-            updateTruckInfo } = nextProps.truckInfoReducer
-        /*truckInfo*/
+            updateTruckInfo,
+            data } = nextProps.truckInfoReducer
+        /*truckInfo*/ //完成
         if (truckInfo.isExecStatus == 2) {
             if (truckInfo.isResultStatus == 0) {
-                console.log('truckInfo', '执行成功')
                 Actions.refresh({
                     rightType: 1,
                     truckStatus: nextProps.truckInfoReducer.data.truckInfo.truck_status,
@@ -177,15 +178,12 @@ class TruckInfo extends Component {
                 this.props.resetGetTruckInfo()
             }
             else if (truckInfo.isResultStatus == 1) {
-                console.log('truckInfo异常', truckInfo.errorMsg)
                 this.props.resetGetTruckInfo()
             }
             else if (truckInfo.isResultStatus == 2) {
-                console.log('truckInfo', '执行失败')
                 this.props.resetGetTruckInfo()
             }
             else if (truckInfo.isResultStatus == 3) {
-                console.log('truckInfo', '服务器异常')
                 this.props.resetGetTruckInfo()
             }
         }
@@ -194,19 +192,19 @@ class TruckInfo extends Component {
         /*truckInsureRel*/
         if (truckInsureRel.isExecStatus == 2) {
             if (truckInsureRel.isResultStatus == 0) {
-                console.log('truckInsureRel', '执行成功')
+               // console.log('truckInsureRel', '执行成功')
                 this.props.resetGetTruckInsureRel()
             }
             else if (truckInsureRel.isResultStatus == 1) {
-                console.log('truckInsureRel', '异常')
+               // console.log('truckInsureRel', '异常')
                 this.props.resetGetTruckInsureRel()
             }
             else if (truckInsureRel.isResultStatus == 2) {
-                console.log('truckInsureRel', '执行失败')
+               // console.log('truckInsureRel', '执行失败')
                 this.props.resetGetTruckInsureRel()
             }
             else if (truckInsureRel.isResultStatus == 3) {
-                console.log('truckInsureRel', '服务器异常')
+               // console.log('truckInsureRel', '服务器异常')
                 this.props.resetGetTruckInsureRel()
             }
         }
@@ -215,19 +213,19 @@ class TruckInfo extends Component {
         /*truckRecord*/
         if (truckRecord.isExecStatus == 2) {
             if (truckRecord.isResultStatus == 0) {
-                console.log('truckRecord', '执行成功')
+                //console.log('truckRecord', '执行成功')
                 this.props.resetGetTruckRecord()
             }
             else if (truckRecord.isResultStatus == 1) {
-                console.log('truckRecord异常', truckRecord.errorMsg)
+                //console.log('truckRecord异常', truckRecord.errorMsg)
                 this.props.resetGetTruckRecord()
             }
             else if (truckRecord.isResultStatus == 2) {
-                console.log('truckRecord', '执行失败')
+                //console.log('truckRecord', '执行失败')
                 this.props.resetGetTruckRecord()
             }
             else if (truckRecord.isResultStatus == 3) {
-                console.log('truckRecord', '服务器异常')
+                //console.log('truckRecord', '服务器异常')
                 this.props.resetGetTruckRecord()
             }
         }
@@ -236,19 +234,19 @@ class TruckInfo extends Component {
         /*truckRepairRelList*/
         if (truckRepairRelList.isExecStatus == 2) {
             if (truckRepairRelList.isResultStatus == 0) {
-                console.log('truckRepairRelList', '执行成功')
+                //console.log('truckRepairRelList', '执行成功')
                 this.props.resetGetTruckRepairRelList()
             }
             else if (truckRepairRelList.isResultStatus == 1) {
-                console.log('truckRepairRelList异常', truckRepairRelList.errorMsg)
+                //console.log('truckRepairRelList异常', truckRepairRelList.errorMsg)
                 this.props.resetGetTruckRepairRelList()
             }
             else if (truckRepairRelList.isResultStatus == 2) {
-                console.log('truckRepairRelList', '执行失败')
+                //console.log('truckRepairRelList', '执行失败')
                 this.props.resetGetTruckRepairRelList()
             }
             else if (truckRepairRelList.isResultStatus == 3) {
-                console.log('truckRepairRelList', '服务器异常')
+                //console.log('truckRepairRelList', '服务器异常')
                 this.props.resetGetTruckRepairRelList()
             }
         }
@@ -258,19 +256,23 @@ class TruckInfo extends Component {
         if (createTruckRepairRel.isExecStatus == 2) {
             if (createTruckRepairRel.isResultStatus == 0) {
                 this.props.getTruckRepairRelList({ OptionalParam: { truckId: this.props.initParam.truckId } })
-                console.log('createTruckRepairRel执行成功')
+                ToastAndroid.showWithGravity('创建维修成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                //console.log('createTruckRepairRel执行成功')
                 this.props.resetCreateTruckRepairRel()
             }
             else if (createTruckRepairRel.isResultStatus == 1) {
-                console.log('createTruckRepairRel异常', createTruckRepairRel.errorMsg)
+                //console.log('createTruckRepairRel异常', createTruckRepairRel.errorMsg)
+                ToastAndroid.showWithGravity('创建维修失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetCreateTruckRepairRel()
             }
             else if (createTruckRepairRel.isResultStatus == 2) {
-                console.log('createTruckRepairRel执行失败', createTruckRepairRel.failedMsg)
+                //console.log('createTruckRepairRel执行失败', createTruckRepairRel.failedMsg)
+                ToastAndroid.showWithGravity('创建维修失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetCreateTruckRepairRel()
             }
             else if (createTruckRepairRel.isResultStatus == 3) {
-                console.log('createTruckRepairRel服务器异常')
+                ToastAndroid.showWithGravity('创建维修失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+               // console.log('createTruckRepairRel服务器异常')
                 this.props.resetCreateTruckRepairRel()
             }
         }
@@ -280,29 +282,31 @@ class TruckInfo extends Component {
         if (updateTruckRepairRel.isExecStatus == 2) {
             if (updateTruckRepairRel.isResultStatus == 0) {
                 this.props.getTruckRepairRelList({ OptionalParam: { truckId: this.props.initParam.truckId } })
-                console.log('updateTruckRepairRel', '执行成功')
+                ToastAndroid.showWithGravity('终止维修成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)                
+                //console.log('updateTruckRepairRel', '执行成功')
                 this.props.resetUpdateTruckRepairRel()
             }
             else if (updateTruckRepairRel.isResultStatus == 1) {
-                console.log('updateTruckRepairRel异常', updateTruckRepairRel.errorMsg)
+                //console.log('updateTruckRepairRel异常', updateTruckRepairRel.errorMsg)
+                ToastAndroid.showWithGravity('终止维修失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateTruckRepairRel()
             }
             else if (updateTruckRepairRel.isResultStatus == 2) {
-                console.log('updateTruckRepairRel', '执行失败')
+                //console.log('updateTruckRepairRel', '执行失败')
+                ToastAndroid.showWithGravity('终止维修失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)                
                 this.props.resetUpdateTruckRepairRel()
             }
             else if (updateTruckRepairRel.isResultStatus == 3) {
-                console.log('updateTruckRepairRel', '服务器异常')
+                //console.log('updateTruckRepairRel', '服务器异常')
+                ToastAndroid.showWithGravity('终止维修失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)                
                 this.props.resetUpdateTruckRepairRel()
             }
         }
         /************************************ */
 
-        /*changeTruckFirstStatus*/
+        /*changeTruckFirstStatus*/ //完成
         if (changeTruckFirstStatus.isExecStatus == 2) {
             if (changeTruckFirstStatus.isResultStatus == 0) {
-                // this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
-                console.log('changeTruckFirstStatus', '执行成功')
                 Actions.refresh({
                     rightType: 1,
                     truckStatus: nextProps.truckInfoReducer.data.truckInfo.truck_status,
@@ -313,40 +317,50 @@ class TruckInfo extends Component {
                         truckStatus: nextProps.truckInfoReducer.data.truckInfo.truck_status
                     })
                 })
+                ToastAndroid.showWithGravity('操作成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetChangeTruckFirstStatus()
             }
             else if (changeTruckFirstStatus.isResultStatus == 1) {
-                console.log('changeTruckFirstStatus异常', changeTruckFirstStatus.errorMsg)
+                ToastAndroid.showWithGravity('操作失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetChangeTruckFirstStatus()
             }
             else if (changeTruckFirstStatus.isResultStatus == 2) {
-                console.log('changeTruckFirstStatus', '执行失败')
+                ToastAndroid.showWithGravity(`操作失败，${changeTruckFirstStatus.failedMsg}！`, ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetChangeTruckFirstStatus()
             }
             else if (changeTruckFirstStatus.isResultStatus == 3) {
-                console.log('changeTruckFirstStatus', '服务器异常')
+                ToastAndroid.showWithGravity('操作失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetChangeTruckFirstStatus()
             }
         }
         /************************************ */
 
-        /*changeTruckTrailerStatus*/
+        /*changeTruckTrailerStatus*/ //完成
         if (changeTruckTrailerStatus.isExecStatus == 2) {
             if (changeTruckTrailerStatus.isResultStatus == 0) {
-                this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
-                console.log('changeTruckTrailerStatus', '执行成功')
+                Actions.refresh({
+                    rightType: 1,
+                    truckStatus: nextProps.truckInfoReducer.data.truckInfo.truck_status,
+                    onPressRight: () => this.onChangeTruckStatus({
+                        truckType: nextProps.truckInfoReducer.data.truckInfo.truck_type,
+                        userId: nextProps.userReducer.user.userId,
+                        truckId: nextProps.truckInfoReducer.data.truckInfo.id,
+                        truckStatus: nextProps.truckInfoReducer.data.truckInfo.truck_status
+                    })
+                })
+                ToastAndroid.showWithGravity('操作成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetChangeTruckTrailerStatus()
             }
             else if (changeTruckTrailerStatus.isResultStatus == 1) {
-                console.log('changeTruckTrailerStatus异常', changeTruckTrailerStatus.errorMsg)
+                ToastAndroid.showWithGravity('操作失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetChangeTruckTrailerStatus()
             }
             else if (changeTruckTrailerStatus.isResultStatus == 2) {
-                console.log('changeTruckTrailerStatus', '执行失败')
+                ToastAndroid.showWithGravity(`操作失败，${changeTruckTrailerStatus.failedMsg}！`, ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetChangeTruckTrailerStatus()
             }
             else if (changeTruckTrailerStatus.isResultStatus == 3) {
-                console.log('changeTruckTrailerStatus', '服务器异常')
+                ToastAndroid.showWithGravity('操作失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetChangeTruckTrailerStatus()
             }
         }
@@ -436,115 +450,115 @@ class TruckInfo extends Component {
         }
         /************************************ */
 
-        /*updateDrivingImage*/
+        /*updateDrivingImage*/ //完成
         if (updateDrivingImage.isExecStatus == 2) {
             if (updateDrivingImage.isResultStatus == 0) {
-                this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
-                console.log('updateDrivingImage', '执行成功')
+                this.props.setPhoto(data.truckInfo.driving_image)
+                ToastAndroid.showWithGravity('行驶证图片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDrivingImage()
             }
             else if (updateDrivingImage.isResultStatus == 1) {
-                console.log('updateDrivingImage异常', updateDrivingImage.errorMsg)
+                ToastAndroid.showWithGravity('行驶证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDrivingImage()
             }
             else if (updateDrivingImage.isResultStatus == 2) {
-                console.log('updateDrivingImage', '执行失败')
+                ToastAndroid.showWithGravity('行驶证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDrivingImage()
             }
             else if (updateDrivingImage.isResultStatus == 3) {
-                console.log('updateDrivingImage', '服务器异常')
+                ToastAndroid.showWithGravity('行驶证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDrivingImage()
             }
         }
         /************************************ */
 
-        /*updateLicenseImage*/
+        /*updateLicenseImage*/ //完成
         if (updateLicenseImage.isExecStatus == 2) {
             if (updateLicenseImage.isResultStatus == 0) {
-                this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
-                console.log('updateLicenseImage', '执行成功')
+                this.props.setPhoto(data.truckInfo.license_image)
+                ToastAndroid.showWithGravity('营运证图片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateLicenseImage()
             }
             else if (updateLicenseImage.isResultStatus == 1) {
-                console.log('updateLicenseImage异常', updateLicenseImage.errorMsg)
+                ToastAndroid.showWithGravity('营运证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateLicenseImage()
             }
             else if (updateLicenseImage.isResultStatus == 2) {
-                console.log('updateLicenseImage', '执行失败')
+                ToastAndroid.showWithGravity('营运证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateLicenseImage()
             }
             else if (updateLicenseImage.isResultStatus == 3) {
-                console.log('updateLicenseImage', '服务器异常')
+                ToastAndroid.showWithGravity('营运证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateLicenseImage()
             }
         }
         /************************************ */
 
-        /*createTruckImage*/
+        /*createTruckImage*/ //完成
         if (createTruckImage.isExecStatus == 2) {
             if (createTruckImage.isResultStatus == 0) {
-                console.log('createTruckImage', '执行成功')
-                this.props.getTruckRecord({ requiredParam: { userId: this.props.userReducer.user.userId, truckNum: this.props.initParam.truck_num } })
+                //this.props.initPhotoList(nextProps.truckInfoReducer.data.imageList.map((item) => item.url))
+                 ToastAndroid.showWithGravity('车辆图片上传成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetCreateTruckImage()
             }
             else if (createTruckImage.isResultStatus == 1) {
-                console.log('createTruckImage异常', createTruckImage.errorMsg)
+                ToastAndroid.showWithGravity('车辆图片上传失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetCreateTruckImage()
             }
             else if (createTruckImage.isResultStatus == 2) {
-                console.log('createTruckImage', '执行失败')
+                ToastAndroid.showWithGravity('车辆图片上传失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetCreateTruckImage()
             }
             else if (createTruckImage.isResultStatus == 3) {
-                console.log('createTruckImage', '服务器异常')
+                ToastAndroid.showWithGravity('车辆图片上传失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetCreateTruckImage()
             }
         }
         /************************************ */
 
-        /*delTruckImage*/
+        /*delTruckImage*/ //完成
         if (delTruckImage.isExecStatus == 2) {
             if (delTruckImage.isResultStatus == 0) {
-                console.log('delTruckImage', '执行成功')
                 this.props.initPhotoList(nextProps.truckInfoReducer.data.imageList.map((item) => item.url))
+                ToastAndroid.showWithGravity('车辆图片删除成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetDelTruckImage()
             }
             else if (delTruckImage.isResultStatus == 1) {
-                console.log('delTruckImage', delTruckImage.errorMsg)
+                ToastAndroid.showWithGravity('车辆图片删除失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetDelTruckImage()
             }
             else if (delTruckImage.isResultStatus == 2) {
-                console.log('delTruckImage', '执行失败')
+                ToastAndroid.showWithGravity('车辆图片删除失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetDelTruckImage()
             }
             else if (delTruckImage.isResultStatus == 3) {
-                console.log('delTruckImage', '服务器异常')
+                ToastAndroid.showWithGravity('车辆图片删除失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetDelTruckImage()
             }
         }
         /************************************ */
 
-        /*updateTruckInfo*/
+        /*updateTruckInfo*/ //完成
         if (updateTruckInfo.isExecStatus == 2) {
             if (updateTruckInfo.isResultStatus == 0) {
-                console.log('updateTruckInfo', '执行成功')
+                //console.log('updateTruckInfo', '执行成功')
                 ToastAndroid.showWithGravity('修改成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateTruckInfo()
             }
             else if (updateTruckInfo.isResultStatus == 1) {
-                console.log('updateTruckInfo', updateTruckInfo.errorMsg)
+                //console.log('updateTruckInfo', updateTruckInfo.errorMsg)
                 ToastAndroid.showWithGravity('修改失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
                 this.props.resetUpdateTruckInfo()
             }
             else if (updateTruckInfo.isResultStatus == 2) {
-                console.log('updateTruckInfo执行失败', updateTruckInfo.failedMsg)
+                //console.log('updateTruckInfo执行失败', updateTruckInfo.failedMsg)
                 ToastAndroid.showWithGravity('修改失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
                 this.props.resetUpdateTruckInfo()
             }
             else if (updateTruckInfo.isResultStatus == 3) {
-                console.log('updateTruckInfo', '服务器异常')
+                //console.log('updateTruckInfo', '服务器异常')
                 ToastAndroid.showWithGravity('修改失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } })
                 this.props.resetUpdateTruckInfo()
@@ -1030,6 +1044,7 @@ class TruckInfo extends Component {
         )
     }
 
+    //完成
     unBindDriver() {
         this.props.unBindDriver({
             requiredParam: {
@@ -1044,6 +1059,7 @@ class TruckInfo extends Component {
         })
     }
 
+    //完成
     bindDriver(param) {
         this.props.bindDriver({
             requiredParam: {
@@ -1058,6 +1074,7 @@ class TruckInfo extends Component {
         })
     }
 
+    //完成
     bindTrail(param) {
         if (this.props.truckInfoReducer.data.truckInfo.truck_type == 1) {
             this.props.bindTruck({
@@ -1086,6 +1103,7 @@ class TruckInfo extends Component {
         }
     }
 
+    //完成
     unBindTrail() {
         if (this.props.truckInfoReducer.data.truckInfo.truck_type == 1) {
             this.props.unBindTruck({
@@ -1114,6 +1132,7 @@ class TruckInfo extends Component {
         }
     }
 
+    //完成
     onChangeTruckStatus(param) {
         const { truckId, truckType, userId, truckStatus } = param
         if (truckType == 1) {
@@ -1135,6 +1154,7 @@ class TruckInfo extends Component {
         }
     }
 
+    //完成
     launchCamera = (onGetPhoto) => {
         ImagePicker.showImagePicker(photoOptions, (response) => {
             if (response.didCancel) {
@@ -1163,6 +1183,7 @@ class TruckInfo extends Component {
         })
     }
 
+    //完成
     openPicker(onGetPhoto) {
         ImageCropPicker.openPicker({
             multiple: false
@@ -1186,14 +1207,17 @@ class TruckInfo extends Component {
         })
     }
 
+    //完成
     onPressUpdateDrivingImage() {
         this.launchCamera(this.updateDrivingImage)
     }
 
+    //完成
     onPressUpdateLicenseImage() {
         this.launchCamera(this.updateLicenseImage)
     }
 
+    //完成
     updateDrivingImage(param) {
         this.props.updateDrivingImage({
             requiredParam: {
@@ -1213,6 +1237,7 @@ class TruckInfo extends Component {
         })
     }
 
+    //完成
     updateLicenseImage(param) {
         this.props.updateLicenseImage({
             requiredParam: {
@@ -1232,6 +1257,7 @@ class TruckInfo extends Component {
         })
     }
 
+    //完成
     onShowDrivingImage() {
         this.props.setPhoto(this.props.truckInfoReducer.data.truckInfo.driving_image)
         RouterDirection.singlePhotoView(this.props.parent)({
@@ -1241,6 +1267,7 @@ class TruckInfo extends Component {
         })
     }
 
+    //完成
     onShowLicenseImage() {
         this.props.setPhoto(this.props.truckInfoReducer.data.truckInfo.license_image)
         RouterDirection.singlePhotoView(this.props.parent)({
@@ -1251,6 +1278,7 @@ class TruckInfo extends Component {
 
     }
 
+    //完成
     onShowTruckImage(index) {
         this.props.initPhotoList(this.props.truckInfoReducer.data.imageList.map((item) => item.url))
         RouterDirection.customPhotoView(this.props.parent)({
@@ -1261,6 +1289,7 @@ class TruckInfo extends Component {
         })
     }
 
+    //完成
     createTruckImage(param) {
         this.props.createTruckImage({
             requiredParam: {
@@ -1272,9 +1301,9 @@ class TruckInfo extends Component {
                 imageType: 2
             },
             postParam: {
-                username: this.props.userReducer.data.user.mobile,
+                username: this.props.userReducer.user.mobile,
                 userid: this.props.userReducer.user.userId,
-                userType: this.props.userReducer.data.user.userType,
+                userType: this.props.userReducer.user.userType,
             },
             postFileParam: {
                 ...param.postFileParam,
@@ -1283,6 +1312,7 @@ class TruckInfo extends Component {
         })
     }
 
+    //完成
     delTruckImage(param) {
         this.props.delTruckImage({
             requiredParam: {
@@ -1415,9 +1445,19 @@ class TruckInfo extends Component {
         )
     }
 
-    onAddInsurance() {
-        this.props.getTruckInsureRel({ OptionalParam: { truckId: this.props.initParam.truckId, active: 1 } })
+    onAddInsurance(param) {
+        this.props.addTruckInfoInsurance({
+            end_date: param.endDate,
+            insure_name: param.insure,
+            insure_money: param.insureMoney,
+            insure_num: param.insureNum,
+            start_date: param.startDate,
+            end_date: param.endDate,
+            insure_date: param.createDate,
+            insure_type:param.insureType
+        })
     }
+
     renderInsuranceList() {
         let insuranceList = this.props.truckInfoReducer.data.truckInsureRelList.map((item, i) => {
             let panelStyle = (i == this.props.truckInfoReducer.data.truckInsureRelList.length - 1) ? { marginVertical: 10 } : { marginTop: 10 }
@@ -1631,6 +1671,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     resetUpdateTruckInfo: () => {
         dispatch(resetUpdateTruckInfo())
+    },
+    addTruckInfoInsurance:(param)=>{
+        dispatch(addTruckInfoInsurance(param))
     }
 })
 

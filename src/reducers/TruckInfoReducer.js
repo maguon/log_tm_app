@@ -7,7 +7,7 @@ const initialState = {
         recordList: [],
         imageList: [],
         truckInsureRelList: [],
-        truckRepairRelList:[]
+        truckRepairRelList: []
     },
     truckInfo: {
         isResultStatus: 0,
@@ -79,49 +79,49 @@ const initialState = {
         failedMsg: '',
         serviceFailedMsg: ''
     },
-    truckRepairRelList:{
+    truckRepairRelList: {
         isResultStatus: 0,
         isExecStatus: 0,
         errorMsg: '',
         failedMsg: '',
         serviceFailedMsg: ''
     },
-    createTruckRepairRel:{
+    createTruckRepairRel: {
         isResultStatus: 0,
         isExecStatus: 0,
         errorMsg: '',
         failedMsg: '',
         serviceFailedMsg: ''
     },
-    updateTruckRepairRel:{
+    updateTruckRepairRel: {
         isResultStatus: 0,
         isExecStatus: 0,
         errorMsg: '',
         failedMsg: '',
         serviceFailedMsg: ''
     },
-    updateDrivingImage:{
+    updateDrivingImage: {
         isResultStatus: 0,
         isExecStatus: 0,
         errorMsg: '',
         failedMsg: '',
         serviceFailedMsg: ''
     },
-    updateLicenseImage:{
+    updateLicenseImage: {
         isResultStatus: 0,
         isExecStatus: 0,
         errorMsg: '',
         failedMsg: '',
         serviceFailedMsg: ''
     },
-    createTruckImage:{
+    createTruckImage: {
         isResultStatus: 0,
         isExecStatus: 0,
         errorMsg: '',
         failedMsg: '',
         serviceFailedMsg: ''
     },
-    delTruckImage:{
+    delTruckImage: {
         isResultStatus: 0,
         isExecStatus: 0,
         errorMsg: '',
@@ -353,6 +353,7 @@ export default handleActions({
         }
     },
 
+    //完成
     [(actionTypes.truckInfoTypes.ChangeTruckFirstStatus_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         return {
@@ -429,9 +430,18 @@ export default handleActions({
         }
     },
 
+    //完成
     [(actionTypes.truckInfoTypes.ChangeTruckTrailerStatus_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
         return {
             ...state,
+            data: {
+                ...state.data,
+                truckInfo: {
+                    ...state.data.truckInfo,
+                    truck_status: data
+                }
+            },
             changeTruckTrailerStatus: {
                 ...state.changeTruckTrailerStatus,
                 isResultStatus: 0,
@@ -944,8 +954,8 @@ export default handleActions({
                 serviceFailedMsg: ''
             }
         }
-    }, 
-    
+    },
+
     [(actionTypes.truckInfoTypes.UpdateTruckRepairRel_SUCCESS)]: (state, action) => {
         return {
             ...state,
@@ -1014,9 +1024,18 @@ export default handleActions({
         }
     },
 
+    //完成
     [(actionTypes.truckInfoTypes.UPDATE_TruckInfoDrivingImage_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
         return {
             ...state,
+            data: {
+                ...state.data,
+                truckInfo: {
+                    ...state.data.truckInfo,
+                    driving_image: data
+                }
+            },
             updateDrivingImage: {
                 ...state.updateDrivingImage,
                 isResultStatus: 0,
@@ -1082,9 +1101,18 @@ export default handleActions({
         }
     },
 
+    //完成
     [(actionTypes.truckInfoTypes.UPDATE_TruckInfoLicenseImage_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
         return {
             ...state,
+            data: {
+                ...state.data,
+                truckInfo: {
+                    ...state.data.truckInfo,
+                    license_image: data
+                }
+            },
             updateLicenseImage: {
                 ...state.updateLicenseImage,
                 isResultStatus: 0,
@@ -1150,9 +1178,15 @@ export default handleActions({
         }
     },
 
+    //完成
     [(actionTypes.truckInfoTypes.CREATE_TruckInfoTruckImage_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
         return {
             ...state,
+            data: {
+                ...state.data,
+                imageList: [...state.data.imageList, { url: data }]
+            },
             createTruckImage: {
                 ...state.createTruckImage,
                 isResultStatus: 0,
@@ -1218,13 +1252,14 @@ export default handleActions({
         }
     },
 
+    //完成
     [(actionTypes.truckInfoTypes.DEL_TruckInfoTruckImage_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
             data: {
                 ...state.data,
-                imageList: data,
+                imageList: data
             },
             delTruckImage: {
                 ...state.delTruckImage,
@@ -1301,6 +1336,16 @@ export default handleActions({
                     ...state.data.truckInfo,
                     ...data
                 }
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.Add_TruckInfoInsurance)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                truckInsureRelList: [...state.data.truckInsureRelList, data]
             }
         }
     },

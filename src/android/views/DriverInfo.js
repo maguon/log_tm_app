@@ -95,11 +95,11 @@ class DriverInfo extends Component {
         this.updateDriverInfo = this.updateDriverInfo.bind(this)
     }
 
-    static defaultProps = {
-        initParam: {
-            driverId: 112
-        }
-    }
+    // static defaultProps = {
+    //     initParam: {
+    //         driverId: 112
+    //     }
+    // }
 
     componentDidMount() {
         this.props.getDriverInfo({ OptionalParam: { driveId: this.props.initParam.driverId } })

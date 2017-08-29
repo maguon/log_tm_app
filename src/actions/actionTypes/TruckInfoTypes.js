@@ -121,5 +121,6 @@ export const DEL_TruckInfoTruckImage_ERROR = 'DEL_TruckInfoTruckImage_ERROR'
 export const RESET_DEL_TruckInfoTruckImage = 'RESET_DEL_TruckInfoTruckImage'
 
 export const CLEAN_TruckInfoReducer = 'CLEAN_TruckInfoReducer'
+export const Add_TruckInfoInsurance = 'Add_TruckInfoInsurance'
 
 
