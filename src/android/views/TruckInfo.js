@@ -824,7 +824,6 @@ class TruckInfo extends Component {
     }
 
     renderTrailerInfoEnable() {
-        console.log(RouterDirection.selectTruck)
         return (
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View>
@@ -1409,7 +1408,7 @@ class TruckInfo extends Component {
                 {truckRepairing ? <View style={{ paddingHorizontal: 10, paddingVertical: 10, borderBottomWidth: 0.5, borderColor: '#e3e3e3' }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 12 }}>维修日期：{new Date(truckRepairing.repair_date).toLocaleDateString()}</Text>
-                        <Button small style={{ backgroundColor: '#00cade' }} onPress={() => Actions.updateRepairAtTruckBlock({ onRepairUpdate: this.onRepairUpdate })}>
+                        <Button small style={{ backgroundColor: '#00cade' }} onPress={() => RouterDirection.updateRepair(this.props.parent)({ onRepairUpdate: this.onRepairUpdate })}>
                             <Text style={{ color: '#fff' }}>结束</Text>
                         </Button>
                     </View>
@@ -1420,7 +1419,7 @@ class TruckInfo extends Component {
                         <Text style={{ fontSize: 12 }}>{truckRepairing.repair_reason}</Text>
                     </View>
                 </View> : <View style={{ paddingVertical: 10, borderBottomWidth: 0.5, borderColor: '#e3e3e3' }}>
-                        <Button small onPress={() => Actions.addRepairAtTruckBlock({ OnRepairSave: this.OnRepairSave })} style={{ backgroundColor: '#f27d80', alignSelf: 'center' }}>
+                        <Button small onPress={() => RouterDirection.addRepair(this.props.parent)({ OnRepairSave: this.OnRepairSave })} style={{ backgroundColor: '#f27d80', alignSelf: 'center' }}>
                             <Text style={{ color: '#fff' }}>维修</Text>
                         </Button>
                     </View>}
@@ -1492,7 +1491,7 @@ class TruckInfo extends Component {
             <View style={{ paddingVertical: 10, paddingHorizontal: 10, backgroundColor: '#fff' }}>
                 <Button
                     small
-                    onPress={() => Actions.addInsurance({ initParam: this.props.initParam, onAddInsurance: this.onAddInsurance })}
+                    onPress={() => RouterDirection.addInsurance(this.props.parent)({ initParam: this.props.initParam, onAddInsurance: this.onAddInsurance })}
                     style={{ backgroundColor: '#00cade', alignSelf: 'flex-end' }}>
                     <Text style={{ color: '#fff', fontSize: 12 }}>增加保单</Text>
                 </Button>

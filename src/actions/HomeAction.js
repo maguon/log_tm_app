@@ -60,3 +60,23 @@ export const resetGetTruckRepairRelCount = () => (dispatch) => {
     dispatch({ type: actionTypes.homeTypes.RESET_GET_TruckRepairRelCount, payload: {} })
 }
 
+
+export const getDriverlicenseCount = () => async (dispatch) => {
+    const url = `${base_host}/licenseCount?${ObjectToUrl(param.OptionalParam)}`
+    dispatch({ type: actionTypes.homeTypes.GET_DriverlicenseCount_WAITING, payload: {} })
+    try {
+        let res = await httpRequest.get(url)
+        if (res.success) {
+            dispatch({ type: actionTypes.homeTypes.GET_DriverlicenseCount_SUCCESS, payload: { data: res.result } })
+        } else {
+            dispatch({ type: actionTypes.homeTypes.GET_DriverlicenseCount_FAILED, payload: { data: res.msg } })
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.homeTypes.GET_DriverlicenseCount_ERROR, payload: { data: err } })
+    }
+}
+
+export const resetGetDriverlicenseCount = () => (dispatch) => {
+    dispatch({ type: actionTypes.homeTypes.RESET_GET_DriverlicenseCount, payload: {} })
+}
+

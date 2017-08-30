@@ -10,7 +10,8 @@ const initialState = {
             wCount: 0
         },
         waitingInspectCount: 0,
-        truckRepairRelCount:0
+        truckRepairRelCount:0,
+        driverlicenseCount:0
     },
     operateTypeCount: {
         isResultStatus: 0,
@@ -32,6 +33,13 @@ const initialState = {
         errorMsg: '',
         failedMsg: '',
         serviceFailedMsg: ''
+    },
+    getDriverlicenseCount:{
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: '' 
     }
 }
 
@@ -277,7 +285,80 @@ export default handleActions({
                 serviceFailedMsg: ''
             }
         }
-    }
+    },
 
+
+    [(actionTypes.homeTypes.GET_DriverlicenseCount_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                driverlicenseCount: data[0].license_count
+            },
+            getDriverlicenseCount: {
+                ...state.getDriverlicenseCount,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.homeTypes.GET_DriverlicenseCount_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            getDriverlicenseCount: {
+                ...state.getDriverlicenseCount,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.homeTypes.GET_DriverlicenseCount_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            getDriverlicenseCount: {
+                ...state.getDriverlicenseCount,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.homeTypes.GET_DriverlicenseCount_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            getDriverlicenseCount: {
+                ...state.getDriverlicenseCount,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.homeTypes.GET_DriverlicenseCount_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            getDriverlicenseCount: {
+                ...state.getDriverlicenseCount,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.homeTypes.RESET_GET_DriverlicenseCount)]: (state, action) => {      
+        return {
+            ...state,
+            getDriverlicenseCount: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    }
 
 }, initialState)

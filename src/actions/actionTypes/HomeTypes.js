@@ -19,4 +19,11 @@ export const GET_TruckRepairRelCount_SERVICEERROR = 'GET_TruckRepairRelCount_SER
 export const GET_TruckRepairRelCount_ERROR = 'GET_TruckRepairRelCount_ERROR'
 export const RESET_GET_TruckRepairRelCount = 'RESET_GET_TruckRepairRelCount'
 
+export const GET_DriverlicenseCount_SUCCESS = 'GET_DriverlicenseCount_SUCCESS'
+export const GET_DriverlicenseCount_FAILED = 'GET_DriverlicenseCount_FAILED'
+export const GET_DriverlicenseCount_WAITING = 'GET_DriverlicenseCount_WAITING'
+export const GET_DriverlicenseCount_SERVICEERROR = 'GET_DriverlicenseCount_SERVICEERROR'
+export const GET_DriverlicenseCount_ERROR = 'GET_DriverlicenseCount_ERROR'
+export const RESET_GET_DriverlicenseCount = 'RESET_GET_DriverlicenseCount'
+
 export const CLEAN_HomeReducer = 'CLEAN_HomeReducer'
