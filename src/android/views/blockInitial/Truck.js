@@ -150,10 +150,39 @@ export default class Truck extends Component {
                             />
                         </View>
                     </View>
-                    <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
-                        <Button full onPress={this.onShowTruckFirstList} style={{ backgroundColor: '#00cade' }}>
-                            <Text style={{ color: '#fff' }}>搜索</Text>
-                        </Button>
+                    <View style={{ paddingVertical: 10, flexDirection: 'row' }}>
+                        <View style={{ paddingHorizontal: 10, flex: 1 }}>
+                            <Button full onPress={() => this.setState({
+                                brandIdTruckFirst: '',
+                                brandNameTruckFirst: '',
+                                truckNumTruckFirst: '',
+                                repairStatusTruckFirst: '',
+                                repairStatusValueTruckFirst: '',
+                                companyIdTruckFirst: '',
+                                companyNameTruckFirst: '',
+                                drivingDateStartTruckFirst: '',
+                                drivingDateEndTruckFirst: '',
+                                licenseDateStartTruckFirst: '',
+                                licenseDateEndTruckFirst: '',
+
+                                truckNumTruckTrailer: '',
+                                repairStatusTruckTrailer: '',
+                                repairStatusValueTruckTrailer: '',
+                                companyIdTruckTrailer: '',
+                                companyNameTruckTrailer: '',
+                                drivingDateStartTruckTrailer: '',
+                                drivingDateEndTruckTrailer: '',
+                                licenseDateStartTruckTrailer: '',
+                                licenseDateEndTruckTrailer: '',
+                            })} style={{ backgroundColor: '#00cade' }}>
+                                <Text style={{ color: '#fff' }}>重置</Text>
+                            </Button>
+                        </View>
+                        <View style={{ paddingHorizontal: 10, flex: 1 }}>
+                            <Button full onPress={this.onShowTruckFirstList} style={{ backgroundColor: '#00cade' }}>
+                                <Text style={{ color: '#fff' }}>搜索</Text>
+                            </Button>
+                        </View>
                     </View>
                 </View>
             </ScrollView>

@@ -97,10 +97,28 @@ export default class Driver extends Component {
                             />
                         </View>
                     </View>
-                    <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
-                        <Button full onPress={this.onPressSearch} style={{ backgroundColor: '#00cade' }}>
-                            <Text style={{ color: '#fff' }}>搜索</Text>
-                        </Button>
+                    <View style={{ paddingVertical: 10, flexDirection: 'row' }}>
+                        <View style={{ paddingHorizontal: 10, flex: 1 }}>
+                            <Button full onPress={() => this.setState({
+                                driverName: null,
+                                tel: null,
+                                companyId: null,
+                                company: null,
+                                truckNum: null,
+                                driveStatus: null,
+                                driveStatusValue: null,
+                                licenseType: null,
+                                licenseDateStart: null,
+                                licenseDateEnd: null
+                            })} style={{ backgroundColor: '#00cade' }}>
+                                <Text style={{ color: '#fff' }}>重置</Text>
+                            </Button>
+                        </View>
+                        <View style={{  paddingHorizontal: 10,flex: 1 }}>
+                            <Button full onPress={this.onPressSearch} style={{ backgroundColor: '#00cade' }}>
+                                <Text style={{ color: '#fff' }}>搜索</Text>
+                            </Button>
+                        </View>
                     </View>
                 </View>
             </ScrollView >
