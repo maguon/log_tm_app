@@ -174,11 +174,11 @@ class Home extends Component {
                             </View>}
                         </View>
                         <View style={{ flex: 1 }}>
-                            <Text style={{ fontSize: 30, color: '#fd8a8d' }}>{param.count}</Text>
+                            <Text style={{ fontSize: 20, color: '#fd8a8d' }}>{param.count}</Text>
                         </View>
                     </View>
                     <View>
-                        <Icon name='ios-arrow-forward' style={{ fontSize: 25, color: '#7a7a7a' }} />
+                        <Icon name='ios-arrow-forward' style={{ fontSize: 15, color: '#7a7a7a' }} />
                     </View>
                 </View>
             </TouchableNativeFeedback>
