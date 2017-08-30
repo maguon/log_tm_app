@@ -824,6 +824,7 @@ class TruckInfo extends Component {
     }
 
     renderTrailerInfoEnable() {
+        console.log(RouterDirection.selectTruck)
         return (
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View>
@@ -883,12 +884,6 @@ class TruckInfo extends Component {
                                 </View>
                             </TouchableNativeFeedback>}
                     </View>
-                    {/* <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View><Text style={{ fontSize: 12 }}>关联车头：辽B12345</Text></View>
-                        <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
-                            <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
-                        </View>
-                    </View> */}
                     <DateTimePicker
                         title='行驶证检证日期：'
                         value={this.props.truckInfoReducer.data.truckInfo.driving_date ? new Date(this.props.truckInfoReducer.data.truckInfo.driving_date).toLocaleDateString() : '请选择'}
