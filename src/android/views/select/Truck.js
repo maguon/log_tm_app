@@ -34,7 +34,8 @@ class Truck extends Component {
         this.props.getTruckList(
             {
                 OptionalParam: {
-                    truckType: this.props.initParam.type
+                    truckType: this.props.initParam.type,
+                    truckStatus:1
                 }
             }
         )
@@ -48,20 +49,18 @@ class Truck extends Component {
 
     tractorListFilter() {
         return this.props.selectTruckReducer.data.tractorList.filter((item) => {
-            return item.truck_num.toUpperCase().indexOf(this.state.truckNum) >= 0 || item.truck_num.toLowerCase().indexOf(this.state.truckNum) >= 0
+            return !item.trail_id&& (item.truck_num.toUpperCase().indexOf(this.state.truckNum) >= 0 || item.truck_num.toLowerCase().indexOf(this.state.truckNum) >= 0) 
         })
     }
 
 
     trailerListFilter() {
         return this.props.selectTruckReducer.data.trailerList.filter((item) => {
-            return item.truck_num.toUpperCase().indexOf(this.state.truckNum) >= 0 || item.truck_num.toLowerCase().indexOf(this.state.truckNum) >= 0
+            return !item.first_id && (item.truck_num.toUpperCase().indexOf(this.state.truckNum) >= 0 || item.truck_num.toLowerCase().indexOf(this.state.truckNum) >= 0)
         })
     }
 
     render() {
-        console.log(this.props.initParam.type)
-        console.log(this.props)
         return (
             <View>
                 <View style={{ backgroundColor: '#edf1f4' }}>
