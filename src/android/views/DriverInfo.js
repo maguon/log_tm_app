@@ -46,6 +46,7 @@ import ImagePicker from 'react-native-image-picker'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import { setPhoto } from '../../actions/SinglePhotoViewAction'
 import { Actions } from 'react-native-router-flux'
+import DrivingLicenseTypeList from '../../config/DrivingLicenseType.json'
 
 
 var photoOptions = {
@@ -104,6 +105,8 @@ class DriverInfo extends Component {
     componentDidMount() {
         this.props.getDriverInfo({ OptionalParam: { driveId: this.props.initParam.driverId } })
         this.props.getDriverRecord({ requiredParam: { userId: this.props.userReducer.user.userId, driverId: this.props.initParam.driverId } })
+        console.log(DrivingLicenseTypeList)
+        //DrivingLicenseTypeList.find((item) => item.id == this.props.driverInfoReducer.data.driverInfo.license_type).value
     }
 
     componentWillReceiveProps(nextProps) {
@@ -125,7 +128,7 @@ class DriverInfo extends Component {
                     truckStatus: nextProps.driverInfoReducer.data.driverInfo.drive_status,
                     onPressRight: () => this.props.changeDriverStatus({
                         requiredParam: {
-                            userId: nextProps.userReducer.data.user.userId,
+                            userId: nextProps.userReducer.user.userId,
                             driveId: nextProps.driverInfoReducer.data.driverInfo.id,
                             driveStatus: nextProps.driverInfoReducer.data.driverInfo.drive_status == 1 ? 0 : 1
                         }
@@ -216,7 +219,7 @@ class DriverInfo extends Component {
                     truckStatus: nextProps.driverInfoReducer.data.driverInfo.drive_status,
                     onPressRight: () => this.props.changeDriverStatus({
                         requiredParam: {
-                            userId: nextProps.userReducer.data.user.userId,
+                            userId: nextProps.userReducer.user.userId,
                             driveId: nextProps.driverInfoReducer.data.driverInfo.id,
                             driveStatus: nextProps.driverInfoReducer.data.driverInfo.drive_status == 1 ? 0 : 1
                         }
@@ -562,14 +565,14 @@ class DriverInfo extends Component {
                         onValueChange={(param) => this.props.changeDriverInfoField({ sib_tel: param })}
                         placeholder='请输入紧急联系人电话'
                     />
-                    <TagSelect
+                     <TagSelect
                         title='驾证类别：'
-                        value={this.props.driverInfoReducer.data.driverInfo.license_type ? this.props.driverInfoReducer.data.driverInfo.license_type : '请选择'}
+                        value={this.props.driverInfoReducer.data.driverInfo.license_type ? DrivingLicenseTypeList.find((item) => item.id == this.props.driverInfoReducer.data.driverInfo.license_type).value : '请选择'}
                         showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
                         isCheck={this.props.driverInfoReducer.data.driverInfo.license_date && ((Date.parse(new Date(this.props.driverInfoReducer.data.driverInfo.license_date))) < (Date.parse(new Date()) + 30 * 24 * 60 * 60 * 1000))}
-                        onValueChange={(param) => this.props.changeDriverInfoField({ license_type: param.value })}
+                        onValueChange={(param) =>this.props.changeDriverInfoField({ license_type: param.id })}
                         defaultValue={'请选择'}
-                    />
+                    /> 
                     <DateTimePicker
                         value={this.props.driverInfoReducer.data.driverInfo.license_date ? new Date(this.props.driverInfoReducer.data.driverInfo.license_date).toLocaleDateString() : '请选择'}
                         title='驾驶证到期时间：'
@@ -696,10 +699,10 @@ class DriverInfo extends Component {
                     />
                     <TagSelect
                         title='驾证类别：'
-                        value={this.props.driverInfoReducer.data.driverInfo.license_type ? this.props.driverInfoReducer.data.driverInfo.license_type : '请选择'}
+                        value={this.props.driverInfoReducer.data.driverInfo.license_type ? DrivingLicenseTypeList.find((item) => item.id == this.props.driverInfoReducer.data.driverInfo.license_type).value : '请选择'}
                         showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
                         isCheck={this.props.driverInfoReducer.data.driverInfo.license_date && ((Date.parse(new Date(this.props.driverInfoReducer.data.driverInfo.license_date))) < (Date.parse(new Date()) + 30 * 24 * 60 * 60 * 1000))}
-                        onValueChange={(param) => this.props.changeDriverInfoField({ license_type: param.value })}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ license_type: param.id })}
                         defaultValue={'请选择'}
                     />
                     <DateTimePicker
@@ -784,7 +787,6 @@ class DriverInfo extends Component {
     }
 
     render() {
-        //console.log(this.props.driverInfoReducer)
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>

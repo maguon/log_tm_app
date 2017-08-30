@@ -16,12 +16,11 @@ export default class DrivingLicenseType extends Component {
     }
 
     _onPress(param) {
-        this.props.onSelect({ value: param })
+        this.props.onSelect(param)
         Actions.pop()
     }
 
     render() {
-        //console.log(DrivingLicenseTypeList)
         return <FlatList
             showsVerticalScrollIndicator={false}
             data={DrivingLicenseTypeList}
@@ -29,7 +28,7 @@ export default class DrivingLicenseType extends Component {
                 return (
                     <TouchableNativeFeedback key={i} onPress={() => this._onPress(item)} background={TouchableNativeFeedback.SelectableBackground()}>
                         <View style={{ paddingHorizontal: 10, paddingVertical: 10, borderBottomWidth: 0.5, borderColor: '#dddddd' }}>
-                            <Text>{item}</Text>
+                            <Text>{item.value}</Text>
                         </View>
                     </TouchableNativeFeedback>
                 )
