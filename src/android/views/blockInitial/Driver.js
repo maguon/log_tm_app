@@ -25,7 +25,8 @@ export default class Driver extends Component {
             driveStatusValue: null,
             licenseType: null,
             licenseDateStart: null,
-            licenseDateEnd: null
+            licenseDateEnd: null,
+            licenseName: null
         }
     }
 
@@ -77,9 +78,9 @@ export default class Driver extends Component {
                         onCheck={(param) => this.setState({ driveStatusValue: param.value, driveStatus: param.id })} />
                     <Select
                         title='驾证类型：'
-                        value={this.state.licenseType ? this.state.licenseType : '请选择'}
+                        value={this.state.licenseName ? this.state.licenseName : '请选择'}
                         showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
-                        onValueChange={(param) => this.setState({ licenseType: param.value })}
+                        onValueChange={(param) => this.setState({ licenseType: param.id, licenseName: param.value })}
                     />
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ flex: 1 }}>
@@ -109,12 +110,13 @@ export default class Driver extends Component {
                                 driveStatusValue: null,
                                 licenseType: null,
                                 licenseDateStart: null,
-                                licenseDateEnd: null
+                                licenseDateEnd: null,
+                                licenseName: null
                             })} style={{ backgroundColor: '#00cade' }}>
                                 <Text style={{ color: '#fff' }}>重置</Text>
                             </Button>
                         </View>
-                        <View style={{  paddingHorizontal: 10,flex: 1 }}>
+                        <View style={{ paddingHorizontal: 10, flex: 1 }}>
                             <Button full onPress={this.onPressSearch} style={{ backgroundColor: '#00cade' }}>
                                 <Text style={{ color: '#fff' }}>搜索</Text>
                             </Button>
