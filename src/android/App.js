@@ -49,6 +49,7 @@ import CustomPhotoView from './views/CustomPhotoView'
 
 import UpdateRepair from './views/UpdateRepair'
 import AddRepair from './views/AddRepair'
+import TruckHomeFilterList from './views/TruckHomeFilterList'
 
 // import Orientation from 'react-native-orientation'
 // import * as sceneAction from '../actions/SceneAction'
@@ -150,6 +151,7 @@ export default class App extends Component {
                                 <Scene key="selectCompanyTypeAtHomeBlock" component={CompanyType} title='公司类型' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="truckInfoAtHomeBlock" rightType={1} component={TruckInfo} title='车辆信息' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="truckListAtHomeBlock" component={TruckList} title='车辆信息' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="truckHomeFilterList" component={TruckHomeFilterList} title='车辆列表' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectCompanyAtHomeBlock" component={Company} title='所属公司' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectDrivingLicenseTypeAtHomeBlock" component={DrivingLicenseType} title='驾照类型' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="selectInsuranceAtHomeBlock" component={SelectInsurance} title='选择保险公司' hideNavBar={false} navBar={NavBar} hideTabBar={true} />

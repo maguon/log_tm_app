@@ -3,7 +3,7 @@ import { base_host, record_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
-export const getTruckHomeFilterList = (param) => (dispatch) => {
+export const getTruckHomeFilterList = (param) => async (dispatch) => {
     const url = `${base_host}/truckFirst?${ObjectToUrl(param.OptionalParam)}`
     dispatch({ type: actionTypes.truckHomeFilterListTypes.GET_TruckHomeFilterList_WAITING, payload: {} })
     try {

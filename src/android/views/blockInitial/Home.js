@@ -19,6 +19,7 @@ import {
     resetGetTruckRepairRelCount,
     getTruckRepairRelCount
 } from '../../../actions/HomeAction'
+import { Actions } from 'react-native-router-flux'
 
 class Home extends Component {
     constructor(props) {
@@ -32,8 +33,6 @@ class Home extends Component {
         let now = Date.now()
         this.props.getWaitingInspectCount({
             OptionalParam: {
-                truckStatus: 1,
-                drivingDateStart: new Date(now).toLocaleDateString(),
                 drivingDateEnd: new Date(now + 30 * 24 * 60 * 60 * 1000).toLocaleDateString()
             }
         })
@@ -144,7 +143,7 @@ class Home extends Component {
                                 <Text>{param.title}</Text>
                             </View>
                             {param.isWarn && <View style={{ paddingTop: 5 }}>
-                                <Text style={{ color: '#b9c8cf', fontSize: 10 }}>驾驶证临近<Text style={{ color: '#fd8a8d' }}>一个月</Text>失效</Text>
+                                <Text style={{ color: '#b9c8cf', fontSize: 10 }}>{param.warnMsg}<Text style={{ color: '#fd8a8d' }}>一个月</Text>失效</Text>
                             </View>}
                         </View>
                         <View style={{ flex: 1 }}>
@@ -185,23 +184,26 @@ class Home extends Component {
                         </View>
                         <View>
                             {this.renderTruckStatusItem({
-                                status: 0, count: truckRepairRelCount ? truckRepairRelCount.toString() : 0, isWarn: false, title: '维修中车头', router: () => RouterDirection.truckList(this.props.parent)({
-                                    initParam: {
-                                        repairStatus: 0,
-                                        truckType:1
-                                    }
-                                })
+                                status: 0,
+                                count: truckRepairRelCount ? truckRepairRelCount.toString() : 0,
+                                isWarn: false, title: '维修中车头',
+                                router: () => Actions.truckHomeFilterList({ initParam: { repairStatus: 0 } })
                             })}
                             {this.renderTruckStatusItem({
-                                status: 1, count: waitingInspectCount ? waitingInspectCount.toString() : 0, isWarn: true, title: '待检车辆', router: () => RouterDirection.truckList(this.props.parent)({
-                                    initParam: {
-                                        truckStatus: 1,
-                                        drivingDateStart: new Date(Date.now()).toLocaleDateString(),
-                                        drivingDateEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString()
-                                    }
-                                })
+                                status: 1,
+                                count: waitingInspectCount ? waitingInspectCount.toString() : 0,
+                                isWarn: true, title: '待检车辆',
+                                router: () => Actions.truckHomeFilterList({ initParam: { drivingDateEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString() } }),
+                                warnMsg: '行驶证临近'
                             })}
-                            {this.renderTruckStatusItem({ status: 2, count: 297, isWarn: true, title: '待检司机', router: RouterDirection.driverList(this.props.parent) })}
+                            {this.renderTruckStatusItem({
+                                status: 2,
+                                count: 297,
+                                isWarn: true,
+                                title: '待检司机',
+                                router: RouterDirection.driverList(this.props.parent),
+                                warnMsg: '驾驶证临近'
+                            })}
                         </View>
                     </View>
                 </ScrollView>

@@ -5,7 +5,6 @@ import {
     Image,
     TouchableNativeFeedback
 } from 'react-native'
-
 import FontTag from './tag/FontTag'
 
 export default class DriverListItem extends Component {
