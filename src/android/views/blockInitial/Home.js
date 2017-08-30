@@ -17,7 +17,9 @@ import {
     resetGetOperateTypeCount,
     resetGetWaitingInspectCount,
     resetGetTruckRepairRelCount,
-    getTruckRepairRelCount
+    getTruckRepairRelCount,
+    getDriverlicenseCount,
+    resetGetDriverlicenseCount
 } from '../../../actions/HomeAction'
 import { Actions } from 'react-native-router-flux'
 
@@ -37,11 +39,15 @@ class Home extends Component {
             }
         })
         this.props.getTruckRepairRelCount()
-
+        this.props.getDriverlicenseCount({
+            OptionalParam: {
+                licenseDateEnd: new Date(now + 30 * 24 * 60 * 60 * 1000).toLocaleDateString()
+            }
+        })
     }
 
     componentWillReceiveProps(nextProps) {
-        let { operateTypeCount, waitingInspectCount, getTruckRepairRelCount } = nextProps.homeReducer
+        let { operateTypeCount, waitingInspectCount, getTruckRepairRelCount, getDriverlicenseCount } = nextProps.homeReducer
 
         /*operateTypeCount*/
         if (operateTypeCount.isExecStatus == 2) {
@@ -105,6 +111,27 @@ class Home extends Component {
             }
         }
         /************************************ */
+
+        /*getDriverlicenseCount*/
+        if (getDriverlicenseCount.isExecStatus == 2) {
+            if (getDriverlicenseCount.isResultStatus == 0) {
+                console.log('getDriverlicenseCount执行成功')
+                this.props.resetGetDriverlicenseCount()
+            }
+            else if (getDriverlicenseCount.isResultStatus == 1) {
+                console.log('getDriverlicenseCount异常')
+                this.props.resetGetDriverlicenseCount()
+            }
+            else if (getDriverlicenseCount.isResultStatus == 2) {
+                console.log('getDriverlicenseCount执行失败')
+                this.props.resetGetDriverlicenseCount()
+            }
+            else if (getDriverlicenseCount.isResultStatus == 3) {
+                console.log('getDriverlicenseCount服务器异常')
+                this.props.resetGetDriverlicenseCount()
+            }
+        }
+        /************************************ */
     }
 
     renderTruckTypeItem(param) {
@@ -160,7 +187,7 @@ class Home extends Component {
 
     render() {
         const { zCount, wCount, gCount, cCount } = this.props.homeReducer.data.operateTypeCount
-        const { waitingInspectCount, truckRepairRelCount } = this.props.homeReducer.data
+        const { waitingInspectCount, truckRepairRelCount, driverlicenseCount } = this.props.homeReducer.data
         console.log(this.props)
         return (
             <View style={{ flex: 1 }}>
@@ -198,10 +225,10 @@ class Home extends Component {
                             })}
                             {this.renderTruckStatusItem({
                                 status: 2,
-                                count: 297,
+                                count: driverlicenseCount ? driverlicenseCount.toString() : 0,
                                 isWarn: true,
                                 title: '待检司机',
-                                router: RouterDirection.driverList(this.props.parent),
+                                router: () => RouterDirection.driverList(this.props.parent)({ initParam: { licenseDateEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString() } }),
                                 warnMsg: '驾驶证临近'
                             })}
                         </View>
@@ -238,7 +265,14 @@ const mapDispatchToProps = (dispatch) => ({
     getTruckRepairRelCount: () => {
         dispatch(getTruckRepairRelCount())
 
-    }
+    },
+    resetGetDriverlicenseCount: () => {
+        dispatch(resetGetDriverlicenseCount())
+    },
+    getDriverlicenseCount: (param) => {
+        dispatch(getDriverlicenseCount(param))
+
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

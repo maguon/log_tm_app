@@ -17,9 +17,7 @@ class DriverList extends Component {
     }
 
     static defaultProps = {
-        initParam: {
-            companyId: 40
-        }
+        initParam: { }
     }
 
     componentDidMount() {
@@ -30,7 +28,7 @@ class DriverList extends Component {
 
 
     render() {
-       
+       console.log(this.props.initParam)
         return (
             <View style={{ flex: 1, paddingHorizontal: 10, paddingBottom: 10, backgroundColor: '#eff3f6' }}>
                 <FlatList showsVerticalScrollIndicator={false}

@@ -61,11 +61,12 @@ export const resetGetTruckRepairRelCount = () => (dispatch) => {
 }
 
 
-export const getDriverlicenseCount = () => async (dispatch) => {
+export const getDriverlicenseCount = (param) => async (dispatch) => {
     const url = `${base_host}/licenseCount?${ObjectToUrl(param.OptionalParam)}`
     dispatch({ type: actionTypes.homeTypes.GET_DriverlicenseCount_WAITING, payload: {} })
     try {
         let res = await httpRequest.get(url)
+        console.log('res',res)
         if (res.success) {
             dispatch({ type: actionTypes.homeTypes.GET_DriverlicenseCount_SUCCESS, payload: { data: res.result } })
         } else {
@@ -79,4 +80,3 @@ export const getDriverlicenseCount = () => async (dispatch) => {
 export const resetGetDriverlicenseCount = () => (dispatch) => {
     dispatch({ type: actionTypes.homeTypes.RESET_GET_DriverlicenseCount, payload: {} })
 }
-
