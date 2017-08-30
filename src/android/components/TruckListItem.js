@@ -43,8 +43,8 @@ export default class TruckListItem extends Component {
                         </View>
                         <View style={{ flexDirection: 'row', paddingTop: 10  }}>
                             <Text style={{ fontSize: 12, color: '#b9c8cf',flex:1 }}>{this.props.truck.company_name}</Text>
-                            {this.props.truck.truck_type == 1 && <Text style={{ fontSize: 12, color: '#b9c8cf', paddingLeft: 20 ,flex:1}}>主驾：{this.props.truck.drive_name ? this.props.truck.drive_name : '未绑定'}</Text>}
-                            {this.props.truck.truck_type == 2 && <Text style={{ fontSize: 12, color: '#b9c8cf', paddingLeft: 20,flex:1 }}>车头：{this.props.truck.first_num ? this.props.truck.first_num : '未绑定'}</Text>}
+                            {this.props.truck.truck_type == 1 && <Text style={{ fontSize: 12, color: '#b9c8cf', flex:1 }} numberOfLines={1}>主驾：{this.props.truck.drive_name ? this.props.truck.drive_name : '未绑定'}</Text>}
+                            {this.props.truck.truck_type == 2 && <Text style={{ fontSize: 12, color: '#b9c8cf', flex:1 }} numberOfLines={1}>车头：{this.props.truck.first_num ? this.props.truck.first_num : '未绑定'}</Text>}
                         </View>
                     </View>
                     <View style={{ flexDirection: 'row', width: 62,flex:2 }}>
