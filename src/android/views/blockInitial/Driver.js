@@ -34,10 +34,6 @@ export default class Driver extends Component {
         let param = { ...this.state }
         delete param.company
         delete param.driveStatusValue
-        for (var key in param) {
-            if (!param[key])
-                delete param[key]
-        }
         RouterDirection.driverList(this.props.parent)({ initParam: param })
     }
 
@@ -67,7 +63,7 @@ export default class Driver extends Component {
                     <Select
                         title='关联货车：'
                         value={this.state.truckNum ? this.state.truckNum : '请选择'}
-                        showList={RouterDirection.selectTruck(this.props.parent)}
+                        showList={(param) => RouterDirection.selectTruck(this.props.parent)({ ifFilter: false, ...param })}
                         onValueChange={(param) => this.setState({ truckNum: param.value })}
                     />
                     <CheckBox

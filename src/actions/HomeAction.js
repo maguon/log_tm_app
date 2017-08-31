@@ -66,7 +66,6 @@ export const getDriverlicenseCount = (param) => async (dispatch) => {
     dispatch({ type: actionTypes.homeTypes.GET_DriverlicenseCount_WAITING, payload: {} })
     try {
         let res = await httpRequest.get(url)
-        console.log('res',res)
         if (res.success) {
             dispatch({ type: actionTypes.homeTypes.GET_DriverlicenseCount_SUCCESS, payload: { data: res.result } })
         } else {

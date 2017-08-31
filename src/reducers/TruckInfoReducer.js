@@ -1,5 +1,6 @@
 import { handleActions } from 'redux-actions'
 import * as actionTypes from '../actions/actionTypes'
+import moment from 'moment'
 
 const initialState = {
     data: {
@@ -139,7 +140,11 @@ export default handleActions({
             ...state,
             data: {
                 ...state.data,
-                truckInfo: data[0]
+                truckInfo: {
+                    ...data[0],
+                    driving_date: data[0].driving_date ? moment(new Date(data[0].driving_date)).format('YYYY/MM/DD') : null,
+                    license_date: data[0].license_date ? moment(new Date(data[0].license_date)).format('YYYY/MM/DD') : null
+                }
             },
             truckInfo: {
                 ...state.truckInfo,

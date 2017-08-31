@@ -10,6 +10,7 @@ import DateTimePicker from '../../components/form/DateTimePicker'
 import TextBox from '../../components/form/TextBox'
 import CheckBox from '../../components/form/CheckBox'
 import * as RouterDirection from '../../../util/RouterDirection'
+import moment from 'moment'
 
 export default class Truck extends Component {
     constructor(props) {
@@ -108,7 +109,7 @@ export default class Truck extends Component {
                         onValueChange={(param) => this.setState({ companyIdTruckFirst: param.id, companyNameTruckFirst: param.value })}
                         defaultValue={'请选择'}
                     />
-                    <CheckBox listTitle='维修状态' title='维修状态：' value={this.state.repairStatusValueTruckFirst ? this.state.repairStatusValueTruckFirst : '请选择'} itemList={[{ id: 0, value: '正常' }, { id: 1, value: '维修' }]}
+                    <CheckBox listTitle='维修状态' title='维修状态：' value={this.state.repairStatusValueTruckFirst ? this.state.repairStatusValueTruckFirst : '请选择'} itemList={[{ id: 1, value: '正常' }, { id: 0, value: '维修' }]}
                         onCheck={(param) => this.setState({ repairStatusTruckFirst: param.id, repairStatusValueTruckFirst: param.value })} />
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ flex: 3 }}>
@@ -244,10 +245,39 @@ export default class Truck extends Component {
                             />
                         </View>
                     </View>
-                    <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
-                        <Button full onPress={this.onShowTruckTrailerList} style={{ backgroundColor: '#00cade' }}>
-                            <Text style={{ color: '#fff' }}>搜索</Text>
-                        </Button>
+                    <View style={{ paddingVertical: 10, flexDirection: 'row' }}>
+                        <View style={{ paddingHorizontal: 10, flex: 1 }}>
+                            <Button full onPress={() => this.setState({
+                                brandIdTruckFirst: '',
+                                brandNameTruckFirst: '',
+                                truckNumTruckFirst: '',
+                                repairStatusTruckFirst: '',
+                                repairStatusValueTruckFirst: '',
+                                companyIdTruckFirst: '',
+                                companyNameTruckFirst: '',
+                                drivingDateStartTruckFirst: '',
+                                drivingDateEndTruckFirst: '',
+                                licenseDateStartTruckFirst: '',
+                                licenseDateEndTruckFirst: '',
+
+                                truckNumTruckTrailer: '',
+                                repairStatusTruckTrailer: '',
+                                repairStatusValueTruckTrailer: '',
+                                companyIdTruckTrailer: '',
+                                companyNameTruckTrailer: '',
+                                drivingDateStartTruckTrailer: '',
+                                drivingDateEndTruckTrailer: '',
+                                licenseDateStartTruckTrailer: '',
+                                licenseDateEndTruckTrailer: '',
+                            })} style={{ backgroundColor: '#00cade' }}>
+                                <Text style={{ color: '#fff' }}>重置</Text>
+                            </Button>
+                        </View>
+                        <View style={{ paddingHorizontal: 10, flex: 1 }}>
+                            <Button full onPress={this.onShowTruckTrailerList} style={{ backgroundColor: '#00cade' }}>
+                                <Text style={{ color: '#fff' }}>搜索</Text>
+                            </Button>
+                        </View>
                     </View>
                 </View>
             </ScrollView>

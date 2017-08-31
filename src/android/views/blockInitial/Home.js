@@ -22,6 +22,7 @@ import {
     resetGetDriverlicenseCount
 } from '../../../actions/HomeAction'
 import { Actions } from 'react-native-router-flux'
+import moment from 'moment'
 
 class Home extends Component {
     constructor(props) {
@@ -35,13 +36,13 @@ class Home extends Component {
         let now = Date.now()
         this.props.getWaitingInspectCount({
             OptionalParam: {
-                drivingDateEnd: new Date(now + 30 * 24 * 60 * 60 * 1000).toLocaleDateString()
+                drivingDateEnd: moment(now + 30 * 24 * 60 * 60 * 1000).format('YYYYMMDD')
             }
         })
         this.props.getTruckRepairRelCount()
         this.props.getDriverlicenseCount({
             OptionalParam: {
-                licenseDateEnd: new Date(now + 30 * 24 * 60 * 60 * 1000).toLocaleDateString()
+                licenseDateEnd: moment(now + 30 * 24 * 60 * 60 * 1000).format('YYYYMMDD')
             }
         })
     }
@@ -52,19 +53,19 @@ class Home extends Component {
         /*operateTypeCount*/
         if (operateTypeCount.isExecStatus == 2) {
             if (operateTypeCount.isResultStatus == 0) {
-                console.log('operateTypeCount执行成功')
+                //console.log('operateTypeCount执行成功')
                 this.props.resetGetOperateTypeCount()
             }
             else if (operateTypeCount.isResultStatus == 1) {
-                console.log('operateTypeCount异常')
+                //console.log('operateTypeCount异常')
                 this.props.resetGetOperateTypeCount()
             }
             else if (operateTypeCount.isResultStatus == 2) {
-                console.log('operateTypeCount执行失败')
+                //console.log('operateTypeCount执行失败')
                 this.props.resetGetOperateTypeCount()
             }
             else if (operateTypeCount.isResultStatus == 3) {
-                console.log('operateTypeCount服务器异常')
+                //console.log('operateTypeCount服务器异常')
                 this.props.resetGetOperateTypeCount()
             }
         }
@@ -73,19 +74,19 @@ class Home extends Component {
         /*waitingInspectCount*/
         if (waitingInspectCount.isExecStatus == 2) {
             if (waitingInspectCount.isResultStatus == 0) {
-                console.log('waitingInspectCount执行成功')
+                //console.log('waitingInspectCount执行成功')
                 this.props.resetGetWaitingInspectCount()
             }
             else if (waitingInspectCount.isResultStatus == 1) {
-                console.log('waitingInspectCount异常')
+                //console.log('waitingInspectCount异常')
                 this.props.resetGetWaitingInspectCount()
             }
             else if (waitingInspectCount.isResultStatus == 2) {
-                console.log('waitingInspectCount执行失败')
+                //console.log('waitingInspectCount执行失败')
                 this.props.resetGetWaitingInspectCount()
             }
             else if (waitingInspectCount.isResultStatus == 3) {
-                console.log('waitingInspectCount服务器异常')
+                //console.log('waitingInspectCount服务器异常')
                 this.props.resetGetWaitingInspectCount()
             }
         }
@@ -94,19 +95,19 @@ class Home extends Component {
         /*getTruckRepairRelCount*/
         if (getTruckRepairRelCount.isExecStatus == 2) {
             if (getTruckRepairRelCount.isResultStatus == 0) {
-                console.log('getTruckRepairRelCount执行成功')
+                //console.log('getTruckRepairRelCount执行成功')
                 this.props.resetGetTruckRepairRelCount()
             }
             else if (getTruckRepairRelCount.isResultStatus == 1) {
-                console.log('getTruckRepairRelCount异常')
+                //console.log('getTruckRepairRelCount异常')
                 this.props.resetGetTruckRepairRelCount()
             }
             else if (getTruckRepairRelCount.isResultStatus == 2) {
-                console.log('getTruckRepairRelCount执行失败')
+                //console.log('getTruckRepairRelCount执行失败')
                 this.props.resetGetTruckRepairRelCount()
             }
             else if (getTruckRepairRelCount.isResultStatus == 3) {
-                console.log('getTruckRepairRelCount服务器异常')
+                //console.log('getTruckRepairRelCount服务器异常')
                 this.props.resetGetTruckRepairRelCount()
             }
         }
@@ -115,19 +116,19 @@ class Home extends Component {
         /*getDriverlicenseCount*/
         if (getDriverlicenseCount.isExecStatus == 2) {
             if (getDriverlicenseCount.isResultStatus == 0) {
-                console.log('getDriverlicenseCount执行成功')
+                //console.log('getDriverlicenseCount执行成功')
                 this.props.resetGetDriverlicenseCount()
             }
             else if (getDriverlicenseCount.isResultStatus == 1) {
-                console.log('getDriverlicenseCount异常')
+                //console.log('getDriverlicenseCount异常')
                 this.props.resetGetDriverlicenseCount()
             }
             else if (getDriverlicenseCount.isResultStatus == 2) {
-                console.log('getDriverlicenseCount执行失败')
+                //console.log('getDriverlicenseCount执行失败')
                 this.props.resetGetDriverlicenseCount()
             }
             else if (getDriverlicenseCount.isResultStatus == 3) {
-                console.log('getDriverlicenseCount服务器异常')
+                //console.log('getDriverlicenseCount服务器异常')
                 this.props.resetGetDriverlicenseCount()
             }
         }
@@ -188,7 +189,6 @@ class Home extends Component {
     render() {
         const { zCount, wCount, gCount, cCount } = this.props.homeReducer.data.operateTypeCount
         const { waitingInspectCount, truckRepairRelCount, driverlicenseCount } = this.props.homeReducer.data
-        console.log(this.props)
         return (
             <View style={{ flex: 1 }}>
                 <ScrollView showsVerticalScrollIndicator={false}>
@@ -220,7 +220,7 @@ class Home extends Component {
                                 status: 1,
                                 count: waitingInspectCount ? waitingInspectCount.toString() : 0,
                                 isWarn: true, title: '待检车辆',
-                                router: () => Actions.truckHomeFilterList({ initParam: { drivingDateEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString() } }),
+                                router: () => Actions.truckHomeFilterList({ initParam: { drivingDateEnd: moment(Date.now() + 30 * 24 * 60 * 60 * 1000).format('YYYYMMDD') } }),
                                 warnMsg: '行驶证临近'
                             })}
                             {this.renderTruckStatusItem({
@@ -228,9 +228,15 @@ class Home extends Component {
                                 count: driverlicenseCount ? driverlicenseCount.toString() : 0,
                                 isWarn: true,
                                 title: '待检司机',
-                                router: () => RouterDirection.driverList(this.props.parent)({ initParam: { licenseDateEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString() } }),
+                                router: () => RouterDirection.driverList(this.props.parent)({ initParam: { licenseDateEnd: moment(Date.now() + 30 * 24 * 60 * 60 * 1000).format('YYYYMMDD') } }),
                                 warnMsg: '驾驶证临近'
                             })}
+                        </View>
+                        <View>
+                            <Text>
+                                {this.props.homeReducer.getDriverlicenseCount.failedMsg}
+                                {this.props.homeReducer.getDriverlicenseCount.errorMsg}
+                            </Text>
                         </View>
                     </View>
                 </ScrollView>

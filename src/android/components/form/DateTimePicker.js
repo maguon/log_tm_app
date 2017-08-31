@@ -9,6 +9,7 @@ import {
 
 import { Icon } from 'native-base'
 import { validate } from '../../../util/Validator'
+import moment from 'moment'
 
 const styles = StyleSheet.create({
     containerSytle: {
@@ -97,7 +98,7 @@ export default class DateTimePicker extends Component {
         try {
             const { action, year, month, day } = await DatePickerAndroid.open(options)
             if (action !== DatePickerAndroid.dismissedAction) {
-                this.changeDateTime(`${year}-${month + 1}-${day}`)
+                this.changeDateTime(moment(new Date(year, month, day)).format('YYYY/MM/DD'))
             }
         } catch ({ code, message }) {
             console.warn(`Error in example : `, message)

@@ -67,6 +67,7 @@ import ImageCropPicker from 'react-native-image-crop-picker'
 import { setPhoto } from '../../actions/SinglePhotoViewAction'
 import { initPhotoList, delPhoto } from '../../actions/CustomPhotoViewAction'
 import TagTextBox from '../components/form/TagTextBox'
+import moment from 'moment'
 
 var photoOptions = {
     //底部弹出框选项
@@ -192,19 +193,19 @@ class TruckInfo extends Component {
         /*truckInsureRel*/
         if (truckInsureRel.isExecStatus == 2) {
             if (truckInsureRel.isResultStatus == 0) {
-               // console.log('truckInsureRel', '执行成功')
+                // console.log('truckInsureRel', '执行成功')
                 this.props.resetGetTruckInsureRel()
             }
             else if (truckInsureRel.isResultStatus == 1) {
-               // console.log('truckInsureRel', '异常')
+                // console.log('truckInsureRel', '异常')
                 this.props.resetGetTruckInsureRel()
             }
             else if (truckInsureRel.isResultStatus == 2) {
-               // console.log('truckInsureRel', '执行失败')
+                // console.log('truckInsureRel', '执行失败')
                 this.props.resetGetTruckInsureRel()
             }
             else if (truckInsureRel.isResultStatus == 3) {
-               // console.log('truckInsureRel', '服务器异常')
+                // console.log('truckInsureRel', '服务器异常')
                 this.props.resetGetTruckInsureRel()
             }
         }
@@ -272,7 +273,7 @@ class TruckInfo extends Component {
             }
             else if (createTruckRepairRel.isResultStatus == 3) {
                 ToastAndroid.showWithGravity('创建维修失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
-               // console.log('createTruckRepairRel服务器异常')
+                // console.log('createTruckRepairRel服务器异常')
                 this.props.resetCreateTruckRepairRel()
             }
         }
@@ -282,7 +283,7 @@ class TruckInfo extends Component {
         if (updateTruckRepairRel.isExecStatus == 2) {
             if (updateTruckRepairRel.isResultStatus == 0) {
                 this.props.getTruckRepairRelList({ OptionalParam: { truckId: this.props.initParam.truckId } })
-                ToastAndroid.showWithGravity('终止维修成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)                
+                ToastAndroid.showWithGravity('终止维修成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 //console.log('updateTruckRepairRel', '执行成功')
                 this.props.resetUpdateTruckRepairRel()
             }
@@ -293,12 +294,12 @@ class TruckInfo extends Component {
             }
             else if (updateTruckRepairRel.isResultStatus == 2) {
                 //console.log('updateTruckRepairRel', '执行失败')
-                ToastAndroid.showWithGravity('终止维修失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)                
+                ToastAndroid.showWithGravity('终止维修失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateTruckRepairRel()
             }
             else if (updateTruckRepairRel.isResultStatus == 3) {
                 //console.log('updateTruckRepairRel', '服务器异常')
-                ToastAndroid.showWithGravity('终止维修失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)                
+                ToastAndroid.showWithGravity('终止维修失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateTruckRepairRel()
             }
         }
@@ -498,7 +499,7 @@ class TruckInfo extends Component {
         if (createTruckImage.isExecStatus == 2) {
             if (createTruckImage.isResultStatus == 0) {
                 //this.props.initPhotoList(nextProps.truckInfoReducer.data.imageList.map((item) => item.url))
-                 ToastAndroid.showWithGravity('车辆图片上传成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity('车辆图片上传成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetCreateTruckImage()
             }
             else if (createTruckImage.isResultStatus == 1) {
@@ -679,13 +680,13 @@ class TruckInfo extends Component {
                             </TouchableNativeFeedback>}
                     </View>
                     <DateTimePicker
-                        value={this.props.truckInfoReducer.data.truckInfo.driving_date ? new Date(this.props.truckInfoReducer.data.truckInfo.driving_date).toLocaleDateString() : '请选择'}
+                        value={this.props.truckInfoReducer.data.truckInfo.driving_date ? this.props.truckInfoReducer.data.truckInfo.driving_date : '请选择'}
                         title='行驶证检证日期：'
                         defaultValue={'请选择'}
                         onValueChange={(param) => this.props.changeTruckInfoField({ driving_date: param })}
                     />
                     <DateTimePicker
-                        value={this.props.truckInfoReducer.data.truckInfo.license_date ? new Date(this.props.truckInfoReducer.data.truckInfo.license_date).toLocaleDateString() : '请选择'}
+                        value={this.props.truckInfoReducer.data.truckInfo.license_date ? this.props.truckInfoReducer.data.truckInfo.license_date : '请选择'}
                         title='营运证检证日期：'
                         defaultValue={'请选择'}
                         onValueChange={(param) => this.props.changeTruckInfoField({ license_date: param })}
@@ -778,13 +779,13 @@ class TruckInfo extends Component {
                         onValueChange={(param) => this.props.changeTruckInfoField({ company_id: param.id, company_name: param.value, operate_type: param.operateType })}
                     />
                     <DateTimePicker
-                        value={this.props.truckInfoReducer.data.truckInfo.driving_date ? new Date(this.props.truckInfoReducer.data.truckInfo.driving_date).toLocaleDateString() : '请选择'}
+                        value={this.props.truckInfoReducer.data.truckInfo.driving_date ? this.props.truckInfoReducer.data.truckInfo.driving_date : '请选择'}
                         title='行驶证检证日期：'
                         defaultValue={'请选择'}
                         onValueChange={(param) => this.props.changeTruckInfoField({ driving_date: param })}
                     />
                     <DateTimePicker
-                        value={this.props.truckInfoReducer.data.truckInfo.license_date ? new Date(this.props.truckInfoReducer.data.truckInfo.license_date).toLocaleDateString() : '请选择'}
+                        value={this.props.truckInfoReducer.data.truckInfo.license_date ? this.props.truckInfoReducer.data.truckInfo.license_date : '请选择'}
                         title='营运证检证日期：'
                         defaultValue={'请选择'}
                         onValueChange={(param) => this.props.changeTruckInfoField({ license_date: param })}
@@ -885,13 +886,13 @@ class TruckInfo extends Component {
                     </View>
                     <DateTimePicker
                         title='行驶证检证日期：'
-                        value={this.props.truckInfoReducer.data.truckInfo.driving_date ? new Date(this.props.truckInfoReducer.data.truckInfo.driving_date).toLocaleDateString() : '请选择'}
+                        value={this.props.truckInfoReducer.data.truckInfo.driving_date ? this.props.truckInfoReducer.data.truckInfo.driving_date : '请选择'}
                         defaultValue={'请选择'}
                         onValueChange={(param) => this.props.changeTruckInfoField({ driving_date: param })}
                     />
                     <DateTimePicker
                         title='营运证检证日期：'
-                        value={this.props.truckInfoReducer.data.truckInfo.license_date ? new Date(this.props.truckInfoReducer.data.truckInfo.license_date).toLocaleDateString() : '请选择'}
+                        value={this.props.truckInfoReducer.data.truckInfo.license_date ? this.props.truckInfoReducer.data.truckInfo.license_date : '请选择'}
                         defaultValue={'请选择'}
                         onValueChange={(param) => this.props.changeTruckInfoField({ license_date: param })}
                     />
@@ -899,7 +900,7 @@ class TruckInfo extends Component {
                         title='备注：'
                         onRequire={(flag) => this.setState({ remarkTrailerValidater: flag })}
                         defaultValue={'请填写'}
-                        value={this.props.truckInfoReducer.data.truckInfo.remark ? new Date(this.props.truckInfoReducer.data.truckInfo.remark).toLocaleDateString() : ''}
+                        value={this.props.truckInfoReducer.data.truckInfo.remark ? this.props.truckInfoReducer.data.truckInfo.remark : ''}
                         onValueChange={(param) => this.props.changeTruckInfoField({ remark: param })}
                         showRichText={RouterDirection.richText(this.props.parent)}
                     />
@@ -933,22 +934,6 @@ class TruckInfo extends Component {
         return (
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View>
-                    {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.5, borderColor: '#ddd' }}>
-                        <View style={{ flex: 5 }}>
-                            <TextBox
-                                title='车牌号：'
-                                containerSytle={{
-                                    paddingVertical: 5,
-                                    paddingHorizontal: 10
-                                }}
-                                defaultValue={''}
-                                onValueChange={(param) => this.onSelect({ vinCode: param })}
-                                placeholder='请输入车牌号'
-                            />
-                        </View>
-                        <View style={{ flex: 1, justifyContent: 'center' }}><Text style={{ color: '#ccc', fontSize: 10 }}>已停用</Text></View>
-                        <View style={{ flex: 1, justifyContent: 'center' }}><FontTag size={26} title='自' color='#12c3eb' fontColor='#fff' /></View>
-                    </View> */}
                     <TagTextBox
                         title='车牌号：'
                         leftTag={10}
@@ -995,20 +980,20 @@ class TruckInfo extends Component {
                     />
                     <DateTimePicker
                         title='行驶证检证日期：'
-                        value={this.props.truckInfoReducer.data.truckInfo.driving_date ? new Date(this.props.truckInfoReducer.data.truckInfo.driving_date).toLocaleDateString() : '请选择'}
+                        value={this.props.truckInfoReducer.data.truckInfo.driving_date ? this.props.truckInfoReducer.data.truckInfo.driving_date : '请选择'}
                         defaultValue={'请选择'}
                         onValueChange={(param) => this.props.changeTruckInfoField({ driving_date: param })}
                     />
                     <DateTimePicker
                         title='营运证检证日期：'
-                        value={this.props.truckInfoReducer.data.truckInfo.license_date ? new Date(this.props.truckInfoReducer.data.truckInfo.license_date).toLocaleDateString() : '请选择'}
+                        value={this.props.truckInfoReducer.data.truckInfo.license_date ? this.props.truckInfoReducer.data.truckInfo.license_date : '请选择'}
                         defaultValue={'请选择'}
                         onValueChange={(param) => this.props.changeTruckInfoField({ license_date: param })}
                     />
                     <RichTextBox
                         title='备注：'
                         defaultValue={'请填写'}
-                        value={this.props.truckInfoReducer.data.truckInfo.remark ? new Date(this.props.truckInfoReducer.data.truckInfo.remark).toLocaleDateString() : ''}
+                        value={this.props.truckInfoReducer.data.truckInfo.remark ? this.props.truckInfoReducer.data.truckInfo.remark : ''}
                         onValueChange={(param) => this.props.changeTruckInfoField({ remark: param })}
                         showRichText={RouterDirection.richText(this.props.parent)}
                     />
@@ -1448,7 +1433,7 @@ class TruckInfo extends Component {
             start_date: param.startDate,
             end_date: param.endDate,
             insure_date: param.createDate,
-            insure_type:param.insureType
+            insure_type: param.insureType
         })
     }
 
@@ -1666,7 +1651,7 @@ const mapDispatchToProps = (dispatch) => ({
     resetUpdateTruckInfo: () => {
         dispatch(resetUpdateTruckInfo())
     },
-    addTruckInfoInsurance:(param)=>{
+    addTruckInfoInsurance: (param) => {
         dispatch(addTruckInfoInsurance(param))
     }
 })

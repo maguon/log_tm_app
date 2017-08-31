@@ -42,6 +42,7 @@ class TruckList extends Component {
     }
 
     render() {
+        console.log(this.props)
         let { truckList } = this.props.truckListReducer.data
         truckList = truckList.map((item, i) => {
             return <TruckListItem

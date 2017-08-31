@@ -27,7 +27,8 @@ class Truck extends Component {
     static defaultProps = {
         initParam: {
             type: 1
-        }
+        },
+        ifFilter: true
     }
 
     componentDidMount() {
@@ -35,7 +36,7 @@ class Truck extends Component {
             {
                 OptionalParam: {
                     truckType: this.props.initParam.type,
-                    truckStatus:1
+                    truckStatus: 1
                 }
             }
         )
@@ -49,14 +50,20 @@ class Truck extends Component {
 
     tractorListFilter() {
         return this.props.selectTruckReducer.data.tractorList.filter((item) => {
-            return !item.trail_id&& (item.truck_num.toUpperCase().indexOf(this.state.truckNum) >= 0 || item.truck_num.toLowerCase().indexOf(this.state.truckNum) >= 0) 
+            if (this.props.ifFilter)
+                return !item.trail_id && (item.truck_num.toUpperCase().indexOf(this.state.truckNum) >= 0 || item.truck_num.toLowerCase().indexOf(this.state.truckNum) >= 0)
+            else
+                return item.truck_num.toUpperCase().indexOf(this.state.truckNum) >= 0 || item.truck_num.toLowerCase().indexOf(this.state.truckNum) >= 0
         })
     }
 
 
     trailerListFilter() {
         return this.props.selectTruckReducer.data.trailerList.filter((item) => {
-            return !item.first_id && (item.truck_num.toUpperCase().indexOf(this.state.truckNum) >= 0 || item.truck_num.toLowerCase().indexOf(this.state.truckNum) >= 0)
+            if (this.props.ifFilter)
+                return !item.first_id && (item.truck_num.toUpperCase().indexOf(this.state.truckNum) >= 0 || item.truck_num.toLowerCase().indexOf(this.state.truckNum) >= 0)
+            else
+                return item.truck_num.toUpperCase().indexOf(this.state.truckNum) >= 0 || item.truck_num.toLowerCase().indexOf(this.state.truckNum) >= 0
         })
     }
 

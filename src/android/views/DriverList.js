@@ -22,7 +22,7 @@ class DriverList extends Component {
 
     componentDidMount() {
         if (this.props.initParam) {
-            this.props.getDriverList({ OptionalParam: this.props.initParam })
+            this.props.getDriverList({ optionalParam: this.props.initParam })
         }
     }
 
