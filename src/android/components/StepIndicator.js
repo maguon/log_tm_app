@@ -19,11 +19,11 @@ export default class StepIndicator extends Component {
 
     renderBeforeItem(param) {
         return (
-            <View style={{ flexDirection: 'row', paddingVertical: 10, paddingHorizontal: 7 }}>
+            <View style={{  paddingVertical: 10, paddingHorizontal: 7,justifyContent:'center',alignItems:'center' }}>
                 <View style={{ backgroundColor: '#ff9aa9', height: 20, width: 20, borderWidth: 2, borderRadius: 10, borderColor: '#fff', justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={{ fontSize: 14, color: '#fff' }}>{param.step}</Text>
                 </View>
-                <View style={{ paddingLeft: 5, justifyContent: 'center' }}>
+                <View style={{  justifyContent: 'center' }}>
                     <Text style={{ fontSize: 12 }}>{param.title}</Text>
                 </View>
             </View>
@@ -32,11 +32,11 @@ export default class StepIndicator extends Component {
 
     renderAfterItem(param) {
         return (
-            <View style={{ flexDirection: 'row', paddingVertical: 10, paddingHorizontal: 7 }}>
+            <View style={{ paddingVertical: 10, paddingHorizontal: 7,justifyContent:'center',alignItems:'center' }}>
                 <View style={{ backgroundColor: '#adadad', height: 20, width: 20, borderWidth: 2, borderRadius: 10, borderColor: '#fff', justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={{ fontSize: 14, color: '#fff' }}>{param.step}</Text>
                 </View>
-                <View style={{ paddingLeft: 5, justifyContent: 'center' }}>
+                <View style={{  justifyContent: 'center' }}>
                     <Text style={{ fontSize: 12 }}>{param.title}</Text>
                 </View>
             </View>
@@ -45,11 +45,11 @@ export default class StepIndicator extends Component {
 
     renderCurrentItem(param) {
         return (
-            <View style={{ flexDirection: 'row', paddingVertical: 10, paddingHorizontal: 7 }}>
+            <View style={{  paddingVertical: 10, paddingHorizontal: 7,justifyContent:'center' ,alignItems:'center'}}>
                 <View style={{ backgroundColor: '#fff', height: 20, width: 20, borderWidth: 2, borderRadius: 10, borderColor: '#ff9aa9', justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={{ fontSize: 14, color: '#ff9aa9' }}>{param.step}</Text>
                 </View>
-                <View style={{ paddingLeft: 5, justifyContent: 'center' }}>
+                <View style={{  justifyContent: 'center' }}>
                     <Text style={{ fontSize: 12 }}>{param.title}</Text>
                 </View>
             </View>
