@@ -169,7 +169,7 @@ export default class App extends Component {
                                 <Scene key="addRepairAtHomeBlock" component={AddRepair} title='开始维修' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="updateRepairAtHomeBlock" component={UpdateRepair} title='维修完毕' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                             </Scene>
-                            <Scene key="truckBlock" icon={TabIcon} online='ios-car' outline='ios-car-outline' >
+                            <Scene key="truckBlock" icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
                                 <Scene key="truck" initial={true} rightType={1} onPressRight={() => Actions.addTruckFirst()} component={Truck} title='车辆信息' hideNavBar={false} navBar={TopBar} />
                                 <Scene key="truckInfoAtTruckBlock" rightType={1} component={TruckInfo} title='车辆信息' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="truckListAtTruckBlock" component={TruckList} title='车辆信息' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
@@ -191,7 +191,7 @@ export default class App extends Component {
                                 <Scene key="singlePhotoViewAtTruckBlock" component={SinglePhotoView} hideNavBar hideTabBar />
                                 <Scene key="customPhotoViewAtTruckBlock" component={CustomPhotoView} hideNavBar hideTabBar />
                             </Scene>
-                            <Scene key="driverBlock" icon={TabIcon} online='ios-pin' outline='ios-pin-outline'>
+                            <Scene key="driverBlock" icon={TabIcon} online='ios-contact' outline='ios-contact-outline'>
                                 <Scene key="driver" initial={true} rightType={1} onPressRight={() => Actions.addDriverFirst()} component={Driver} title='司机信息' hideNavBar={false} navBar={TopBar} />
                                 <Scene key="addDriverFirst" component={AddDriverFirst} title='新增司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
                                 <Scene key="addDriverSecond" component={AddDriverSecond} title='新增司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
