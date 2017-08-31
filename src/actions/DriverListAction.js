@@ -5,7 +5,7 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 
 export const getDriverList = (param) => async (dispatch) => {
     const url = `${base_host}/drive?${ObjectToUrl(param.optionalParam)}`
-    console.log(url)
+   // console.log(url)
     dispatch({ type: actionTypes.driverListTypes.GET_DriverList_WAITING, payload: {} })
     try {
         let res = await httpRequest.get(url)

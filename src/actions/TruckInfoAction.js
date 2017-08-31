@@ -323,13 +323,6 @@ export const resetDelTruckImage = () => (dispatch) => {
 
 export const updateTruckInfo = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}`
-    //Alert.alert('',url)
-    for(item in param.putParam)
-        {
- Alert.alert(item,param.putParam[item].toString())
-        }
-   
-
     dispatch({ type: actionTypes.truckInfoTypes.UpdateTruckInfo_WAITING, payload: {} })
     try {
         let res = await httpRequest.put(url, param.putParam)
