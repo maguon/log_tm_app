@@ -5,7 +5,7 @@ import {
     FlatList,
     ScrollView,
     TouchableNativeFeedback,
-    ToastAndroid
+    ToastAndroid,Alert
 } from 'react-native'
 
 import { Button } from 'native-base'
@@ -596,8 +596,8 @@ class TruckInfo extends Component {
         if (this.props.truckInfoReducer.data.truckInfo.brand_id) param.putParam.brandId = this.props.truckInfoReducer.data.truckInfo.brand_id
         if (this.props.truckInfoReducer.data.truckInfo.truck_tel) param.putParam.truckTel = this.props.truckInfoReducer.data.truckInfo.truck_tel
         if (this.props.truckInfoReducer.data.truckInfo.the_code) param.putParam.theCode = this.props.truckInfoReducer.data.truckInfo.the_code
-        if (this.props.truckInfoReducer.data.truckInfo.driving_date) param.putParam.drivingDate = new Date(this.props.truckInfoReducer.data.truckInfo.driving_date).toLocaleDateString()
-        if (this.props.truckInfoReducer.data.truckInfo.license_date) param.putParam.licenseDate = new Date(this.props.truckInfoReducer.data.truckInfo.license_date).toLocaleDateString()
+        if (this.props.truckInfoReducer.data.truckInfo.driving_date) param.putParam.drivingDate = this.props.truckInfoReducer.data.truckInfo.driving_date
+        if (this.props.truckInfoReducer.data.truckInfo.license_date) param.putParam.licenseDate = this.props.truckInfoReducer.data.truckInfo.license_date
         if (this.props.truckInfoReducer.data.truckInfo.remark) param.putParam.remark = this.props.truckInfoReducer.data.truckInfo.remark
         this.props.updateTruckInfo(param)
     }
@@ -1440,6 +1440,7 @@ class TruckInfo extends Component {
     renderInsuranceList() {
         let insuranceList = this.props.truckInfoReducer.data.truckInsureRelList.map((item, i) => {
             let panelStyle = (i == this.props.truckInfoReducer.data.truckInsureRelList.length - 1) ? { marginVertical: 10 } : { marginTop: 10 }
+           
             return (
                 <View key={i} style={{ backgroundColor: '#edf1f4' }}>
                     <View style={{ marginHorizontal: 10, paddingHorizontal: 10, paddingVertical: 10, backgroundColor: '#fff', borderColor: '#e8e8e8', borderWidth: 0.5, ...panelStyle }}>
@@ -1456,12 +1457,12 @@ class TruckInfo extends Component {
                                 <Text style={{ fontSize: 11 }}>保险公司：{item.insure_name}</Text>
                             </View>
                             <View style={{ flex: 1 }}>
-                                <Text style={{ fontSize: 11 }}>投保日期：{new Date(item.insure_date).toLocaleDateString()}</Text>
+                                <Text style={{ fontSize: 11 }}>投保日期：{moment(Date.parse(item.insure_date)).format('YYYY/MM/DD')}</Text>
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View>
-                                <Text style={{ fontSize: 11 }}>生效期：{new Date(item.start_date).toLocaleDateString()} 到：{new Date(item.end_date).toLocaleDateString()}</Text>
+                                <Text style={{ fontSize: 11 }}>生效期：{moment(Date.parse(item.start_date)).format('YYYY/MM/DD')} 到：{moment(Date.parse(item.end_date)).format('YYYY/MM/DD')}</Text>
                             </View>
                             <View>
                                 <Text style={{ fontSize: 11 }}>¥ <Text style={{ color: 'red' }}>{item.insure_money}</Text>元</Text>

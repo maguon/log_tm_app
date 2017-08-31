@@ -462,7 +462,7 @@ class DriverInfo extends Component {
                 gender: this.props.driverInfoReducer.data.driverInfo.gender
             }
         }
-        if (this.props.driverInfoReducer.data.driverInfo.license_date) param.putParam.licenseDate = new Date(this.props.driverInfoReducer.data.driverInfo.license_date).toLocaleDateString()
+        if (this.props.driverInfoReducer.data.driverInfo.license_date) param.putParam.licenseDate = this.props.driverInfoReducer.data.driverInfo.license_date
         if (this.props.driverInfoReducer.data.driverInfo.address) param.putParam.address = this.props.driverInfoReducer.data.driverInfo.address
         if (this.props.driverInfoReducer.data.driverInfo.license_type) param.putParam.licenseType = this.props.driverInfoReducer.data.driverInfo.license_type
         if (this.props.driverInfoReducer.data.driverInfo.id_number) param.putParam.idNumber = this.props.driverInfoReducer.data.driverInfo.id_number
@@ -574,7 +574,7 @@ class DriverInfo extends Component {
                         defaultValue={'请选择'}
                     /> 
                     <DateTimePicker
-                        value={this.props.driverInfoReducer.data.driverInfo.license_date ? new Date(this.props.driverInfoReducer.data.driverInfo.license_date).toLocaleDateString() : '请选择'}
+                        value={this.props.driverInfoReducer.data.driverInfo.license_date ? this.props.driverInfoReducer.data.driverInfo.license_date : '请选择'}
                         title='驾驶证到期时间：'
                         onValueChange={(param) => this.props.changeDriverInfoField({ license_date: param })}
                     />
@@ -706,7 +706,7 @@ class DriverInfo extends Component {
                         defaultValue={'请选择'}
                     />
                     <DateTimePicker
-                        value={this.props.driverInfoReducer.data.driverInfo.license_date ? new Date(this.props.driverInfoReducer.data.driverInfo.license_date).toLocaleDateString() : '请选择'}
+                        value={this.props.driverInfoReducer.data.driverInfo.license_date ? this.props.driverInfoReducer.data.driverInfo.license_date : '请选择'}
                         title='驾驶证到期时间：'
                         onValueChange={(param) => this.props.changeDriverInfoField({ license_date: param })}
                     />

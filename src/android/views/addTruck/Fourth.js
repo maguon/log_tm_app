@@ -10,6 +10,7 @@ import StepIndicator from '../../components/StepIndicator'
 import { Button } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
+import * as RouterDirection from '../../../util/RouterDirection'
 
 class Fourth extends Component {
     constructor(props) {
@@ -56,7 +57,7 @@ class Fourth extends Component {
             <View style={{ paddingVertical: 10, paddingHorizontal: 10, backgroundColor: '#fff' }}>
                 <Button
                     small
-                    onPress={() => Actions.addInsurance({ initParam: this.props.initParam })}
+                    onPress={() => RouterDirection.addInsurance(this.props.parent)({ initParam: this.props.initParam })}
                     style={{ backgroundColor: '#00cade', alignSelf: 'flex-end' }}>
                     <Text style={{ color: '#fff', fontSize: 12 }}>增加保单</Text>
                 </Button>
@@ -82,7 +83,7 @@ class Fourth extends Component {
                         ListFooterComponent={<View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
                             <Button
                                 full
-                                onPress={() => { }}
+                                onPress={() => Actions.pop({ popNum: 4 })}
                                 style={{ backgroundColor: '#00cade' }}>
                                 <Text style={{ color: '#fff' }}>完成</Text>
                             </Button>

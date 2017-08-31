@@ -5,10 +5,10 @@ import * as actionTypes from '../actions/actionTypes'
 const initialState = {
     data: {
         truckFirst: {
-            truckNum:'辽B'
+            truckNum:''
         },
         truckTrailer: {
-            truckNum:'辽B'
+            truckNum:''
         },
         truckFirstId: 0,
         truckTrailerId: 0

@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions'
 import * as actionTypes from '../actions/actionTypes'
-
+import moment from 'moment'
 
 const initialState = {
     data: {
@@ -24,7 +24,7 @@ export default handleActions({
             ...state,
             data: {
                 ...state.data,
-                createDate: (new Date()).toLocaleDateString()
+                createDate: moment(Date.now()).format('YYYY/MM/DD')
             },
             createInsurance: {
                 ...state.createInsurance,

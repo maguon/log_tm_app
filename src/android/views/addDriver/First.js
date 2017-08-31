@@ -130,7 +130,7 @@ class First extends Component {
                             title='驾证类别：'
                             isRequire={true}
                             onRequire={(flag) => this.setState({ licenseTypeValidater: flag })}
-                            value={this.props.addDriverFirstReducer.data.driverInfo.licenseType ? DrivingLicenseTypeList.find((item) => item.id == this.props.driverInfoReducer.data.driverInfo.license_type).value : '请选择'}
+                            value={this.props.addDriverFirstReducer.data.driverInfo.licenseType ? DrivingLicenseTypeList.find((item) => item.id == this.props.addDriverFirstReducer.data.driverInfo.licenseType).value : '请选择'}
                             showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
                             onValueChange={(param) => this.props.changeDriverField({ licenseType: param.id })}
                             defaultValue={'请选择'} 
