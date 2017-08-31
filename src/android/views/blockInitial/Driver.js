@@ -16,7 +16,7 @@ export default class Driver extends Component {
         super(props)
         this.onPressSearch = this.onPressSearch.bind(this)
         this.state = {
-            driverName: null,
+            driveName: null,
             tel: null,
             companyId: null,
             company: null,
@@ -44,8 +44,8 @@ export default class Driver extends Component {
                 <View style={{ flex: 1 }}>
                     <TextBox
                         title='姓名：'
-                        value={this.state.driverName ? this.state.driverName : ''}
-                        onValueChange={(param) => this.setState({ driverName: param })}
+                        value={this.state.driveName ? this.state.driveName : ''}
+                        onValueChange={(param) => this.setState({ driveName: param })}
                         placeholder='请输入姓名'
                     />
                     <TextBox
