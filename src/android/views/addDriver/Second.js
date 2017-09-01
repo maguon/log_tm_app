@@ -110,7 +110,7 @@ class Second extends Component {
                     {!this.props.addDriverSecondReducer.data.truckId && <Select
                         title='货车：'
                         value={this.props.addDriverSecondReducer.data.truckNum ? this.props.addDriverSecondReducer.data.truckNum : '请选择'}
-                        showList={() => RouterDirection.selectTruck(this.props.parent)({ initParam: { type: 1 } })}
+                        showList={(param) => RouterDirection.selectTruck(this.props.parent)({ initParam: { type: 1 } ,...param})}
                         onValueChange={(param) => this.onPressBindTruck(param)}
                     />}
                     {this.props.addDriverSecondReducer.data.truckId &&
