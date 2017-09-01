@@ -58,11 +58,11 @@ class Third extends Component {
         this.onPressUpdateLicenseImage=this.onPressUpdateLicenseImage.bind(this)
     }
 
-    static defaultProps = {
-        initParam: {
-            driverId: 117
-        }
-    }
+    // static defaultProps = {
+    //     initParam: {
+    //         driverId: 117
+    //     }
+    // }
 
     componentWillReceiveProps(nextProps) {
         const { updateDrivingImage, updateLicenseImage,data } = nextProps.addDriverThirdReducer

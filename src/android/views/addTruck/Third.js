@@ -334,7 +334,7 @@ class Third extends Component {
 
     renderImageList() {
         let truckImageList = [...this.props.addTruckThirdReducer.data.truckImageList]
-        console.log(truckImageList)
+       // console.log(truckImageList)
         const imageListHead = <View key={'w'} style={{ flexDirection: 'row' }}>
             {!this.props.addTruckThirdReducer.data.drivingImage ?
                 <Camera title='上传行驶证照片' onGetPhoto={this.updateDrivingImage} /> :

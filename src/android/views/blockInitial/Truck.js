@@ -285,7 +285,7 @@ export default class Truck extends Component {
     }
 
     render() {
-        console.log(this.state)
+        //console.log(this.state)
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ marginHorizontal: 30, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>

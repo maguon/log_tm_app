@@ -36,7 +36,7 @@ class First extends Component {
             driverNameValidater: true,
             genderValidater: true,
             addressValidater: true,
-            cardNoValidater: true,
+            //cardNoValidater: true,
             companyValidater: true,
             licenseTypeValidater: true,
             licenseDateValidater: true
@@ -80,7 +80,7 @@ class First extends Component {
     }
 
     componentWillUnmount(){
-        console.log('componentWillUnmount')
+        //console.log('componentWillUnmount')
         this.props.cleanAddDriverFirstDate()
         this.props.cleanAddDriverSecondDate()
         this.props.cleanAddDriverThirdDate()
@@ -98,11 +98,11 @@ class First extends Component {
                         <TextBox
                             title='姓名：'
                             isRequire={true}
-                            verifications={[{
+                            /*verifications={[{
                                 type: 'isLength',
                                 arguments: [0, 5],
                                 message: '长度0-5位'
-                            }]}
+                            }]}*/
                             onRequire={(flag) => this.setState({ driverNameValidater: flag })}
                             value={this.props.addDriverFirstReducer.data.driverInfo.driveName ? this.props.addDriverFirstReducer.data.driverInfo.driveName : ''}
                             onValueChange={(param) => this.props.changeDriverField({ driveName: param })}
@@ -127,10 +127,10 @@ class First extends Component {
                         <TextBox
                             title='联系电话：'
                             isRequire={true}
-                            verifications={[{
+                            /*verifications={[{
                                 type: 'isPhone',
                                 message: '不是手机号码'
-                            }]}
+                            }]}*/
                             onRequire={(flag) => this.setState({ telValidater: flag })}
                             value={this.props.addDriverFirstReducer.data.driverInfo.tel ? this.props.addDriverFirstReducer.data.driverInfo.tel : ''}
                             onValueChange={(param) => this.props.changeDriverField({ tel: param })}
@@ -155,23 +155,23 @@ class First extends Component {
                         />
                         <TextBox
                             title='身份证：'
-                            isRequire={true}
+                            /*isRequire={true}
                             verifications={[{
                                 type: 'isCardNo',
                                 message: '不是身份证号码'
                             }]}
-                            onRequire={(flag) => this.setState({ cardNoValidater: flag })}
+                            onRequire={(flag) => this.setState({ cardNoValidater: flag })}*/
                             value={this.props.addDriverFirstReducer.data.driverInfo.idNumber ? this.props.addDriverFirstReducer.data.driverInfo.idNumber : ''}
                             onValueChange={(param) => this.props.changeDriverField({ idNumber: param })}
                             placeholder='请输入身份证'
                         />
                         <TextBox
                             title='家庭住址：'
-                            verifications={[{
+                            /*verifications={[{
                                 type: 'isLength',
                                 arguments: [0, 100],
                                 message: '长度0-100位'
-                            }]}
+                            }]}*/
                             onRequire={(flag) => this.setState({ addressValidater: flag })}
                             value={this.props.addDriverFirstReducer.data.driverInfo.address ? this.props.addDriverFirstReducer.data.driverInfo.address : ''}
                             onValueChange={(param) => this.props.changeDriverField({ address: param })}
@@ -179,10 +179,10 @@ class First extends Component {
                         />
                         <TextBox
                             title='紧急联系人电话：'
-                            verifications={[{
+                            /*verifications={[{
                                 type: 'isPhone',
                                 message: '不是手机号码'
-                            }]}
+                            }]}*/
                             onRequire={(flag) => this.setState({ sibTelValidater: flag })}
                             value={this.props.addDriverFirstReducer.data.driverInfo.sibTel ? this.props.addDriverFirstReducer.data.driverInfo.sibTel : ''}
                             onValueChange={(param) => this.props.changeDriverField({ sibTel: param })}
@@ -190,14 +190,14 @@ class First extends Component {
                         />
                         <RichTextBox
                             title='备注：'
-                            onRequire={(flag) => this.setState({ licenseDateValidater: flag })}
+                           /* onRequire={(flag) => this.setState({ licenseDateValidater: flag })}*/
                             value={this.props.addDriverFirstReducer.data.driverInfo.remark ? this.props.addDriverFirstReducer.data.driverInfo.remark : ''}
                             defaultValue={'请填写'}
-                            verifications={[{
+                            /*verifications={[{
                                 type: 'isLength',
                                 arguments: [0, 100],
                                 message: '长度0-100位'
-                            }]}
+                            }]}*/
                             onValueChange={(param) => this.props.changeDriverField({ remark: param })}
                             showRichText={RouterDirection.richText(this.props.parent)}
                         />
@@ -211,7 +211,7 @@ class First extends Component {
                                     this.state.driverNameValidater &&
                                     this.state.genderValidater &&
                                     this.state.addressValidater &&
-                                    this.state.cardNoValidater &&
+                                    //this.state.cardNoValidater &&
                                     this.state.companyValidater &&
                                     this.state.addressValidater &&
                                     this.state.licenseTypeValidater &&
@@ -224,7 +224,7 @@ class First extends Component {
                                         this.state.driverNameValidater &&
                                         this.state.genderValidater &&
                                         this.state.addressValidater &&
-                                        this.state.cardNoValidater &&
+                                        //this.state.cardNoValidater &&
                                         this.state.companyValidater &&
                                         this.state.addressValidater &&
                                         this.state.licenseTypeValidater &&

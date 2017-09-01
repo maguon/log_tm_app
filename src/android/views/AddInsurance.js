@@ -18,7 +18,7 @@ import {
     changeInsuranceField,
     cleanAddInsurance
 } from '../../actions/AddInsuranceAction'
-import { addInsurance } from '../../actions/AddTruckFourthAction'
+
 
 class AddInsurance extends Component {
     constructor(props) {
@@ -66,7 +66,7 @@ class AddInsurance extends Component {
             if (createInsurance.isResultStatus == 0) {
                 //console.log(param)
                 this.props.onAddInsurance(param)
-                this.props.addInsurance(param)
+                //this.props.addInsurance(param)
                 this.setState({
                     insuranceCompanyValidater: false,
                     insuranceTypeValidater: false,
@@ -220,10 +220,8 @@ const mapDispatchToProps = (dispatch) => ({
     changeInsuranceField: (param) => {
         dispatch(changeInsuranceField(param))
     },
-    addInsurance: (param) => {
-        dispatch(addInsurance(param))
-    },
-    cleanAddInsurance: () => {
+
+        cleanAddInsurance: () => {
         dispatch(cleanAddInsurance())
     }
 

@@ -92,15 +92,15 @@ class TruckInfo extends Component {
         super(props)
         this.state = {
             truckType: 0,
-            truckNumTractorValidater: true,
-            truckTelTractorValidater: true,
-            theCodeTractorValidater: true,
-            remarkTractorValidater: true,
+            // truckNumTractorValidater: true,
+            // truckTelTractorValidater: true,
+            // theCodeTractorValidater: true,
+            // remarkTractorValidater: true,
 
-            truckNumTrailerValidater: true,
-            numberTrailerValidater: true,
-            theCodeTrailerValidater: true,
-            remarkTrailerValidater: true
+            // truckNumTrailerValidater: true,
+            // numberTrailerValidater: true,
+            // theCodeTrailerValidater: true,
+            // remarkTrailerValidater: true
             // truckInfo: {
             //     truck_num: '',      //车牌号
             //     brand_name: '',     //识别码
@@ -609,11 +609,11 @@ class TruckInfo extends Component {
                     <TagTextBox
                         title='车牌号：'
                         leftTag={10}
-                        verifications={[{
+                        /* verifications={[{
                             type: 'isVehicleNumber',
                             message: '不是车牌号'
                         }]}
-                        onRequire={(flag) => this.setState({ truckNumTractorValidater: flag })}
+                        onRequire={(flag) => this.setState({ truckNumTractorValidater: flag })} */
                         companyType={this.props.truckInfoReducer.data.truckInfo.operate_type ? this.props.truckInfoReducer.data.truckInfo.operate_type : 10}
                         isDisable={this.props.truckInfoReducer.data.truckInfo.truck_status == 0}
                         value={this.props.truckInfoReducer.data.truckInfo.truck_num ? this.props.truckInfoReducer.data.truckInfo.truck_num : ''}
@@ -628,23 +628,23 @@ class TruckInfo extends Component {
                     />
                     <TextBox
                         title='联系电话：'
-                        verifications={[{
+                        /*verifications={[{
                             type: 'isPhone',
                             message: '不是手机号码'
                         }]}
-                        onRequire={(flag) => this.setState({ truckTelTractorValidater: flag })}
+                        onRequire={(flag) => this.setState({ truckTelTractorValidater: flag })}*/
                         value={this.props.truckInfoReducer.data.truckInfo.truck_tel ? this.props.truckInfoReducer.data.truckInfo.truck_tel : ''}
                         onValueChange={(param) => this.props.changeTruckInfoField({ truck_tel: param })}
                         placeholder='请输入联系电话'
                     />
                     <TextBox
                         title='识别代码：'
-                        verifications={[{
+                        /*verifications={[{
                             type: 'isLength',
                             arguments: [0, 20],
                             message: '长度不能超过20位'
                         }]}
-                        onRequire={(flag) => this.setState({ theCodeTractorValidater: flag })}
+                        onRequire={(flag) => this.setState({ theCodeTractorValidater: flag })}*/
                         value={this.props.truckInfoReducer.data.truckInfo.the_code ? this.props.truckInfoReducer.data.truckInfo.the_code : ''}
                         onValueChange={(param) => this.props.changeTruckInfoField({ the_code: param })}
                         placeholder='请输入识别代码'
@@ -693,7 +693,7 @@ class TruckInfo extends Component {
                     />
                     <RichTextBox
                         title='备注：'
-                        onRequire={(flag) => this.setState({ remarkTractorValidater: flag })}
+                        //onRequire={(flag) => this.setState({ remarkTractorValidater: flag })}
                         value={this.props.truckInfoReducer.data.truckInfo.remark ? this.props.truckInfoReducer.data.truckInfo.remark : ''}
                         onValueChange={(param) => this.props.changeTruckInfoField({ remark: param })}
                         showRichText={RouterDirection.richText(this.props.parent)}
@@ -703,19 +703,19 @@ class TruckInfo extends Component {
                         <Button
                             full
                             onPress={this.updateTruckInfo}
-                            disabled={!(
+                            /* disabled={!(
                                 this.state.truckNumTractorValidater &&
                                 this.state.truckTelTractorValidater &&
                                 this.state.theCodeTractorValidater &&
                                 this.state.remarkTractorValidater
-                            )}
+                            )} */
                             style={{
-                                backgroundColor: (
-                                    this.state.truckNumTractorValidater &&
+                                backgroundColor: ('#00cade')
+                                 /*    this.state.truckNumTractorValidater &&
                                     this.state.truckTelTractorValidater &&
                                     this.state.theCodeTractorValidater &&
                                     this.state.remarkTractorValidater
-                                ) ? '#00cade' : '#888888'
+                                ) ? '#00cade' : '#888888'*/
                             }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
@@ -732,11 +732,11 @@ class TruckInfo extends Component {
                     <TagTextBox
                         title='车牌号：'
                         leftTag={10}
-                        verifications={[{
+                        /*verifications={[{
                             type: 'isVehicleNumber',
                             message: '不是车牌号'
                         }]}
-                        onRequire={(flag) => this.setState({ truckNumTractorValidater: flag })}
+                        onRequire={(flag) => this.setState({ truckNumTractorValidater: flag })}*/
                         companyType={this.props.truckInfoReducer.data.truckInfo.operate_type ? this.props.truckInfoReducer.data.truckInfo.operate_type : 10}
                         isDisable={this.props.truckInfoReducer.data.truckInfo.truck_status == 0}
                         value={this.props.truckInfoReducer.data.truckInfo.truck_num ? this.props.truckInfoReducer.data.truckInfo.truck_num : ''}
@@ -751,22 +751,22 @@ class TruckInfo extends Component {
                     />
                     <TextBox
                         title='联系电话：'
-                        verifications={[{
+                        /*verifications={[{
                             type: 'isPhone',
                             message: '不是手机号码'
                         }]}
-                        onRequire={(flag) => this.setState({ truckTelTractorValidater: flag })}
+                        onRequire={(flag) => this.setState({ truckTelTractorValidater: flag })}*/
                         value={this.props.truckInfoReducer.data.truckInfo.truck_tel ? this.props.truckInfoReducer.data.truckInfo.truck_tel : ''}
                         onValueChange={(param) => this.props.changeTruckInfoField({ truck_tel: param })}
                         placeholder='请输入联系电话'
                     />
                     <TextBox
                         title='识别代码：'
-                        verifications={[{
+                        /*verifications={[{
                             type: 'isLength',
                             arguments: [0, 20],
                             message: '长度不能超过20位'
-                        }]}
+                        }]}*/
                         onRequire={(flag) => this.setState({ theCodeTractorValidater: flag })}
                         value={this.props.truckInfoReducer.data.truckInfo.the_code ? this.props.truckInfoReducer.data.truckInfo.the_code : ''}
                         onValueChange={(param) => this.props.changeTruckInfoField({ the_code: param })}
@@ -792,7 +792,7 @@ class TruckInfo extends Component {
                     />
                     <RichTextBox
                         title='备注：'
-                        onRequire={(flag) => this.setState({ remarkTractorValidater: flag })}
+                        //onRequire={(flag) => this.setState({ remarkTractorValidater: flag })}
                         value={this.props.truckInfoReducer.data.truckInfo.remark ? this.props.truckInfoReducer.data.truckInfo.remark : ''}
                         onValueChange={(param) => this.props.changeTruckInfoField({ remark: param })}
                         showRichText={RouterDirection.richText(this.props.parent)}
@@ -802,19 +802,19 @@ class TruckInfo extends Component {
                         <Button
                             full
                             onPress={this.updateTruckInfo}
-                            disabled={!(
+                            /*disabled={!(
                                 this.state.truckNumTractorValidater &&
                                 this.state.truckTelTractorValidater &&
                                 this.state.theCodeTractorValidater &&
                                 this.state.remarkTractorValidater
-                            )}
+                            )}*/
                             style={{
-                                backgroundColor: (
-                                    this.state.truckNumTractorValidater &&
+                                backgroundColor: ('#00cade')
+                                   /* this.state.truckNumTractorValidater &&
                                     this.state.truckTelTractorValidater &&
                                     this.state.theCodeTractorValidater &&
                                     this.state.remarkTractorValidater
-                                ) ? '#00cade' : '#888888'
+                                ) ? '#00cade' : '#888888'*/
                             }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
@@ -831,11 +831,11 @@ class TruckInfo extends Component {
                     <TagTextBox
                         title='车牌号：'
                         leftTag={10}
-                        verifications={[{
+                        /*verifications={[{
                             type: 'isVehicleNumber',
                             message: '不是车牌号'
                         }]}
-                        onRequire={(flag) => this.setState({ truckNumTrailerValidater: flag })}
+                        onRequire={(flag) => this.setState({ truckNumTrailerValidater: flag })}*/
                         companyType={this.props.truckInfoReducer.data.truckInfo.operate_type ? this.props.truckInfoReducer.data.truckInfo.operate_type : 10}
                         isDisable={this.props.truckInfoReducer.data.truckInfo.truck_status == 0}
                         value={this.props.truckInfoReducer.data.truckInfo.truck_num ? this.props.truckInfoReducer.data.truckInfo.truck_num : ''}
@@ -844,23 +844,23 @@ class TruckInfo extends Component {
                     />
                     <TextBox
                         title='挂车货位：'
-                        verifications={[{
+                        /*verifications={[{
                             type: 'isTrailerNumber',
                             message: '货位不正确'
                         }]}
-                        onRequire={(flag) => this.setState({ numberTrailerValidater: flag })}
+                        onRequire={(flag) => this.setState({ numberTrailerValidater: flag })}*/
                         value={this.props.truckInfoReducer.data.truckInfo.number ? this.props.truckInfoReducer.data.truckInfo.number.toString() : ''}
                         onValueChange={(param) => this.props.changeTruckInfoField({ number: param })}
                         placeholder='请输入挂车货位'
                     />
                     <TextBox
                         title='识别代码：'
-                        verifications={[{
+                        /*verifications={[{
                             type: 'isLength',
                             arguments: [0, 20],
                             message: '长度不能超过20位'
                         }]}
-                        onRequire={(flag) => this.setState({ theCodeTrailerValidater: flag })}
+                        onRequire={(flag) => this.setState({ theCodeTrailerValidater: flag })}*/
                         value={this.props.truckInfoReducer.data.truckInfo.the_code ? this.props.truckInfoReducer.data.truckInfo.the_code : ''}
                         onValueChange={(param) => this.props.changeTruckInfoField({ the_code: param })}
                         placeholder='请输入识别代码'
@@ -898,7 +898,7 @@ class TruckInfo extends Component {
                     />
                     <RichTextBox
                         title='备注：'
-                        onRequire={(flag) => this.setState({ remarkTrailerValidater: flag })}
+                        //onRequire={(flag) => this.setState({ remarkTrailerValidater: flag })}
                         defaultValue={'请填写'}
                         value={this.props.truckInfoReducer.data.truckInfo.remark ? this.props.truckInfoReducer.data.truckInfo.remark : ''}
                         onValueChange={(param) => this.props.changeTruckInfoField({ remark: param })}
@@ -908,19 +908,19 @@ class TruckInfo extends Component {
                         <Button
                             full
                             onPress={this.updateTruckInfo}
-                            disabled={!(
+                            /*disabled={!(
                                 this.state.truckNumTrailerValidater &&
                                 this.state.numberTrailerValidater &&
                                 this.state.theCodeTrailerValidater &&
                                 this.state.remarkTrailerValidater
-                            )}
+                            )}*/
                             style={{
-                                backgroundColor: (
-                                    this.state.truckNumTrailerValidater &&
+                                backgroundColor: ('#00cade')
+                                 /*   this.state.truckNumTrailerValidater &&
                                     this.state.numberTrailerValidater &&
                                     this.state.theCodeTrailerValidater &&
                                     this.state.remarkTrailerValidater
-                                ) ? '#00cade' : '#888888'
+                                ) ? '#00cade' : '#888888'*/
                             }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
@@ -937,11 +937,11 @@ class TruckInfo extends Component {
                     <TagTextBox
                         title='车牌号：'
                         leftTag={10}
-                        verifications={[{
+                        /*verifications={[{
                             type: 'isVehicleNumber',
                             message: '不是车牌号'
                         }]}
-                        onRequire={(flag) => this.setState({ truckNumTrailerValidater: flag })}
+                        onRequire={(flag) => this.setState({ truckNumTrailerValidater: flag })}*/
                         companyType={this.props.truckInfoReducer.data.truckInfo.operate_type ? this.props.truckInfoReducer.data.truckInfo.operate_type : 10}
                         isDisable={this.props.truckInfoReducer.data.truckInfo.truck_status == 0}
                         value={this.props.truckInfoReducer.data.truckInfo.truck_num ? this.props.truckInfoReducer.data.truckInfo.truck_num : ''}
@@ -950,23 +950,23 @@ class TruckInfo extends Component {
                     />
                     <TextBox
                         title='挂车货位：'
-                        verifications={[{
+                        /*verifications={[{
                             type: 'isTrailerNumber',
                             message: '货位不正确'
                         }]}
-                        onRequire={(flag) => this.setState({ numberTrailerValidater: flag })}
+                        onRequire={(flag) => this.setState({ numberTrailerValidater: flag })}*/
                         value={this.props.truckInfoReducer.data.truckInfo.number ? this.props.truckInfoReducer.data.truckInfo.number.toString() : ''}
                         onValueChange={(param) => this.props.changeTruckInfoField({ number: param })}
                         placeholder='请输入挂车货位'
                     />
                     <TextBox
                         title='识别代码：'
-                        verifications={[{
+                        /*verifications={[{
                             type: 'isLength',
                             arguments: [0, 20],
                             message: '长度不能超过20位'
                         }]}
-                        onRequire={(flag) => this.setState({ theCodeTrailerValidater: flag })}
+                        onRequire={(flag) => this.setState({ theCodeTrailerValidater: flag })}*/
                         value={this.props.truckInfoReducer.data.truckInfo.the_code ? this.props.truckInfoReducer.data.truckInfo.the_code : ''}
                         onValueChange={(param) => this.props.changeTruckInfoField({ the_code: param })}
                         placeholder='请输入识别代码'
@@ -1001,19 +1001,19 @@ class TruckInfo extends Component {
                         <Button
                             full
                             onPress={this.updateTruckInfo}
-                            disabled={!(
+                            /*disabled={!(
                                 this.state.truckNumTrailerValidater &&
                                 this.state.numberTrailerValidater &&
                                 this.state.theCodeTrailerValidater &&
                                 this.state.remarkTrailerValidater
-                            )}
+                            )}*/
                             style={{
-                                backgroundColor: (
-                                    this.state.truckNumTrailerValidater &&
+                                backgroundColor: ('#00cade')
+                                   /* this.state.truckNumTrailerValidater &&
                                     this.state.numberTrailerValidater &&
                                     this.state.theCodeTrailerValidater &&
                                     this.state.remarkTrailerValidater
-                                ) ? '#00cade' : '#888888'
+                                ) ? '#00cade' : '#888888'*/
                             }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
@@ -1489,7 +1489,8 @@ class TruckInfo extends Component {
 
     render() {
         const { truck_status, truck_type } = this.props.truckInfoReducer.data.truckInfo
-        console.log(this.props)
+       //console.log(this.props)
+     //  console.log(this.state)
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>

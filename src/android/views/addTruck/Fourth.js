@@ -11,6 +11,7 @@ import { Button } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import * as RouterDirection from '../../../util/RouterDirection'
+import { addInsurance } from '../../../actions/AddTruckFourthAction'
 
 class Fourth extends Component {
     constructor(props) {
@@ -57,7 +58,7 @@ class Fourth extends Component {
             <View style={{ paddingVertical: 10, paddingHorizontal: 10, backgroundColor: '#fff' }}>
                 <Button
                     small
-                    onPress={() => RouterDirection.addInsurance(this.props.parent)({ initParam: this.props.initParam })}
+                    onPress={() => RouterDirection.addInsurance(this.props.parent)({ initParam: this.props.initParam, onAddInsurance: this.props.addInsurance })}
                     style={{ backgroundColor: '#00cade', alignSelf: 'flex-end' }}>
                     <Text style={{ color: '#fff', fontSize: 12 }}>增加保单</Text>
                 </Button>
@@ -102,7 +103,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-
+    addInsurance: (param) => {
+        dispatch(addInsurance(param))
+    }
 
 })
 

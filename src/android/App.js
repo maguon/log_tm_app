@@ -50,6 +50,7 @@ import CustomPhotoView from './views/CustomPhotoView'
 import UpdateRepair from './views/UpdateRepair'
 import AddRepair from './views/AddRepair'
 import TruckHomeFilterList from './views/TruckHomeFilterList'
+import Orientation from 'react-native-orientation'
 // import AddInsurance from './views/AddInsurance'
 // import AddRepair from './views/AddRepair'
 // import UpdateRepair from './views/UpdateRepair'
@@ -98,7 +99,7 @@ export default class App extends Component {
     }
 
     componentWillMount() {
-        // Orientation.lockToPortrait()
+         Orientation.lockToPortrait()
     }
 
     // reducerCreate(params) {
@@ -113,11 +114,11 @@ export default class App extends Component {
     //     }
     // }
 
-    test() {
-        console.log('111')
-        Actions.addTruckFirst()
+    // test() {
+    //     console.log('111')
+    //     Actions.addTruckFirst()
 
-    }
+    // }
 
 
     render() {

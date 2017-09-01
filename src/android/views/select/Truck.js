@@ -40,6 +40,10 @@ class Truck extends Component {
                 }
             }
         )
+        if (this.props.initParam.type == 1)
+            Actions.refresh({ title: '选择车头' })
+        else
+            Actions.refresh({ title: '选择挂车' })
     }
 
     _onPress(param) {

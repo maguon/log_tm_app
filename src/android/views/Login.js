@@ -56,21 +56,19 @@ class Login extends Component {
         let { loginInfo } = nextProps
         /*loginInfo执行状态*/
         if (loginInfo.isExecStatus == 1) {
-            console.log('loginInfo开始执行')
+            //console.log('loginInfo开始执行')
         } else if (loginInfo.isExecStatus == 2) {
-            console.log('loginInfo执行完毕')
+            //console.log('loginInfo执行完毕')
             if (loginInfo.isResultStatus == 0) {
                 this.props.resetLogin()
             } else if (loginInfo.isResultStatus == 1) {
-            console.log('loginInfo执行失败')
-                
+            //console.log('loginInfo执行失败')
                 this.props.resetLogin()
                 ToastAndroid.showWithGravity('系统错误，请检查网络并重新进入APP', ToastAndroid.SHORT, ToastAndroid.CENTER)
             } else if (loginInfo.isResultStatus == 2) {
-            console.log('loginInfo执行失败')
-                
+            //console.log('loginInfo执行失败')  
                 this.props.resetLogin()
-                ToastAndroid.showWithGravity('账号与密码错误', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity(loginInfo.failedMsg, ToastAndroid.SHORT, ToastAndroid.CENTER)
             }
         }
 
