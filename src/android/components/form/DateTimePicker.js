@@ -98,7 +98,7 @@ export default class DateTimePicker extends Component {
         try {
             const { action, year, month, day } = await DatePickerAndroid.open(options)
             if (action !== DatePickerAndroid.dismissedAction) {
-                this.changeDateTime(moment(new Date(year, month, day)).format('YYYY/MM/DD'))
+                this.changeDateTime(moment(new Date(year, month, day)).format('YYYY-MM-DD'))
             }
         } catch ({ code, message }) {
             console.warn(`Error in example : `, message)
@@ -130,7 +130,6 @@ export default class DateTimePicker extends Component {
                             <Text style={this.props.labelStyle}>{this.props.title} </Text>
                             <Text style={this.props.textStyle}>{this.props.value}</Text>
                         </View>
-                        {/*<Text style={this.props.labelStyle}>{this.props.isRequire && '*'}{this.props.title}<Text style={this.props.textStyle}>{this.state.dataTime}</Text></Text>*/}
                         <Icon
                             name='md-calendar'
                             style={this.props.iconSytle} />
