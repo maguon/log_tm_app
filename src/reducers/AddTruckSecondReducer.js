@@ -360,4 +360,45 @@ export default handleActions({
         }
     },
 
+    [(actionTypes.addTruckSecondTypes.CLEAN_AddTruckSecondReducer)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            data: {
+                bindTractorId: '',
+                bindTractor: '',
+                bindTrailerId: '',
+                bindTrailer: '',
+                bindDriverId: '',
+                bindDriver: ''
+            },
+            bindTruck: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            },
+            unBindTruck: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            },
+            bindDriver: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            },
+            unBindDriver: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    }
 }, initialState)

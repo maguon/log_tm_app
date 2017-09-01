@@ -186,7 +186,6 @@ export default handleActions({
         }
     },
 
-
     [(actionTypes.addTruckThirdTypes.CREATE_TruckThirdTruckImage_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         return {
@@ -266,7 +265,7 @@ export default handleActions({
             ...state,
             data: {
                 ...state.data,
-                truckImageList: data.map((item)=>item.url)
+                truckImageList: data.map((item) => item.url)
             },
             delTruckImage: {
                 ...state.delTruckImage,
@@ -332,4 +331,43 @@ export default handleActions({
             }
         }
     },
+
+    [(actionTypes.addTruckThirdTypes.CLEAN_AddTruckThirdReducer)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            data: {
+                drivingImage: '',
+                licenseImage: '',
+                truckImageList: []
+            },
+            updateDrivingImage: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            },
+            updateLicenseImage: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            },
+            createTruckImage: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            },
+            delTruckImage: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    }
 }, initialState)

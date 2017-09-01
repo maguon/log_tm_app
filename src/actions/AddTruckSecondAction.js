@@ -86,3 +86,7 @@ export const resetBindDriver = () => (dispatch) => {
 export const resetUnBindDriver = () => (dispatch) => {
     dispatch({ type: actionTypes.addTruckSecondTypes.RESET_CREATE_TruckSecondUnBindDriver, payload: {} })
 }
+
+export const cleanAddTruckSecondDate = () => (dispatch) => {
+    dispatch({ type: actionTypes.addTruckSecondTypes.CLEAN_AddTruckSecondReducer, payload: {} })
+}

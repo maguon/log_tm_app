@@ -117,3 +117,7 @@ export const delTruckImage = (param) => async (dispatch) => {
 export const resetDelTruckImage = () => (dispatch) => {
     dispatch({ type: actionTypes.addTruckThirdTypes.RESET_DEL_TruckThirdTruckImage, payload: {} })
 }
+
+export const cleanAddTruckThirdDate = () => (dispatch) => {
+dispatch({ type: actionTypes.addTruckThirdTypes.CLEAN_AddTruckThirdReducer, payload: {} })
+}

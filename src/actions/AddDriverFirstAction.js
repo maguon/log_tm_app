@@ -25,3 +25,7 @@ export const resetCreateDriver = () => (dispatch) => {
 export const changeDriverField = (param) => (dispatch) => {
     dispatch({ type: actionTypes.addDriverFirstTypes.CHANGE_Driver_FIELD, payload: { data: param } })
 }
+
+export const cleanAddDriverFirstDate = () => (dispatch) => {
+    dispatch({ type: actionTypes.addDriverFirstTypes.CLEAN_AddDriverFirstReducer, payload: {} })
+}

@@ -11,3 +11,5 @@ export const UPDATE_DriverThirdLicenseImage_WAITING = 'UPDATE_DriverThirdLicense
 export const UPDATE_DriverThirdLicenseImage_SERVICEERROR = 'UPDATE_DriverThirdLicenseImage_SERVICEERROR'
 export const UPDATE_DriverThirdLicenseImage_ERROR = 'UPDATE_DriverThirdLicenseImage_ERROR'
 export const RESET_UPDATE_DriverThirdLicenseImage = 'RESET_UPDATE_DriverThirdLicenseImage'
+
+export const CLEAN_AddDriverThirdReducer = 'CLEAN_AddDriverThirdReducer'

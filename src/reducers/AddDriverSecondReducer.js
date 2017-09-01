@@ -98,7 +98,6 @@ export default handleActions({
         }
     },
 
-
     [(actionTypes.addDriverSecondTypes.CREATE_DriverSecondUnBindTruck_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         return {
@@ -162,6 +161,30 @@ export default handleActions({
     [(actionTypes.addDriverSecondTypes.RESET_CREATE_DriverSecondUnBindTruck)]: (state, action) => {
         return {
             ...state,
+            unBindTruck: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
+
+    [(actionTypes.addDriverSecondTypes.CLEAN_AddDriverSecondReducer)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            data: {
+                truckId: null,
+                truckNum: null
+            },
+            bindTruck: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            },
             unBindTruck: {
                 isResultStatus: 0,
                 isExecStatus: 0,

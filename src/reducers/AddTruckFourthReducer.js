@@ -26,4 +26,13 @@ export default handleActions({
             }
         }
     },
+
+    [(actionTypes.addTruckFourthTypes.CLEAN_AddTruckFourthReducer)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            data: {
+                insuranceLsit: []
+            }
+        }
+    }
 }, initialState)

@@ -169,6 +169,30 @@ export default handleActions({
                 serviceFailedMsg: ''
             }
         }
+    },
+
+    [(actionTypes.addDriverThirdTypes.CLEAN_AddDriverThirdReducer)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            data: {
+                drivingImage: null,
+                licenseImage: null
+            },
+            updateDrivingImage: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            },
+            updateLicenseImage: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
     }
 
 }, initialState)

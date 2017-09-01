@@ -8,7 +8,6 @@ export const bindTruck = (param) => async (dispatch) => {
     dispatch({ type: actionTypes.addDriverSecondTypes.CREATE_DriverSecondBindTruck_WAITING, payload: {} })
     try {
         let res = await httpRequest.put(url, {})
-        console.log('res',res)
         if (res.success) {
             dispatch({
                 type: actionTypes.addDriverSecondTypes.CREATE_DriverSecondBindTruck_SUCCESS, payload: {
@@ -47,5 +46,9 @@ export const resetBindTruck = () => (dispatch) => {
 
 export const resetUnBindTruck = () => (dispatch) => {
     dispatch({ type: actionTypes.addDriverSecondTypes.RESET_CREATE_DriverSecondUnBindTruck, payload: {} })
+}
+
+export const cleanAddDriverSecondDate = () => (dispatch) => {
+    dispatch({ type: actionTypes.addDriverSecondTypes.CLEAN_AddDriverSecondReducer, payload: {} })
 }
 

@@ -202,6 +202,35 @@ export default handleActions({
                 }
             }
         }
-    }
+    },
 
+    [(actionTypes.addTruckFirstTypes.CLEAN_AddTruckFirstReducer)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            data: {
+                truckFirst: {
+                    truckNum: ''
+                },
+                truckTrailer: {
+                    truckNum: ''
+                },
+                truckFirstId: 0,
+                truckTrailerId: 0
+            },
+            createTruckFirst: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            },
+            createTruckTrailer: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    }
 }, initialState)

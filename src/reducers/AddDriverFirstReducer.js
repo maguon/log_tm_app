@@ -104,4 +104,20 @@ export default handleActions({
         }
     },
 
+    [(actionTypes.addDriverFirstTypes.CLEAN_AddDriverFirstReducer)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            data: {
+                driverInfo: {},
+                driverId: ''
+            },
+            createDriverFirst: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    }
 }, initialState)

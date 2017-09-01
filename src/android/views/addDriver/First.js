@@ -19,8 +19,11 @@ import { connect } from 'react-redux'
 import {
     createDriver,
     changeDriverField,
-    resetCreateDriver
+    resetCreateDriver,
+    cleanAddDriverFirstDate
 } from '../../../actions/AddDriverFirstAction'
+import { cleanAddDriverSecondDate } from '../../../actions/AddDriverSecondAction'
+import { cleanAddDriverThirdDate } from '../../../actions/AddDriverThirdAction'
 import DrivingLicenseTypeList from '../../../config/DrivingLicenseType.json'
 
 class First extends Component {
@@ -55,11 +58,11 @@ class First extends Component {
                 this.props.resetCreateDriver()
             }
             else if (createDriverFirst.isResultStatus == 2) {
-                ToastAndroid.showWithGravity('车辆创建失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)                
+                ToastAndroid.showWithGravity('车辆创建失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetCreateDriver()
             }
             else if (createDriverFirst.isResultStatus == 3) {
-                ToastAndroid.showWithGravity('车辆创建失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)                
+                ToastAndroid.showWithGravity('车辆创建失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetCreateDriver()
             }
         }
@@ -74,6 +77,13 @@ class First extends Component {
             },
             postParam: this.props.addDriverFirstReducer.data.driverInfo
         })
+    }
+
+    componentWillUnmount(){
+        console.log('componentWillUnmount')
+        this.props.cleanAddDriverFirstDate()
+        this.props.cleanAddDriverSecondDate()
+        this.props.cleanAddDriverThirdDate()
     }
 
     render() {
@@ -133,7 +143,7 @@ class First extends Component {
                             value={this.props.addDriverFirstReducer.data.driverInfo.licenseType ? DrivingLicenseTypeList.find((item) => item.id == this.props.addDriverFirstReducer.data.driverInfo.licenseType).value : '请选择'}
                             showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
                             onValueChange={(param) => this.props.changeDriverField({ licenseType: param.id })}
-                            defaultValue={'请选择'} 
+                            defaultValue={'请选择'}
                         />
                         <DateTimePicker
                             isRequire={true}
@@ -141,7 +151,7 @@ class First extends Component {
                             value={this.props.addDriverFirstReducer.data.driverInfo.licenseDate ? this.props.addDriverFirstReducer.data.driverInfo.licenseDate : '请选择'}
                             title='驾驶证到期时间：'
                             onValueChange={(param) => this.props.changeDriverField({ licenseDate: param })}
-                            defaultValue={'请选择'} 
+                            defaultValue={'请选择'}
                         />
                         <TextBox
                             title='身份证：'
@@ -204,7 +214,7 @@ class First extends Component {
                                     this.state.cardNoValidater &&
                                     this.state.companyValidater &&
                                     this.state.addressValidater &&
-                                    this.state.licenseTypeValidater&&
+                                    this.state.licenseTypeValidater &&
                                     this.state.licenseDateValidater
                                 )}
                                 style={{
@@ -217,7 +227,7 @@ class First extends Component {
                                         this.state.cardNoValidater &&
                                         this.state.companyValidater &&
                                         this.state.addressValidater &&
-                                        this.state.licenseTypeValidater&&
+                                        this.state.licenseTypeValidater &&
                                         this.state.licenseDateValidater
                                     ) ? '#00cade' : '#888888'
                                 }}>
@@ -247,6 +257,15 @@ const mapDispatchToProps = (dispatch) => ({
     },
     resetCreateDriver: () => {
         dispatch(resetCreateDriver())
+    },
+    cleanAddDriverFirstDate: () => {
+        dispatch(cleanAddDriverFirstDate())
+    },
+    cleanAddDriverSecondDate: () => {
+        dispatch(cleanAddDriverSecondDate())
+    },
+    cleanAddDriverThirdDate: () => {
+        dispatch(cleanAddDriverThirdDate())
     }
 })
 

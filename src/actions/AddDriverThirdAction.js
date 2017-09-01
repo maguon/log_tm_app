@@ -11,7 +11,6 @@ export const updateDrivingImage = (param) => async (dispatch) => {
         let imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
         if (imageRes.success) {
             const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driverId}/image`
-
             param.putParam.driveImage = imageRes.imageId
             let res = await httpRequest.put(url, param.putParam)
             if (res.success) {
@@ -62,4 +61,7 @@ export const resetUpdateLicenseImage = () => (dispatch) => {
     dispatch({ type: actionTypes.addDriverThirdTypes.RESET_UPDATE_DriverThirdLicenseImage, payload: {} })
 }
 
+export const cleanAddDriverThirdDate = () => (dispatch) => {
+    dispatch({ type: actionTypes.addDriverThirdTypes.CLEAN_AddDriverThirdReducer, payload: {} })
+}
 

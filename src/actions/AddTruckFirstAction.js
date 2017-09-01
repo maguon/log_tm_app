@@ -49,3 +49,7 @@ export const changeTruckFirstField = (param) => (dispatch) => {
 export const changeTruckTrailerField = (param) => (dispatch) => {
     dispatch({ type: actionTypes.addTruckFirstTypes.CHANGE_TruckTrailer_FIELD, payload: { data: param } })
 }
+
+export const cleanAddTruckFirstDate = () => (dispatch) => {
+    dispatch({ type: actionTypes.addTruckFirstTypes.CLEAN_AddTruckFirstReducer, payload: {} })
+}

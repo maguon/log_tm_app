@@ -22,8 +22,12 @@ import {
     changeTruckFirstField,
     changeTruckTrailerField,
     resetCreateTruckFirst,
-    resetCreateTruckTrailer
+    resetCreateTruckTrailer,
+    cleanAddTruckFirstDate
 } from '../../../actions/AddTruckFirstAction'
+import { cleanAddTruckSecondDate } from '../../../actions/AddTruckSecondAction'
+import { cleanAddTruckThirdDate } from '../../../actions/AddTruckThirdAction'
+import { cleanAddTruckFourthDate } from '../../../actions/AddTruckFourthAction'
 
 class First extends Component {
     constructor(props) {
@@ -137,6 +141,14 @@ class First extends Component {
                 }
             })
         }
+    }
+
+
+    componentWillUnmount(){
+        this.props.cleanAddTruckFirstDate()
+        this.props.cleanAddTruckSecondDate()
+        this.props.cleanAddTruckThirdDate()
+        this.props.cleanAddTruckFourthDate()
     }
 
     renderCreateTruckFist() {
@@ -409,7 +421,20 @@ const mapDispatchToProps = (dispatch) => ({
     },
     resetCreateTruckFirst: () => {
         dispatch(resetCreateTruckFirst())
+    },
+    cleanAddTruckFirstDate: () => {
+        dispatch(cleanAddTruckFirstDate())
+    },
+    cleanAddTruckSecondDate: () => {
+ dispatch(cleanAddTruckSecondDate())
+    },
+    cleanAddTruckThirdDate: () => {
+ dispatch(cleanAddTruckThirdDate())
+    },
+    cleanAddTruckFourthDate: () => {
+ dispatch(cleanAddTruckFourthDate())
     }
 })
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(First)

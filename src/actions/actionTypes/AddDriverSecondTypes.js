@@ -12,5 +12,4 @@ export const CREATE_DriverSecondUnBindTruck_SERVICEERROR = 'CREATE_DriverSecondU
 export const CREATE_DriverSecondUnBindTruck_ERROR = 'CREATE_DriverSecondUnBindTruck_ERROR'
 export const RESET_CREATE_DriverSecondUnBindTruck = 'RESET_CREATE_DriverSecondUnBindTruck'
 
-
 export const CLEAN_AddDriverSecondReducer = 'CLEAN_AddDriverSecondReducer'
