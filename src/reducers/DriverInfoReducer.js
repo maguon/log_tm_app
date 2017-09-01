@@ -75,7 +75,7 @@ export default handleActions({
                 ...state.data,
                 driverInfo: {
                     ...data[0],
-                    license_date: data[0].license_date ? moment(new Date(data[0].license_date)).format('YYYY/MM/DD') : null
+                    license_date: data[0].license_date ? moment(new Date(data[0].license_date)).format('YYYY-MM-DD') : null
                 }
             },
             getDriverInfo: {

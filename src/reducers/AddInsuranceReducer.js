@@ -24,7 +24,7 @@ export default handleActions({
             ...state,
             data: {
                 ...state.data,
-                createDate: moment(Date.now()).format('YYYY/MM/DD')
+                createDate: moment(Date.now()).format('YYYY-MM-DD')
             },
             createInsurance: {
                 ...state.createInsurance,

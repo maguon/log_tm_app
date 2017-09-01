@@ -1457,12 +1457,12 @@ class TruckInfo extends Component {
                                 <Text style={{ fontSize: 11 }}>保险公司：{item.insure_name}</Text>
                             </View>
                             <View style={{ flex: 1 }}>
-                                <Text style={{ fontSize: 11 }}>投保日期：{moment(Date.parse(item.insure_date)).format('YYYY/MM/DD')}</Text>
+                                <Text style={{ fontSize: 11 }}>投保日期：{moment(Date.parse(item.insure_date)).format('YYYY-MM-DD')}</Text>
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View>
-                                <Text style={{ fontSize: 11 }}>生效期：{moment(Date.parse(item.start_date)).format('YYYY/MM/DD')} 到：{moment(Date.parse(item.end_date)).format('YYYY/MM/DD')}</Text>
+                                <Text style={{ fontSize: 11 }}>生效期：{moment(Date.parse(item.start_date)).format('YYYY-MM-DD')} 到：{moment(Date.parse(item.end_date)).format('YYYY-MM-DD')}</Text>
                             </View>
                             <View>
                                 <Text style={{ fontSize: 11 }}>¥ <Text style={{ color: 'red' }}>{item.insure_money}</Text>元</Text>
