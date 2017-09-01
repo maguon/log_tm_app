@@ -28,7 +28,8 @@ class Truck extends Component {
         initParam: {
             type: 1
         },
-        ifFilter: true
+        ifFilter: true,
+        filterType: 0
     }
 
     componentDidMount() {
@@ -54,10 +55,18 @@ class Truck extends Component {
 
     tractorListFilter() {
         return this.props.selectTruckReducer.data.tractorList.filter((item) => {
-            if (this.props.ifFilter)
-                return !item.trail_id && (item.truck_num.toUpperCase().indexOf(this.state.truckNum) >= 0 || item.truck_num.toLowerCase().indexOf(this.state.truckNum) >= 0)
-            else
+            if (this.props.ifFilter) {
+                if (this.props.filterType == 0) {
+                    return !item.trail_id && (item.truck_num.toUpperCase().indexOf(this.state.truckNum) >= 0 || item.truck_num.toLowerCase().indexOf(this.state.truckNum) >= 0)
+                }
+                else {
+                    return !item.drive_id && (item.truck_num.toUpperCase().indexOf(this.state.truckNum) >= 0 || item.truck_num.toLowerCase().indexOf(this.state.truckNum) >= 0)
+                }
+            }
+            else {
                 return item.truck_num.toUpperCase().indexOf(this.state.truckNum) >= 0 || item.truck_num.toLowerCase().indexOf(this.state.truckNum) >= 0
+            }
+
         })
     }
 
@@ -72,6 +81,7 @@ class Truck extends Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <View>
                 <View style={{ backgroundColor: '#edf1f4' }}>
