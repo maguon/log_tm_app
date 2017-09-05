@@ -380,9 +380,12 @@ export const resetCreateTruckRepairRel = (param) => (dispatch) => {
 
 export const updateTruckRepairRel = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/truckRepairRel/${param.requiredParam.relId}`
+    console.log('url',url)
     dispatch({ type: actionTypes.truckInfoTypes.UpdateTruckRepairRel_WAITING, payload: {} })
     try {
         let res = await httpRequest.put(url, param.putParam)
+        console.log('putParam',param.putParam)
+        console.log('res',res)
         if (res.success) {
             dispatch({ type: actionTypes.truckInfoTypes.UpdateTruckRepairRel_SUCCESS, payload: {} })
         } else {

@@ -1380,7 +1380,8 @@ class TruckInfo extends Component {
             },
             putParam: {
                 remark: param.remark,
-                repairMoney: param.repairMoney
+                repairMoney: param.repairMoney,
+                repairUser: param.repairUser
             }
         })
     }
@@ -1412,10 +1413,22 @@ class TruckInfo extends Component {
                     <FlatList
                         showsVerticalScrollIndicator={false}
                         data={this.props.truckInfoReducer.data.truckRepairRelList.filter((item) => item.repair_status == 1)}
-                        renderItem={({ item }) => <View style={{ paddingVertical: 10, paddingHorizontal: 10, borderBottomWidth: 0.5, borderColor: '#e3e3e3' }}>
-                            <Text style={{ fontSize: 12, fontWeight: 'bold' }}>{new Date(item.repair_date).toLocaleDateString()} 至 {new Date(item.end_date).toLocaleDateString()}</Text>
-                            <Text numberOfLines={1} style={{ fontSize: 12, paddingVertical: 5 }}><Text style={{ fontWeight: 'bold' }}>维修描述：</Text>{item.repair_reason}</Text>
-                            <Text style={{ alignSelf: 'flex-end', fontSize: 10 }}>金额：<Text style={{ color: '#f27d80', fontSize: 12 }}>{item.repair_money}</Text>元</Text>
+                        renderItem={({ item }) => <View style={{ paddingVertical: 5, paddingHorizontal: 5,borderRadius:2, borderWidth: 0.5,marginHorizontal:10,marginVertical:10, borderColor: '#e3e3e3' }}>
+                            <View style={{borderBottomWidth:0.5,borderColor: '#e3e3e3',paddingVertical:5}}>
+                                <Text style={{ fontSize: 12, fontWeight: 'bold' }}>{moment(new Date(item.repair_date)).format('YYYY-MM-DD hh:mm:ss')} 至 {moment(new Date(item.end_date)).format('YYYY-MM-DD hh:mm:ss')}</Text>
+                            </View>
+                            <View>
+                                <Text style={{ fontSize: 12, paddingVertical: 5,fontWeight: 'bold' }}>维修原因：</Text>
+                                <Text style={{ fontSize: 12, paddingVertical: 5 }}>{item.repair_reason}</Text>
+                            </View>
+                            <View>
+                                <Text style={{ fontSize: 12, paddingVertical: 5,fontWeight: 'bold' }}>维修描述：</Text>
+                                <Text style={{ fontSize: 12, paddingVertical: 5 }}>{item.remark}</Text>
+                            </View>
+                            <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+                                <Text style={{ alignSelf: 'flex-end', fontSize: 10 }}>维修人：<Text style={{ color: '#f27d80', fontSize: 12 }}>{item.repair_user}</Text></Text>
+                                <Text style={{ alignSelf: 'flex-end', fontSize: 10 }}>金额：<Text style={{ color: '#f27d80', fontSize: 12 }}>{item.repair_money}</Text>元</Text>
+                            </View>
                         </View>}
                     />
                 </View>

@@ -6,5 +6,9 @@
     {
         "id": 2,
         "insuranceType": "交强险"
+    },
+    {
+        "id": 3,
+        "insuranceType": "货运险"
     }
 ]

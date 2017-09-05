@@ -12,17 +12,19 @@ import { Actions } from 'react-native-router-flux'
 export default class UpdateRepair extends Component {
     constructor(props) {
         super(props)
-        this.state={
-            remark:'',
-            repairMoney:''
+        this.state = {
+            remark: '',
+            repairMoney: '',
+            repairUser:''
         }
-        this.onRepairUpdate=this.onRepairUpdate.bind(this)
+        this.onRepairUpdate = this.onRepairUpdate.bind(this)
     }
 
-    onRepairUpdate(){
+    onRepairUpdate() {
         this.props.onRepairUpdate({
-            remark:this.state.remark,
-            repairMoney:this.state.repairMoney
+            remark: this.state.remark,
+            repairMoney: this.state.repairMoney,
+            repairUser:this.state.repairUser
         })
         Actions.pop()
     }
@@ -38,6 +40,12 @@ export default class UpdateRepair extends Component {
                     value={this.state.remark}
                     onValueChange={(param) => this.setState({ remark: param })}
                     showRichText={RouterDirection.richText(this.props.parent)}
+                />
+                <TextBox
+                    title='维修人：'
+                    value={this.state.repairUser}
+                    onValueChange={(param) => this.setState({ repairUser: param })}
+                    placeholder='请输入维修人'
                 />
                 <TextBox
                     title='维修金额：'
