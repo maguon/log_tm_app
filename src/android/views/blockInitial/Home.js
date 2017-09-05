@@ -36,7 +36,7 @@ class Home extends Component {
         let now = Date.now()
         this.props.getWaitingInspectCount({
             OptionalParam: {
-                drivingDateEnd: moment(now + 30 * 24 * 60 * 60 * 1000).format('YYYYMMDD')
+                drivingDateEnd: moment(now + 30 * 24 * 60 * 60 * 1000 * 3).format('YYYYMMDD')
             }
         })
         this.props.getTruckRepairRelCount()
@@ -171,7 +171,7 @@ class Home extends Component {
                                 <Text>{param.title}</Text>
                             </View>
                             {param.isWarn && <View style={{ paddingTop: 5 }}>
-                                <Text style={{ color: '#b9c8cf', fontSize: 10 }}>{param.warnMsg}<Text style={{ color: '#fd8a8d' }}>一个月</Text>失效</Text>
+                                <Text style={{ color: '#b9c8cf', fontSize: 10 }}>{param.warnMsg}<Text style={{ color: '#fd8a8d' }}>{param.warnMsgDate}</Text>失效</Text>
                             </View>}
                         </View>
                         <View style={{ flex: 1 }}>
@@ -220,8 +220,9 @@ class Home extends Component {
                                 status: 1,
                                 count: waitingInspectCount ? waitingInspectCount.toString() : 0,
                                 isWarn: true, title: '待检车辆',
-                                router: () => Actions.truckHomeFilterList({ initParam: { drivingDateEnd: moment(Date.now() + 30 * 24 * 60 * 60 * 1000).format('YYYYMMDD') } }),
-                                warnMsg: '行驶证临近'
+                                router: () => Actions.truckHomeFilterList({ initParam: { drivingDateEnd: moment(Date.now() + 30 * 24 * 60 * 60 * 1000 * 3).format('YYYYMMDD') } }),
+                                warnMsg: '行驶证临近',
+                                warnMsgDate: '三个月'
                             })}
                             {this.renderTruckStatusItem({
                                 status: 2,
@@ -229,7 +230,8 @@ class Home extends Component {
                                 isWarn: true,
                                 title: '待检司机',
                                 router: () => RouterDirection.driverList(this.props.parent)({ initParam: { licenseDateEnd: moment(Date.now() + 30 * 24 * 60 * 60 * 1000).format('YYYYMMDD') } }),
-                                warnMsg: '驾驶证临近'
+                                warnMsg: '驾驶证临近',
+                                warnMsgDate: '一个月'
                             })}
                         </View>
                         <View>

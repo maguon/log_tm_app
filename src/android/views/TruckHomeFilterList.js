@@ -56,7 +56,7 @@ class TruckHomeFilterList extends Component {
 
     renderItem(item, i) {
         if (item.driving_date) {
-            confirmFlag = (Date.parse(new Date(item.driving_date))) < (Date.parse(new Date()) + 30 * 24 * 60 * 60 * 1000)
+            confirmFlag = (Date.parse(new Date(item.driving_date))) < (Date.parse(new Date()) + 30 * 24 * 60 * 60 * 1000*3)
         }
         return (
             <TouchableNativeFeedback key={i} onPress={()=>this.onPressItem(item)} background={TouchableNativeFeedback.SelectableBackground()}>
