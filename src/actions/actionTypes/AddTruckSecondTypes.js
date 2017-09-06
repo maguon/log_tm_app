@@ -26,4 +26,18 @@ export const CREATE_TruckSecondUnBindDriver_SERVICEERROR = 'CREATE_TruckSecondUn
 export const CREATE_TruckSecondUnBindDriver_ERROR = 'CREATE_TruckSecondUnBindDriver_ERROR'
 export const RESET_CREATE_TruckSecondUnBindDriver = 'RESET_CREATE_TruckSecondUnBindDriver'
 
+export const CREATE_TruckSecondBindViceDriver_SUCCESS = 'CREATE_TruckSecondBindViceDriver_SUCCESS'
+export const CREATE_TruckSecondBindViceDriver_FAILED = 'CREATE_TruckSecondBindViceDriver_FAILED'
+export const CREATE_TruckSecondBindViceDriver_WAITING = 'CREATE_TruckSecondBindViceDriver_WAITING'
+export const CREATE_TruckSecondBindViceDriver_SERVICEERROR = 'CREATE_TruckSecondBindViceDriver_SERVICEERROR'
+export const CREATE_TruckSecondBindViceDriver_ERROR = 'CREATE_TruckSecondBindViceDriver_ERROR'
+export const RESET_CREATE_TruckSecondBindViceDriver = 'RESET_CREATE_TruckSecondBindViceDriver'
+
+export const CREATE_TruckSecondUnBindViceDriver_SUCCESS = 'CREATE_TruckSecondUnBindViceDriver_SUCCESS'
+export const CREATE_TruckSecondUnBindViceDriver_FAILED = 'CREATE_TruckSecondUnBindViceDriver_FAILED'
+export const CREATE_TruckSecondUnBindViceDriver_WAITING = 'CREATE_TruckSecondUnBindViceDriver_WAITING'
+export const CREATE_TruckSecondUnBindViceDriver_SERVICEERROR = 'CREATE_TruckSecondUnBindViceDriver_SERVICEERROR'
+export const CREATE_TruckSecondUnBindViceDriver_ERROR = 'CREATE_TruckSecondUnBindViceDriver_ERROR'
+export const RESET_CREATE_TruckSecondUnBindViceDriver = 'RESET_CREATE_TruckSecondUnBindViceDriver'
+
 export const CLEAN_AddTruckSecondReducer = 'CLEAN_AddTruckSecondReducer'

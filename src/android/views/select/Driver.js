@@ -39,7 +39,7 @@ class Driver extends Component {
     driverListFilter() {
         //console.log(this.props.selectDriverReducer)
         return this.props.selectDriverReducer.data.driverList.filter((item) => {
-            return !item.truck_id && item.drive_name.indexOf(this.state.driveName) >= 0
+            return !item.truck_id && !item.vice_truck_id && item.drive_name.indexOf(this.state.driveName) >= 0
         })
     }
 
@@ -63,7 +63,7 @@ class Driver extends Component {
                     />
                 </View>
                 <FlatList
-                    showsVerticalScrollIndicator={false}
+                    showsVerticalScrollIndicator={true}
                     data={this.driverListFilter()}
                     renderItem={({ item }) => {
                         return (

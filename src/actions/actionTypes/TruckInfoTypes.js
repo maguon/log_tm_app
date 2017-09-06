@@ -120,6 +120,20 @@ export const DEL_TruckInfoTruckImage_SERVICEERROR = 'DEL_TruckInfoTruckImage_SER
 export const DEL_TruckInfoTruckImage_ERROR = 'DEL_TruckInfoTruckImage_ERROR'
 export const RESET_DEL_TruckInfoTruckImage = 'RESET_DEL_TruckInfoTruckImage'
 
+export const BindViceDriver_SUCCESS = 'BindViceDriver_SUCCESS'
+export const BindViceDriver_FAILED = 'BindViceDriver_FAILED'
+export const BindViceDriver_WAITING = 'BindViceDriver_WAITING'
+export const BindViceDriver_SERVICEERROR = 'BindViceDriver_SERVICEERROR'
+export const BindViceDriver_ERROR = 'BindViceDriver_ERROR'
+export const RESET_BindViceDriver = 'RESET_BindViceDriver'
+
+export const UnBindViceDriver_SUCCESS = 'UnBindViceDriver_SUCCESS'
+export const UnBindViceDriver_FAILED = 'UnBindViceDriver_FAILED'
+export const UnBindViceDriver_WAITING = 'UnBindViceDriver_WAITING'
+export const UnBindViceDriver_SERVICEERROR = 'UnBindViceDriver_SERVICEERROR'
+export const UnBindViceDriver_ERROR = 'UnBindViceDriver_ERROR'
+export const RESET_UnBindViceDriver = 'RESET_UnBindViceDriver'
+
 export const CLEAN_TruckInfoReducer = 'CLEAN_TruckInfoReducer'
 export const Add_TruckInfoInsurance = 'Add_TruckInfoInsurance'
 

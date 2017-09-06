@@ -380,12 +380,12 @@ export const resetCreateTruckRepairRel = (param) => (dispatch) => {
 
 export const updateTruckRepairRel = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/truckRepairRel/${param.requiredParam.relId}`
-    console.log('url',url)
+    //console.log('url',url)
     dispatch({ type: actionTypes.truckInfoTypes.UpdateTruckRepairRel_WAITING, payload: {} })
     try {
         let res = await httpRequest.put(url, param.putParam)
-        console.log('putParam',param.putParam)
-        console.log('res',res)
+        //console.log('putParam',param.putParam)
+        //console.log('res',res)
         if (res.success) {
             dispatch({ type: actionTypes.truckInfoTypes.UpdateTruckRepairRel_SUCCESS, payload: {} })
         } else {
@@ -404,7 +404,53 @@ export const changeTruckInfoField = (param) => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.CHANGE_TruckInfo_FIELD, payload: { data: param } })
 }
 
-export const addTruckInfoInsurance =(param) => (dispatch) => {
-     dispatch({ type: actionTypes.truckInfoTypes.Add_TruckInfoInsurance, payload: { data: param } })
+export const addTruckInfoInsurance = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.truckInfoTypes.Add_TruckInfoInsurance, payload: { data: param } })
+}
+
+export const bindViceDriver = (param) => async (dispatch) => {
+    const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/viceDrive/${param.requiredParam.viceDriveId}/bind`
+    dispatch({ type: actionTypes.truckInfoTypes.BindViceDriver_WAITING, payload: {} })
+    try {
+        let res = await httpRequest.put(url, param.putParam)
+        if (res.success) {
+            dispatch({
+                type: actionTypes.truckInfoTypes.BindViceDriver_SUCCESS, payload: {
+                    data:
+                    {
+                        vice_drive_id: param.vice_drive_id,
+                        vice_drive_name: param.vice_drive_name
+                    }
+                }
+            })
+        } else {
+            dispatch({ type: actionTypes.truckInfoTypes.BindViceDriver_FAILED, payload: { data: res.msg } })
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.truckInfoTypes.BindViceDriver_ERROR, payload: { data: err } })
+    }
+}
+
+export const resetBindViceDriver = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.truckInfoTypes.RESET_BindViceDriver, payload: { data: param } })
+}
+
+export const unBindViceDriver = (param) => async (dispatch) => {
+    const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/viceDrive/${param.requiredParam.viceDriveId}/unbind`
+    dispatch({ type: actionTypes.truckInfoTypes.UnBindViceDriver_WAITING, payload: {} })
+    try {
+        let res = await httpRequest.put(url, param.putParam)
+        if (res.success) {
+            dispatch({ type: actionTypes.truckInfoTypes.UnBindViceDriver_SUCCESS, payload: { } })
+        } else {
+            dispatch({ type: actionTypes.truckInfoTypes.UnBindViceDriver_FAILED, payload: { data: res.msg } })
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.truckInfoTypes.UnBindViceDriver_ERROR, payload: { data: err } })
+    }
+}
+
+export const resetUnBindViceDriver = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.truckInfoTypes.RESET_UnBindViceDriver, payload: { data: param } })
 }
 

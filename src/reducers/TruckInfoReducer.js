@@ -129,6 +129,20 @@ const initialState = {
         failedMsg: '',
         serviceFailedMsg: ''
     },
+    bindViceDriver: {
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
+    },
+    unBindViceDriver: {
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
+    }
 }
 
 //isResultStatus(执行结果状态):[0(成功)，1(错误)，2(执行失败),3(服务器错误)] 
@@ -1415,6 +1429,160 @@ export default handleActions({
         return {
             ...state,
             updateTruckInfo: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
+
+
+    [(actionTypes.truckInfoTypes.BindViceDriver_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                truckInfo: {
+                    ...state.data.truckInfo,
+                    ...data
+                }
+            },
+            bindViceDriver: {
+                ...state.bindViceDriver,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.BindViceDriver_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            bindViceDriver: {
+                ...state.bindViceDriver,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.BindViceDriver_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            bindViceDriver: {
+                ...state.bindViceDriver,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.BindViceDriver_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            bindViceDriver: {
+                ...state.bindViceDriver,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.BindViceDriver_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            bindViceDriver: {
+                ...state.bindViceDriver,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.RESET_BindViceDriver)]: (state, action) => {
+        return {
+            ...state,
+            bindViceDriver: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
+
+
+    [(actionTypes.truckInfoTypes.UnBindViceDriver_SUCCESS)]: (state, action) => {
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                truckInfo: {
+                    ...state.data.truckInfo,
+                    vice_drive_id: null,
+                    vice_drive_name: null
+                }
+            },
+            unBindViceDriver: {
+                ...state.unBindViceDriver,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.UnBindViceDriver_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            unBindViceDriver: {
+                ...state.unBindViceDriver,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.UnBindViceDriver_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            unBindViceDriver: {
+                ...state.unBindViceDriver,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.UnBindViceDriver_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            unBindViceDriver: {
+                ...state.unBindViceDriver,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.UnBindViceDriver_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            unBindViceDriver: {
+                ...state.unBindViceDriver,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.RESET_UnBindViceDriver)]: (state, action) => {
+        return {
+            ...state,
+            unBindViceDriver: {
                 isResultStatus: 0,
                 isExecStatus: 0,
                 errorMsg: '',

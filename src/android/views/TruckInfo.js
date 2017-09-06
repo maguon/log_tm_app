@@ -5,7 +5,7 @@ import {
     FlatList,
     ScrollView,
     TouchableNativeFeedback,
-    ToastAndroid,Alert
+    ToastAndroid, Alert
 } from 'react-native'
 
 import { Button } from 'native-base'
@@ -57,7 +57,11 @@ import {
     resetDelTruckImage,
     changeTruckInfoField,
     resetUpdateTruckInfo,
-    addTruckInfoInsurance
+    addTruckInfoInsurance,
+    bindViceDriver,
+    resetBindViceDriver,
+    unBindViceDriver,
+    resetUnBindViceDriver
 } from '../../actions/TruckInfoAction'
 import { Actions } from 'react-native-router-flux'
 import insuranceTypeList from '../../config/insuranceType.json'
@@ -142,6 +146,8 @@ class TruckInfo extends Component {
         this.onShowTruckImage = this.onShowTruckImage.bind(this)
         this.onShowDrivingImage = this.onShowDrivingImage.bind(this)
         this.updateTruckInfo = this.updateTruckInfo.bind(this)
+        this.bindViceDriver = this.bindViceDriver.bind(this)
+        this.unBindViceDriver = this.unBindViceDriver.bind(this)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -162,6 +168,8 @@ class TruckInfo extends Component {
             createTruckImage,
             delTruckImage,
             updateTruckInfo,
+            bindViceDriver,
+            unBindViceDriver,
             data } = nextProps.truckInfoReducer
         /*truckInfo*/ //完成
         if (truckInfo.isExecStatus == 2) {
@@ -567,6 +575,47 @@ class TruckInfo extends Component {
         }
         /************************************ */
 
+        /*bindViceDriver*/ //完成
+        if (bindViceDriver.isExecStatus == 2) {
+            if (bindViceDriver.isResultStatus == 0) {
+                ToastAndroid.showWithGravity('绑定成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetBindViceDriver()
+            }
+            else if (bindViceDriver.isResultStatus == 1) {
+                ToastAndroid.showWithGravity('绑定失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetBindViceDriver()
+            }
+            else if (bindViceDriver.isResultStatus == 2) {
+                ToastAndroid.showWithGravity(`绑定失败，${bindViceDriver.failedMsg}！`, ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetBindViceDriver()
+            }
+            else if (bindViceDriver.isResultStatus == 3) {
+                ToastAndroid.showWithGravity('绑定失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetBindViceDriver()
+            }
+        }
+        /************************************ */
+
+        /*unBindViceDriver*/ //完成
+        if (unBindViceDriver.isExecStatus == 2) {
+            if (unBindViceDriver.isResultStatus == 0) {
+                ToastAndroid.showWithGravity('解绑成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUnBindViceDriver()
+            }
+            else if (unBindViceDriver.isResultStatus == 1) {
+                ToastAndroid.showWithGravity('解绑失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUnBindViceDriver()
+            }
+            else if (unBindViceDriver.isResultStatus == 2) {
+                ToastAndroid.showWithGravity(`解绑失败，${unBindViceDriver.failedMsg}！`, ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUnBindViceDriver()
+            }
+            else if (unBindViceDriver.isResultStatus == 3) {
+                ToastAndroid.showWithGravity('解绑失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUnBindViceDriver()
+            }
+        }
+        /************************************ */
     }
 
     componentDidMount() {
@@ -600,6 +649,28 @@ class TruckInfo extends Component {
         if (this.props.truckInfoReducer.data.truckInfo.license_date) param.putParam.licenseDate = this.props.truckInfoReducer.data.truckInfo.license_date
         if (this.props.truckInfoReducer.data.truckInfo.remark) param.putParam.remark = this.props.truckInfoReducer.data.truckInfo.remark
         this.props.updateTruckInfo(param)
+    }
+
+    bindViceDriver(param) {
+        this.props.bindViceDriver({
+            requiredParam: {
+                userId: this.props.userReducer.user.userId,
+                truckId: this.props.initParam.truckId,
+                viceDriveId: param.id
+            },
+            vice_drive_id: param.id,
+            vice_drive_name: param.value
+        })
+    }
+
+    unBindViceDriver() {
+        this.props.unBindViceDriver({
+            requiredParam: {
+                userId: this.props.userReducer.user.userId,
+                truckId: this.props.initParam.truckId,
+                viceDriveId: this.props.truckInfoReducer.data.truckInfo.vice_drive_id
+            }
+        })
     }
 
     renderTractorInfoEnable() {
@@ -668,7 +739,7 @@ class TruckInfo extends Component {
                             </TouchableNativeFeedback>}
                     </View>
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View><Text style={{ fontSize: 12 }}>关联司机：{this.props.truckInfoReducer.data.truckInfo.drive_name ? this.props.truckInfoReducer.data.truckInfo.drive_name : '您还没有关联司机'}</Text></View>
+                        <View><Text style={{ fontSize: 12 }}>关联主驾：{this.props.truckInfoReducer.data.truckInfo.drive_name ? this.props.truckInfoReducer.data.truckInfo.drive_name : '您还没有关联司机'}</Text></View>
                         {!this.props.truckInfoReducer.data.truckInfo.drive_id ? <TouchableNativeFeedback onPress={() => RouterDirection.selectDriver(this.props.parent)({ initParam: { type: 2 }, onSelect: (param) => this.bindDriver(param) })} background={TouchableNativeFeedback.SelectableBackground()}>
                             <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                 <Text style={{ fontSize: 10, color: '#fff' }}>绑定</Text>
@@ -679,6 +750,18 @@ class TruckInfo extends Component {
                                 </View>
                             </TouchableNativeFeedback>}
                     </View>
+                     <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View><Text style={{ fontSize: 12 }}>关联副驾：{this.props.truckInfoReducer.data.truckInfo.vice_drive_name ? this.props.truckInfoReducer.data.truckInfo.vice_drive_name : '您还没有关联司机'}</Text></View>
+                        {!this.props.truckInfoReducer.data.truckInfo.vice_drive_id ? <TouchableNativeFeedback onPress={() => RouterDirection.selectDriver(this.props.parent)({ initParam: { type: 2 }, onSelect: (param) => this.bindViceDriver(param) })} background={TouchableNativeFeedback.SelectableBackground()}>
+                            <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                                <Text style={{ fontSize: 10, color: '#fff' }}>绑定</Text>
+                            </View>
+                        </TouchableNativeFeedback> : <TouchableNativeFeedback onPress={this.unBindViceDriver} background={TouchableNativeFeedback.SelectableBackground()}>
+                                <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                                    <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
+                                </View>
+                            </TouchableNativeFeedback>}
+                    </View> 
                     <DateTimePicker
                         value={this.props.truckInfoReducer.data.truckInfo.driving_date ? this.props.truckInfoReducer.data.truckInfo.driving_date : '请选择'}
                         title='行驶证检证日期：'
@@ -711,11 +794,11 @@ class TruckInfo extends Component {
                             )} */
                             style={{
                                 backgroundColor: ('#00cade')
-                                 /*    this.state.truckNumTractorValidater &&
-                                    this.state.truckTelTractorValidater &&
-                                    this.state.theCodeTractorValidater &&
-                                    this.state.remarkTractorValidater
-                                ) ? '#00cade' : '#888888'*/
+                                /*    this.state.truckNumTractorValidater &&
+                                   this.state.truckTelTractorValidater &&
+                                   this.state.theCodeTractorValidater &&
+                                   this.state.remarkTractorValidater
+                               ) ? '#00cade' : '#888888'*/
                             }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
@@ -810,11 +893,11 @@ class TruckInfo extends Component {
                             )}*/
                             style={{
                                 backgroundColor: ('#00cade')
-                                   /* this.state.truckNumTractorValidater &&
-                                    this.state.truckTelTractorValidater &&
-                                    this.state.theCodeTractorValidater &&
-                                    this.state.remarkTractorValidater
-                                ) ? '#00cade' : '#888888'*/
+                                /* this.state.truckNumTractorValidater &&
+                                 this.state.truckTelTractorValidater &&
+                                 this.state.theCodeTractorValidater &&
+                                 this.state.remarkTractorValidater
+                             ) ? '#00cade' : '#888888'*/
                             }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
@@ -916,11 +999,11 @@ class TruckInfo extends Component {
                             )}*/
                             style={{
                                 backgroundColor: ('#00cade')
-                                 /*   this.state.truckNumTrailerValidater &&
-                                    this.state.numberTrailerValidater &&
-                                    this.state.theCodeTrailerValidater &&
-                                    this.state.remarkTrailerValidater
-                                ) ? '#00cade' : '#888888'*/
+                                /*   this.state.truckNumTrailerValidater &&
+                                   this.state.numberTrailerValidater &&
+                                   this.state.theCodeTrailerValidater &&
+                                   this.state.remarkTrailerValidater
+                               ) ? '#00cade' : '#888888'*/
                             }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
@@ -1009,11 +1092,11 @@ class TruckInfo extends Component {
                             )}*/
                             style={{
                                 backgroundColor: ('#00cade')
-                                   /* this.state.truckNumTrailerValidater &&
-                                    this.state.numberTrailerValidater &&
-                                    this.state.theCodeTrailerValidater &&
-                                    this.state.remarkTrailerValidater
-                                ) ? '#00cade' : '#888888'*/
+                                /* this.state.truckNumTrailerValidater &&
+                                 this.state.numberTrailerValidater &&
+                                 this.state.theCodeTrailerValidater &&
+                                 this.state.remarkTrailerValidater
+                             ) ? '#00cade' : '#888888'*/
                             }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
@@ -1413,19 +1496,19 @@ class TruckInfo extends Component {
                     <FlatList
                         showsVerticalScrollIndicator={false}
                         data={this.props.truckInfoReducer.data.truckRepairRelList.filter((item) => item.repair_status == 1)}
-                        renderItem={({ item }) => <View style={{ paddingVertical: 5, paddingHorizontal: 5,borderRadius:2, borderWidth: 0.5,marginHorizontal:10,marginVertical:10, borderColor: '#e3e3e3' }}>
-                            <View style={{borderBottomWidth:0.5,borderColor: '#e3e3e3',paddingVertical:5}}>
+                        renderItem={({ item }) => <View style={{ paddingVertical: 5, paddingHorizontal: 5, borderRadius: 2, borderWidth: 0.5, marginHorizontal: 10, marginVertical: 10, borderColor: '#e3e3e3' }}>
+                            <View style={{ borderBottomWidth: 0.5, borderColor: '#e3e3e3', paddingVertical: 5 }}>
                                 <Text style={{ fontSize: 12, fontWeight: 'bold' }}>{moment(new Date(item.repair_date)).format('YYYY-MM-DD hh:mm:ss')} 至 {moment(new Date(item.end_date)).format('YYYY-MM-DD hh:mm:ss')}</Text>
                             </View>
                             <View>
-                                <Text style={{ fontSize: 12, paddingVertical: 5,fontWeight: 'bold' }}>维修原因：</Text>
+                                <Text style={{ fontSize: 12, paddingVertical: 5, fontWeight: 'bold' }}>维修原因：</Text>
                                 <Text style={{ fontSize: 12, paddingVertical: 5 }}>{item.repair_reason}</Text>
                             </View>
                             <View>
-                                <Text style={{ fontSize: 12, paddingVertical: 5,fontWeight: 'bold' }}>维修描述：</Text>
+                                <Text style={{ fontSize: 12, paddingVertical: 5, fontWeight: 'bold' }}>维修描述：</Text>
                                 <Text style={{ fontSize: 12, paddingVertical: 5 }}>{item.remark}</Text>
                             </View>
-                            <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={{ alignSelf: 'flex-end', fontSize: 10 }}>维修人：<Text style={{ color: '#f27d80', fontSize: 12 }}>{item.repair_user}</Text></Text>
                                 <Text style={{ alignSelf: 'flex-end', fontSize: 10 }}>金额：<Text style={{ color: '#f27d80', fontSize: 12 }}>{item.repair_money}</Text>元</Text>
                             </View>
@@ -1453,7 +1536,7 @@ class TruckInfo extends Component {
     renderInsuranceList() {
         let insuranceList = this.props.truckInfoReducer.data.truckInsureRelList.map((item, i) => {
             let panelStyle = (i == this.props.truckInfoReducer.data.truckInsureRelList.length - 1) ? { marginVertical: 10 } : { marginTop: 10 }
-           
+
             return (
                 <View key={i} style={{ backgroundColor: '#edf1f4' }}>
                     <View style={{ marginHorizontal: 10, paddingHorizontal: 10, paddingVertical: 10, backgroundColor: '#fff', borderColor: '#e8e8e8', borderWidth: 0.5, ...panelStyle }}>
@@ -1502,8 +1585,8 @@ class TruckInfo extends Component {
 
     render() {
         const { truck_status, truck_type } = this.props.truckInfoReducer.data.truckInfo
-       //console.log(this.props)
-     //  console.log(this.state)
+        console.log(this.props)
+        //  console.log(this.state)
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>
@@ -1661,13 +1744,24 @@ const mapDispatchToProps = (dispatch) => ({
     },
     changeTruckInfoField: (param) => {
         dispatch(changeTruckInfoField(param))
-
     },
     resetUpdateTruckInfo: () => {
         dispatch(resetUpdateTruckInfo())
     },
     addTruckInfoInsurance: (param) => {
         dispatch(addTruckInfoInsurance(param))
+    },
+    bindViceDriver: (param) => {
+        dispatch(bindViceDriver(param))
+    },
+    resetBindViceDriver: () => {
+        dispatch(resetBindViceDriver())
+    },
+    unBindViceDriver: (param) => {
+        dispatch(unBindViceDriver(param))
+    },
+    resetUnBindViceDriver: () => {
+        dispatch(resetUnBindViceDriver())
     }
 })
 
