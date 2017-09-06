@@ -93,12 +93,12 @@ export const cleanAddTruckSecondDate = () => (dispatch) => {
 
 export const bindViceDriver = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/viceDrive/${param.requiredParam.viceDriveId}/bind`
-    dispatch({ type: actionTypes.truckInfoTypes.BindViceDriver_WAITING, payload: {} })
+    dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindViceDriver_WAITING, payload: {} })
     try {
         let res = await httpRequest.put(url, param.putParam)
         if (res.success) {
             dispatch({
-                type: actionTypes.truckInfoTypes.BindViceDriver_SUCCESS, payload: {
+                type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindViceDriver_SUCCESS, payload: {
                     data:
                     {
                         vice_drive_id: param.vice_drive_id,
@@ -107,32 +107,32 @@ export const bindViceDriver = (param) => async (dispatch) => {
                 }
             })
         } else {
-            dispatch({ type: actionTypes.truckInfoTypes.BindViceDriver_FAILED, payload: { data: res.msg } })
+            dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindViceDriver_FAILED, payload: { data: res.msg } })
         }
     } catch (err) {
-        dispatch({ type: actionTypes.truckInfoTypes.BindViceDriver_ERROR, payload: { data: err } })
+        dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindViceDriver_ERROR, payload: { data: err } })
     }
 }
 
 export const resetBindViceDriver = (param) => (dispatch) => {
-    dispatch({ type: actionTypes.truckInfoTypes.RESET_BindViceDriver, payload: { data: param } })
+    dispatch({ type: actionTypes.addTruckSecondTypes.RESET_CREATE_TruckSecondBindViceDriver, payload: { data: param } })
 }
 
 export const unBindViceDriver = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/viceDrive/${param.requiredParam.viceDriveId}/unbind`
-    dispatch({ type: actionTypes.truckInfoTypes.UnBindViceDriver_WAITING, payload: {} })
+    dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondUnBindViceDriver_WAITING, payload: {} })
     try {
         let res = await httpRequest.put(url, param.putParam)
         if (res.success) {
-            dispatch({ type: actionTypes.truckInfoTypes.UnBindViceDriver_SUCCESS, payload: { } })
+            dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondUnBindViceDriver_SUCCESS, payload: { } })
         } else {
-            dispatch({ type: actionTypes.truckInfoTypes.UnBindViceDriver_FAILED, payload: { data: res.msg } })
+            dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondUnBindViceDriver_FAILED, payload: { data: res.msg } })
         }
     } catch (err) {
-        dispatch({ type: actionTypes.truckInfoTypes.UnBindViceDriver_ERROR, payload: { data: err } })
+        dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondUnBindViceDriver_ERROR, payload: { data: err } })
     }
 }
 
 export const resetUnBindViceDriver = (param) => (dispatch) => {
-    dispatch({ type: actionTypes.truckInfoTypes.RESET_UnBindViceDriver, payload: { data: param } })
+    dispatch({ type: actionTypes.addTruckSecondTypes.RESET_CREATE_TruckSecondUnBindViceDriver, payload: { data: param } })
 }

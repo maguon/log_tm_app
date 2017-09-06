@@ -20,7 +20,11 @@ import {
     resetBindTruck,
     resetUnBindTruck,
     resetBindDriver,
-    resetUnBindDriver
+    resetUnBindDriver,
+    bindViceDriver,
+    resetBindViceDriver,
+    unBindViceDriver,
+    resetUnBindViceDriver
 } from '../../../actions/AddTruckSecondAction'
 
 class Second extends Component {
@@ -31,6 +35,8 @@ class Second extends Component {
         this.onPressUnBindTruck = this.onPressUnBindTruck.bind(this)
         this.onPressUnBindDriver = this.onPressUnBindDriver.bind(this)
         this.onPressNextStep = this.onPressNextStep.bind(this)
+        this.onSelectViceDriver = this.onSelectViceDriver.bind(this)
+        this.onPressUnBindViceDriver = this.onPressUnBindViceDriver.bind(this)
     }
 
 
@@ -92,6 +98,14 @@ class Second extends Component {
         })
     }
 
+    onSelectViceDriver(param){
+
+    }
+
+    onPressUnBindViceDriver(){
+
+    }
+
     onPressUnBindDriver() {
         this.props.unBindDriver({
             requiredParam: {
@@ -107,7 +121,7 @@ class Second extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const { bindTruck, unBindTruck, bindDriver, unBindDriver, data } = nextProps.addTruckSecondReducer
+        const { bindTruck, unBindTruck, bindDriver, unBindDriver,bindViceDriver,unBindViceDriver, data } = nextProps.addTruckSecondReducer
         /*bindTruck*/
         if (bindTruck.isExecStatus == 2) {
             if (bindTruck.isResultStatus == 0) {
@@ -191,6 +205,48 @@ class Second extends Component {
             }
         }
         /************************************ */
+
+        /*bindViceDriver*/ //完成
+        if (bindViceDriver.isExecStatus == 2) {
+            if (bindViceDriver.isResultStatus == 0) {
+                ToastAndroid.showWithGravity('绑定成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetBindViceDriver()
+            }
+            else if (bindViceDriver.isResultStatus == 1) {
+                ToastAndroid.showWithGravity('绑定失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetBindViceDriver()
+            }
+            else if (bindViceDriver.isResultStatus == 2) {
+                ToastAndroid.showWithGravity(`绑定失败，${bindViceDriver.failedMsg}！`, ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetBindViceDriver()
+            }
+            else if (bindViceDriver.isResultStatus == 3) {
+                ToastAndroid.showWithGravity('绑定失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetBindViceDriver()
+            }
+        }
+        /************************************ */
+
+        /*unBindViceDriver*/ //完成
+        if (unBindViceDriver.isExecStatus == 2) {
+            if (unBindViceDriver.isResultStatus == 0) {
+                ToastAndroid.showWithGravity('解绑成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUnBindViceDriver()
+            }
+            else if (unBindViceDriver.isResultStatus == 1) {
+                ToastAndroid.showWithGravity('解绑失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUnBindViceDriver()
+            }
+            else if (unBindViceDriver.isResultStatus == 2) {
+                ToastAndroid.showWithGravity(`解绑失败，${unBindViceDriver.failedMsg}！`, ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUnBindViceDriver()
+            }
+            else if (unBindViceDriver.isResultStatus == 3) {
+                ToastAndroid.showWithGravity('解绑失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUnBindViceDriver()
+            }
+        }
+        /************************************ */
     }
 
     render() {
@@ -238,7 +294,7 @@ class Second extends Component {
                             </TouchableNativeFeedback>
                         </View>}
                     {this.props.initParam.type == 1 && !this.props.addTruckSecondReducer.data.bindDriverId && <Select
-                        title='关联司机：'
+                        title='关联主驾：'
                         isRequire={false}
                         value={this.props.addTruckSecondReducer.data.bindDriver}
                         showList={RouterDirection.selectDriver(this.props.parent)}
@@ -246,13 +302,33 @@ class Second extends Component {
                         defaultValue={'请选择'}
                     />}
                     {this.props.initParam.type == 1 && !!this.props.addTruckSecondReducer.data.bindDriverId && <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View><Text style={{ fontSize: 12 }}>关联司机：{this.props.addTruckSecondReducer.data.bindDriver}</Text></View>
+                        <View><Text style={{ fontSize: 12 }}>关联主驾：{this.props.addTruckSecondReducer.data.bindDriver}</Text></View>
                         <TouchableNativeFeedback onPress={this.onPressUnBindDriver} background={TouchableNativeFeedback.SelectableBackground()}>
                             <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                 <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
                             </View>
                         </TouchableNativeFeedback>
                     </View>}
+
+
+                    {this.props.initParam.type == 1 && !this.props.addTruckSecondReducer.data.bindViceDriverId && <Select
+                        title='关联副驾：'
+                        isRequire={false}
+                        value={this.props.addTruckSecondReducer.data.bindViceDriver}
+                        showList={RouterDirection.selectDriver(this.props.parent)}
+                        onValueChange={(param) => this.onSelectViceDriver(param)}
+                        defaultValue={'请选择'}
+                    />}
+                    {this.props.initParam.type == 1 && !!this.props.addTruckSecondReducer.data.bindViceDriverId && <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View><Text style={{ fontSize: 12 }}>关联副驾：{this.props.addTruckSecondReducer.data.bindViceDriver}</Text></View>
+                        <TouchableNativeFeedback onPress={this.onPressUnBindViceDriver} background={TouchableNativeFeedback.SelectableBackground()}>
+                            <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                                <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
+                            </View>
+                        </TouchableNativeFeedback>
+                    </View>}
+
+
                     <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
                         <Button
                             full
@@ -298,6 +374,18 @@ const mapDispatchToProps = (dispatch) => ({
     },
     resetUnBindDriver: () => {
         dispatch(resetUnBindDriver())
+    },
+    bindViceDriver: (param) => {
+        dispatch(bindViceDriver(param))
+    },
+    resetBindViceDriver: () => {
+        dispatch(resetBindViceDriver())
+    },
+    unBindViceDriver: (param) => {
+        dispatch(unBindViceDriver(param))
+    },
+    resetUnBindViceDriver: () => {
+        dispatch(resetUnBindViceDriver())
     }
 })
 

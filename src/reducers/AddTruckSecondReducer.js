@@ -8,7 +8,9 @@ const initialState = {
         bindTrailerId: '',
         bindTrailer: '',
         bindDriverId: '',
-        bindDriver: ''
+        bindDriver: '',
+        bindViceDriver: '',
+        bindViceDriverId: ''
     },
     bindTruck: {
         isResultStatus: 0,
@@ -32,6 +34,20 @@ const initialState = {
         serviceFailedMsg: ''
     },
     unBindDriver: {
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
+    },
+    bindViceDriver: {
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
+    },
+    unBindViceDriver: {
         isResultStatus: 0,
         isExecStatus: 0,
         errorMsg: '',
@@ -360,6 +376,153 @@ export default handleActions({
         }
     },
 
+    [(actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindViceDriver_SUCCESS)]: (state, action) => {
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                bindViceDriverId: data.viceDriverId,
+                bindViceDriver: data.viceDriver 
+            },
+            bindViceDriver: {
+                ...state.bindViceDriver,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindViceDriver_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            bindViceDriver: {
+                ...state.bindViceDriver,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindViceDriver_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            bindViceDriver: {
+                ...state.bindViceDriver,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindViceDriver_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            bindViceDriver: {
+                ...state.bindViceDriver,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindViceDriver_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            bindViceDriver: {
+                ...state.bindViceDriver,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.addTruckSecondTypes.RESET_CREATE_TruckSecondBindViceDriver)]: (state, action) => {
+        return {
+            ...state,
+            bindViceDriver: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
+
+    [(actionTypes.addTruckSecondTypes.CREATE_TruckSecondUnBindViceDriver_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                bindViceDriver: '',
+                bindViceDriverId: ''
+            },
+            unBindViceDriver: {
+                ...state.unBindViceDriver,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addTruckSecondTypes.CREATE_TruckSecondUnBindViceDriver_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            unBindViceDriver: {
+                ...state.unBindViceDriver,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addTruckSecondTypes.CREATE_TruckSecondUnBindViceDriver_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            unBindViceDriver: {
+                ...state.unBindViceDriver,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addTruckSecondTypes.CREATE_TruckSecondUnBindViceDriver_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            unBindViceDriver: {
+                ...state.unBindViceDriver,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addTruckSecondTypes.CREATE_TruckSecondUnBindViceDriver_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            unBindViceDriver: {
+                ...state.unBindViceDriver,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.addTruckSecondTypes.RESET_CREATE_TruckSecondUnBindViceDriver)]: (state, action) => {
+        return {
+            ...state,
+            unBindViceDriver: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
+
     [(actionTypes.addTruckSecondTypes.CLEAN_AddTruckSecondReducer)]: (state, action) => {
         const { payload: { data } } = action
         return {
@@ -401,4 +564,7 @@ export default handleActions({
             }
         }
     }
+
+
+
 }, initialState)
