@@ -686,17 +686,23 @@ class DriverInfo extends Component {
                     />
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View>
-                            <Text style={{ fontSize: 12 }}>关联货车：{this.props.driverInfoReducer.data.driverInfo.truck_num ? this.props.driverInfoReducer.data.driverInfo.truck_num : '未绑定货车'}</Text>
+                            <Text style={{ fontSize: 12 }}>主驾货车：{this.props.driverInfoReducer.data.driverInfo.truck_num ? this.props.driverInfoReducer.data.driverInfo.truck_num : '未绑定货车'}</Text>
                         </View>
-                        {!this.props.driverInfoReducer.data.driverInfo.truck_num ? <TouchableNativeFeedback onPress={() => RouterDirection.selectTruck(this.props.parent)({ initParam: { type: 1 }, filterType: 1, onSelect: (param) => this.bindTruck(param) })} background={TouchableNativeFeedback.SelectableBackground()}>
+                        {!this.props.driverInfoReducer.data.driverInfo.truck_num && !this.props.driverInfoReducer.data.driverInfo.vice && <TouchableNativeFeedback onPress={() => RouterDirection.selectTruck(this.props.parent)({ initParam: { type: 1 }, filterType: 1, onSelect: (param) => this.bindTruck(param) })} background={TouchableNativeFeedback.SelectableBackground()}>
                             <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                 <Text style={{ fontSize: 10, color: '#fff' }}>绑定</Text>
                             </View>
-                        </TouchableNativeFeedback> : <TouchableNativeFeedback onPress={this.unBindTruck} background={TouchableNativeFeedback.SelectableBackground()}>
-                                <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
-                                    <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
-                                </View>
-                            </TouchableNativeFeedback>}
+                        </TouchableNativeFeedback>}
+                        {!!this.props.driverInfoReducer.data.driverInfo.truck_num && !this.props.driverInfoReducer.data.driverInfo.vice && <TouchableNativeFeedback onPress={this.unBindTruck} background={TouchableNativeFeedback.SelectableBackground()}>
+                            <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                                <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
+                            </View>
+                        </TouchableNativeFeedback>}
+                    </View>
+                    <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View>
+                            <Text style={{ fontSize: 12 }}>副驾货车：{this.props.driverInfoReducer.data.driverInfo.vice ? this.props.driverInfoReducer.data.driverInfo.vice : '未绑定副驾货车'}</Text>
+                        </View>
                     </View>
                     <CheckBox
                         listTitle='选择性别'
