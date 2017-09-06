@@ -884,13 +884,13 @@ class DriverInfo extends Component {
                             containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
                 </View>
                 <View style={{ flexDirection: 'row' }}>
-                    {!this.props.driverInfoReducer.data.driverInfo.drive_image_re ?
+                    {!this.props.driverInfoReducer.data.driverInfo.driver_image_re ?
                         <Camera title='上传身份证背面' onGetPhoto={this.updateDrivingImageRe} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> :
                         <PanelSingleItem
                             onUpdateImage={this.onPressUpdateDrivingImageRe}
                             onShowPhoto={this.onShowDrivingImageRe}
                             title='身份证背面'
-                            imageUrl={this.props.driverInfoReducer.data.driverInfo.drive_image_re}
+                            imageUrl={this.props.driverInfoReducer.data.driverInfo.driver_image_re}
                             containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
                     {!this.props.driverInfoReducer.data.driverInfo.op_license_image ?
                         <Camera title='上传准驾证照片' onGetPhoto={this.updateLicenseImageOp} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} /> :

@@ -185,7 +185,7 @@ export const updateDrivingImageRe = (param) => async (dispatch) => {
     try {
         let imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
         if (imageRes.success) {
-            const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.truckId}/image`
+            const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driverId}/image`
             param.putParam.truckImage = imageRes.imageId
             let res = await httpRequest.put(url, param.putParam)
             if (res.success) {
@@ -215,7 +215,7 @@ export const updateLicenseImageOp = (param) => async (dispatch) => {
     try {
         let imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
         if (imageRes.success) {
-            const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.truckId}/image`
+            const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driverId}/image`
             param.putParam.truckImage = imageRes.imageId
             let res = await httpRequest.put(url, param.putParam)
             if (res.success) {
@@ -241,13 +241,20 @@ export const resetUpdateLicenseImageOp = () => (dispatch) => {
 //完成
 export const updateDriverAvatarImage = (param) => async (dispatch) => {
     const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
+    console.log('imageUrl',imageUrl)
     dispatch({ type: actionTypes.driverInfoTypes.UPDATE_TruckInfoDriverAvatarImage_WAITING, payload: {} })
     try {
         let imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
+    console.log('imageRes',imageRes)
+        
         if (imageRes.success) {
-            const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.truckId}/image`
+            const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driverId}/image`
+    console.log('url',url)
+            
             param.putParam.truckImage = imageRes.imageId
             let res = await httpRequest.put(url, param.putParam)
+    console.log('res',res)
+            
             if (res.success) {
                 dispatch({ type: actionTypes.driverInfoTypes.UPDATE_TruckInfoDriverAvatarImage_SUCCESS, payload: { data: imageRes.imageId } })
             }

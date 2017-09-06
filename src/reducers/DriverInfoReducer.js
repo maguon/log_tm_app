@@ -711,7 +711,7 @@ export default handleActions({
                 ...state.data,
                 driverInfo: {
                     ...state.data.driverInfo,
-                    driving_image_re: data
+                    driver_image_re: data
                 }
             },
             updateDriverImageRe: {
