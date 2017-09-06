@@ -865,7 +865,7 @@ export default handleActions({
                 ...state.data,
                 driverInfo: {
                     ...state.data.driverInfo,
-                    driving_avatar_image: data
+                    driver_avatar_image: data
                 }
             },
             updateDriverAvatarImage: {
