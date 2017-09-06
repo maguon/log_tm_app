@@ -303,7 +303,7 @@ export default handleActions({
 
 
     [(actionTypes.addTruckSecondTypes.CREATE_TruckSecondUnBindDriver_SUCCESS)]: (state, action) => {
-       
+
         return {
             ...state,
             data: {
@@ -377,13 +377,13 @@ export default handleActions({
     },
 
     [(actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindViceDriver_SUCCESS)]: (state, action) => {
-         const { payload: { data } } = action
+        const { payload: { data } } = action
         return {
             ...state,
             data: {
                 ...state.data,
                 bindViceDriverId: data.viceDriverId,
-                bindViceDriver: data.viceDriver 
+                bindViceDriver: data.viceDriver
             },
             bindViceDriver: {
                 ...state.bindViceDriver,
@@ -533,7 +533,9 @@ export default handleActions({
                 bindTrailerId: '',
                 bindTrailer: '',
                 bindDriverId: '',
-                bindDriver: ''
+                bindDriver: '',
+                bindViceDriver: '',
+                bindViceDriverId: ''
             },
             bindTruck: {
                 isResultStatus: 0,
@@ -557,6 +559,20 @@ export default handleActions({
                 serviceFailedMsg: ''
             },
             unBindDriver: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            },
+            bindViceDriver: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            },
+            unBindViceDriver: {
                 isResultStatus: 0,
                 isExecStatus: 0,
                 errorMsg: '',

@@ -38,7 +38,13 @@ import {
     updateLicenseImage,
     resetUpdateDrivingImage,
     resetUpdateLicenseImage,
-    changeDriverInfoField
+    changeDriverInfoField,
+    updateDrivingImageRe,
+    resetUpdateDrivingImageRe,
+    updateLicenseImageOp,
+    resetUpdateLicenseImageOp,
+    updateDriverAvatarImage,
+    resetUpdateDriverAvatarImage
 } from '../../actions/DriverInfoAction'
 import { connect } from 'react-redux'
 import ImageResizer from 'react-native-image-resizer'
@@ -94,6 +100,16 @@ class DriverInfo extends Component {
         this.bindTruck = this.bindTruck.bind(this)
         this.unBindTruck = this.unBindTruck.bind(this)
         this.updateDriverInfo = this.updateDriverInfo.bind(this)
+        this.updateDrivingImageRe=this.updateDrivingImageRe.bind(this)
+        this.updateLicenseImageOp=this.updateLicenseImageOp.bind(this)
+        this.updateDriverAvatarImage=this.updateDriverAvatarImage.bind(this)
+        this.onPressUpdateDrivingImageRe=this.onPressUpdateDrivingImageRe.bind(this)
+        this.onPressUpdateLicenseImageOp=this.onPressUpdateLicenseImageOp.bind(this)
+        this.onPressUpdateDriverAvatarImage=this.onPressUpdateDriverAvatarImage.bind(this)
+        this.onShowDrivingImageRe=this.onShowDrivingImageRe.bind(this)
+        this.onShowLicenseImageOp=this.onShowLicenseImageOp.bind(this)
+        this.onShowDriverAvatarImage=this.onShowDriverAvatarImage.bind(this)
+
     }
 
     // static defaultProps = {
@@ -348,6 +364,57 @@ class DriverInfo extends Component {
             postFileParam: {
                 ...param.postFileParam,
                 key: "image"
+            }
+        })
+    }
+
+    updateDrivingImageRe(param){
+
+    }
+
+    updateLicenseImageOp(param){
+
+    }
+
+    updateDriverAvatarImage(param){
+
+    }
+
+    onPressUpdateDrivingImageRe() {
+        this.launchCamera(this.updateDrivingImageRe)
+    }
+
+    onPressUpdateLicenseImageOp() {
+        this.launchCamera(this.updateLicenseImageOp)
+    }
+
+    onPressUpdateDriverAvatarImage() {
+        this.launchCamera(this.updateDriverAvatarImage)
+    }
+
+    onShowDrivingImageRe() {
+        this.props.setPhoto(this.props.driverInfoReducer.data.driverInfo.driver_image_re)
+        RouterDirection.singlePhotoView(this.props.parent)({
+            initParam: {
+                onUpdateImage: () => this.launchCamera(this.updateDrivingImageRe)
+            }
+        })
+    }
+
+    onShowLicenseImageOp() {
+        this.props.setPhoto(this.props.driverInfoReducer.data.driverInfo.op_license_image)
+        RouterDirection.singlePhotoView(this.props.parent)({
+            initParam: {
+                onUpdateImage: () => this.launchCamera(this.updateLicenseImageOp)
+            }
+        })
+    }
+
+    onShowDriverAvatarImage() {
+        this.props.setPhoto(this.props.driverInfoReducer.data.driverInfo.driver_avatar_image)
+        RouterDirection.singlePhotoView(this.props.parent)({
+            initParam: {
+                onUpdateImage: () => this.launchCamera(this.updateDriverAvatarImage)
             }
         })
     }
@@ -770,29 +837,29 @@ class DriverInfo extends Component {
                             onShowPhoto={this.onShowLicenseImage}
                             imageUrl={this.props.driverInfoReducer.data.driverInfo.license_image}
                             containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
-                    {!this.props.driverInfoReducer.data.driverInfo.drive_image ?
-                        <Camera title='上传身份证背面' onGetPhoto={this.updateDrivingImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> :
+                    {!this.props.driverInfoReducer.data.driverInfo.drive_image_re ?
+                        <Camera title='上传身份证背面' onGetPhoto={this.updateDrivingImageRe} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> :
                         <PanelSingleItem
-                            onUpdateImage={this.onPressUpdateDrivingImage}
-                            onShowPhoto={this.onShowDrivingImage}
+                            onUpdateImage={this.onPressUpdateDrivingImageRe}
+                            onShowPhoto={this.onShowDrivingImageRe}
                             title='身份证背面'
-                            imageUrl={this.props.driverInfoReducer.data.driverInfo.drive_image}
+                            imageUrl={this.props.driverInfoReducer.data.driverInfo.drive_image_re}
                             containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
-                    {!this.props.driverInfoReducer.data.driverInfo.license_image ?
-                        <Camera title='上传准驾证照片' onGetPhoto={this.updateLicenseImage} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} /> :
+                    {!this.props.driverInfoReducer.data.driverInfo.op_license_image ?
+                        <Camera title='上传准驾证照片' onGetPhoto={this.updateLicenseImageOp} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} /> :
                         <PanelSingleItem
                             title='准驾证'
-                            onUpdateImage={this.onPressUpdateLicenseImage}
-                            onShowPhoto={this.onShowLicenseImage}
-                            imageUrl={this.props.driverInfoReducer.data.driverInfo.license_image}
+                            onUpdateImage={this.onPressUpdateLicenseImageOp}
+                            onShowPhoto={this.onShowLicenseImageOp}
+                            imageUrl={this.props.driverInfoReducer.data.driverInfo.op_license_image}
                             containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
-                    {!this.props.driverInfoReducer.data.driverInfo.drive_image ?
-                        <Camera title='上传个人照片' onGetPhoto={this.updateDrivingImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> :
+                    {!this.props.driverInfoReducer.data.driverInfo.driver_avatar_image ?
+                        <Camera title='上传个人照片' onGetPhoto={this.updateDriverAvatarImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> :
                         <PanelSingleItem
-                            onUpdateImage={this.onPressUpdateDrivingImage}
-                            onShowPhoto={this.onShowDrivingImage}
+                            onUpdateImage={this.onPressUpdateDriverAvatarImage}
+                            onShowPhoto={this.onShowDriverAvatarImage}
                             title='个人照片'
-                            imageUrl={this.props.driverInfoReducer.data.driverInfo.drive_image}
+                            imageUrl={this.props.driverInfoReducer.data.driverInfo.driver_avatar_image}
                             containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
                 </View>
             </View>
@@ -898,6 +965,24 @@ const mapDispatchToProps = (dispatch) => ({
     },
     changeDriverInfoField: (param) => {
         dispatch(changeDriverInfoField(param))
+    },
+    updateDrivingImageRe: (param) => {
+        dispatch(updateDrivingImageRe(param))
+    },
+    resetUpdateDrivingImageRe: () => {
+        dispatch(resetUpdateDrivingImageRe())
+    },
+    updateLicenseImageOp: (param) => {
+        dispatch(updateLicenseImageOp(param))
+    },
+    resetUpdateLicenseImageOp: () => {
+        dispatch(resetUpdateLicenseImageOp())
+    },
+    updateDriverAvatarImage: (param) => {
+        dispatch(updateDriverAvatarImage(param))
+    },
+    resetUpdateDriverAvatarImage: () => {
+        dispatch(resetUpdateDriverAvatarImage())
     }
 })
 

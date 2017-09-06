@@ -1590,5 +1590,7 @@ export default handleActions({
                 serviceFailedMsg: ''
             }
         }
-    }
+    },
+
+
 }, initialState)

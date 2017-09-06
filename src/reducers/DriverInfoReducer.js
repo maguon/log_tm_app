@@ -61,6 +61,27 @@ const initialState = {
         errorMsg: '',
         failedMsg: '',
         serviceFailedMsg: ''
+    },
+    updateDriverImageRe: {
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
+    },
+    updateLicenseImageOp: {
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
+    },
+    updateDriverAvatarImage: {
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
     }
 }
 
@@ -681,4 +702,234 @@ export default handleActions({
     },
 
 
+    //完成
+    [(actionTypes.driverInfoTypes.UPDATE_TruckInfoDrivingImageRe_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                driverInfo: {
+                    ...state.data.driverInfo,
+                    driving_image_re: data
+                }
+            },
+            updateDriverImageRe: {
+                ...state.updateDriverImageRe,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.driverInfoTypes.UPDATE_TruckInfoDrivingImageRe_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateDriverImageRe: {
+                ...state.updateDriverImageRe,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.driverInfoTypes.UPDATE_TruckInfoDrivingImageRe_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateDriverImageRe: {
+                ...state.updateDriverImageRe,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.driverInfoTypes.UPDATE_TruckInfoDrivingImageRe_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateDriverImageRe: {
+                ...state.updateDriverImageRe,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.driverInfoTypes.UPDATE_TruckInfoDrivingImageRe_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            updateDriverImageRe: {
+                ...state.updateDriverImageRe,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.driverInfoTypes.RESET_UPDATE_TruckInfoDrivingImageRe)]: (state, action) => {
+        return {
+            ...state,
+            updateDriverImageRe: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
+
+    //完成
+    [(actionTypes.driverInfoTypes.UPDATE_TruckInfoLicenseImageOp_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                driverInfo: {
+                    ...state.data.driverInfo,
+                    op_license_image: data
+                }
+            },
+            updateLicenseImageOp: {
+                ...state.updateLicenseImageOp,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.driverInfoTypes.UPDATE_TruckInfoLicenseImageOp_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateLicenseImageOp: {
+                ...state.updateLicenseImageOp,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.driverInfoTypes.UPDATE_TruckInfoLicenseImageOp_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateLicenseImageOp: {
+                ...state.updateLicenseImageOp,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.driverInfoTypes.UPDATE_TruckInfoLicenseImageOp_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateLicenseImageOp: {
+                ...state.updateLicenseImageOp,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.driverInfoTypes.UPDATE_TruckInfoLicenseImageOp_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            updateLicenseImageOp: {
+                ...state.updateLicenseImageOp,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.driverInfoTypes.RESET_UPDATE_TruckInfoLicenseImageOp)]: (state, action) => {
+        return {
+            ...state,
+            updateLicenseImageOp: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
+
+    //完成
+    [(actionTypes.driverInfoTypes.UPDATE_TruckInfoDriverAvatarImage_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                driverInfo: {
+                    ...state.data.driverInfo,
+                    driving_avatar_image: data
+                }
+            },
+            updateDriverAvatarImage: {
+                ...state.updateDriverAvatarImage,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.driverInfoTypes.UPDATE_TruckInfoDriverAvatarImage_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateDriverAvatarImage: {
+                ...state.updateDriverAvatarImage,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.driverInfoTypes.UPDATE_TruckInfoDriverAvatarImage_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateDriverAvatarImage: {
+                ...state.updateDriverAvatarImage,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.driverInfoTypes.UPDATE_TruckInfoDriverAvatarImage_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateDriverAvatarImage: {
+                ...state.updateDriverAvatarImage,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.driverInfoTypes.UPDATE_TruckInfoDriverAvatarImage_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            updateDriverAvatarImage: {
+                ...state.updateDriverAvatarImage,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.driverInfoTypes.RESET_UPDATE_TruckInfoDriverAvatarImage)]: (state, action) => {
+        return {
+            ...state,
+            updateDriverAvatarImage: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    }
 }, initialState)

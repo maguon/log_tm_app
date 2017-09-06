@@ -176,3 +176,94 @@ export const updateDriverInfo = (param) => async (dispatch) => {
 export const resetUpdateDriverInfo = (param) => (dispatch) => {
     dispatch({ type: actionTypes.driverInfoTypes.RESET_UpdateDriverInfo, payload: {} })
 }
+
+
+//完成
+export const updateDrivingImageRe = (param) => async (dispatch) => {
+    const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
+    dispatch({ type: actionTypes.driverInfoTypes.UPDATE_TruckInfoDrivingImageRe_WAITING, payload: {} })
+    try {
+        let imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
+        if (imageRes.success) {
+            const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/image`
+            param.putParam.truckImage = imageRes.imageId
+            let res = await httpRequest.put(url, param.putParam)
+            if (res.success) {
+                dispatch({ type: actionTypes.driverInfoTypes.UPDATE_TruckInfoDrivingImageRe_SUCCESS, payload: { data: imageRes.imageId } })
+            }
+            else {
+                dispatch({ type: actionTypes.driverInfoTypes.UPDATE_TruckInfoDrivingImageRe_FAILED, payload: { data: res.msg } })
+            }
+        }
+        else {
+            dispatch({ type: actionTypes.driverInfoTypes.UPDATE_TruckInfoDrivingImageRe_FAILED, payload: { data: res.msg } })
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.driverInfoTypes.UPDATE_TruckInfoDrivingImageRe_ERROR, payload: { data: err } })
+    }
+}
+
+//完成
+export const resetUpdateDrivingImageRe = () => (dispatch) => {
+    dispatch({ type: actionTypes.driverInfoTypes.RESET_UPDATE_TruckInfoDrivingImageRe, payload: {} })
+}
+
+//完成
+export const updateLicenseImageOp = (param) => async (dispatch) => {
+    const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
+    dispatch({ type: actionTypes.driverInfoTypes.UPDATE_TruckInfoLicenseImageOp_WAITING, payload: {} })
+    try {
+        let imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
+        if (imageRes.success) {
+            const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/image`
+            param.putParam.truckImage = imageRes.imageId
+            let res = await httpRequest.put(url, param.putParam)
+            if (res.success) {
+                dispatch({ type: actionTypes.driverInfoTypes.UPDATE_TruckInfoLicenseImageOp_SUCCESS, payload: { data: imageRes.imageId } })
+            }
+            else {
+                dispatch({ type: actionTypes.driverInfoTypes.UPDATE_TruckInfoLicenseImageOp_FAILED, payload: { data: res.msg } })
+            }
+        }
+        else {
+            dispatch({ type: actionTypes.driverInfoTypes.UPDATE_TruckInfoLicenseImageOp_FAILED, payload: { data: res.msg } })
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.driverInfoTypes.UPDATE_TruckInfoLicenseImageOp_ERROR, payload: { data: err } })
+    }
+}
+
+//完成
+export const resetUpdateLicenseImageOp = () => (dispatch) => {
+    dispatch({ type: actionTypes.driverInfoTypes.RESET_UPDATE_TruckInfoLicenseImageOp, payload: {} })
+}
+
+//完成
+export const updateDriverAvatarImage = (param) => async (dispatch) => {
+    const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
+    dispatch({ type: actionTypes.driverInfoTypes.UPDATE_TruckInfoDriverAvatarImage_WAITING, payload: {} })
+    try {
+        let imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
+        if (imageRes.success) {
+            const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/image`
+            param.putParam.truckImage = imageRes.imageId
+            let res = await httpRequest.put(url, param.putParam)
+            if (res.success) {
+                dispatch({ type: actionTypes.driverInfoTypes.UPDATE_TruckInfoDriverAvatarImage_SUCCESS, payload: { data: imageRes.imageId } })
+            }
+            else {
+                dispatch({ type: actionTypes.driverInfoTypes.UPDATE_TruckInfoDriverAvatarImage_FAILED, payload: { data: res.msg } })
+            }
+        }
+        else {
+            dispatch({ type: actionTypes.driverInfoTypes.UPDATE_TruckInfoDriverAvatarImage_FAILED, payload: { data: res.msg } })
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.driverInfoTypes.UPDATE_TruckInfoDriverAvatarImage_ERROR, payload: { data: err } })
+    }
+}
+
+//完成
+export const resetUpdateDriverAvatarImage = () => (dispatch) => {
+    dispatch({ type: actionTypes.driverInfoTypes.RESET_UPDATE_TruckInfoDriverAvatarImage, payload: {} })
+}

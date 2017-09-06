@@ -55,3 +55,26 @@ export const UpdateDriverInfo_WAITING = 'UpdateDriverInfo_WAITING'
 export const UpdateDriverInfo_SERVICEERROR = 'UpdateDriverInfo_SERVICEERROR'
 export const UpdateDriverInfo_ERROR = 'UpdateDriverInfo_ERROR'
 export const RESET_UpdateDriverInfo = 'RESET_UpdateDriverInfo'
+
+
+
+export const UPDATE_TruckInfoDrivingImageRe_SUCCESS = 'UPDATE_TruckInfoDrivingImageRe_SUCCESS'
+export const UPDATE_TruckInfoDrivingImageRe_FAILED = 'UPDATE_TruckInfoDrivingImageRe_FAILED'
+export const UPDATE_TruckInfoDrivingImageRe_WAITING = 'UPDATE_TruckInfoDrivingImageRe_WAITING'
+export const UPDATE_TruckInfoDrivingImageRe_SERVICEERROR = 'UPDATE_TruckInfoDrivingImageRe_SERVICEERROR'
+export const UPDATE_TruckInfoDrivingImageRe_ERROR = 'UPDATE_TruckInfoDrivingImageRe_ERROR'
+export const RESET_UPDATE_TruckInfoDrivingImageRe = 'RESET_UPDATE_TruckInfoDrivingImageRe'
+
+export const UPDATE_TruckInfoLicenseImageOp_SUCCESS = 'UPDATE_TruckInfoLicenseImageOp_SUCCESS'
+export const UPDATE_TruckInfoLicenseImageOp_FAILED = 'UPDATE_TruckInfoLicenseImageOp_FAILED'
+export const UPDATE_TruckInfoLicenseImageOp_WAITING = 'UPDATE_TruckInfoLicenseImageOp_WAITING'
+export const UPDATE_TruckInfoLicenseImageOp_SERVICEERROR = 'UPDATE_TruckInfoLicenseImageOp_SERVICEERROR'
+export const UPDATE_TruckInfoLicenseImageOp_ERROR = 'UPDATE_TruckInfoLicenseImageOp_ERROR'
+export const RESET_UPDATE_TruckInfoLicenseImageOp = 'RESET_UPDATE_TruckInfoLicenseImageOp'
+
+export const UPDATE_TruckInfoDriverAvatarImage_SUCCESS = 'UPDATE_TruckInfoDriverAvatarImage_SUCCESS'
+export const UPDATE_TruckInfoDriverAvatarImage_FAILED = 'UPDATE_TruckInfoDriverAvatarImage_FAILED'
+export const UPDATE_TruckInfoDriverAvatarImage_WAITING = 'UPDATE_TruckInfoDriverAvatarImage_WAITING'
+export const UPDATE_TruckInfoDriverAvatarImage_SERVICEERROR = 'UPDATE_TruckInfoDriverAvatarImage_SERVICEERROR'
+export const UPDATE_TruckInfoDriverAvatarImage_ERROR = 'UPDATE_TruckInfoDriverAvatarImage_ERROR'
+export const RESET_UPDATE_TruckInfoDriverAvatarImage = 'RESET_UPDATE_TruckInfoDriverAvatarImage'
