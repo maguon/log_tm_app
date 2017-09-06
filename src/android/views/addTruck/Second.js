@@ -98,12 +98,26 @@ class Second extends Component {
         })
     }
 
-    onSelectViceDriver(param){
-
+    onSelectViceDriver(param) {
+        this.props.bindViceDriver({
+            requiredParam: {
+                userId: this.props.userReducer.user.userId,
+                truckId: this.props.initParam.truckId,
+                viceDriverId: param.id
+            },
+            viceDriver: param.value,
+            viceDriverId: param.id
+        })
     }
 
-    onPressUnBindViceDriver(){
-
+    onPressUnBindViceDriver() {
+        this.props.unBindViceDriver({
+            requiredParam: {
+                userId: this.props.userReducer.user.userId,
+                truckId: this.props.initParam.truckId,
+                viceDriverId: this.props.addTruckSecondReducer.data.bindViceDriverId
+            }
+        })
     }
 
     onPressUnBindDriver() {
@@ -121,7 +135,7 @@ class Second extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const { bindTruck, unBindTruck, bindDriver, unBindDriver,bindViceDriver,unBindViceDriver, data } = nextProps.addTruckSecondReducer
+        const { bindTruck, unBindTruck, bindDriver, unBindDriver, bindViceDriver, unBindViceDriver, data } = nextProps.addTruckSecondReducer
         /*bindTruck*/
         if (bindTruck.isExecStatus == 2) {
             if (bindTruck.isResultStatus == 0) {

@@ -92,7 +92,7 @@ export const cleanAddTruckSecondDate = () => (dispatch) => {
 }
 
 export const bindViceDriver = (param) => async (dispatch) => {
-    const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/viceDrive/${param.requiredParam.viceDriveId}/bind`
+    const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/viceDrive/${param.requiredParam.viceDriverId}/bind`
     dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindViceDriver_WAITING, payload: {} })
     try {
         let res = await httpRequest.put(url, param.putParam)
@@ -101,8 +101,8 @@ export const bindViceDriver = (param) => async (dispatch) => {
                 type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindViceDriver_SUCCESS, payload: {
                     data:
                     {
-                        vice_drive_id: param.vice_drive_id,
-                        vice_drive_name: param.vice_drive_name
+                        viceDriverId: param.viceDriverId,
+                        viceDriver: param.viceDriver
                     }
                 }
             })
@@ -119,7 +119,7 @@ export const resetBindViceDriver = (param) => (dispatch) => {
 }
 
 export const unBindViceDriver = (param) => async (dispatch) => {
-    const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/viceDrive/${param.requiredParam.viceDriveId}/unbind`
+    const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/viceDrive/${param.requiredParam.viceDriverId}/unbind`
     dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondUnBindViceDriver_WAITING, payload: {} })
     try {
         let res = await httpRequest.put(url, param.putParam)

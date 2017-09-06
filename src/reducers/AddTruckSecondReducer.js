@@ -303,7 +303,7 @@ export default handleActions({
 
 
     [(actionTypes.addTruckSecondTypes.CREATE_TruckSecondUnBindDriver_SUCCESS)]: (state, action) => {
-        const { payload: { data } } = action
+       
         return {
             ...state,
             data: {
@@ -377,6 +377,7 @@ export default handleActions({
     },
 
     [(actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindViceDriver_SUCCESS)]: (state, action) => {
+         const { payload: { data } } = action
         return {
             ...state,
             data: {
