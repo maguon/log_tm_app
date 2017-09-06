@@ -185,7 +185,7 @@ export const updateDrivingImageRe = (param) => async (dispatch) => {
     try {
         let imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
         if (imageRes.success) {
-            const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/image`
+            const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.truckId}/image`
             param.putParam.truckImage = imageRes.imageId
             let res = await httpRequest.put(url, param.putParam)
             if (res.success) {
@@ -215,7 +215,7 @@ export const updateLicenseImageOp = (param) => async (dispatch) => {
     try {
         let imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
         if (imageRes.success) {
-            const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/image`
+            const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.truckId}/image`
             param.putParam.truckImage = imageRes.imageId
             let res = await httpRequest.put(url, param.putParam)
             if (res.success) {
@@ -245,7 +245,7 @@ export const updateDriverAvatarImage = (param) => async (dispatch) => {
     try {
         let imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
         if (imageRes.success) {
-            const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/image`
+            const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.truckId}/image`
             param.putParam.truckImage = imageRes.imageId
             let res = await httpRequest.put(url, param.putParam)
             if (res.success) {

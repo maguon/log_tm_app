@@ -100,15 +100,15 @@ class DriverInfo extends Component {
         this.bindTruck = this.bindTruck.bind(this)
         this.unBindTruck = this.unBindTruck.bind(this)
         this.updateDriverInfo = this.updateDriverInfo.bind(this)
-        this.updateDrivingImageRe=this.updateDrivingImageRe.bind(this)
-        this.updateLicenseImageOp=this.updateLicenseImageOp.bind(this)
-        this.updateDriverAvatarImage=this.updateDriverAvatarImage.bind(this)
-        this.onPressUpdateDrivingImageRe=this.onPressUpdateDrivingImageRe.bind(this)
-        this.onPressUpdateLicenseImageOp=this.onPressUpdateLicenseImageOp.bind(this)
-        this.onPressUpdateDriverAvatarImage=this.onPressUpdateDriverAvatarImage.bind(this)
-        this.onShowDrivingImageRe=this.onShowDrivingImageRe.bind(this)
-        this.onShowLicenseImageOp=this.onShowLicenseImageOp.bind(this)
-        this.onShowDriverAvatarImage=this.onShowDriverAvatarImage.bind(this)
+        this.updateDrivingImageRe = this.updateDrivingImageRe.bind(this)
+        this.updateLicenseImageOp = this.updateLicenseImageOp.bind(this)
+        this.updateDriverAvatarImage = this.updateDriverAvatarImage.bind(this)
+        this.onPressUpdateDrivingImageRe = this.onPressUpdateDrivingImageRe.bind(this)
+        this.onPressUpdateLicenseImageOp = this.onPressUpdateLicenseImageOp.bind(this)
+        this.onPressUpdateDriverAvatarImage = this.onPressUpdateDriverAvatarImage.bind(this)
+        this.onShowDrivingImageRe = this.onShowDrivingImageRe.bind(this)
+        this.onShowLicenseImageOp = this.onShowLicenseImageOp.bind(this)
+        this.onShowDriverAvatarImage = this.onShowDriverAvatarImage.bind(this)
 
     }
 
@@ -359,6 +359,25 @@ class DriverInfo extends Component {
                 imageType: 2
             },
             putParam: {
+                imageType: 3
+            },
+            postFileParam: {
+                ...param.postFileParam,
+                key: "image"
+            }
+        })
+    }
+
+    updateDrivingImageRe(param) {
+        this.props.updateDrivingImageRe({
+            requiredParam: {
+                userId: this.props.userReducer.user.userId,
+                driverId: this.props.initParam.driverId
+            },
+            OptionalParam: {
+                imageType: 2
+            },
+            putParam: {
                 imageType: 2
             },
             postFileParam: {
@@ -368,16 +387,42 @@ class DriverInfo extends Component {
         })
     }
 
-    updateDrivingImageRe(param){
-
+    updateLicenseImageOp(param) {
+        this.props.updateLicenseImageOp({
+            requiredParam: {
+                userId: this.props.userReducer.user.userId,
+                driverId: this.props.initParam.driverId
+            },
+            OptionalParam: {
+                imageType: 2
+            },
+            putParam: {
+                imageType: 4
+            },
+            postFileParam: {
+                ...param.postFileParam,
+                key: "image"
+            }
+        })
     }
 
-    updateLicenseImageOp(param){
-
-    }
-
-    updateDriverAvatarImage(param){
-
+    updateDriverAvatarImage(param) {
+        this.props.updateDriverAvatarImage({
+            requiredParam: {
+                userId: this.props.userReducer.user.userId,
+                driverId: this.props.initParam.driverId
+            },
+            OptionalParam: {
+                imageType: 2
+            },
+            putParam: {
+                imageType: 5
+            },
+            postFileParam: {
+                ...param.postFileParam,
+                key: "image"
+            }
+        })
     }
 
     onPressUpdateDrivingImageRe() {
@@ -820,7 +865,7 @@ class DriverInfo extends Component {
     renderDriverPhoto() {
         return (
             <View style={{ flex: 1 }}>
-                <View key={'w'} style={{ flexDirection: 'row' }}>
+                <View style={{ flexDirection: 'row' }}>
                     {!this.props.driverInfoReducer.data.driverInfo.drive_image ?
                         <Camera title='上传身份证正面' onGetPhoto={this.updateDrivingImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> :
                         <PanelSingleItem
@@ -837,6 +882,8 @@ class DriverInfo extends Component {
                             onShowPhoto={this.onShowLicenseImage}
                             imageUrl={this.props.driverInfoReducer.data.driverInfo.license_image}
                             containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
+                </View>
+                <View style={{ flexDirection: 'row' }}>
                     {!this.props.driverInfoReducer.data.driverInfo.drive_image_re ?
                         <Camera title='上传身份证背面' onGetPhoto={this.updateDrivingImageRe} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> :
                         <PanelSingleItem
@@ -853,6 +900,8 @@ class DriverInfo extends Component {
                             onShowPhoto={this.onShowLicenseImageOp}
                             imageUrl={this.props.driverInfoReducer.data.driverInfo.op_license_image}
                             containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
+                </View>
+                <View style={{ flexDirection: 'row' }}>
                     {!this.props.driverInfoReducer.data.driverInfo.driver_avatar_image ?
                         <Camera title='上传个人照片' onGetPhoto={this.updateDriverAvatarImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> :
                         <PanelSingleItem
@@ -879,6 +928,7 @@ class DriverInfo extends Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>
