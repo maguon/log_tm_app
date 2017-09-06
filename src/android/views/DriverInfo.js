@@ -506,7 +506,7 @@ class DriverInfo extends Component {
                         <View>
                             <Text style={{ fontSize: 12 }}>关联货车：{this.props.driverInfoReducer.data.driverInfo.truck_num ? this.props.driverInfoReducer.data.driverInfo.truck_num : '未绑定货车'}</Text>
                         </View>
-                        {!this.props.driverInfoReducer.data.driverInfo.truck_num ? <TouchableNativeFeedback onPress={() => RouterDirection.selectTruck(this.props.parent)({ initParam: { type: 1 },filterType:1, onSelect: (param) => this.bindTruck(param) })} background={TouchableNativeFeedback.SelectableBackground()}>
+                        {!this.props.driverInfoReducer.data.driverInfo.truck_num ? <TouchableNativeFeedback onPress={() => RouterDirection.selectTruck(this.props.parent)({ initParam: { type: 1 }, filterType: 1, onSelect: (param) => this.bindTruck(param) })} background={TouchableNativeFeedback.SelectableBackground()}>
                             <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                 <Text style={{ fontSize: 10, color: '#fff' }}>绑定</Text>
                             </View>
@@ -566,14 +566,14 @@ class DriverInfo extends Component {
                         onValueChange={(param) => this.props.changeDriverInfoField({ sib_tel: param })}
                         placeholder='请输入紧急联系人电话'
                     />
-                     <TagSelect
+                    <TagSelect
                         title='驾证类别：'
                         value={this.props.driverInfoReducer.data.driverInfo.license_type ? DrivingLicenseTypeList.find((item) => item.id == this.props.driverInfoReducer.data.driverInfo.license_type).value : '请选择'}
                         showList={RouterDirection.selectDrivingLicenseType(this.props.parent)}
                         isCheck={this.props.driverInfoReducer.data.driverInfo.license_date && ((Date.parse(new Date(this.props.driverInfoReducer.data.driverInfo.license_date))) < (Date.parse(new Date()) + 30 * 24 * 60 * 60 * 1000))}
-                        onValueChange={(param) =>this.props.changeDriverInfoField({ license_type: param.id })}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ license_type: param.id })}
                         defaultValue={'请选择'}
-                    /> 
+                    />
                     <DateTimePicker
                         value={this.props.driverInfoReducer.data.driverInfo.license_date ? this.props.driverInfoReducer.data.driverInfo.license_date : '请选择'}
                         title='驾驶证到期时间：'
@@ -604,12 +604,12 @@ class DriverInfo extends Component {
                             )}*/
                             style={{
                                 backgroundColor: ('#00cade')
-                                   /* this.state.telValidater &&
-                                    this.state.sibTelValidater &&
-                                    this.state.driverNameValidater &&
-                                    this.state.addressValidater &&
-                                    this.state.cardNoValidater
-                                ) ? '#00cade' : '#888888'*/
+                                /* this.state.telValidater &&
+                                 this.state.sibTelValidater &&
+                                 this.state.driverNameValidater &&
+                                 this.state.addressValidater &&
+                                 this.state.cardNoValidater
+                             ) ? '#00cade' : '#888888'*/
                             }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
@@ -726,21 +726,21 @@ class DriverInfo extends Component {
                         <Button
                             full
                             onPress={this.updateDriverInfo}
-                           /* disabled={!(
-                                this.state.telValidater &&
-                                this.state.sibTelValidater &&
-                                this.state.driverNameValidater &&
-                                this.state.addressValidater &&
-                                this.state.cardNoValidater
-                            )}*/
+                            /* disabled={!(
+                                 this.state.telValidater &&
+                                 this.state.sibTelValidater &&
+                                 this.state.driverNameValidater &&
+                                 this.state.addressValidater &&
+                                 this.state.cardNoValidater
+                             )}*/
                             style={{
                                 backgroundColor: ('#00cade')
-                                   /*  this.state.telValidater &&
-                                    this.state.sibTelValidater &&
-                                    this.state.driverNameValidater &&
-                                    this.state.addressValidater &&
-                                    this.state.cardNoValidater
-                                ) ? '#00cade' : '#888888'*/
+                                /*  this.state.telValidater &&
+                                 this.state.sibTelValidater &&
+                                 this.state.driverNameValidater &&
+                                 this.state.addressValidater &&
+                                 this.state.cardNoValidater
+                             ) ? '#00cade' : '#888888'*/
                             }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
@@ -755,11 +755,11 @@ class DriverInfo extends Component {
             <View style={{ flex: 1 }}>
                 <View key={'w'} style={{ flexDirection: 'row' }}>
                     {!this.props.driverInfoReducer.data.driverInfo.drive_image ?
-                        <Camera title='上传身份证照片' onGetPhoto={this.updateDrivingImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> :
+                        <Camera title='上传身份证正面' onGetPhoto={this.updateDrivingImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> :
                         <PanelSingleItem
                             onUpdateImage={this.onPressUpdateDrivingImage}
                             onShowPhoto={this.onShowDrivingImage}
-                            title='身份证'
+                            title='身份证正面'
                             imageUrl={this.props.driverInfoReducer.data.driverInfo.drive_image}
                             containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
                     {!this.props.driverInfoReducer.data.driverInfo.license_image ?
@@ -770,6 +770,30 @@ class DriverInfo extends Component {
                             onShowPhoto={this.onShowLicenseImage}
                             imageUrl={this.props.driverInfoReducer.data.driverInfo.license_image}
                             containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
+                    {!this.props.driverInfoReducer.data.driverInfo.drive_image ?
+                        <Camera title='上传身份证背面' onGetPhoto={this.updateDrivingImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> :
+                        <PanelSingleItem
+                            onUpdateImage={this.onPressUpdateDrivingImage}
+                            onShowPhoto={this.onShowDrivingImage}
+                            title='身份证背面'
+                            imageUrl={this.props.driverInfoReducer.data.driverInfo.drive_image}
+                            containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
+                    {!this.props.driverInfoReducer.data.driverInfo.license_image ?
+                        <Camera title='上传准驾证照片' onGetPhoto={this.updateLicenseImage} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} /> :
+                        <PanelSingleItem
+                            title='准驾证'
+                            onUpdateImage={this.onPressUpdateLicenseImage}
+                            onShowPhoto={this.onShowLicenseImage}
+                            imageUrl={this.props.driverInfoReducer.data.driverInfo.license_image}
+                            containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
+                    {!this.props.driverInfoReducer.data.driverInfo.drive_image ?
+                        <Camera title='上传个人照片' onGetPhoto={this.updateDrivingImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> :
+                        <PanelSingleItem
+                            onUpdateImage={this.onPressUpdateDrivingImage}
+                            onShowPhoto={this.onShowDrivingImage}
+                            title='个人照片'
+                            imageUrl={this.props.driverInfoReducer.data.driverInfo.drive_image}
+                            containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
                 </View>
             </View>
         )

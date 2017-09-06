@@ -380,12 +380,9 @@ export const resetCreateTruckRepairRel = (param) => (dispatch) => {
 
 export const updateTruckRepairRel = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/truckRepairRel/${param.requiredParam.relId}`
-    //console.log('url',url)
     dispatch({ type: actionTypes.truckInfoTypes.UpdateTruckRepairRel_WAITING, payload: {} })
     try {
         let res = await httpRequest.put(url, param.putParam)
-        //console.log('putParam',param.putParam)
-        //console.log('res',res)
         if (res.success) {
             dispatch({ type: actionTypes.truckInfoTypes.UpdateTruckRepairRel_SUCCESS, payload: {} })
         } else {
@@ -454,3 +451,95 @@ export const resetUnBindViceDriver = (param) => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.RESET_UnBindViceDriver, payload: { data: param } })
 }
 
+//完成
+export const updateDrivingImageRe = (param) => async (dispatch) => {
+    const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
+    dispatch({ type: actionTypes.truckInfoTypes.UPDATE_TruckInfoDrivingImage_WAITING, payload: {} })
+    try {
+        let imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
+        if (imageRes.success) {
+            const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/image`
+            param.putParam.truckImage = imageRes.imageId
+            let res = await httpRequest.put(url, param.putParam)
+            if (res.success) {
+                dispatch({ type: actionTypes.truckInfoTypes.UPDATE_TruckInfoDrivingImage_SUCCESS, payload: { data: imageRes.imageId } })
+            }
+            else {
+                dispatch({ type: actionTypes.truckInfoTypes.UPDATE_TruckInfoDrivingImage_FAILED, payload: { data: res.msg } })
+            }
+        }
+        else {
+            dispatch({ type: actionTypes.truckInfoTypes.UPDATE_TruckInfoDrivingImage_FAILED, payload: { data: res.msg } })
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.truckInfoTypes.UPDATE_TruckInfoDrivingImage_ERROR, payload: { data: err } })
+    }
+}
+
+//完成
+export const resetUpdateDrivingImageRe = () => (dispatch) => {
+    dispatch({ type: actionTypes.truckInfoTypes.RESET_UPDATE_TruckInfoDrivingImage, payload: {} })
+}
+
+
+//完成
+export const updateLicenseImageCp = (param) => async (dispatch) => {
+    const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
+    dispatch({ type: actionTypes.truckInfoTypes.UPDATE_TruckInfoLicenseImage_WAITING, payload: {} })
+    try {
+        let imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
+        if (imageRes.success) {
+            const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/image`
+            param.putParam.truckImage = imageRes.imageId
+            let res = await httpRequest.put(url, param.putParam)
+            if (res.success) {
+                dispatch({ type: actionTypes.truckInfoTypes.UPDATE_TruckInfoLicenseImage_SUCCESS, payload: { data: imageRes.imageId } })
+            }
+            else {
+                dispatch({ type: actionTypes.truckInfoTypes.UPDATE_TruckInfoLicenseImage_FAILED, payload: { data: res.msg } })
+            }
+        }
+        else {
+            dispatch({ type: actionTypes.truckInfoTypes.UPDATE_TruckInfoLicenseImage_FAILED, payload: { data: res.msg } })
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.truckInfoTypes.UPDATE_TruckInfoLicenseImage_ERROR, payload: { data: err } })
+    }
+}
+
+
+//完成
+export const resetUpdateLicenseImageCp = () => (dispatch) => {
+    dispatch({ type: actionTypes.truckInfoTypes.RESET_UPDATE_TruckInfoLicenseImage, payload: {} })
+}
+
+//完成
+export const updateDriverAvatarImage = (param) => async (dispatch) => {
+    const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
+    dispatch({ type: actionTypes.truckInfoTypes.UPDATE_TruckInfoLicenseImage_WAITING, payload: {} })
+    try {
+        let imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
+        if (imageRes.success) {
+            const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/image`
+            param.putParam.truckImage = imageRes.imageId
+            let res = await httpRequest.put(url, param.putParam)
+            if (res.success) {
+                dispatch({ type: actionTypes.truckInfoTypes.UPDATE_TruckInfoLicenseImage_SUCCESS, payload: { data: imageRes.imageId } })
+            }
+            else {
+                dispatch({ type: actionTypes.truckInfoTypes.UPDATE_TruckInfoLicenseImage_FAILED, payload: { data: res.msg } })
+            }
+        }
+        else {
+            dispatch({ type: actionTypes.truckInfoTypes.UPDATE_TruckInfoLicenseImage_FAILED, payload: { data: res.msg } })
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.truckInfoTypes.UPDATE_TruckInfoLicenseImage_ERROR, payload: { data: err } })
+    }
+}
+
+
+//完成
+export const resetUpdateDriverAvatarImage = () => (dispatch) => {
+    dispatch({ type: actionTypes.truckInfoTypes.RESET_UPDATE_TruckInfoLicenseImage, payload: {} })
+}
