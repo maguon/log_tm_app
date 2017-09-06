@@ -4,7 +4,10 @@ import * as actionTypes from '../actions/actionTypes'
 const initialState = {
     data: {
         drivingImage: null,
-        licenseImage: null
+        licenseImage: null,
+        drivingImageRe: null,
+        licenseImageOp: null,
+        driverAvatarImage: null
     },
     updateDrivingImage: {
         isResultStatus: 0,
@@ -14,6 +17,27 @@ const initialState = {
         serviceFailedMsg: ''
     },
     updateLicenseImage: {
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
+    },
+    updateDriverImageRe: {
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
+    },
+    updateLicenseImageOp: {
+        isResultStatus: 0,
+        isExecStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
+    },
+    updateDriverAvatarImage: {
         isResultStatus: 0,
         isExecStatus: 0,
         errorMsg: '',
@@ -186,6 +210,228 @@ export default handleActions({
                 serviceFailedMsg: ''
             },
             updateLicenseImage: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
+
+    //完成
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDrivingImageRe_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                drivingImageRe: data
+            },
+            updateDriverImageRe: {
+                ...state.updateDriverImageRe,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDrivingImageRe_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateDriverImageRe: {
+                ...state.updateDriverImageRe,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDrivingImageRe_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateDriverImageRe: {
+                ...state.updateDriverImageRe,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDrivingImageRe_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateDriverImageRe: {
+                ...state.updateDriverImageRe,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDrivingImageRe_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            updateDriverImageRe: {
+                ...state.updateDriverImageRe,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.addDriverThirdTypes.RESET_UPDATE_DriverThirdDrivingImageRe)]: (state, action) => {
+        return {
+            ...state,
+            updateDriverImageRe: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
+
+    //完成
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdLicenseImageOp_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                licenseImageOp: data
+            },
+            updateLicenseImageOp: {
+                ...state.updateLicenseImageOp,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdLicenseImageOp_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateLicenseImageOp: {
+                ...state.updateLicenseImageOp,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdLicenseImageOp_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateLicenseImageOp: {
+                ...state.updateLicenseImageOp,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdLicenseImageOp_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateLicenseImageOp: {
+                ...state.updateLicenseImageOp,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdLicenseImageOp_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            updateLicenseImageOp: {
+                ...state.updateLicenseImageOp,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.addDriverThirdTypes.RESET_UPDATE_DriverThirdLicenseImageOp)]: (state, action) => {
+        return {
+            ...state,
+            updateLicenseImageOp: {
+                isResultStatus: 0,
+                isExecStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
+
+    //完成
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDriverAvatarImage_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                driverAvatarImage: data
+            },
+            updateDriverAvatarImage: {
+                ...state.updateDriverAvatarImage,
+                isResultStatus: 0,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDriverAvatarImage_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateDriverAvatarImage: {
+                ...state.updateDriverAvatarImage,
+                isResultStatus: 2,
+                failedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDriverAvatarImage_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateDriverAvatarImage: {
+                ...state.updateDriverAvatarImage,
+                isResultStatus: 3,
+                serviceFailedMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDriverAvatarImage_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            updateDriverAvatarImage: {
+                ...state.updateDriverAvatarImage,
+                isResultStatus: 1,
+                errorMsg: data,
+                isExecStatus: 2
+            }
+        }
+    },
+    [(actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDriverAvatarImage_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            updateDriverAvatarImage: {
+                ...state.updateDriverAvatarImage,
+                isExecStatus: 1
+            }
+        }
+    },
+    [(actionTypes.addDriverThirdTypes.RESET_UPDATE_DriverThirdDriverAvatarImage)]: (state, action) => {
+        return {
+            ...state,
+            updateDriverAvatarImage: {
                 isResultStatus: 0,
                 isExecStatus: 0,
                 errorMsg: '',

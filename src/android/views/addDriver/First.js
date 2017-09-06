@@ -50,19 +50,19 @@ class First extends Component {
         if (createDriverFirst.isExecStatus == 2) {
             if (createDriverFirst.isResultStatus == 0) {
                 Actions.addDriverSecond({ initParam: { driverId: data.driverId } })
-                ToastAndroid.showWithGravity('车辆创建成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity('司机创建成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetCreateDriver()
             }
             else if (createDriverFirst.isResultStatus == 1) {
-                ToastAndroid.showWithGravity('车辆创建失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity('司机创建失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetCreateDriver()
             }
             else if (createDriverFirst.isResultStatus == 2) {
-                ToastAndroid.showWithGravity('车辆创建失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity('司机创建失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetCreateDriver()
             }
             else if (createDriverFirst.isResultStatus == 3) {
-                ToastAndroid.showWithGravity('车辆创建失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity('司机创建失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetCreateDriver()
             }
         }

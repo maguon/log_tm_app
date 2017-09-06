@@ -17,7 +17,13 @@ import {
     updateDrivingImage,
     updateLicenseImage,
     resetUpdateDrivingImage,
-    resetUpdateLicenseImage
+    resetUpdateLicenseImage,
+    updateDrivingImageRe,
+    resetUpdateDrivingImageRe,
+    updateLicenseImageOp,
+    resetUpdateLicenseImageOp,
+    updateDriverAvatarImage,
+    resetUpdateDriverAvatarImage
 } from '../../../actions/AddDriverThirdAction'
 import { setPhoto } from '../../../actions/SinglePhotoViewAction'
 import ImageResizer from 'react-native-image-resizer'
@@ -48,14 +54,23 @@ const window = Dimensions.get('window')
 class Third extends Component {
     constructor(props) {
         super(props)
-        this.updateDrivingImage=this.updateDrivingImage.bind(this)
-        this.updateLicenseImage=this.updateLicenseImage.bind(this)
-        this.onShowDrivingImage=this.onShowDrivingImage.bind(this)
-        this.onShowLicenseImage=this.onShowLicenseImage.bind(this)
-        this.launchCamera=this.launchCamera.bind(this)
-        this.openPicker=this.openPicker.bind(this)    
-        this.onPressUpdateDrivingImage=this.onPressUpdateDrivingImage.bind(this)
-        this.onPressUpdateLicenseImage=this.onPressUpdateLicenseImage.bind(this)
+        this.updateDrivingImage = this.updateDrivingImage.bind(this)
+        this.updateLicenseImage = this.updateLicenseImage.bind(this)
+        this.onShowDrivingImage = this.onShowDrivingImage.bind(this)
+        this.onShowLicenseImage = this.onShowLicenseImage.bind(this)
+        this.launchCamera = this.launchCamera.bind(this)
+        this.openPicker = this.openPicker.bind(this)
+        this.onPressUpdateDrivingImage = this.onPressUpdateDrivingImage.bind(this)
+        this.onPressUpdateLicenseImage = this.onPressUpdateLicenseImage.bind(this)
+        this.updateDrivingImageRe = this.updateDrivingImageRe.bind(this)
+        this.updateLicenseImageOp = this.updateLicenseImageOp.bind(this)
+        this.updateDriverAvatarImage = this.updateDriverAvatarImage.bind(this)
+        this.onPressUpdateDrivingImageRe = this.onPressUpdateDrivingImageRe.bind(this)
+        this.onPressUpdateLicenseImageOp = this.onPressUpdateLicenseImageOp.bind(this)
+        this.onPressUpdateDriverAvatarImage = this.onPressUpdateDriverAvatarImage.bind(this)
+        this.onShowDrivingImageRe = this.onShowDrivingImageRe.bind(this)
+        this.onShowLicenseImageOp = this.onShowLicenseImageOp.bind(this)
+        this.onShowDriverAvatarImage = this.onShowDriverAvatarImage.bind(this)
     }
 
     // static defaultProps = {
@@ -65,25 +80,30 @@ class Third extends Component {
     // }
 
     componentWillReceiveProps(nextProps) {
-        const { updateDrivingImage, updateLicenseImage,data } = nextProps.addDriverThirdReducer
+        const { updateDrivingImage,
+            updateLicenseImage,
+            updateDriverImageRe,
+            updateLicenseImageOp,
+            updateDriverAvatarImage,
+            data } = nextProps.addDriverThirdReducer
         /*updateDrivingImage*/
         if (updateDrivingImage.isExecStatus == 2) {
             if (updateDrivingImage.isResultStatus == 0) {
                 this.props.setPhoto(data.drivingImage)
-                ToastAndroid.showWithGravity('身份证图片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity('身份证正面照片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDrivingImage()
             }
             else if (updateDrivingImage.isResultStatus == 1) {
-                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
-                this.props.resetUpdateDrivingImage()   
+                ToastAndroid.showWithGravity('身份证正面照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUpdateDrivingImage()
             }
             else if (updateDrivingImage.isResultStatus == 2) {
-                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
-                this.props.resetUpdateDrivingImage()             
+                ToastAndroid.showWithGravity('身份证正面照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUpdateDrivingImage()
             }
             else if (updateDrivingImage.isResultStatus == 3) {
-                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
-                this.props.resetUpdateDrivingImage()                
+                ToastAndroid.showWithGravity('身份证正面照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUpdateDrivingImage()
             }
         }
         /************************************ */
@@ -93,25 +113,93 @@ class Third extends Component {
             if (updateLicenseImage.isResultStatus == 0) {
                 this.props.setPhoto(data.licenseImage)
                 ToastAndroid.showWithGravity('驾驶证图片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
-                this.props.resetUpdateLicenseImage()   
+                this.props.resetUpdateLicenseImage()
             }
             else if (updateLicenseImage.isResultStatus == 1) {
                 ToastAndroid.showWithGravity('驾驶证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
-                this.props.resetUpdateLicenseImage()  
+                this.props.resetUpdateLicenseImage()
             }
             else if (updateLicenseImage.isResultStatus == 2) {
                 ToastAndroid.showWithGravity('驾驶证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
-                this.props.resetUpdateLicenseImage()   
+                this.props.resetUpdateLicenseImage()
             }
             else if (updateLicenseImage.isResultStatus == 3) {
                 ToastAndroid.showWithGravity('驾驶证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
-                this.props.resetUpdateLicenseImage()   
+                this.props.resetUpdateLicenseImage()
+            }
+        }
+        /************************************ */
+
+
+        /*updateDriverImageRe*/
+        if (updateDriverImageRe.isExecStatus == 2) {
+            if (updateDriverImageRe.isResultStatus == 0) {
+                ToastAndroid.showWithGravity('身份证背面照片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.setPhoto(data.driverInfo.drivingImageRe)
+                this.props.resetUpdateDrivingImageRe()
+            }
+            else if (updateDriverImageRe.isResultStatus == 1) {
+                ToastAndroid.showWithGravity('身份证背面照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUpdateDrivingImageRe()
+            }
+            else if (updateDriverImageRe.isResultStatus == 2) {
+                ToastAndroid.showWithGravity('身份证背面照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUpdateDrivingImageRe()
+            }
+            else if (updateDriverImageRe.isResultStatus == 3) {
+                ToastAndroid.showWithGravity('身份证背面照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUpdateDrivingImageRe()
+            }
+        }
+        /************************************ */
+
+
+        /*updateLicenseImageOp*/
+        if (updateLicenseImageOp.isExecStatus == 2) {
+            if (updateLicenseImageOp.isResultStatus == 0) {
+                ToastAndroid.showWithGravity('准驾证照片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.setPhoto(data.driverInfo.licenseImageOp)
+                this.props.resetUpdateLicenseImageOp()
+            }
+            else if (updateLicenseImageOp.isResultStatus == 1) {
+                ToastAndroid.showWithGravity('准驾证照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUpdateLicenseImageOp()
+            }
+            else if (updateLicenseImageOp.isResultStatus == 2) {
+                ToastAndroid.showWithGravity('准驾证照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUpdateLicenseImageOp()
+            }
+            else if (updateLicenseImageOp.isResultStatus == 3) {
+                ToastAndroid.showWithGravity('准驾证照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUpdateLicenseImageOp()
+            }
+        }
+        /************************************ */
+
+        /*updateDrivingImage*/
+        if (updateDriverAvatarImage.isExecStatus == 2) {
+            if (updateDriverAvatarImage.isResultStatus == 0) {
+                ToastAndroid.showWithGravity('司机个人照片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.setPhoto(data.driverAvatarImage)
+                this.props.resetUpdateDriverAvatarImage()
+            }
+            else if (updateDriverAvatarImage.isResultStatus == 1) {
+                ToastAndroid.showWithGravity('司机个人照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUpdateDriverAvatarImage()
+            }
+            else if (updateDriverAvatarImage.isResultStatus == 2) {
+                ToastAndroid.showWithGravity('司机个人照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUpdateDriverAvatarImage()
+            }
+            else if (updateDriverAvatarImage.isResultStatus == 3) {
+                ToastAndroid.showWithGravity('司机个人照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUpdateDriverAvatarImage()
             }
         }
         /************************************ */
     }
 
-    updateDrivingImage(param){
+    updateDrivingImage(param) {
         this.props.updateDrivingImage({
             requiredParam: {
                 userId: this.props.userReducer.user.userId,
@@ -130,8 +218,27 @@ class Third extends Component {
         })
     }
 
-    updateLicenseImage(param){
+    updateLicenseImage(param) {
         this.props.updateLicenseImage({
+            requiredParam: {
+                userId: this.props.userReducer.user.userId,
+                driverId: this.props.initParam.driverId
+            },
+            OptionalParam: {
+                imageType: 2
+            },
+            putParam: {
+                imageType: 3
+            },
+            postFileParam: {
+                ...param.postFileParam,
+                key: "image"
+            }
+        })
+    }
+
+    updateDrivingImageRe(param) {
+        this.props.updateDrivingImageRe({
             requiredParam: {
                 userId: this.props.userReducer.user.userId,
                 driverId: this.props.initParam.driverId
@@ -148,6 +255,85 @@ class Third extends Component {
             }
         })
     }
+
+    updateLicenseImageOp(param) {
+        this.props.updateLicenseImageOp({
+            requiredParam: {
+                userId: this.props.userReducer.user.userId,
+                driverId: this.props.initParam.driverId
+            },
+            OptionalParam: {
+                imageType: 2
+            },
+            putParam: {
+                imageType: 4
+            },
+            postFileParam: {
+                ...param.postFileParam,
+                key: "image"
+            }
+        })
+    }
+
+    updateDriverAvatarImage(param) {
+        this.props.updateDriverAvatarImage({
+            requiredParam: {
+                userId: this.props.userReducer.user.userId,
+                driverId: this.props.initParam.driverId
+            },
+            OptionalParam: {
+                imageType: 2
+            },
+            putParam: {
+                imageType: 5
+            },
+            postFileParam: {
+                ...param.postFileParam,
+                key: "image"
+            }
+        })
+    }
+
+
+    onPressUpdateDrivingImageRe() {
+        this.launchCamera(this.updateDrivingImageRe)
+    }
+
+    onPressUpdateLicenseImageOp() {
+        this.launchCamera(this.updateLicenseImageOp)
+    }
+
+    onPressUpdateDriverAvatarImage() {
+        this.launchCamera(this.updateDriverAvatarImage)
+    }
+
+    onShowDrivingImageRe() {
+        this.props.setPhoto(this.props.addDriverThirdReducer.data.drivingImageRe)
+        RouterDirection.singlePhotoView(this.props.parent)({
+            initParam: {
+                onUpdateImage: () => this.launchCamera(this.updateDrivingImageRe)
+            }
+        })
+    }
+
+    onShowLicenseImageOp() {
+        this.props.setPhoto(this.props.addDriverThirdReducer.data.licenseImageOp)
+        RouterDirection.singlePhotoView(this.props.parent)({
+            initParam: {
+                onUpdateImage: () => this.launchCamera(this.updateLicenseImageOp)
+            }
+        })
+    }
+
+    onShowDriverAvatarImage() {
+        this.props.setPhoto(this.props.addDriverThirdReducer.data.driverAvatarImage)
+        RouterDirection.singlePhotoView(this.props.parent)({
+            initParam: {
+                onUpdateImage: () => this.launchCamera(this.updateDriverAvatarImage)
+            }
+        })
+    }
+
 
     onShowDrivingImage() {
         this.props.setPhoto(this.props.addDriverThirdReducer.data.drivingImage)
@@ -220,9 +406,9 @@ class Third extends Component {
                 }).catch((err) => {
                     // return console.log(err)
                 })
-            }).catch(err => {
-                // console.log('err')
-            })
+        }).catch(err => {
+            // console.log('err')
+        })
     }
 
     render() {
@@ -231,16 +417,29 @@ class Third extends Component {
         return (
             <View style={{ flex: 1 }}>
                 <StepIndicator stepList={[{ step: '1', title: '基本信息' }, { step: '2', title: '绑定货车' }, { step: '3', title: '上传照片' }]} current={2} />
-                <View key={'w'} style={{ flexDirection: 'row' }}>
+                <View style={{ flexDirection: 'row' }}>
                     {!this.props.addDriverThirdReducer.data.drivingImage ?
-                        <Camera title='上传身份证照片' onGetPhoto={this.updateDrivingImage} /> :
-                        <PanelSingleItem onUpdateImage={this.onPressUpdateDrivingImage} onShowPhoto={this.onShowDrivingImage} title='身份证' imageUrl={this.props.addDriverThirdReducer.data.drivingImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
+                        <Camera title='上传身份证正面' onGetPhoto={this.updateDrivingImage} /> :
+                        <PanelSingleItem onUpdateImage={this.onPressUpdateDrivingImage} onShowPhoto={this.onShowDrivingImage} title='身份证正面' imageUrl={this.props.addDriverThirdReducer.data.drivingImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
                     {!this.props.addDriverThirdReducer.data.licenseImage ?
                         <Camera title='上传行驶证照片' onGetPhoto={this.updateLicenseImage} /> :
                         <PanelSingleItem title='行驶证' onUpdateImage={this.onPressUpdateLicenseImage} onShowPhoto={this.onShowLicenseImage} imageUrl={this.props.addDriverThirdReducer.data.licenseImage} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
                 </View>
+                <View style={{ flexDirection: 'row' }}>
+                    {!this.props.addDriverThirdReducer.data.drivingImageRe ?
+                        <Camera title='上传身份证背面' onGetPhoto={this.updateDrivingImageRe} /> :
+                        <PanelSingleItem onUpdateImage={this.onPressUpdateDrivingImageRe} onShowPhoto={this.onShowDrivingImageRe} title='身份证背面' imageUrl={this.props.addDriverThirdReducer.data.drivingImageRe} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
+                    {!this.props.addDriverThirdReducer.data.licenseImageOp ?
+                        <Camera title='上传准驾证照片' onGetPhoto={this.updateLicenseImageOp} /> :
+                        <PanelSingleItem title='准驾证' onUpdateImage={this.onPressUpdateLicenseImageOp} onShowPhoto={this.onShowLicenseImageOp} imageUrl={this.props.addDriverThirdReducer.data.licenseImageOp} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
+                </View>
+                <View style={{ flexDirection: 'row' }}>
+                    {!this.props.addDriverThirdReducer.data.driverAvatarImage ?
+                        <Camera title='上传个人照片' onGetPhoto={this.updateDriverAvatarImage} /> :
+                        <PanelSingleItem onUpdateImage={this.onPressUpdateDriverAvatarImage} onShowPhoto={this.onShowDriverAvatarImage} title='个人照片' imageUrl={this.props.addDriverThirdReducer.data.driverAvatarImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
+                </View>
                 <View style={{ paddingTop: btnPaddingTop, paddingBottom: 10, paddingHorizontal: 10 }}>
-                    <Button full onPress={()=>Actions.pop({popNum:3})} style={{ backgroundColor: '#00cade' }}>
+                    <Button full onPress={() => Actions.pop({ popNum: 3 })} style={{ backgroundColor: '#00cade' }}>
                         <Text style={{ color: '#fff' }}>完成</Text>
                     </Button>
                 </View>
@@ -271,6 +470,24 @@ const mapDispatchToProps = (dispatch) => ({
     },
     setPhoto: (param) => {
         dispatch(setPhoto(param))
+    },
+    updateDrivingImageRe: (param) => {
+        dispatch(updateDrivingImageRe(param))
+    },
+    resetUpdateDrivingImageRe: () => {
+        dispatch(resetUpdateDrivingImageRe())
+    },
+    updateLicenseImageOp: (param) => {
+        dispatch(updateLicenseImageOp(param))
+    },
+    resetUpdateLicenseImageOp: () => {
+        dispatch(resetUpdateLicenseImageOp())
+    },
+    updateDriverAvatarImage: (param) => {
+        dispatch(updateDriverAvatarImage(param))
+    },
+    resetUpdateDriverAvatarImage: () => {
+        dispatch(resetUpdateDriverAvatarImage())
     }
 })
 

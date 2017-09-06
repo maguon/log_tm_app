@@ -56,8 +56,6 @@ export const UpdateDriverInfo_SERVICEERROR = 'UpdateDriverInfo_SERVICEERROR'
 export const UpdateDriverInfo_ERROR = 'UpdateDriverInfo_ERROR'
 export const RESET_UpdateDriverInfo = 'RESET_UpdateDriverInfo'
 
-
-
 export const UPDATE_TruckInfoDrivingImageRe_SUCCESS = 'UPDATE_TruckInfoDrivingImageRe_SUCCESS'
 export const UPDATE_TruckInfoDrivingImageRe_FAILED = 'UPDATE_TruckInfoDrivingImageRe_FAILED'
 export const UPDATE_TruckInfoDrivingImageRe_WAITING = 'UPDATE_TruckInfoDrivingImageRe_WAITING'

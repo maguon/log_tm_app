@@ -265,20 +265,20 @@ class DriverInfo extends Component {
         /*updateDrivingImage*/
         if (updateDrivingImage.isExecStatus == 2) {
             if (updateDrivingImage.isResultStatus == 0) {
-                ToastAndroid.showWithGravity('身份证图片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity('身份证正面照片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.setPhoto(data.driverInfo.drive_image)
                 this.props.resetUpdateDrivingImage()
             }
             else if (updateDrivingImage.isResultStatus == 1) {
-                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity('身份证正面照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDrivingImage()
             }
             else if (updateDrivingImage.isResultStatus == 2) {
-                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity('身份证正面照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDrivingImage()
             }
             else if (updateDrivingImage.isResultStatus == 3) {
-                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity('身份证正面照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDrivingImage()
             }
         }
@@ -330,20 +330,20 @@ class DriverInfo extends Component {
         /*updateDriverImageRe*/
         if (updateDriverImageRe.isExecStatus == 2) {
             if (updateDriverImageRe.isResultStatus == 0) {
-                ToastAndroid.showWithGravity('身份证图片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity('身份证背面照片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.setPhoto(data.driverInfo.driver_image_re)
                 this.props.resetUpdateDrivingImageRe()
             }
             else if (updateDriverImageRe.isResultStatus == 1) {
-                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity('身份证背面照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDrivingImageRe()
             }
             else if (updateDriverImageRe.isResultStatus == 2) {
-                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity('身份证背面照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDrivingImageRe()
             }
             else if (updateDriverImageRe.isResultStatus == 3) {
-                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity('身份证背面照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDrivingImageRe()
             }
         }
@@ -353,20 +353,20 @@ class DriverInfo extends Component {
         /*updateLicenseImageOp*/
         if (updateLicenseImageOp.isExecStatus == 2) {
             if (updateLicenseImageOp.isResultStatus == 0) {
-                ToastAndroid.showWithGravity('身份证图片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity('准驾证照片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.setPhoto(data.driverInfo.op_license_image)
                 this.props.resetUpdateLicenseImageOp()
             }
             else if (updateLicenseImageOp.isResultStatus == 1) {
-                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity('准驾证照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateLicenseImageOp()
             }
             else if (updateLicenseImageOp.isResultStatus == 2) {
-                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity('准驾证照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateLicenseImageOp()
             }
             else if (updateLicenseImageOp.isResultStatus == 3) {
-                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity('准驾证照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateLicenseImageOp()
             }
         }
@@ -375,20 +375,20 @@ class DriverInfo extends Component {
         /*updateDrivingImage*/
         if (updateDriverAvatarImage.isExecStatus == 2) {
             if (updateDriverAvatarImage.isResultStatus == 0) {
-                ToastAndroid.showWithGravity('身份证图片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity('司机个人照片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.setPhoto(data.driverInfo.driver_avatar_image)
                 this.props.resetUpdateDriverAvatarImage()
             }
             else if (updateDriverAvatarImage.isResultStatus == 1) {
-                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity('司机个人照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDriverAvatarImage()
             }
             else if (updateDriverAvatarImage.isResultStatus == 2) {
-                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity('司机个人照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDriverAvatarImage()
             }
             else if (updateDriverAvatarImage.isResultStatus == 3) {
-                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.showWithGravity('司机个人照片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDriverAvatarImage()
             }
         }
