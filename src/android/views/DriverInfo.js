@@ -135,6 +135,9 @@ class DriverInfo extends Component {
             changeDriverStatus,
             updateDrivingImage,
             updateLicenseImage,
+            updateDriverImageRe,
+            updateLicenseImageOp,
+            updateDriverAvatarImage,
             data } = nextProps.driverInfoReducer
 
         /*getDriverInfo*/
@@ -320,6 +323,73 @@ class DriverInfo extends Component {
             else if (updateDriverInfo.isResultStatus == 3) {
                 ToastAndroid.showWithGravity('修改失败', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetUpdateDriverInfo()
+            }
+        }
+        /************************************ */
+
+        /*updateDriverImageRe*/
+        if (updateDriverImageRe.isExecStatus == 2) {
+            if (updateDriverImageRe.isResultStatus == 0) {
+                ToastAndroid.showWithGravity('身份证图片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.setPhoto(data.driverInfo.driver_image_re)
+                this.props.resetUpdateDrivingImageRe()
+            }
+            else if (updateDriverImageRe.isResultStatus == 1) {
+                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUpdateDrivingImageRe()
+            }
+            else if (updateDriverImageRe.isResultStatus == 2) {
+                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUpdateDrivingImageRe()
+            }
+            else if (updateDriverImageRe.isResultStatus == 3) {
+                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUpdateDrivingImageRe()
+            }
+        }
+        /************************************ */
+
+
+        /*updateLicenseImageOp*/
+        if (updateLicenseImageOp.isExecStatus == 2) {
+            if (updateLicenseImageOp.isResultStatus == 0) {
+                ToastAndroid.showWithGravity('身份证图片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.setPhoto(data.driverInfo.op_license_image)
+                this.props.resetUpdateLicenseImageOp()
+            }
+            else if (updateLicenseImageOp.isResultStatus == 1) {
+                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUpdateLicenseImageOp()
+            }
+            else if (updateLicenseImageOp.isResultStatus == 2) {
+                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUpdateLicenseImageOp()
+            }
+            else if (updateLicenseImageOp.isResultStatus == 3) {
+                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUpdateLicenseImageOp()
+            }
+        }
+        /************************************ */
+
+        /*updateDrivingImage*/
+        if (updateDriverAvatarImage.isExecStatus == 2) {
+            if (updateDriverAvatarImage.isResultStatus == 0) {
+                ToastAndroid.showWithGravity('身份证图片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.setPhoto(data.driverInfo.driver_avatar_image)
+                this.props.resetUpdateDriverAvatarImage()
+            }
+            else if (updateDriverAvatarImage.isResultStatus == 1) {
+                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUpdateDriverAvatarImage()
+            }
+            else if (updateDriverAvatarImage.isResultStatus == 2) {
+                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUpdateDriverAvatarImage()
+            }
+            else if (updateDriverAvatarImage.isResultStatus == 3) {
+                ToastAndroid.showWithGravity('身份证图片更新失败！', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                this.props.resetUpdateDriverAvatarImage()
             }
         }
         /************************************ */
