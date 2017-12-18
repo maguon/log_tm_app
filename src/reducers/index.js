@@ -22,6 +22,7 @@ import driverInfoReducer from './DriverInfoReducer'
 import driverListReducer from './DriverListReducer'
 import InitializationReducer from './InitializationReducer'
 import PasswordReducer from './PasswordReducer'
+import retrievePasswordReducer from './RetrievePasswordReducer'
 import truckHomeFilterListReducer from './TruckHomeFilterListReducer'
 
 
@@ -49,5 +50,6 @@ export default combineReducers({
     driverListReducer,
     InitializationReducer,
     PasswordReducer,
-    truckHomeFilterListReducer
+    truckHomeFilterListReducer,
+    retrievePasswordReducer
 })

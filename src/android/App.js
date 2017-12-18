@@ -50,6 +50,7 @@ import CustomPhotoView from './views/CustomPhotoView'
 import UpdateRepair from './views/UpdateRepair'
 import AddRepair from './views/AddRepair'
 import TruckHomeFilterList from './views/TruckHomeFilterList'
+import RetrievePassword from './views/RetrievePassword'
 import Orientation from 'react-native-orientation'
 // import AddInsurance from './views/AddInsurance'
 // import AddRepair from './views/AddRepair'
@@ -99,7 +100,7 @@ export default class App extends Component {
     }
 
     componentWillMount() {
-         Orientation.lockToPortrait()
+        Orientation.lockToPortrait()
     }
 
     // reducerCreate(params) {
@@ -142,11 +143,14 @@ export default class App extends Component {
                                 && props.LoginReducer.user.userType) {
                                 return 'main'
                             } else {
-                                return 'login'
+                                return 'loginBlock'
                             }
                         }}
                     >
-                        <Scene key="login" initial={true} component={Login} hideNavBar hideTabBar />
+                        <Scene key="loginBlock" >
+                            <Scene key="login" initial={true} component={Login} hideNavBar hideTabBar />
+                            <Scene key="retrievePassword" title='找回密码' component={RetrievePassword} hideTabBar hideNavBar={false} navBar={NavBar} />
+                        </Scene>
                         <Scene key="main" tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
                             <Scene key="homeBlock" icon={TabIcon} online='ios-home' outline='ios-home-outline' >
                                 <Scene key="home" initial={true} component={Home} title='车辆管理' hideNavBar={false} navBar={TopBar} />

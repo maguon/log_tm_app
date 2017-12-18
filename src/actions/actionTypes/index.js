@@ -22,6 +22,7 @@ import * as driverInfoTypes from './DriverInfoTypes'
 import * as driverListTypes from './DriverListTypes'  
 import * as initializationTypes from './InitializationTypes'
 import * as passwordTypes from './PasswordTypes'
+import * as retrievePasswordTypes from './RetrievePasswordTypes'
 import * as truckHomeFilterListTypes from './TruckHomeFilterListTypes'
 
 export {
@@ -48,6 +49,7 @@ export {
     initializationTypes,
     loginTypes,
     passwordTypes,
-    truckHomeFilterListTypes
+    truckHomeFilterListTypes,
+    retrievePasswordTypes
 }
 
