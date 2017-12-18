@@ -76,7 +76,7 @@ class AddInsurance extends Component {
                     insuranceEndDateValidater: false
                 })
                 ToastAndroid.show('添加成功', ToastAndroid.SHORT)
-                Actions.pop()  
+                Actions.pop()
                 this.props.cleanAddInsurance()
                 console.log('createInsurance', '执行成功')
             }
@@ -220,8 +220,7 @@ const mapDispatchToProps = (dispatch) => ({
     changeInsuranceField: (param) => {
         dispatch(changeInsuranceField(param))
     },
-
-        cleanAddInsurance: () => {
+    cleanAddInsurance: () => {
         dispatch(cleanAddInsurance())
     }
 
