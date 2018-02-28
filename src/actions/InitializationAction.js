@@ -16,7 +16,7 @@ export const getAppLastVersion = (param) => async (dispatch) => {
     const url = `${base_host}/app?${ObjectToUrl(param.optionalParam)}`
     dispatch({ type: actionTypes.initializationTypes.GET_VERSION_WAITING, payload: {} })
     try {
-        let res = await httpRequest.get(url)
+        const res = await httpRequest.get(url)
         if (res.success) {
             dispatch({ type: actionTypes.initializationTypes.GET_VERSION_SUCCESS, payload: { data: res.result } })
         } else {

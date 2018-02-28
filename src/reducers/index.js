@@ -24,7 +24,8 @@ import InitializationReducer from './InitializationReducer'
 import PasswordReducer from './PasswordReducer'
 import retrievePasswordReducer from './RetrievePasswordReducer'
 import truckHomeFilterListReducer from './TruckHomeFilterListReducer'
-
+import demageListReducer from '../android/views/demageList/DemageListReducer'
+import responsibilityListReducer from '../android/views/responsibilityList/ResponsibilityListReducer'
 
 export default combineReducers({
     homeReducer,
@@ -51,5 +52,7 @@ export default combineReducers({
     InitializationReducer,
     PasswordReducer,
     truckHomeFilterListReducer,
-    retrievePasswordReducer
+    retrievePasswordReducer,
+    demageListReducer,
+    responsibilityListReducer
 })

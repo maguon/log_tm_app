@@ -3,8 +3,9 @@ package com.log_tm_app;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.github.yamill.orientation.OrientationPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnative.photoview.PhotoViewPackage;
+import com.github.yamill.orientation.OrientationPackage;
 import fr.bamlab.rnimageresizer.ImageResizerPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
@@ -28,8 +29,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new OrientationPackage(),
+            new VectorIconsPackage(),
             new PhotoViewPackage(),
+            new OrientationPackage(),
             new ImageResizerPackage(),
             new ImagePickerPackage(),
             new PickerPackage()

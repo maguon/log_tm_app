@@ -59,7 +59,8 @@ export default handleActions({
             data.sort((a, b) => {
                 return b.id - a.id
             })
-            const { version, force_update, url, remark } = data.shift()
+            console.log('data', data)
+            const { version, force_update, url, remark } = data[0]
             return {
                 ...state,
                 getVersion: {
@@ -67,7 +68,7 @@ export default handleActions({
                     data: {
                         ...state.getVersion.data,
                         lastVersion: version,
-                        force_update: force_update,
+                        force_update: 0,//force_update,
                         url: url,
                         remark: remark
                     },
@@ -167,6 +168,3 @@ export default handleActions({
     }
 
 }, initialState)
-
-
-
