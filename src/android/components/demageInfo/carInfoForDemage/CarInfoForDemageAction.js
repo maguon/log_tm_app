@@ -7,10 +7,7 @@ export const getCarInfo = (param) => async (dispatch, getState) => {
     const { car_id } = param
     try {
         const url = `${base_host}/carList?${ObjectToUrl({ carId: car_id })}`
-        console.log('url',url)
-        const res = await httpRequest.get(url)
-        console.log('res',res)
-        
+        const res = await httpRequest.get(url)   
         if (res.success) {
             dispatch({ type: carInfoForDemageActionTypes.get_CarInfoForDemage_success, payload: { carInfo: res.result[0] } })
         } else {

@@ -9,7 +9,7 @@ import {
     ActivityIndicator
 } from 'react-native'
 import { connect } from 'react-redux'
-import { Field, reduxForm,getFormValues } from 'redux-form'
+import { Field, reduxForm, getFormValues } from 'redux-form'
 import * as routerDirection from '../../../../util/RouterDirection'
 import { Container, Content, Input, Label, Icon, Button } from 'native-base'
 import globalStyles, { textColor, styleColor } from '../../../GlobalStyles'
@@ -28,7 +28,6 @@ const DemageEditor = props => {
         demageEditorReducer: { updateDamage: { isResultStatus } },
         parent,
         initParam: { id, created_on, car_id, vin, damage_status } } = props
-    console.log('props', props)
     return (
         <Container>
             <Content showsVerticalScrollIndicator={false}>
@@ -140,7 +139,7 @@ const mapStateToProps = (state, ownProps) => {
             damageRemark: damage_explain,
             selectDriver: {
                 id: drive_id,
-                drive_name,
+                value: drive_name,
                 truck_id,
                 truck_num
             }

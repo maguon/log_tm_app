@@ -8,13 +8,10 @@ import { sleep } from '../../../util/util'
 const pageSize = 50
 
 export const getDemageList = () => async (dispatch, getState) => {
-    console.log('getState()',getState())
     const { userReducer: { user: { userId } }  } = getState()
     try {
         const url = `${base_host}/damage?${ObjectToUrl({ declareUserId: userId, start: 0, size: pageSize })}`
-        console.log('url',url)
         const res = await httpRequest.get(url)
-        console.log('res',res)
         if (res.success) {
             if (res.result.length % pageSize != 0 || res.result.length == 0) {
                 dispatch({ type: demageListActionTypes.get_DemageList_success, payload: { demageList: res.result, isComplete: true } })

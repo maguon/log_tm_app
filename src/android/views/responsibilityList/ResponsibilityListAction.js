@@ -8,10 +8,12 @@ import { sleep } from '../../../util/util'
 const pageSize = 50
 
 export const getResponsibilityList = () => async (dispatch, getState) => {
-    const { loginReducer: { data: { user: { uid } } } } = getState()
+    const {  userReducer: { user: { userId } }  } = getState()
     try {
-        const url = `${base_host}/damage${ObjectToUrl({ underUserId: uid, start: 0, size: pageSize })}`
+        const url = `${base_host}/damage?${ObjectToUrl({ underUserId: userId, start: 0, size: pageSize })}`
+        console.log('url',url)
         const res = await httpRequest.get(url)    
+        console.log('res',res)
         if (res.success) {
             dispatch({
                 type: responsibilityListActionTypes.get_ResponsibilityList_success,

@@ -12,7 +12,7 @@ export const updateDamage = (param) => async (dispatch, getState) => {
     const state = getState()
     const {  userReducer: { user: { userId } } } = state
     const applyDamageForm = getFormValues('demageEditorForm')(state) ? getFormValues('demageEditorForm')(state) : {}
-    const { damageRemark, selectDriver: { drive_name, id, truck_id, truck_num } } = applyDamageForm
+    const { damageRemark, selectDriver: { value, id, truck_id, truck_num } } = applyDamageForm
     try {
         const url = `${base_host}/user/${userId}/damage/${damageId}`
         const res = await httpRequest.put(url, {
@@ -21,11 +21,11 @@ export const updateDamage = (param) => async (dispatch, getState) => {
             truckId: truck_id,
             truckNum: truck_num,
             driveId: id,
-            driveName: drive_name,
+            driveName: value,
             damageExplain: damageRemark
         })
         if (res.success) {
-            dispatch({ type: demageListActionTypes.update_Demage, payload: { id: damageId, truck_id, truck_num, drive_id: id, drive_name, damage_explain: damageRemark } })
+            dispatch({ type: demageListActionTypes.update_Demage, payload: { id: damageId, truck_id, truck_num, drive_id: id, drive_name:value, damage_explain: damageRemark } })
             dispatch({ type: demageEditorActionTypes.update_Damage_success, payload: {} })
             ToastAndroid.showWithGravity(`修改成功！`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
         } else {

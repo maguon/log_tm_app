@@ -8,9 +8,7 @@ export const getDamageImageList = (param) => async (dispatch, getState) => {
     const { id } = param
     try {
         const url = `${record_host}/damageRecord?${ObjectToUrl({ damageId: id })}`
-        console.log('url', url)
         const res = await httpRequest.get(url)
-        console.log('res', res)
         if (res.success) {
             dispatch({ type: imageListForDemageActionTypes.get_DamageImageList_success, payload: { demageImageList: res.result[0] ? res.result[0].damage_image : [] } })
         } else {
