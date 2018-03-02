@@ -386,6 +386,7 @@ export default class App extends Component {
                                     hideTabBar
                                     navBar={NavSearchDynamicBar}
                                     hideNavBar={false} />
+                                <Scene key="singlePhotoViewAtSettingBlock" component={SinglePhotoView} hideNavBar hideTabBar />
                                 <Scene key="responsibilityInfo" LeftButton={LeftButton} component={ResponsibilityInfo} title='责任详情'
                                     hideTabBar hideNavBar={false} navBar={NavBar} />
                                 <Scene key="responsibilityList" LeftButton={LeftButton} component={ResponsibilityList} title='我的责任'

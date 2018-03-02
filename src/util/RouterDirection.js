@@ -77,6 +77,7 @@ export const singlePhotoView = (parent) => {
     if (parent === 'truckBlock') return Actions.singlePhotoViewAtTruckBlock
     if (parent === 'driverBlock') return Actions.singlePhotoViewAtDriverBlock
     if (parent === 'homeBlock') return Actions.singlePhotoViewAtHomeBlock
+    if (parent === 'settingBlock') return Actions.singlePhotoViewAtSettingBlock
 }
 
 
