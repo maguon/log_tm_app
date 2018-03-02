@@ -9,50 +9,17 @@ import {
     ActivityIndicator
 } from 'react-native'
 import { connect } from 'react-redux'
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm,getFormValues } from 'redux-form'
 import * as routerDirection from '../../../../util/RouterDirection'
 import { Container, Content, Input, Label, Icon, Button } from 'native-base'
-import globalStyles, { textColor,styleColor } from '../../../GlobalStyles'
-//import * as selectDriverAction from '../../../views/select/driver/SelectDriverAction'
+import globalStyles, { textColor, styleColor } from '../../../GlobalStyles'
+import * as selectDriverAction from '../../../../actions/SelectDriverAction'
 import * as demageEditorAction from './DemageEditorAction'
+import { Actions } from 'react-native-router-flux'
 import moment from 'moment'
-
-const DamageRemark = props => {
-    const { input: { onChange, ...restProps }, meta: { error } } = props
-    return (
-        <View style={styles.item}>
-            <Label style={[styles.label, globalStyles.midText, globalStyles.styleColor]}>质损描述</Label>
-            <Input
-                multiline={true}
-                style={[styles.inputArea, globalStyles.midText]}
-                onChangeText={onChange}
-                {...restProps} />
-            {error && <Text style={[globalStyles.errorText, { marginTop: 10 }]}>* {error}</Text>}
-        </View>
-    )
-}
-
-const SelectDriver = props => {
-    const { input: { onChange, value }, meta: { error }, getSelectDriverList, getSelectDriverListWaiting, parent } = props
-    return (
-        <TouchableOpacity
-            style={[styles.item, styles.itemSelectContainer]}
-            onPress={() => {
-                getSelectDriverListWaiting()
-                routerDirection.selectDriver(parent)({ onChange })
-                InteractionManager.runAfterInteractions(getSelectDriverList)
-            }} >
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Label style={globalStyles.midText}>货车司机：</Label>
-                <View style={styles.itemSelect}>
-                    <Label style={globalStyles.midText}>{value.drive_name ? `${value.drive_name}` : ''}</Label>
-                    <Icon name='md-arrow-dropdown' style={globalStyles.formIcon} />
-                </View>
-            </View>
-            {error && <Text style={[globalStyles.errorText, { marginTop: 10 }]}>* {error}</Text>}
-        </TouchableOpacity>
-    )
-}
+import Select from '../../../components/share/form/Select'
+import DisposableList from '../../../views/select/DisposableList'
+import RichTextBox from '../../../components/share/form/RichTextBox'
 
 const DemageEditor = props => {
     const { getSelectDriverList,
@@ -60,7 +27,8 @@ const DemageEditor = props => {
         updateDamage,
         demageEditorReducer: { updateDamage: { isResultStatus } },
         parent,
-        initParam: { id, created_on, car_id, vin } } = props
+        initParam: { id, created_on, car_id, vin, damage_status } } = props
+    console.log('props', props)
     return (
         <Container>
             <Content showsVerticalScrollIndicator={false}>
@@ -70,51 +38,61 @@ const DemageEditor = props => {
                         <Text style={globalStyles.smallText}>{created_on ? `${moment(created_on).format('YYYY-MM-DD HH:mm')}` : ''}</Text>
                     </View>
                     <View style={styles.headerStatusItem}>
-                        <Text style={[globalStyles.midText]}>处理中</Text>
+                        <Text style={[globalStyles.midText]}>{damage_status == 2 && '处理中'}{damage_status == 1 && '待处理'}</Text>
                     </View>
                 </View>
                 <Field
-                    name='damageRemark'
-                    component={DamageRemark} />
-                <Field
+                    label='货车司机：'
                     name='selectDriver'
-                    component={SelectDriver}
-                    getSelectDriverList={getSelectDriverList}
-                    getSelectDriverListWaiting={getSelectDriverListWaiting}
-                    parent={parent} />
+                    component={Select}
+                    getList={getSelectDriverList}
+                    getListWaiting={getSelectDriverListWaiting}
+                    showList={({ onSelect }) => {
+                        return Actions.listCennectAtSettingBlock({
+                            mapStateToProps: driverMapStateToProps,
+                            mapDispatchToProps: driverMapDispatchToProps,
+                            List: DisposableList,
+                            onSelect: (value) => {
+                                Actions.pop()
+                                onSelect(value)
+                            }
+                        })
+                    }} />
+                <Field label='质损描述：' name='damageRemark' component={RichTextBox} />
                 <View style={{ margin: 15 }}>
-                {isResultStatus != 1 && <Button full
-                    style={[globalStyles.styleBackgroundColor]}
-                    onPress={() => updateDamage({
-                        damageId: id,
-                        carId: car_id,
-                        vin
-                    })}>
-                    <Text style={[globalStyles.midText, { color: '#fff' }]}>修改</Text>
-                </Button>}
-                {isResultStatus == 1 && <ActivityIndicator color={styleColor} size='large'/>}
-                </View>  
+                    {isResultStatus != 1 && <Button full
+                        style={[globalStyles.styleBackgroundColor]}
+                        onPress={() => updateDamage({
+                            damageId: id,
+                            carId: car_id,
+                            vin
+                        })}>
+                        <Text style={[globalStyles.midText, { color: '#fff' }]}>修改</Text>
+                    </Button>}
+                    {isResultStatus == 1 && <ActivityIndicator color={styleColor} size='large' />}
+                </View>
             </Content>
         </Container>
     )
 }
 
-const validate = values => {
-    const errors = { damageRemark: '', selectDriver: '' }
-    if (!values.damageRemark) {
-        errors.damageRemark = '必填'
+const driverMapStateToProps = (state) => {
+    return {
+        listReducer: {
+            Action: state.selectDriverReducer.getDriverList,
+            data: {
+                list: state.selectDriverReducer.data.driverList.map(item => {
+                    return { id: item.id, value: item.drive_name, truck_id: item.truck_id, truck_num: item.truck_num }
+                })
+            }
+        },
+        filter: getFormValues('SearchForm')(state) ? getFormValues('SearchForm')(state).searchField : undefined
     }
-
-    // if (!values.selectDriver) {
-    //     errors.selectDriver = '必选'
-    // } else {
-    //     if (!values.selectDriver.truck_id) {
-    //         errors.selectDriver = '该司机未绑定车头'
-    //     }
-    // }
-    return errors
 }
 
+const driverMapDispatchToProps = (dispatch) => ({
+
+})
 
 const styles = StyleSheet.create({
     item: {
@@ -173,10 +151,10 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => ({
     getSelectDriverList: () => {
-        //dispatch(selectDriverAction.getSelectDriverList())
+        dispatch(selectDriverAction.getDriverList())
     },
     getSelectDriverListWaiting: () => {
-        //dispatch(selectDriverAction.getSelectDriverListWaiting())
+        dispatch(selectDriverAction.getDriverListWaiting())
     },
     updateDamage: (param) => {
         dispatch(demageEditorAction.updateDamage(param))
@@ -185,5 +163,5 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
     form: 'demageEditorForm',
-    validate
+    //validate
 })(DemageEditor))

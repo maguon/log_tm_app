@@ -23,21 +23,6 @@ import RichTextBox from '../components/share/form/RichTextBox'
 
 const validateRequired = required('必选')
 
-// const DamageRemark = props => {
-//     const { input: { onChange, ...restProps }, meta: { error, touched, valid } } = props
-//     return (
-//         <View style={styles.item}>
-//             <Label style={[styles.label, globalStyles.midText, globalStyles.styleColor]}>质损描述</Label>
-//             <Input
-//                 multiline={true}
-//                 style={[styles.inputArea, globalStyles.midText]}
-//                 onChangeText={onChange}
-//                 {...restProps} />
-//             {touched && error && <Text style={[globalStyles.errorText, { marginTop: 10 }]}>* {error}</Text>}
-//         </View>
-//     )
-// }
-
 const ApplyDamage = props => {
     const { getSelectDriverList, getSelectDriverListWaiting, parent, cleanCarList } = props
     return (
@@ -70,7 +55,6 @@ const ApplyDamage = props => {
                     name='driver'
                     component={Select}
                     getList={getSelectDriverList}
-                    validate={[validateRequired]}
                     getListWaiting={getSelectDriverListWaiting}
                     showList={({ onSelect }) => {
                         return Actions.listCennectAtSettingBlock({
@@ -114,23 +98,6 @@ const styles = StyleSheet.create({
     }
 })
 
-const validate = values => {
-    const errors = { damageRemark: '', selectDriver: '' }
-    if (!values.damageRemark) {
-        errors.damageRemark = '必填'
-    }
-
-    // if (!values.selectDriver) {
-    //     errors.selectDriver = '必选'
-    // } else {
-    //     if (!values.selectDriver.truck_id) {
-    //         errors.selectDriver = '该司机未绑定车头'
-    //     }
-    // }
-    return errors
-}
-
-
 const driverMapStateToProps = (state) => {
     return {
         listReducer: {
@@ -148,7 +115,6 @@ const driverMapStateToProps = (state) => {
 const driverMapDispatchToProps = (dispatch) => ({
 
 })
-
 
 const vinMapStateToProps = (state) => {
     return {
@@ -202,7 +168,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(
     reduxForm({
-        form: 'applyDamage',
-        validate
+        form: 'applyDamage'
     })(ApplyDamage)
 )
