@@ -4,10 +4,10 @@ import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
 export const getDriverList = (param) => async (dispatch) => {
-    let url = `${base_host}/drive?driveStatus=1`
+    const url = `${base_host}/drive?driveStatus=1`
     dispatch({ type: actionTypes.selectDriverTypes.GET_SeletcDriverList_WAITING, payload: {} })
     try {
-        let res = await httpRequest.get(url)
+        const res = await httpRequest.get(url)
         if (res.success) {
             dispatch({ type: actionTypes.selectDriverTypes.GET_SeletcDriverList_SUCCESS, payload: { data: res.result } })
         } else {
@@ -16,4 +16,9 @@ export const getDriverList = (param) => async (dispatch) => {
     } catch (err) {
         dispatch({ type: actionTypes.selectDriverTypes.GET_SeletcDriverList_ERROR, payload: { data: err } })
     }
+}
+
+
+export const getDriverListWaiting = (param) => async (dispatch) => {
+    dispatch({ type: actionTypes.selectDriverTypes.GET_SeletcDriverList_WAITING, payload: {} })
 }

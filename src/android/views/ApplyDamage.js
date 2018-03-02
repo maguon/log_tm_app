@@ -11,63 +11,79 @@ import { connect } from 'react-redux'
 import { Container, Content, Input, Label, Icon } from 'native-base'
 import globalStyles, { textColor } from '../GlobalStyles'
 import { Field, reduxForm, getFormValues } from 'redux-form'
+import { Actions } from 'react-native-router-flux'
+import { required } from '../../util/Validator'
 import * as routerDirection from '../../util/RouterDirection'
-import * as selectDriverAction from './select/driver/SelectDriverAction'
+import * as selectDriverAction from '../../actions/SelectDriverAction'
 import * as applyDamageSubmitAction from '../components/applyDamage/submit/ApplyDamageSubmitAction'
+import * as selectCarAction from '../../actions/selectCarAction'
+import Select from '../components/share/form/Select'
+import DisposableList from './select/DisposableList'
+import RichTextBox from '../components/share/form/RichTextBox'
 
-const DamageRemark = props => {
-    const { input: { onChange, ...restProps }, meta: { error, touched, valid } } = props
-    return (
-        <View style={styles.item}>
-            <Label style={[styles.label, globalStyles.midText, globalStyles.styleColor]}>质损描述</Label>
-            <Input
-                multiline={true}
-                style={[styles.inputArea, globalStyles.midText]}
-                onChangeText={onChange}
-                {...restProps} />
-            {touched && error && <Text style={[globalStyles.errorText, { marginTop: 10 }]}>* {error}</Text>}
-        </View>
-    )
-}
+const validateRequired = required('必选')
 
-const SelectDriver = props => {
-    const { input: { onChange, value }, meta: { error, touched }, getSelectDriverList, getSelectDriverListWaiting, parent } = props
-    return (
-        <TouchableOpacity
-            style={[styles.item, styles.itemSelectContainer]}
-            onPress={() => {
-                getSelectDriverListWaiting()
-                routerDirection.selectDriver(parent)({ onChange })
-                InteractionManager.runAfterInteractions(getSelectDriverList)
-            }} >
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Label style={globalStyles.midText}>货车司机：</Label>
-                <View style={styles.itemSelect}>
-                    <Label style={globalStyles.midText}>{value.drive_name ? `${value.drive_name}` : ''}{value.tel ? `(${value.tel})` : ''}</Label>
-                    <Icon name='md-arrow-dropdown' style={globalStyles.formIcon} />
-                </View>
-            </View>
-
-            {touched && error && <Text style={[globalStyles.errorText, { marginTop: 10 }]}>* {error}</Text>}
-        </TouchableOpacity>
-    )
-}
-
+// const DamageRemark = props => {
+//     const { input: { onChange, ...restProps }, meta: { error, touched, valid } } = props
+//     return (
+//         <View style={styles.item}>
+//             <Label style={[styles.label, globalStyles.midText, globalStyles.styleColor]}>质损描述</Label>
+//             <Input
+//                 multiline={true}
+//                 style={[styles.inputArea, globalStyles.midText]}
+//                 onChangeText={onChange}
+//                 {...restProps} />
+//             {touched && error && <Text style={[globalStyles.errorText, { marginTop: 10 }]}>* {error}</Text>}
+//         </View>
+//     )
+// }
 
 const ApplyDamage = props => {
-    const { getSelectDriverList, getSelectDriverListWaiting, parent } = props
+    const { getSelectDriverList, getSelectDriverListWaiting, parent, cleanCarList } = props
     return (
         <Container>
             <Content>
                 <Field
-                    name='damageRemark'
-                    component={DamageRemark} />
+                    textStyle={[globalStyles.largeText, globalStyles.styleColor]}
+                    label='vin：'
+                    isRequired={true}
+                    name='car'
+                    component={Select}
+                    getList={() => { }}
+                    validate={[validateRequired]}
+                    getListWaiting={() => { }}
+                    showList={({ onSelect }) => {
+                        return Actions.listCennectDynamic({
+                            mapStateToProps: vinMapStateToProps,
+                            mapDispatchToProps: vinMapDispatchToProps,
+                            List: DisposableList,
+                            onSelect: (value) => {
+                                Actions.pop()
+                                onSelect(value)
+                                cleanCarList()
+                            }
+                        })
+                    }} />
                 <Field
-                    name='selectDriver'
-                    component={SelectDriver}
-                    getSelectDriverList={getSelectDriverList}
-                    getSelectDriverListWaiting={getSelectDriverListWaiting}
-                    parent={parent} />
+                    label='货车司机：'
+                    isRequired={true}
+                    name='driver'
+                    component={Select}
+                    getList={getSelectDriverList}
+                    validate={[validateRequired]}
+                    getListWaiting={getSelectDriverListWaiting}
+                    showList={({ onSelect }) => {
+                        return Actions.listCennectAtSettingBlock({
+                            mapStateToProps: driverMapStateToProps,
+                            mapDispatchToProps: driverMapDispatchToProps,
+                            List: DisposableList,
+                            onSelect: (value) => {
+                                Actions.pop()
+                                onSelect(value)
+                            }
+                        })
+                    }} />
+                <Field label='质损描述：' name='damageExplain' component={RichTextBox} />
             </Content>
         </Container >
     )
@@ -114,20 +130,69 @@ const validate = values => {
     return errors
 }
 
+
+const driverMapStateToProps = (state) => {
+    return {
+        listReducer: {
+            Action: state.selectDriverReducer.getDriverList,
+            data: {
+                list: state.selectDriverReducer.data.driverList.map(item => {
+                    return { id: item.id, value: item.drive_name, truck_id: item.truck_id, truck_num: item.truck_num }
+                })
+            }
+        },
+        filter: getFormValues('SearchForm')(state) ? getFormValues('SearchForm')(state).searchField : undefined
+    }
+}
+
+const driverMapDispatchToProps = (dispatch) => ({
+
+})
+
+
+const vinMapStateToProps = (state) => {
+    return {
+        listReducer: {
+            Action: state.selectCarReducer.getCarList,
+            //MoreAction: state.selectCarReducer.getCarListMore,
+            data: {
+                list: state.selectCarReducer.data.carList.map(item => {
+                    return {
+                        id: item.id,
+                        value: item.vin,
+                        make_name: item.make_name,
+                        en_short_name: item.en_short_name,
+                        re_short_name: item.re_short_name
+                    }
+                })
+            }
+        }
+    }
+}
+
+const vinMapDispatchToProps = (dispatch) => ({
+    // getListMore: () => {
+    //     dispatch(selectCarAction.getCarListMore())
+    // }
+})
+
 const mapStateToProps = (state) => {
     return {
         applyDamageReducer: state.applyDamageReducer,
-        initialValues: { selectDriver: {} }
+        //initialValues: { driver: {} }
         // selectDriverValues: getFormValues('applyDamage')(state)
     }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     getSelectDriverList: () => {
-        dispatch(selectDriverAction.getSelectDriverList())
+        dispatch(selectDriverAction.getDriverList())
     },
     getSelectDriverListWaiting: () => {
-        dispatch(selectDriverAction.getSelectDriverListWaiting())
+        dispatch(selectDriverAction.getDriverListWaiting())
+    },
+    cleanCarList: () => {
+        dispatch(selectCarAction.cleanCarList())
     },
     onSubmit: () => {
         const { parent } = ownProps

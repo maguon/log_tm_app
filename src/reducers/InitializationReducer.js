@@ -59,7 +59,6 @@ export default handleActions({
             data.sort((a, b) => {
                 return b.id - a.id
             })
-            console.log('data', data)
             const { version, force_update, url, remark } = data[0]
             return {
                 ...state,

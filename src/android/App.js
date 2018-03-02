@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 
 //import NavBar from './components/bar/NavBar'
 import NavBar from './components/share/NavBar'
+import NavSearchDynamicBar from './components/share/NavSearchDynamicBar'
 import LeftButton from './components/share/LeftButton'
 import TabIcon from './components/TabIcon'
 // import SearchBar from './components/Bar/SearchBar'
@@ -57,6 +58,13 @@ import DemageInfo from './views/demageInfo/DemageInfo'
 import DemageList from './views/demageList/DemageList'
 import ResponsibilityInfo from './views/responsibilityInfo/ResponsibilityInfo'
 import ResponsibilityList from './views/responsibilityList/ResponsibilityList'
+import ApplyDamage from './views/ApplyDamage'
+import ApplyDamageUploadImage from './views/applyDamageUploadImage/ApplyDamageUploadImage'
+import ApplyDamageSubmit from './components/applyDamage/submit/ApplyDamageSubmit'
+import DemageListOp from './components/DemageListOp'
+import NavSearchStaticBar from './components/share/NavSearchStaticBar'
+import ListCennect from './views/select/ListCennect'
+import ApplyDamageUploadImageSubmit from './components/applyDamageUploadImage/ApplyDamageUploadImageSubmit'
 import Orientation from 'react-native-orientation'
 // import AddInsurance from './views/AddInsurance'
 // import AddRepair from './views/AddRepair'
@@ -342,10 +350,42 @@ export default class App extends Component {
                                     navBar={NavBar}
                                     hideTabBar
                                     hideNavBar={false} />
+                                <Scene key="selectDriverAtSettingBlock"
+                                    component={SelectDriver}
+                                    title='选择司机'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="applyDamage" component={ApplyDamage}
+                                    LeftButton={LeftButton}
+                                    RightButton={ApplyDamageSubmit}
+                                    title='质损申请'
+                                    hideTabBar
+                                    hideNavBar={false}
+                                    navBar={NavBar} />
+                                <Scene key="applyDamageUploadImage" component={ApplyDamageUploadImage} LeftButton={LeftButton} RightButton={ApplyDamageUploadImageSubmit}
+                                    title='质损申请' hideTabBar hideNavBar={false} navBar={NavBar} />
                                 <Scene key="demageInfo" LeftButton={LeftButton} component={DemageInfo} title='质损详情' hideTabBar
                                     hideNavBar={false} navBar={NavBar} />
-                                <Scene key="demageList" LeftButton={LeftButton} component={DemageList} title='我的质损' hideTabBar
-                                    hideNavBar={false} navBar={NavBar} />
+                                <Scene key="demageList"
+                                    LeftButton={LeftButton}
+                                    component={DemageList}
+                                    title='我的质损'
+                                    hideTabBar
+                                    RightButton={DemageListOp}
+                                    hideNavBar={false}
+                                    navBar={NavBar} />
+                                <Scene key="listCennectAtSettingBlock"
+                                    component={ListCennect}
+                                    hideTabBar
+                                    navBar={NavSearchStaticBar}
+                                    LeftButton={LeftButton}
+                                    hideNavBar={false} />
+                                <Scene key="listCennectDynamic"
+                                    component={ListCennect}
+                                    hideTabBar
+                                    navBar={NavSearchDynamicBar}
+                                    hideNavBar={false} />
                                 <Scene key="responsibilityInfo" LeftButton={LeftButton} component={ResponsibilityInfo} title='责任详情'
                                     hideTabBar hideNavBar={false} navBar={NavBar} />
                                 <Scene key="responsibilityList" LeftButton={LeftButton} component={ResponsibilityList} title='我的责任'

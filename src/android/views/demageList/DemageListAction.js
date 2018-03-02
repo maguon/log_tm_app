@@ -8,10 +8,13 @@ import { sleep } from '../../../util/util'
 const pageSize = 50
 
 export const getDemageList = () => async (dispatch, getState) => {
-    const { loginReducer: { data: { user: { uid } } } } = getState()
+    console.log('getState()',getState())
+    const { userReducer: { user: { userId } }  } = getState()
     try {
-        const url = `${base_host}/damage${ObjectToUrl({ declareUserId: uid, start: 0, size: pageSize })}`
+        const url = `${base_host}/damage?${ObjectToUrl({ declareUserId: userId, start: 0, size: pageSize })}`
+        console.log('url',url)
         const res = await httpRequest.get(url)
+        console.log('res',res)
         if (res.success) {
             if (res.result.length % pageSize != 0 || res.result.length == 0) {
                 dispatch({ type: demageListActionTypes.get_DemageList_success, payload: { demageList: res.result, isComplete: true } })
@@ -33,7 +36,7 @@ export const getDemageListWaiting = () => (dispatch, getState) => {
 export const getDemageListMore = () => async (dispatch, getState) => {
 
     const {
-        loginReducer: { data: { user: { uid } } },
+        userReducer: { user: { userId } },
         demageListReducer: { data: { demageList, isComplete } },
         demageListReducer } = getState()
     if (demageListReducer.getDemageListMore.isResultStatus == 1) {
@@ -43,8 +46,10 @@ export const getDemageListMore = () => async (dispatch, getState) => {
         if (!isComplete) {
             dispatch({ type: demageListActionTypes.get_DemageListMore_waiting, payload: {} })
             try {
-                const url = `${base_host}/damage${ObjectToUrl({ declareUserId: uid, start: demageList.length, size: pageSize })}`
+                const url = `${base_host}/damage?${ObjectToUrl({ declareUserId: userId, start: demageList.length, size: pageSize })}`
+                console.log('url',url)
                 const res = await httpRequest.get(url)
+                console.log('res',res)
                 if (res.success) {
                     dispatch({
                         type: demageListActionTypes.get_DemageListMore_success,

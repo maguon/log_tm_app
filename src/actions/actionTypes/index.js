@@ -24,6 +24,7 @@ import * as initializationTypes from './InitializationTypes'
 import * as passwordTypes from './PasswordTypes'
 import * as retrievePasswordTypes from './RetrievePasswordTypes'
 import * as truckHomeFilterListTypes from './TruckHomeFilterListTypes'
+import * as selectCarActionTypes from './selectCarActionTypes'
 
 export {
     homeTypes,
@@ -50,6 +51,7 @@ export {
     loginTypes,
     passwordTypes,
     truckHomeFilterListTypes,
-    retrievePasswordTypes
+    retrievePasswordTypes,
+    selectCarActionTypes
 }
 

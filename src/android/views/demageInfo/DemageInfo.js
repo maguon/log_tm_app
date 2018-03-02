@@ -29,7 +29,7 @@ const DemageInfo = props => {
                     tabStyle={globalStyles.styleBackgroundColor}
                     activeTabStyle={globalStyles.styleBackgroundColor}
                     activeTextStyle={[globalStyles.midText, { color: '#fff' }]}
-                    textStyle={[globalStyles.midText, { color: '#adc5d5' }]}
+                    textStyle={[globalStyles.midText, { color: '#ddd' }]}
                     heading="车辆">
                     {(getCarInfo.isResultStatus == 1 || getCarInfoRecord.isResultStatus == 1) ?
                         <Container>
@@ -44,25 +44,27 @@ const DemageInfo = props => {
                     tabStyle={globalStyles.styleBackgroundColor}
                     activeTabStyle={globalStyles.styleBackgroundColor}
                     activeTextStyle={[globalStyles.midText, { color: '#fff' }]}
-                    textStyle={[globalStyles.midText, { color: '#adc5d5' }]}
+                    textStyle={[globalStyles.midText, { color: '#ddd' }]}
                     heading="质损">
                     <Container>
                         {damage_status == 1 && <DemageEditor initParam={initParam} parent={parent} />}
-                        {damage_status != 1 && <DemageDetail initParam={initParam} />}
+                        {damage_status == 2 && <DemageEditor initParam={initParam} parent={parent} />}
+                        {damage_status == 3 && <DemageDetail initParam={initParam} />}
                     </Container>
                 </Tab>
                 <Tab
                     tabStyle={globalStyles.styleBackgroundColor}
                     activeTabStyle={globalStyles.styleBackgroundColor}
                     activeTextStyle={[globalStyles.midText, { color: '#fff' }]}
-                    textStyle={[globalStyles.midText, { color: '#adc5d5' }]}
+                    textStyle={[globalStyles.midText, { color: '#ddd' }]}
                     heading="照片">
                     <Container>
-                        {damage_status != 1 && <ImageListForDemage initParam={initParam} parent={parent} />}
+                        {damage_status == 3 && <ImageListForDemage initParam={initParam} parent={parent} />}
                         {damage_status == 1 && <ImageEditorForDemage initParam={initParam} parent={parent} />}
+                        {damage_status == 2 && <ImageEditorForDemage initParam={initParam} parent={parent} />}
                     </Container>
                 </Tab>
-                {damage_status != 1 && <Tab
+                {/* {damage_status != 1 && <Tab
                     tabStyle={globalStyles.styleBackgroundColor}
                     activeTabStyle={globalStyles.styleBackgroundColor}
                     activeTextStyle={[globalStyles.midText, { color: '#fff' }]}
@@ -75,7 +77,7 @@ const DemageInfo = props => {
                         : <Container>
                             <DemageOpResult damageStatus={damage_status} />
                         </Container>}
-                </Tab>}
+                </Tab>} */}
             </Tabs>
         </Container>
     )

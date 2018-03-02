@@ -58,6 +58,7 @@ export const selectDriver = (parent) => {
     if (parent === 'homeBlock') return Actions.selectDriverAtHomeBlock
     if (parent === 'driverBlock') return Actions.selectDriverAtDriverBlock
     if (parent === 'truckBlock') return Actions.selectDriverAtTruckBlock
+    if (parent === 'settingBlock') return Actions.selectDriverAtSettingBlock
 }
 
 export const selectInsurance = (parent) => {

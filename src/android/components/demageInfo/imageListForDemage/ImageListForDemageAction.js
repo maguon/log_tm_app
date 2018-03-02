@@ -7,8 +7,10 @@ import { ToastAndroid } from 'react-native'
 export const getDamageImageList = (param) => async (dispatch, getState) => {
     const { id } = param
     try {
-        const url = `${record_host}/damageRecord${ObjectToUrl({ damageId: id })}`
+        const url = `${record_host}/damageRecord?${ObjectToUrl({ damageId: id })}`
+        console.log('url', url)
         const res = await httpRequest.get(url)
+        console.log('res', res)
         if (res.success) {
             dispatch({ type: imageListForDemageActionTypes.get_DamageImageList_success, payload: { demageImageList: res.result[0] ? res.result[0].damage_image : [] } })
         } else {
@@ -29,41 +31,50 @@ export const uploadDamageImageWaiting = () => (dispatch, getState) => {
 
 export const uploadDamageImage = param => async (dispatch, getState) => {
     try {
-        const { cameraReses, damageId } = param
-        const cameraSuccessReses = cameraReses.filter(item => item.success)
-        if (cameraSuccessReses.length > 0) {
-            const { loginReducer: { data: { user } } } = getState()
-            const imageUploadUrl = `${file_host}/user/${user.uid}/image${ObjectToUrl({ imageType: 4 })}`
-            const imageUploadReses = await Promise.all(cameraSuccessReses.map(item => httpRequest.postFile(imageUploadUrl, {
-                key: 'image',
-                ...item.res
-            })))
-            const imageUploadSuccessReses = imageUploadReses.filter(item => item.success)
-            if (imageUploadSuccessReses.length > 0) {
-                const bindDamageUrl = `${record_host}/user/${user.uid}/damage/${damageId}/image`
-                const bindDamageReses = await Promise.all(imageUploadSuccessReses.map(item => httpRequest.post(bindDamageUrl, {
-                    username: user.real_name,
-                    userId: user.uid,
-                    userType: user.type,
-                    url: item.imageId
+        const { cameraReses, damageId, vin } = param
+        const { userReducer: { user: { userId } } } = getState()
+        const getUserInfoUrl = `${base_host}/user?userId=${userId}`
+        const getUserInfoRes = await httpRequest.get(getUserInfoUrl)
+        if (getUserInfoRes.success) {
+            const cameraSuccessReses = cameraReses.filter(item => item.success)
+            if (cameraSuccessReses.length > 0) {
+
+                const imageUploadUrl = `${file_host}/user/${userId}/image?${ObjectToUrl({ imageType: 4 })}`
+                const imageUploadReses = await Promise.all(cameraSuccessReses.map(item => httpRequest.postFile(imageUploadUrl, {
+                    key: 'image',
+                    ...item.res
                 })))
-                const bindDamageSuccessReses = bindDamageReses
-                    .map((item, index) => { return { imageId: imageUploadSuccessReses[index].imageId, success: item.success } })
-                    .filter(item => item.success)
-                    .map(item => item.imageId)
-                if (cameraReses.length === bindDamageSuccessReses.length) {
-                    ToastAndroid.showWithGravity('提交成功！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
-                    dispatch({ type: imageListForDemageActionTypes.upload_ImageAtDemage_success, payload: { demageImageList: bindDamageSuccessReses } })
-                } else if (bindDamageSuccessReses.length > 0) {
-                    ToastAndroid.showWithGravity(`部分提交成功：${bindDamageSuccessReses.length}/${cameraReses.length}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
-                    dispatch({ type: imageListForDemageActionTypes.upload_ImageAtDemage_partSuccess, payload: { demageImageList: bindDamageSuccessReses, failedMsg: '部分失败' } })
+                const imageUploadSuccessReses = imageUploadReses.filter(item => item.success)
+                if (imageUploadSuccessReses.length > 0) {
+                    const bindDamageUrl = `${record_host}/user/${userId}/damage/${damageId}/image`
+                    const bindDamageReses = await Promise.all(imageUploadSuccessReses.map(item => httpRequest.post(bindDamageUrl, {
+                        username: getUserInfoRes.result[0].real_name,
+                        userId: getUserInfoRes.result[0].uid,
+                        userType: getUserInfoRes.result[0].type,
+                        url: item.imageId,
+                        vin
+                    })))
+                    const bindDamageSuccessReses = bindDamageReses
+                        .map((item, index) => { return { imageId: imageUploadSuccessReses[index].imageId, success: item.success } })
+                        .filter(item => item.success)
+                        .map(item => item.imageId)
+                    if (cameraReses.length === bindDamageSuccessReses.length) {
+                        ToastAndroid.showWithGravity('提交成功！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+                        dispatch({ type: imageListForDemageActionTypes.upload_ImageAtDemage_success, payload: { demageImageList: bindDamageSuccessReses } })
+                    } else if (bindDamageSuccessReses.length > 0) {
+                        ToastAndroid.showWithGravity(`部分提交成功：${bindDamageSuccessReses.length}/${cameraReses.length}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+                        dispatch({ type: imageListForDemageActionTypes.upload_ImageAtDemage_partSuccess, payload: { demageImageList: bindDamageSuccessReses, failedMsg: '部分失败' } })
+                    } else {
+                        ToastAndroid.showWithGravity('提交全部失败！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+                        dispatch({ type: imageListForDemageActionTypes.upload_ImageAtDemage_failed, payload: { failedMsg: '全部失败' } })
+                    }
                 } else {
                     ToastAndroid.showWithGravity('提交全部失败！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
                     dispatch({ type: imageListForDemageActionTypes.upload_ImageAtDemage_failed, payload: { failedMsg: '全部失败' } })
                 }
             } else {
-                ToastAndroid.showWithGravity('提交全部失败！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
-                dispatch({ type: imageListForDemageActionTypes.upload_ImageAtDemage_failed, payload: { failedMsg: '全部失败' } })
+                ToastAndroid.showWithGravity('拍照全部失败！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+                dispatch({ type: imageListForDemageActionTypes.upload_ImageAtDemage_failed, payload: { failedMsg: '拍照全部失败' } })
             }
         } else {
             ToastAndroid.showWithGravity('拍照全部失败！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
