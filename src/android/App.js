@@ -47,6 +47,7 @@ import SelectInsuranceType from './views/select/InsuranceType'
 
 
 import SinglePhotoView from './views/SinglePhotoView'
+import PhotoAlbum from './views/PhotoAlbum'
 import CustomPhotoView from './views/CustomPhotoView'
 
 
@@ -64,6 +65,8 @@ import ApplyDamageSubmit from './components/applyDamage/submit/ApplyDamageSubmit
 import DemageListOp from './components/DemageListOp'
 import NavSearchStaticBar from './components/share/NavSearchStaticBar'
 import ListCennect from './views/select/ListCennect'
+import TruckOp from './components/share/TruckOp'
+import DriverOp from './components/share/DriverOp'
 import ApplyDamageUploadImageSubmit from './components/applyDamageUploadImage/ApplyDamageUploadImageSubmit'
 import Orientation from 'react-native-orientation'
 // import AddInsurance from './views/AddInsurance'
@@ -163,14 +166,19 @@ export default class App extends Component {
                     >
                         <Scene key="loginBlock" >
                             <Scene key="login" initial={true} component={Login} hideNavBar hideTabBar />
-                            <Scene key="retrievePassword" title='找回密码' component={RetrievePassword} hideTabBar hideNavBar={false} navBar={NavBar} />
+                            <Scene key="retrievePassword"
+                                LeftButton={LeftButton}
+                                title='找回密码'
+                                component={RetrievePassword}
+                                hideTabBar
+                                hideNavBar={false}
+                                navBar={NavBar} />
                         </Scene>
                         <Scene key="main" tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
                             <Scene key="homeBlock" icon={TabIcon} online='ios-home' outline='ios-home-outline' >
-                                <Scene key="home" initial={true} component={Home} title='车辆管理' hideNavBar={false} navBar={TopBar} />
+                                <Scene key="home" initial={true} component={Home} title='车辆管理' hideNavBar={false} navBar={NavBar} />
                                 <Scene key="driverListAtHomeBlock"
                                     LeftButton={LeftButton}
-                                    rightType={1}
                                     component={DriverList}
                                     title='司机列表'
                                     hideNavBar={false}
@@ -192,7 +200,6 @@ export default class App extends Component {
                                     hideTabBar={true} />
                                 <Scene key="truckInfoAtHomeBlock"
                                     LeftButton={LeftButton}
-                                    rightType={1}
                                     component={TruckInfo}
                                     title='车辆信息'
                                     hideNavBar={false}
@@ -301,40 +308,226 @@ export default class App extends Component {
                                     hideTabBar={true} />
                             </Scene>
                             <Scene key="truckBlock" icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
-                                <Scene key="truck" initial={true} rightType={1} onPressRight={() => Actions.addTruckFirst()} component={Truck} title='车辆信息' hideNavBar={false} navBar={TopBar} />
-                                <Scene key="truckInfoAtTruckBlock" rightType={1} component={TruckInfo} title='车辆信息' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="truckListAtTruckBlock" component={TruckList} title='车辆信息' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="addTruckFirst" component={AddTruckFirst} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="addTruckSecond" component={AddTruckSecond} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="addTruckThird" component={AddTruckThird} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="addTruckFourth" component={AddTruckFourth} title='新增车辆' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="addInsuranceAtTruckBlock" component={AddInsurance} title='新增保单' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="selectMakeAtTruckBlock" component={Make} title='选择品牌' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="selectCompanyTypeAtTruckBlock" component={CompanyType} title='公司类型' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="selectCompanyAtTruckBlock" component={Company} title='所属公司' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="selectTruckAtTruckBlock" component={SelectTruck} title='选择车头' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="selectDriverAtTruckBlock" component={SelectDriver} title='选择司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="selectInsuranceAtTruckBlock" component={SelectInsurance} title='选择保险公司' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="selectInsuranceTypeAtTruckBlock" component={SelectInsuranceType} title='选择保险险种' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="addRepairAtTruckBlock" component={AddRepair} title='开始维修' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="updateRepairAtTruckBlock" component={UpdateRepair} title='维修完毕' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="richTextAtTruckBlock" component={RichText} title='备注' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="singlePhotoViewAtTruckBlock" component={SinglePhotoView} hideNavBar hideTabBar />
-                                <Scene key="customPhotoViewAtTruckBlock" component={CustomPhotoView} hideNavBar hideTabBar />
+                                <Scene key="truck"
+                                    initial={true}
+                                    RightButton={TruckOp}
+                                    component={Truck}
+                                    title='车辆信息'
+                                    hideNavBar={false}
+                                    navBar={NavBar} />
+                                <Scene key="truckInfoAtTruckBlock"
+                                    component={TruckInfo}
+                                    LeftButton={LeftButton}
+                                    title='车辆信息'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="truckListAtTruckBlock"
+                                    component={TruckList}
+                                    LeftButton={LeftButton}
+                                    title='车辆信息'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="addTruckFirst"
+                                    component={AddTruckFirst}
+                                    LeftButton={LeftButton}
+                                    title='新增车辆'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="addTruckSecond"
+                                    component={AddTruckSecond}
+                                    LeftButton={LeftButton}
+                                    title='新增车辆'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="addTruckThird"
+                                    LeftButton={LeftButton}
+                                    component={AddTruckThird}
+                                    title='新增车辆'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="addTruckFourth"
+                                    LeftButton={LeftButton}
+                                    component={AddTruckFourth}
+                                    title='新增车辆'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="addInsuranceAtTruckBlock"
+                                    LeftButton={LeftButton}
+                                    component={AddInsurance}
+                                    title='新增保单'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="selectMakeAtTruckBlock"
+                                    LeftButton={LeftButton}
+                                    component={Make}
+                                    title='选择品牌'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="selectCompanyTypeAtTruckBlock"
+                                    LeftButton={LeftButton}
+                                    component={CompanyType}
+                                    title='公司类型'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="selectCompanyAtTruckBlock"
+                                    LeftButton={LeftButton}
+                                    component={Company}
+                                    title='所属公司'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="selectTruckAtTruckBlock"
+                                    LeftButton={LeftButton}
+                                    component={SelectTruck}
+                                    title='选择车头'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="selectDriverAtTruckBlock"
+                                    LeftButton={LeftButton}
+                                    component={SelectDriver}
+                                    title='选择司机'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="selectInsuranceAtTruckBlock"
+                                    LeftButton={LeftButton}
+                                    component={SelectInsurance}
+                                    title='选择保险公司'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="selectInsuranceTypeAtTruckBlock"
+                                    LeftButton={LeftButton}
+                                    component={SelectInsuranceType}
+                                    title='选择保险险种'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="addRepairAtTruckBlock"
+                                    LeftButton={LeftButton}
+                                    component={AddRepair}
+                                    title='开始维修'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="updateRepairAtTruckBlock"
+                                    LeftButton={LeftButton}
+                                    component={UpdateRepair}
+                                    title='维修完毕'
+                                    LeftButton={LeftButton}
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="richTextAtTruckBlock"
+                                    LeftButton={LeftButton}
+                                    component={RichText}
+                                    title='备注'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="singlePhotoViewAtTruckBlock"
+                                    LeftButton={LeftButton}
+                                    component={SinglePhotoView}
+                                    hideNavBar
+                                    hideTabBar />
+                                <Scene key="customPhotoViewAtTruckBlock"
+                                    component={CustomPhotoView}
+                                    hideNavBar
+                                    hideTabBar />
                             </Scene>
                             <Scene key="driverBlock" icon={TabIcon} online='ios-contact' outline='ios-contact-outline'>
-                                <Scene key="driver" initial={true} rightType={1} onPressRight={() => Actions.addDriverFirst()} component={Driver} title='司机信息' hideNavBar={false} navBar={TopBar} />
-                                <Scene key="addDriverFirst" component={AddDriverFirst} title='新增司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="addDriverSecond" component={AddDriverSecond} title='新增司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="addDriverThird" component={AddDriverThird} title='新增司机' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="singlePhotoViewAtDriverBlock" component={SinglePhotoView} hideNavBar hideTabBar />
-                                <Scene key="driverListAtDriverBlock" component={DriverList} title='司机列表' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="richTextAtDriverBlock" component={RichText} title='备注' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="driverInfoAtDriverBlock" rightType={1} component={DriverInfo} title='司机详情' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="selectCompanyTypeAtDriverBlock" component={CompanyType} title='公司类型' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="selectCompanyAtDriverBlock" component={Company} title='所属公司' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="selectDrivingLicenseTypeAtDriverBlock" component={DrivingLicenseType} title='驾照类型' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
-                                <Scene key="selectTruckAtDriverBlock" component={SelectTruck} title='选择车头' hideNavBar={false} navBar={NavBar} hideTabBar={true} />
+                                <Scene key="driver"
+                                    initial={true}
+                                    RightButton={DriverOp}
+                                    component={Driver}
+                                    title='司机信息'
+                                    hideNavBar={false}
+                                    navBar={NavBar} />
+                                <Scene key="addDriverFirst"
+                                    LeftButton={LeftButton}
+                                    component={AddDriverFirst}
+                                    title='新增司机'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="addDriverSecond"
+                                    LeftButton={LeftButton}
+                                    component={AddDriverSecond}
+                                    title='新增司机'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="addDriverThird"
+                                    LeftButton={LeftButton}
+                                    component={AddDriverThird}
+                                    title='新增司机'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="singlePhotoViewAtDriverBlock"
+                                    LeftButton={LeftButton}
+                                    component={SinglePhotoView}
+                                    hideNavBar
+                                    hideTabBar />
+                                <Scene key="driverListAtDriverBlock"
+                                    LeftButton={LeftButton}
+                                    component={DriverList}
+                                    title='司机列表'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="richTextAtDriverBlock"
+                                    LeftButton={LeftButton}
+                                    component={RichText}
+                                    title='备注'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="driverInfoAtDriverBlock"
+                                    LeftButton={LeftButton}
+                                    component={DriverInfo}
+                                    title='司机详情'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="selectCompanyTypeAtDriverBlock"
+                                    LeftButton={LeftButton}
+                                    component={CompanyType}
+                                    title='公司类型'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="selectCompanyAtDriverBlock"
+                                    LeftButton={LeftButton}
+                                    component={Company}
+                                    title='所属公司'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="selectDrivingLicenseTypeAtDriverBlock"
+                                    LeftButton={LeftButton}
+                                    component={DrivingLicenseType}
+                                    title='驾照类型'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="selectTruckAtDriverBlock"
+                                    LeftButton={LeftButton}
+                                    component={SelectTruck}
+                                    title='选择车头'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
                             </Scene>
                             <Scene key="settingBlock" icon={TabIcon} online='ios-settings' outline='ios-settings-outline' >
                                 <Scene key="setting"
@@ -363,10 +556,21 @@ export default class App extends Component {
                                     hideTabBar
                                     hideNavBar={false}
                                     navBar={NavBar} />
-                                <Scene key="applyDamageUploadImage" component={ApplyDamageUploadImage} LeftButton={LeftButton} RightButton={ApplyDamageUploadImageSubmit}
-                                    title='质损申请' hideTabBar hideNavBar={false} navBar={NavBar} />
-                                <Scene key="demageInfo" LeftButton={LeftButton} component={DemageInfo} title='质损详情' hideTabBar
-                                    hideNavBar={false} navBar={NavBar} />
+                                <Scene key="applyDamageUploadImage"
+                                    component={ApplyDamageUploadImage}
+                                    LeftButton={LeftButton}
+                                    RightButton={ApplyDamageUploadImageSubmit}
+                                    title='质损申请'
+                                    hideTabBar
+                                    hideNavBar={false}
+                                    navBar={NavBar} />
+                                <Scene key="demageInfo"
+                                    LeftButton={LeftButton}
+                                    component={DemageInfo}
+                                    title='质损详情'
+                                    hideTabBar
+                                    hideNavBar={false}
+                                    navBar={NavBar} />
                                 <Scene key="demageList"
                                     LeftButton={LeftButton}
                                     component={DemageList}
@@ -386,11 +590,24 @@ export default class App extends Component {
                                     hideTabBar
                                     navBar={NavSearchDynamicBar}
                                     hideNavBar={false} />
-                                <Scene key="singlePhotoViewAtSettingBlock" component={SinglePhotoView} hideNavBar hideTabBar />
-                                <Scene key="responsibilityInfo" LeftButton={LeftButton} component={ResponsibilityInfo} title='责任详情'
-                                    hideTabBar hideNavBar={false} navBar={NavBar} />
-                                <Scene key="responsibilityList" LeftButton={LeftButton} component={ResponsibilityList} title='我的责任'
-                                    hideTabBar hideNavBar={false} navBar={NavBar} />
+                                <Scene key="singlePhotoViewAtSettingBlock"
+                                    component={PhotoAlbum}
+                                    hideNavBar
+                                    hideTabBar />
+                                <Scene key="responsibilityInfo"
+                                    LeftButton={LeftButton}
+                                    component={ResponsibilityInfo}
+                                    title='责任详情'
+                                    hideTabBar
+                                    hideNavBar={false}
+                                    navBar={NavBar} />
+                                <Scene key="responsibilityList"
+                                    LeftButton={LeftButton}
+                                    component={ResponsibilityList}
+                                    title='我的责任'
+                                    hideTabBar
+                                    hideNavBar={false}
+                                    navBar={NavBar} />
                             </Scene>
                         </Scene>
                     </Scene>
