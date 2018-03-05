@@ -1,23 +1,67 @@
-import httpRequest from '../util/HttpRequest.js'
+import httpRequest from '../util/HttpRequest'
 import { base_host, record_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
+import { ToastAndroid } from 'react-native'
+import { sleep } from '../util/util'
+
+const pageSize = 1
 
 export const getTruckHomeFilterList = (param) => async (dispatch) => {
-    const url = `${base_host}/truckFirst?${ObjectToUrl(param.OptionalParam)}`
-    dispatch({ type: actionTypes.truckHomeFilterListTypes.GET_TruckHomeFilterList_WAITING, payload: {} })
     try {
-        let res = await httpRequest.get(url)
+        const url = `${base_host}/truckFirst?${ObjectToUrl({ ...param.OptionalParam, start: 0, size: pageSize })}`
+        console.log('url', url)
+        const res = await httpRequest.get(url)
+        console.log('res', res)
         if (res.success) {
-            dispatch({ type: actionTypes.truckHomeFilterListTypes.GET_TruckHomeFilterList_SUCCESS, payload: { data: res.result } })
+            if (res.result.length % pageSize != 0 || res.result.length == 0) {
+                dispatch({ type: actionTypes.truckHomeFilterListTypes.get_TruckHomeFilterList_success, payload: { truckList: res.result, isComplete: true } })
+            } else {
+                dispatch({ type: actionTypes.truckHomeFilterListTypes.get_TruckHomeFilterList_success, payload: { truckList: res.result, isComplete: false } })
+            }
         } else {
-            dispatch({ type: actionTypes.truckHomeFilterListTypes.GET_TruckHomeFilterList_FAILED, payload: { data: res.msg } })
+            dispatch({ type: actionTypes.truckHomeFilterListTypes.get_TruckHomeFilterList_failed, payload: { failedMsg: res.msg } })
         }
     } catch (err) {
-        dispatch({ type: actionTypes.truckHomeFilterListTypes.GET_TruckHomeFilterList_ERROR, payload: { data: err } })
+        dispatch({ type: actionTypes.truckHomeFilterListTypes.get_TruckHomeFilterList_error, payload: { errorMsg: err } })
     }
 }
 
-export const resetGetTruckHomeFilterList = () => (dispatch) => {
-    dispatch({ type: actionTypes.truckHomeFilterListTypes.RESET_GET_TruckHomeFilterList, payload: { } })
+export const getTruckHomeFilterListMore = (param) => async (dispatch,getState) => {
+    const {
+        truckHomeFilterListReducer: { data: { truckList, isComplete } },
+        truckHomeFilterListReducer } = getState()
+    if (truckHomeFilterListReducer.getTruckHomeFilterListMore.isResultStatus == 1) {
+        await sleep(1000)
+        getTruckHomeFilterListMore()(dispatch, getState)
+    } else {
+        if (!isComplete) {
+            dispatch({ type: actionTypes.truckHomeFilterListTypes.get_TruckHomeFilterListMore_waiting, payload: {} })
+            try {
+                const url = `${base_host}/truckFirst?${ObjectToUrl({ ...param.OptionalParam, start: truckList.length, size: pageSize })}`
+                console.log('url', url)
+                const res = await httpRequest.get(url)
+                console.log('res', res)
+                if (res.success) {
+                    dispatch({
+                        type: actionTypes.truckHomeFilterListTypes.get_TruckHomeFilterListMore_success,
+                        payload: {
+                            truckList: res.result,
+                            isComplete: (res.result.length % pageSize != 0 || res.result.length == 0)
+                        }
+                    })
+                } else {
+                    dispatch({ type: actionTypes.truckHomeFilterListTypes.get_TruckHomeFilterListMore_failed, payload: { failedMsg: res.msg } })
+                }
+            } catch (err) {
+                dispatch({ type: actionTypes.truckHomeFilterListTypes.get_TruckHomeFilterListMore_error, payload: { errorMsg: err } })
+            }
+        } else {
+            ToastAndroid.showWithGravity('已全部加载完毕！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+        }
+    }
+}
+
+export const getTruckHomeFilterListWaiting = () => (dispatch) => {
+    dispatch({ type: actionTypes.truckHomeFilterListTypes.get_TruckHomeFilterList_waiting, payload: {} })
 }

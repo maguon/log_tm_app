@@ -21,6 +21,7 @@ import {
     getDriverlicenseCount,
     resetGetDriverlicenseCount
 } from '../../../actions/HomeAction'
+import * as truckHomeFilterListAction from '../../../actions/TruckHomeFilterListAction'
 import { Actions } from 'react-native-router-flux'
 import moment from 'moment'
 
@@ -189,6 +190,7 @@ class Home extends Component {
     render() {
         const { zCount, wCount, gCount, cCount } = this.props.homeReducer.data.operateTypeCount
         const { waitingInspectCount, truckRepairRelCount, driverlicenseCount } = this.props.homeReducer.data
+        const { getTruckHomeFilterListWaiting, getTruckHomeFilterList } = this.props
         return (
             <View style={{ flex: 1 }}>
                 <ScrollView showsVerticalScrollIndicator={false}>
@@ -214,7 +216,11 @@ class Home extends Component {
                                 status: 0,
                                 count: truckRepairRelCount ? truckRepairRelCount.toString() : 0,
                                 isWarn: false, title: '维修中车头',
-                                router: () => Actions.truckHomeFilterList({ initParam: { repairStatus: 0 } })
+                                router: () => {
+                                    getTruckHomeFilterListWaiting()
+                                    Actions.truckHomeFilterList({initParam: { repairStatus: 0 }})
+                                    InteractionManager.runAfterInteractions(() => getTruckHomeFilterList({ OptionalParam: { repairStatus: 0 } }))
+                                }
                             })}
                             {this.renderTruckStatusItem({
                                 status: 1,
@@ -272,15 +278,19 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getTruckRepairRelCount: () => {
         dispatch(getTruckRepairRelCount())
-
     },
     resetGetDriverlicenseCount: () => {
         dispatch(resetGetDriverlicenseCount())
     },
     getDriverlicenseCount: (param) => {
         dispatch(getDriverlicenseCount(param))
-
     },
+    getTruckHomeFilterList: (param) => {
+        dispatch(truckHomeFilterListAction.getTruckHomeFilterList(param))
+    },
+    getTruckHomeFilterListWaiting: () => {
+        dispatch(truckHomeFilterListAction.getTruckHomeFilterListWaiting())
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

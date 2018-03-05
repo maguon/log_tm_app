@@ -4,90 +4,112 @@ import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
     data: {
-        truckList:[]
+        truckList:[],
+        isComplete: false
     },
     getTruckHomeFilterList: {
         isResultStatus: 0,
-        isExecStatus: 0,
         errorMsg: '',
         failedMsg: '',
-        serviceFailedMsg: ''
+    },
+    getTruckHomeFilterListMore:{
+        isResultStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
     }
 }
 
-//isResultStatus(执行结果状态):[0(成功)，1(错误)，2(执行失败),3(服务器错误)] 
-//isExecuteStatus(执行状态):[0(未执行)，1(正在执行)，2(执行完毕)]
+//isResultStatus(执行结果状态):[0(未执行),1(等待)，2(成功)，3(错误)，4(执行失败)]
 export default handleActions({
-    [(actionTypes.truckHomeFilterListTypes.GET_TruckHomeFilterList_SUCCESS)]: (state, action) => {
-        const { payload: { data } } = action
+    [actionTypes.truckHomeFilterListTypes.get_TruckHomeFilterList_success]: (state, action) => {
+        const { payload: { truckList,isComplete } } = action
         return {
             ...state,
             data: {
-                ...state.data,
-                truckList: data
+                truckList
             },
             getTruckHomeFilterList: {
-                ...state.getTruckHomeFilterList,
-                isResultStatus: 0,
-                isExecStatus: 2
-            }
-        }
-    },
-    [(actionTypes.truckHomeFilterListTypes.GET_TruckHomeFilterList_FAILED)]: (state, action) => {
-        const { payload: { data } } = action
-        return {
-            ...state,
-            getTruckHomeFilterList: {
-                ...state.getTruckHomeFilterList,
+                ...initialState.getTruckHomeFilterList,
                 isResultStatus: 2,
-                failedMsg: data,
-                isExecStatus: 2
             }
         }
     },
-    [(actionTypes.truckHomeFilterListTypes.GET_TruckHomeFilterList_WAITING)]: (state, action) => {
+    [actionTypes.truckHomeFilterListTypes.get_TruckHomeFilterList_failed]: (state, action) => {
+        const { payload: { failedMsg } } = action
         return {
             ...state,
             getTruckHomeFilterList: {
-                ...state.getTruckHomeFilterList,
-                isExecStatus: 1
+                ...initialState.getTruckHomeFilterList,
+                isResultStatus: 4,
+                failedMsg
             }
         }
     },
-    [(actionTypes.truckHomeFilterListTypes.GET_TruckHomeFilterList_SERVICEERROR)]: (state, action) => {
-        const { payload: { data } } = action
+    [actionTypes.truckHomeFilterListTypes.get_TruckHomeFilterList_waiting]: (state, action) => {
         return {
-             ...state,
+            ...state,
             getTruckHomeFilterList: {
-                ...state.getTruckHomeFilterList,
+                ...initialState.getTruckHomeFilterList,
+                isResultStatus: 1
+            }
+        }
+    },
+    [actionTypes.truckHomeFilterListTypes.get_TruckHomeFilterList_error]: (state, action) => {
+        const { payload: { errorMsg } } = action
+        return {
+            ...state,
+            getTruckHomeFilterList: {
+                ...initialState.getTruckHomeFilterList,
                 isResultStatus: 3,
-                serviceFailedMsg: data,
-                isExecStatus: 2
+                errorMsg
             }
         }
     },
-    [(actionTypes.truckHomeFilterListTypes.GET_TruckHomeFilterList_ERROR)]: (state, action) => {
-        const { payload: { data } } = action
+
+
+    [actionTypes.truckHomeFilterListTypes.get_TruckHomeFilterListMore_success]: (state, action) => {
+        const { payload: { truckList, isComplete } } = action
         return {
             ...state,
-            getTruckHomeFilterList: {
-                ...state.getTruckHomeFilterList,
+            data: {
+                truckList: [...state.data.truckList, ...truckList],
+                isComplete
+            },
+            getTruckHomeFilterListMore: {
+                ...initialState.getTruckHomeFilterListMore,
+                isResultStatus: 2
+            }
+        }
+    },
+    [actionTypes.truckHomeFilterListTypes.get_TruckHomeFilterListMore_waiting]: (state, action) => {
+        return {
+            ...state,
+            getTruckHomeFilterListMore: {
+                ...initialState.getTruckHomeFilterListMore,
                 isResultStatus: 1,
-                serviceFailedMsg: data,
-                isExecStatus: 2
             }
         }
     },
-    [(actionTypes.truckHomeFilterListTypes.RESET_GET_TruckHomeFilterList)]: (state, action) => {
+    [actionTypes.truckHomeFilterListTypes.get_TruckHomeFilterListMore_failed]: (state, action) => {
+        const { payload: { failedMsg } } = action
         return {
             ...state,
-            getTruckHomeFilterList: {
-                isResultStatus: 0,
-                isExecStatus: 0,
-                errorMsg: '',
-                failedMsg: '',
-                serviceFailedMsg: ''
+            getTruckHomeFilterListMore: {
+                ...initialState.getTruckHomeFilterListMore,
+                isResultStatus: 4,
+                failedMsg
             }
         }
-    }
+    },
+    [actionTypes.truckHomeFilterListTypes.get_TruckHomeFilterListMore_error]: (state, action) => {
+        const { payload: { errorMsg } } = action
+        return {
+            ...state,
+            getTruckHomeFilterListMore: {
+                ...initialState.getTruckHomeFilterListMore,
+                isResultStatus: 3,
+                errorMsg
+            }
+        }
+    },
 }, initialState)

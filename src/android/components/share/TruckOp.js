@@ -4,14 +4,13 @@ import {
     Text
 } from 'react-native'
 import { Actions } from 'react-native-router-flux'
-import { Button } from 'native-base'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { Button,Icon } from 'native-base'
 
 const TruckOp = props => {
     const { parent } = props
     return (
         <Button transparent onPress={Actions.addTruckFirst}>
-            <MaterialCommunityIcons name='qrcode' size={20} color='#fff' />
+            <Icon name='md-add' color='#fff' />
         </Button>
     )
 }
