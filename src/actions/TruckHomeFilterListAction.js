@@ -10,9 +10,7 @@ const pageSize = 1
 export const getTruckHomeFilterList = (param) => async (dispatch) => {
     try {
         const url = `${base_host}/truckFirst?${ObjectToUrl({ ...param.OptionalParam, start: 0, size: pageSize })}`
-        console.log('url', url)
         const res = await httpRequest.get(url)
-        console.log('res', res)
         if (res.success) {
             if (res.result.length % pageSize != 0 || res.result.length == 0) {
                 dispatch({ type: actionTypes.truckHomeFilterListTypes.get_TruckHomeFilterList_success, payload: { truckList: res.result, isComplete: true } })
@@ -39,9 +37,7 @@ export const getTruckHomeFilterListMore = (param) => async (dispatch,getState) =
             dispatch({ type: actionTypes.truckHomeFilterListTypes.get_TruckHomeFilterListMore_waiting, payload: {} })
             try {
                 const url = `${base_host}/truckFirst?${ObjectToUrl({ ...param.OptionalParam, start: truckList.length, size: pageSize })}`
-                console.log('url', url)
                 const res = await httpRequest.get(url)
-                console.log('res', res)
                 if (res.success) {
                     dispatch({
                         type: actionTypes.truckHomeFilterListTypes.get_TruckHomeFilterListMore_success,
