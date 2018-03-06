@@ -86,6 +86,7 @@ class Third extends Component {
             updateLicenseImageOp,
             updateDriverAvatarImage,
             data } = nextProps.addDriverThirdReducer
+            console.log('data',data)
         /*updateDrivingImage*/
         if (updateDrivingImage.isExecStatus == 2) {
             if (updateDrivingImage.isResultStatus == 0) {
@@ -135,7 +136,7 @@ class Third extends Component {
         if (updateDriverImageRe.isExecStatus == 2) {
             if (updateDriverImageRe.isResultStatus == 0) {
                 ToastAndroid.showWithGravity('身份证背面照片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
-                this.props.setPhoto(data.driverInfo.drivingImageRe)
+                this.props.setPhoto(data.drivingImageRe)
                 this.props.resetUpdateDrivingImageRe()
             }
             else if (updateDriverImageRe.isResultStatus == 1) {
@@ -158,7 +159,7 @@ class Third extends Component {
         if (updateLicenseImageOp.isExecStatus == 2) {
             if (updateLicenseImageOp.isResultStatus == 0) {
                 ToastAndroid.showWithGravity('准驾证照片更新成功！', ToastAndroid.SHORT, ToastAndroid.CENTER)
-                this.props.setPhoto(data.driverInfo.licenseImageOp)
+                this.props.setPhoto(data.licenseImageOp)
                 this.props.resetUpdateLicenseImageOp()
             }
             else if (updateLicenseImageOp.isResultStatus == 1) {
