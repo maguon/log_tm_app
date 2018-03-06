@@ -5,14 +5,14 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 
 
 export const updateDrivingImage = (param) => async (dispatch) => {
-    const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
-    dispatch({ type: actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDrivingImage_WAITING, payload: {} })
     try {
-        let imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
+        const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
+        dispatch({ type: actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDrivingImage_WAITING, payload: {} })      
+        const imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)    
         if (imageRes.success) {
-            const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driverId}/image`
-            param.putParam.driveImage = imageRes.imageId
-            let res = await httpRequest.put(url, param.putParam)
+            const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driverId}/image`   
+            param.putParam.driveImage = imageRes.imageId  
+            const res = await httpRequest.put(url, param.putParam)   
             if (res.success) {
                 dispatch({ type: actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDrivingImage_SUCCESS, payload: { data: imageRes.imageId } })
             }
@@ -29,14 +29,15 @@ export const updateDrivingImage = (param) => async (dispatch) => {
 }
 
 export const updateLicenseImage = (param) => async (dispatch) => {
-    const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
-    dispatch({ type: actionTypes.addDriverThirdTypes.UPDATE_DriverThirdLicenseImage_WAITING, payload: {} })
     try {
-        let imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)  
+        const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
+        console.log()
+        dispatch({ type: actionTypes.addDriverThirdTypes.UPDATE_DriverThirdLicenseImage_WAITING, payload: {} })
+        const imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)  
         if (imageRes.success) {
             const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driverId}/image`
             param.putParam.driveImage = imageRes.imageId
-            let res = await httpRequest.put(url, param.putParam)
+            const res = await httpRequest.put(url, param.putParam)
             if (res.success) {
                 dispatch({ type: actionTypes.addDriverThirdTypes.UPDATE_DriverThirdLicenseImage_SUCCESS, payload: { data: imageRes.imageId } })
             }

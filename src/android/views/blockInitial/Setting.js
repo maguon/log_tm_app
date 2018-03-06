@@ -197,9 +197,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-        // loginReducer: state.loginReducer,
         settingReducer: state.settingReducer,
-        // initializationReducer: state.initializationReducer
     }
 }
 

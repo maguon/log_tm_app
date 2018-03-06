@@ -73,7 +73,7 @@ class First extends Component {
     createDriver() {
         this.props.createDriver({
             requiredParam: {
-                userId: this.props.userReducer.user.userId
+                userId: this.props.loginReducer.data.user.uid
             },
             postParam: this.props.addDriverFirstReducer.data.driverInfo
         })
@@ -89,7 +89,7 @@ class First extends Component {
     render() {
         let gender
         if (this.props.addDriverFirstReducer.data.driverInfo.gender == 0) gender = '女'
-        if (this.props.addDriverFirstReducer.data.driverInfo.gender == 1) gender = '男'
+        if (this.props.addDriverFirstReducer.data.driverInfo.gender == 1) gender = '男'       
         return (
             <View style={{ flex: 1 }}>
                 <StepIndicator stepList={[{ step: '1', title: '基本信息' }, { step: '2', title: '绑定货车' }, { step: '3', title: '上传照片' }]} current={0} />
@@ -244,7 +244,7 @@ class First extends Component {
 const mapStateToProps = (state) => {
     return {
         addDriverFirstReducer: state.addDriverFirstReducer,
-        userReducer: state.userReducer
+        loginReducer: state.loginReducer
     }
 }
 

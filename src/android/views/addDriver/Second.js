@@ -77,7 +77,7 @@ class Second extends Component {
     onPressUnBindTruck() {
         this.props.unBindTruck({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 truckId: this.props.addDriverSecondReducer.data.truckId,
                 driverId: this.props.initParam.driverId
             }
@@ -88,7 +88,7 @@ class Second extends Component {
     onPressBindTruck(param) {
         this.props.bindTruck({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 truckId: param.id,
                 driverId: this.props.initParam.driverId,
             },
@@ -103,6 +103,7 @@ class Second extends Component {
     }
 
     render() {
+        console.log('this.props.initparam',this.props.initParam)
         return (
             <View style={{ flex: 1 }}>
                 <StepIndicator stepList={[{ step: '1', title: '基本信息' }, { step: '2', title: '绑定货车' }, { step: '3', title: '上传照片' }]} current={1} />
@@ -140,7 +141,7 @@ class Second extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        userReducer: state.userReducer,
+        loginReducer: state.loginReducer,
         addDriverSecondReducer: state.addDriverSecondReducer
     }
 }

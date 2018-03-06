@@ -202,7 +202,7 @@ class Third extends Component {
     updateDrivingImage(param) {
         this.props.updateDrivingImage({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 driverId: this.props.initParam.driverId
             },
             OptionalParam: {
@@ -213,6 +213,7 @@ class Third extends Component {
             },
             postFileParam: {
                 ...param.postFileParam,
+                imageUrl: param.postFileParam.imageUrl.uri,
                 key: "image"
             }
         })
@@ -221,7 +222,7 @@ class Third extends Component {
     updateLicenseImage(param) {
         this.props.updateLicenseImage({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 driverId: this.props.initParam.driverId
             },
             OptionalParam: {
@@ -232,6 +233,7 @@ class Third extends Component {
             },
             postFileParam: {
                 ...param.postFileParam,
+                imageUrl: param.postFileParam.imageUrl.uri,
                 key: "image"
             }
         })
@@ -240,7 +242,7 @@ class Third extends Component {
     updateDrivingImageRe(param) {
         this.props.updateDrivingImageRe({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 driverId: this.props.initParam.driverId
             },
             OptionalParam: {
@@ -251,6 +253,7 @@ class Third extends Component {
             },
             postFileParam: {
                 ...param.postFileParam,
+                imageUrl: param.postFileParam.imageUrl.uri,
                 key: "image"
             }
         })
@@ -259,7 +262,7 @@ class Third extends Component {
     updateLicenseImageOp(param) {
         this.props.updateLicenseImageOp({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 driverId: this.props.initParam.driverId
             },
             OptionalParam: {
@@ -270,6 +273,7 @@ class Third extends Component {
             },
             postFileParam: {
                 ...param.postFileParam,
+                imageUrl: param.postFileParam.imageUrl.uri,
                 key: "image"
             }
         })
@@ -278,7 +282,7 @@ class Third extends Component {
     updateDriverAvatarImage(param) {
         this.props.updateDriverAvatarImage({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 driverId: this.props.initParam.driverId
             },
             OptionalParam: {
@@ -289,6 +293,7 @@ class Third extends Component {
             },
             postFileParam: {
                 ...param.postFileParam,
+                imageUrl: param.postFileParam.imageUrl.uri,
                 key: "image"
             }
         })
@@ -451,7 +456,7 @@ class Third extends Component {
 const mapStateToProps = (state) => {
     return {
         addDriverThirdReducer: state.addDriverThirdReducer,
-        userReducer: state.userReducer
+        loginReducer: state.loginReducer
     }
 }
 

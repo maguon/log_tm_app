@@ -98,7 +98,7 @@ function del(url, callback) {
 }
 
 
-function postFile(url, params, callback) {
+function postFile(url, params) {
     let formData = new FormData()
     let file = { uri: params.imageUrl, type: params.imageType, name: params.imageName }
     formData.append(params.key, file)

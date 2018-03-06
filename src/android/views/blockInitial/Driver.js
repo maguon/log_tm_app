@@ -38,7 +38,7 @@ export default class Driver extends Component {
     }
 
     render() {
-       // console.log(this.state)
+        console.log(this.state)
         return (
             <ScrollView >
                 <View style={{ flex: 1 }}>

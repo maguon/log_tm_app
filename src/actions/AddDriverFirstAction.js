@@ -4,12 +4,12 @@ import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
 export const createDriver = (param) => async (dispatch) => {
-    const url = `${base_host}/user/${param.requiredParam.userId}/drive`
+    const url = `${base_host}/user/${param.requiredParam.userId}/drive`    
     dispatch({ type: actionTypes.addDriverFirstTypes.CREATE_Driver_WAITING, payload: {} })
     try {
-        let res = await httpRequest.post(url, param.postParam)
+        const res = await httpRequest.post(url, param.postParam)
         if (res.success) {
-            dispatch({ type: actionTypes.addDriverFirstTypes.CREATE_Driver_SUCCESS, payload: { data: res.id } })
+            dispatch({ type: actionTypes.addDriverFirstTypes.CREATE_Driver_SUCCESS, payload: { data: res.result.driveId } })
         } else {
             dispatch({ type: actionTypes.addDriverFirstTypes.CREATE_Driver_FAILED, payload: { data: res.msg } })
         }

@@ -7,7 +7,7 @@ export const bindTruck = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/drive/${param.requiredParam.driverId}/bind`
     dispatch({ type: actionTypes.addDriverSecondTypes.CREATE_DriverSecondBindTruck_WAITING, payload: {} })
     try {
-        let res = await httpRequest.put(url, {})
+        const res = await httpRequest.put(url, {})
         if (res.success) {
             dispatch({
                 type: actionTypes.addDriverSecondTypes.CREATE_DriverSecondBindTruck_SUCCESS, payload: {
