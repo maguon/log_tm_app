@@ -44,7 +44,7 @@ class Second extends Component {
         if (this.props.initParam.type == 1) {
             this.props.bindTruck({
                 requiredParam: {
-                    userId: this.props.userReducer.user.userId,
+                    userId: this.props.loginReducer.data.user.uid,
                     truckId: this.props.initParam.truckId,
                     trailId: param.id
                 },
@@ -55,7 +55,7 @@ class Second extends Component {
         } else if (this.props.initParam.type == 2) {
             this.props.bindTruck({
                 requiredParam: {
-                    userId: this.props.userReducer.user.userId,
+                    userId: this.props.loginReducer.data.user.uid,
                     truckId: param.id,
                     trailId: this.props.initParam.truckId
                 },
@@ -70,7 +70,7 @@ class Second extends Component {
         if (this.props.initParam.type == 1) {
             this.props.unBindTruck({
                 requiredParam: {
-                    userId: this.props.userReducer.user.userId,
+                    userId: this.props.loginReducer.data.user.uid,
                     truckId: this.props.initParam.truckId,
                     trailId: this.props.addTruckSecondReducer.data.bindTrailerId
                 }
@@ -78,7 +78,7 @@ class Second extends Component {
         } else if (this.props.initParam.type == 2) {
             this.props.unBindTruck({
                 requiredParam: {
-                    userId: this.props.userReducer.user.userId,
+                    userId: this.props.loginReducer.data.user.uid,
                     truckId: this.props.addTruckSecondReducer.data.bindTractorId,
                     trailId: this.props.initParam.truckId
                 }
@@ -89,7 +89,7 @@ class Second extends Component {
     onSelectDriver(param) {
         this.props.bindDriver({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 truckId: this.props.initParam.truckId,
                 driverId: param.id
             },
@@ -101,7 +101,7 @@ class Second extends Component {
     onSelectViceDriver(param) {
         this.props.bindViceDriver({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 truckId: this.props.initParam.truckId,
                 viceDriverId: param.id
             },
@@ -113,7 +113,7 @@ class Second extends Component {
     onPressUnBindViceDriver() {
         this.props.unBindViceDriver({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 truckId: this.props.initParam.truckId,
                 viceDriverId: this.props.addTruckSecondReducer.data.bindViceDriverId
             }
@@ -123,7 +123,7 @@ class Second extends Component {
     onPressUnBindDriver() {
         this.props.unBindDriver({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 truckId: this.props.initParam.truckId,
                 driverId: this.props.addTruckSecondReducer.data.bindDriverId
             }
@@ -359,7 +359,7 @@ class Second extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        userReducer: state.userReducer,
+        loginReducer: state.loginReducer,
         addTruckSecondReducer: state.addTruckSecondReducer
     }
 }

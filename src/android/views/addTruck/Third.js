@@ -160,17 +160,10 @@ class Third extends Component {
         /************************************ */
     }
 
-    // static defaultProps = {
-    //     initParam: {
-    //         truckId: 195,
-    //         type: 1,
-    //         truckCode: '辽B12390'
-    //     }
-    // }
     updateDrivingImage(param) {
         this.props.updateDrivingImage({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 truckId: this.props.initParam.truckId
             },
             OptionalParam: {
@@ -181,6 +174,7 @@ class Third extends Component {
             },
             postFileParam: {
                 ...param.postFileParam,
+                imageUrl: param.postFileParam.imageUrl.uri,
                 key: "image"
             }
         })
@@ -189,7 +183,7 @@ class Third extends Component {
     updateLicenseImage(param) {
         this.props.updateLicenseImage({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 truckId: this.props.initParam.truckId
             },
             OptionalParam: {
@@ -200,6 +194,7 @@ class Third extends Component {
             },
             postFileParam: {
                 ...param.postFileParam,
+                imageUrl: param.postFileParam.imageUrl.uri,
                 key: "image"
             }
         })
@@ -208,7 +203,7 @@ class Third extends Component {
     createTruckImage(param) {
         this.props.createTruckImage({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 truckId: this.props.initParam.truckId,
                 truckCode: this.props.initParam.truckCode
             },
@@ -216,12 +211,13 @@ class Third extends Component {
                 imageType: 2
             },
             postParam: {
-                username: this.props.userReducer.user.mobile,
-                userid: this.props.userReducer.user.userId,
-                userType: this.props.userReducer.user.userType,
+                username: this.props.loginReducer.data.user.mobile,
+                userId: this.props.loginReducer.data.user.uid,
+                userType: this.props.loginReducer.data.user.type,
             },
             postFileParam: {
                 ...param.postFileParam,
+                imageUrl: param.postFileParam.imageUrl.uri,
                 key: "image"
             }
         })
@@ -322,7 +318,7 @@ class Third extends Component {
     delTruckImage(url) {
         this.props.delTruckImage({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 url: url,
                 truckNum: this.props.initParam.truckCode
             }
@@ -398,7 +394,7 @@ class Third extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        userReducer: state.userReducer,
+        loginReducer: state.loginReducer,
         addTruckThirdReducer: state.addTruckThirdReducer
     }
 }

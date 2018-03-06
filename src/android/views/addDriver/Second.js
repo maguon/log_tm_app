@@ -103,7 +103,6 @@ class Second extends Component {
     }
 
     render() {
-        console.log('this.props.initparam',this.props.initParam)
         return (
             <View style={{ flex: 1 }}>
                 <StepIndicator stepList={[{ step: '1', title: '基本信息' }, { step: '2', title: '绑定货车' }, { step: '3', title: '上传照片' }]} current={1} />

@@ -47,7 +47,7 @@ class First extends Component {
             numberTrailerValidater: false,
             drivingDateTrailerValidater: false,
             licenseDateTrailerValidater: false,
-           // theCodeTrailerValidater: false,
+            // theCodeTrailerValidater: false,
 
             truckType: 1
         }
@@ -70,7 +70,7 @@ class First extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const { createTruckFirst,createTruckTrailer, data } = nextProps.addTruckFirstReducer
+        const { createTruckFirst, createTruckTrailer, data } = nextProps.addTruckFirstReducer
         /*createTruckFirst*/
         if (createTruckFirst.isExecStatus == 2) {
             if (createTruckFirst.isResultStatus == 0) {
@@ -122,7 +122,7 @@ class First extends Component {
             this.props.createTruckFirst({
                 requiredParam:
                 {
-                    userId: this.props.userReducer.user.userId
+                    userId: this.props.loginReducer.data.user.uid
                 },
                 postParam: {
                     ...this.props.addTruckFirstReducer.data.truckFirst,
@@ -133,7 +133,7 @@ class First extends Component {
             this.props.createTruckTrailer({
                 requiredParam:
                 {
-                    userId: this.props.userReducer.user.userId
+                    userId: this.props.loginReducer.data.user.uid
                 },
                 postParam: {
                     ...this.props.addTruckFirstReducer.data.truckTrailer,
@@ -144,7 +144,7 @@ class First extends Component {
     }
 
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.props.cleanAddTruckFirstDate()
         this.props.cleanAddTruckSecondDate()
         this.props.cleanAddTruckThirdDate()
@@ -158,10 +158,10 @@ class First extends Component {
                     isRequire={true}
                     title='车牌号码：'
                     value={this.props.addTruckFirstReducer.data.truckFirst.truckNum ? this.props.addTruckFirstReducer.data.truckFirst.truckNum : ''}
-                   /*verifications={[{
-                        type: 'isVehicleNumber',
-                        message: '不是车牌号'
-                    }]}*/
+                    /*verifications={[{
+                         type: 'isVehicleNumber',
+                         message: '不是车牌号'
+                     }]}*/
                     onValueChange={(param) => this.props.changeTruckFirstField({ truckNum: param })}
                     onRequire={(flag) => this.setState({ truckNumFirstValidater: flag })}
                     placeholder='请输入车牌号码'
@@ -228,11 +228,11 @@ class First extends Component {
                 <RichTextBox
                     isRequire={false}
                     title='备注：'
-                     /*verifications={[{
-                        type: 'isLength',
-                        arguments: [0, 200],
-                        message: '长度0-200位'
-                    }]}*/
+                    /*verifications={[{
+                       type: 'isLength',
+                       arguments: [0, 200],
+                       message: '长度0-200位'
+                   }]}*/
                     value={this.props.addTruckFirstReducer.data.truckFirst.remark ? this.props.addTruckFirstReducer.data.truckFirst.remark : ''}
                     defaultValue={'请填写'}
                     onValueChange={(param) => this.props.changeTruckFirstField({ remark: param })}
@@ -247,7 +247,7 @@ class First extends Component {
                             this.state.brandIdFirstValidater &&
                             this.state.drivingDateFirstValidater &&
                             this.state.licenseDateFirstValidater &&
-                            this.state.truckNumFirstValidater 
+                            this.state.truckNumFirstValidater
                             //this.state.theCodeFirstValidater &&
                             //this.state.truckTelFirstValidater
                         )}
@@ -257,8 +257,8 @@ class First extends Component {
                                 this.state.brandIdFirstValidater &&
                                 this.state.drivingDateFirstValidater &&
                                 this.state.licenseDateFirstValidater &&
-                                this.state.truckNumFirstValidater 
-                               // this.state.theCodeFirstValidater &&
+                                this.state.truckNumFirstValidater
+                                // this.state.theCodeFirstValidater &&
                                 //this.state.truckTelFirstValidater
                             ) ? '#00cade' : '#888888'
                         }}>
@@ -356,7 +356,7 @@ class First extends Component {
                             this.state.companyIdTrailerValidater &&
                             this.state.drivingDateTrailerValidater &&
                             this.state.licenseDateTrailerValidater &&
-                           // this.state.theCodeTrailerValidater &&
+                            // this.state.theCodeTrailerValidater &&
                             this.state.numberTrailerValidater
                         )}
                         style={{
@@ -365,7 +365,7 @@ class First extends Component {
                                 this.state.companyIdTrailerValidater &&
                                 this.state.drivingDateTrailerValidater &&
                                 this.state.licenseDateTrailerValidater &&
-                               // this.state.theCodeTrailerValidater &&
+                                // this.state.theCodeTrailerValidater &&
                                 this.state.numberTrailerValidater
                             ) ? '#00cade' : '#888888'
                         }}>
@@ -377,6 +377,7 @@ class First extends Component {
     }
 
     render() {
+        console.log('this.props.loginReducer',this.props.loginReducer)
         return (
             <View style={{ flex: 1 }}>
                 <StepIndicator
@@ -403,7 +404,7 @@ class First extends Component {
 const mapStateToProps = (state) => {
     return {
         addTruckFirstReducer: state.addTruckFirstReducer,
-        userReducer: state.userReducer
+        loginReducer: state.loginReducer
     }
 }
 
@@ -430,13 +431,13 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(cleanAddTruckFirstDate())
     },
     cleanAddTruckSecondDate: () => {
- dispatch(cleanAddTruckSecondDate())
+        dispatch(cleanAddTruckSecondDate())
     },
     cleanAddTruckThirdDate: () => {
- dispatch(cleanAddTruckThirdDate())
+        dispatch(cleanAddTruckThirdDate())
     },
     cleanAddTruckFourthDate: () => {
- dispatch(cleanAddTruckFourthDate())
+        dispatch(cleanAddTruckFourthDate())
     }
 })
 
