@@ -3,7 +3,7 @@ import { reducer as formReducer } from 'redux-form'
 import homeReducer from './HomeReducer'
 import truckListReducer from './TruckListReducer'
 import truckInfoReducer from './TruckInfoReducer'
-import userReducer from './UserReducer'
+import loginReducer from './LoginReducer'
 import selectMakeReducer from './SelectMakeReducer'
 import selectCompanyReducer from './SelectCompanyReducer'
 import selectTruckReducer from './SelectTruckReducer'
@@ -21,7 +21,7 @@ import addDriverSecondReducer from './AddDriverSecondReducer'
 import addDriverThirdReducer from './AddDriverThirdReducer'
 import driverInfoReducer from './DriverInfoReducer'
 import driverListReducer from './DriverListReducer'
-import InitializationReducer from './InitializationReducer'
+import initializationReducer from './InitializationReducer'
 import PasswordReducer from './PasswordReducer'
 import retrievePasswordReducer from './RetrievePasswordReducer'
 import truckHomeFilterListReducer from './TruckHomeFilterListReducer'
@@ -35,13 +35,14 @@ import recordForDemageReducer from '../android/components/demageInfo/recordForDe
 import demageOpResultReducer from '../android/components/demageInfo/demageOpResult/DemageOpResultReducer'
 import imageListForDemageReducer from '../android/components/demageInfo/imageListForDemage/ImageListForDemageReducer'
 import demageEditorReducer from '../android/components/demageInfo/demageEditor/DemageEditorReducer'
+import settingReducer from './SettingReducer'
 
 export default combineReducers({
     form: formReducer,
     homeReducer,
     truckListReducer,
     truckInfoReducer,
-    userReducer,
+    loginReducer,
     addTruckFirstReducer,
     addTruckSecondReducer,
     addTruckThirdReducer,
@@ -59,7 +60,7 @@ export default combineReducers({
     addDriverThirdReducer,
     driverInfoReducer,
     driverListReducer,
-    InitializationReducer,
+    initializationReducer,
     PasswordReducer,
     truckHomeFilterListReducer,
     retrievePasswordReducer,
@@ -72,5 +73,6 @@ export default combineReducers({
     recordForDemageReducer,
     demageOpResultReducer,
     imageListForDemageReducer,
-    demageEditorReducer
+    demageEditorReducer,
+    settingReducer
 })

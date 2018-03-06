@@ -5,7 +5,7 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
 import { sleep } from '../util/util'
 
-const pageSize = 1
+const pageSize = 50
 
 export const getTruckHomeFilterList = (param) => async (dispatch) => {
     try {

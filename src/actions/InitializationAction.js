@@ -1,104 +1,214 @@
-/**
- * Created by lingxue on 2017/4/21.
- */
-import { Actions } from 'react-native-router-flux'
+//import { Actions } from 'react-native-router-flux'
+import * as httpRequest from '../util/HttpRequest'
+import { base_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
+//import * as loginActionTypes from '../login/LoginActionTypes'
+import { ObjectToUrl } from '../util/ObjectToUrl'
 import localStorageKey from '../util/LocalStorageKey'
 import localStorage from '../util/LocalStorage'
-import httpRequest from '../util/HttpRequest'
-import { base_host } from '../config/Host'
-import { ObjectToUrl } from '../util/ObjectToUrl'
 import requestHeaders from '../util/RequestHeaders'
-
-
-//获取最新version信息
-export const getAppLastVersion = (param) => async (dispatch) => {
-    const url = `${base_host}/app?${ObjectToUrl(param.optionalParam)}`
-    dispatch({ type: actionTypes.initializationTypes.GET_VERSION_WAITING, payload: {} })
-    try {
-        const res = await httpRequest.get(url)
-        if (res.success) {
-            dispatch({ type: actionTypes.initializationTypes.GET_VERSION_SUCCESS, payload: { data: res.result } })
-        } else {
-            dispatch({ type: actionTypes.initializationTypes.GET_VERSION_FAILED, payload: { data: res.msg } })
-        }
-    } catch (err) {
-        dispatch({ type: actionTypes.initializationTypes.GET_VERSION_ERROR, payload: { data: err } })
+import * as android_app from '../android_app.json'
+import { sleep } from '../util/util'
+import { Actions } from 'react-native-router-flux'
+/** 
+ * 
+ * initApp : APP初始化
+ * 
+ * param : 对应执行步骤执行时所需要的参数
+ * currentStep : 执行到第N步（从1开始）
+ * tryCount : 当遇到网络错误的时候尝试的次数（从1开始）
+ * 
+ * 
+ * 初始化流程：
+ * 第一步：验证版本是否是最新版本
+ * 第二步：获取本地localstorage的数据
+ * 第三步：换network request所需要的token
+ */
+export const initApp = (currentStep = 1, tryCount = 1, param = null) => (dispatch) => {
+    if (currentStep == 1) {
+        //执行第一步
+        //console.log(`========执行第${currentStep}步    第${tryCount}次尝试========`)
+        dispatch(validateVersion(tryCount))
+    } else if (currentStep == 2) {
+        //执行第二步
+        //console.log(`========执行第${currentStep}步    第${tryCount}次尝试========`)
+        dispatch(loadLocalStorage(tryCount))
+    } else if (currentStep == 3) {
+        //执行第三步
+        //console.log(`========执行第${currentStep}步    第${tryCount}次尝试========`)
+        dispatch(validateToken(tryCount, param))
     }
 }
 
-//验证localStorage中的token，请求更换token,请求更新userInformation
-export const validateToken = () => (dispatch) => {
-     //console.log(localStorage)
-    localStorage.loadKey(localStorageKey.USER, (localStorageErr, localStorageRes) => {
-        if (localStorageErr) {
-            if (localStorageErr.name == 'NotFoundError') {
-             //   console.log('NotFoundError')
-                //跳转到登录页面
-                dispatch({ type: actionTypes.initializationTypes.VALIDATE_TOKEN_FAILED, payload: {} })
+
+
+//第一步：获取最新version信息
+export const validateVersion = (tryCount = 1) => async (dispatch) => {
+    const currentStep = 1
+    try {
+        const url = `${base_host}/app?${ObjectToUrl({ app: 2, type: 1 })}`
+        const res = await httpRequest.get(url)
+        if (res.success) {
+            const data = {
+                currentVersion: android_app.version,
+                newestVersion: '',
+                url: '',
+                remark: '',
+                force_update: 0
             }
-            else if (localStorageErr.name == 'ExpiredError') {
-                //未知错误处理,删除本地缓存
-                localStorage.removeKey(localStorageKey.USER)
-                dispatch({ type: actionTypes.initializationTypes.VALIDATE_TOKEN_FAILED, payload: {} })
+            const currentVersionArr = android_app.version.split('.')
+            let versionList = res.result
+                .filter(item => {
+                    const itemArr = item.version.split('.')
+                    if (currentVersionArr[0] < itemArr[0]) {
+                        return true
+                    } else if (currentVersionArr[0] == itemArr[0] && currentVersionArr[1] < itemArr[1]) {
+                        return true
+                    } else if (currentVersionArr[0] == itemArr[0] && currentVersionArr[1] == itemArr[1] && currentVersionArr[2] < itemArr[2]) {
+                        return true
+                    } else {
+                        return false
+                    }
+                })
+
+            if (versionList.length > 0) {
+                if (versionList.some(item => item.force_update == 1)) {
+                    data.force_update = 1
+                } else {
+                    data.force_update = 2
+                }
+                versionList = versionList.sort((a, b) => {
+                    const aArr = a.version.split('.')
+                    const bArr = b.version.split('.')
+                    if (aArr[0] < bArr[0]) {
+                        return true
+                    } else if (aArr[0] == bArr[0] && aArr[1] < bArr[1]) {
+                        return true
+                    } else if (aArr[0] == bArr[0] && aArr[1] == bArr[1] && aArr[2] < bArr[2]) {
+                        return true
+                    } else {
+                        return false
+                    }
+                })
+                data.newestVersion = versionList[0].version
+                data.url = versionList[0].url
+                data.remark = versionList[0].remark
+
+            } else {
+                data.force_update = 0
+                data.newestVersion = data.currentVersion
+            }
+            dispatch({ type: actionTypes.initializationTypes.Valdate_Version_Success, payload: { data, step: currentStep } })
+            if (data.force_update != 1) {
+                dispatch(initApp(currentStep + 1))
+            }
+        } else {
+            dispatch({ type: actionTypes.initializationTypes.Valdate_Version_Failed, payload: { failedMsg: res.msg, step: currentStep } })
+        }
+    } catch (err) {
+        if (err.message == 'Network request failed') {
+            //尝试20次
+            if (tryCount < 20) {
+                await sleep(1000)
+                dispatch(initApp(currentStep, tryCount + 1))
+            } else {
+                dispatch({ type: actionTypes.initializationTypes.Valdate_Version_NetWorkError, payload: { step: currentStep } })
+            }
+        } else {
+            dispatch({ type: actionTypes.initializationTypes.Valdate_Version_Error, payload: { errorMsg: err.message, step: currentStep } })
+        }
+    }
+}
+
+//第二步：获取localStorage中的user数据
+export const loadLocalStorage = (tryCount = 1) => async (dispatch) => {
+    const currentStep = 2
+    try {
+        localStorage.save({
+            key: localStorageKey.USER,
+            data: {
+                uid: 72,
+                token: 'r3CO6lteX-wRGSwh0--n8_2FJiw=cLqEPfp3b3c4a3879d9a6bc85a82b658af0f9b16759c2b29e6ea3b4bdf6cceab69c3865e2a77961e5b223dbf258792d8f023532f'
+            }
+        })
+        //localStorage.remove({ key: localStorageKey.USER })
+        const localStorageRes = await localStorage.load({ key: localStorageKey.USER })
+        if (localStorageRes.token && localStorageRes.uid) {
+            dispatch({ type: actionTypes.initializationTypes.Load_LocalStorage_Success, payload: { step: currentStep } })
+            dispatch(initApp(currentStep + 1, 1, {
+                requiredParam: {
+                    userId: localStorageRes.uid,
+                    token: localStorageRes.token
+                }
+            }))
+        }
+        else {
+            if (localStorageRes.mobile) {
+                dispatch({ type: actionTypes.loginTypes.Set_UserInfo, payload: { user: { mobile: localStorageRes.mobile } } })
+            } else {
+                dispatch({ type: actionTypes.loginTypes.Set_UserInfo, payload: { user: {} } })
+            }
+            dispatch({ type: actionTypes.initializationTypes.Load_LocalStorage_Failed, payload: { step: currentStep } })
+            Actions.mainRoot()
+        }
+    } catch (err) {
+        if (err.name == 'NotFoundError') {
+            dispatch({ type: actionTypes.initializationTypes.Load_LocalStorage_NotFoundError, payload: { step: currentStep } })
+
+        } else {
+            localStorage.remove({ key: localStorageKey.USER })
+            dispatch({ type: actionTypes.initializationTypes.Load_LocalStorage_Error, payload: { errorMsg: err.message, step: currentStep } })
+        }
+        Actions.mainRoot()
+    }
+
+}
+
+//第三步:更换service-token ,如果更新成功将登陆数据放入userReducer
+export const validateToken = (tryCount = 1, param) => async (dispatch) => {
+    const currentStep = 3
+    try {
+        const url = `${base_host}/user/${param.requiredParam.userId}/token/${param.requiredParam.token}`
+        const res = await httpRequest.get(url)    
+        if (res.success) {
+            const getUserInfoUrl = `${base_host}/user?${ObjectToUrl({ userId: param.requiredParam.userId })}`
+            const getUserInfoRes = await httpRequest.get(getUserInfoUrl)
+            if (getUserInfoRes.success) {
+                const { uid, mobile, real_name, type, gender, avatar_image, status } = getUserInfoRes.result[0]
+                const user = {
+                    uid, mobile, real_name, type, gender, avatar_image, status,
+                    token: param.requiredParam.token,
+                }
+                //判断请求是否成功，如果成功，更新token
+                localStorage.save({ key: localStorageKey.USER, data: user })
+                requestHeaders.set('auth-token', res.result.accessToken)
+                requestHeaders.set('user-type', type)
+                requestHeaders.set('user-name', mobile)
+                dispatch({ type: actionTypes.loginTypes.Set_UserInfo, payload: { user } })
+                dispatch({ type: actionTypes.initializationTypes.validate_token_Success, payload: { step: currentStep } })
+                Actions.mainRoot()
+            } else {
+                ToastAndroid.showWithGravity(`登陆失败：无法获取用户信息！`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+                dispatch({ type: actionTypes.initializationTypes.validate_token_Failed, payload: { failedMsg: '无法获取用户信息！' } })
             }
         }
         else {
-            if (localStorageRes.token && localStorageRes.userId) {
-                //判断userId与token是否为空，如果都不为空,请求更换token 
-                httpRequest
-                    .getCallBack(`${base_host}/user/${localStorageRes.userId}/token/${localStorageRes.token}`, (changeTokenErr, changeTokenRes) => {
-                        if (changeTokenErr) {
-                            //判断网络连接层是否有问题，如果有问题提醒用户
-                            //console.log('changeTokenErr', changeTokenErr)
-                        }
-                        else {
-                            if (changeTokenRes.success) {
-                                //判断请求是否成功，如果成功，更新token
-                                localStorage.saveKey(localStorageKey.USER, {
-                                    userId: changeTokenRes.result.userId,
-                                    token: changeTokenRes.result.accessToken,
-                                    userType: changeTokenRes.result.type,
-                                    userStatus: changeTokenRes.result.userStatus,
-                                    mobile:changeTokenRes.result.phone,
-                                })
-                                requestHeaders.set('auth-token', changeTokenRes.result.accessToken)
-                                requestHeaders.set('user-type', changeTokenRes.result.type)
-                                requestHeaders.set('user-name', changeTokenRes.result.phone)
-                                dispatch({
-                                    type: actionTypes.loginTypes.LOGIN_SUCCESS, payload: {
-                                        data: {
-                                            userId: changeTokenRes.result.userId,
-                                            token: changeTokenRes.result.accessToken,
-                                            userType: changeTokenRes.result.type,
-                                            userStatus: changeTokenRes.result.userStatus,
-                                            mobile: changeTokenRes.result.phone
-                                        }
-                                    }
-                                })
-                                dispatch({ type: actionTypes.initializationTypes.VALIDATE_TOKEN_SUCCESS, payload: {} })
-                            }
-                            else {
-                                //判断请求是否成功，如果失败，跳转到登录页
-                                // console.log('changeTokenResfailed', changeTokenRes)
-                                dispatch({ type: actionTypes.initializationTypes.VALIDATE_TOKEN_FAILED, payload: {} })
-                            }
-                        }
-                    })
-            }
-            else {
-                //判断userId与token是否为空，如果有一个为空，跳转到登录页面
-                dispatch({ type: actionTypes.initializationTypes.VALIDATE_TOKEN_FAILED, payload: {} })
-            }
+            //判断请求是否成功，如果失败，跳转到登录页
+            dispatch({ type: actionTypes.initializationTypes.validate_token_Failed, payload: { step: currentStep } })
+            Actions.mainRoot()
         }
-    })
+    } catch (err) {
+        if (err.message == 'Network request failed') {
+            //尝试20次
+            if (tryCount < 20) {
+                await sleep(1000)
+                dispatch(initApp(currentStep, tryCount + 1, param))
+            } else {
+                dispatch({ type: actionTypes.initializationTypes.validate_token_NetWorkError, payload: { param, step: currentStep } })
+            }
+        } else {
+            dispatch({ type: actionTypes.initializationTypes.validate_token_Error, payload: { step: currentStep } })
+            Actions.mainRoot()
+        }
+    }
 }
-
-export const resetInitialization = () => (dispatch) => {
-    dispatch({ type: actionTypes.initializationTypes.RESET_INITIALIZATION, payload: {} })
-}
-
-export const resetGetVersion = () => (dispatch) => {
-    dispatch({ type: actionTypes.initializationTypes.RESET_GETVERSION, payload: {} })
-}
-

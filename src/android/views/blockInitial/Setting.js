@@ -14,6 +14,7 @@ import { Actions } from 'react-native-router-flux'
 import globalStyles from '../../GlobalStyles'
 import * as demageListAction from '../demageList/DemageListAction'
 import * as responsibilityListAction from '../responsibilityList/ResponsibilityListAction'
+import * as settingAction from '../../../actions/SettingAction'
 //import * as loginAction from '../login/LoginAction'
 import { file_host } from '../../../config/Host'
 import ConfirmModal from '../../components/ConfirmModal'
@@ -28,6 +29,12 @@ class Setting extends Component {
         this.exitApp = this.exitApp.bind(this)
         this.onPressOk = this.onPressOk.bind(this)
         this.onPressCancel = this.onPressCancel.bind(this)
+    }
+
+
+    componentDidMount() {
+        this.props.getUserInfoWaiting()
+        this.props.getUserInfo()
     }
 
     exitApp() {
@@ -45,13 +52,15 @@ class Setting extends Component {
 
     render() {
         const { getDemageListWaiting,
-        getDemageList,
-        getResponsibilityListWaiting,
-        getResponsibilityList,
-        // cleanLogin,
-        // loginReducer: { data: { user: { real_name, avatar_image, mobile } } },
-        // initializationReducer: { data: { version: { force_update, currentVersion, url } } }, initializationReducer
+            getDemageList,
+            getResponsibilityListWaiting,
+            getResponsibilityList,
+            settingReducer: { data: { userInfo: { avatar_image, real_name, mobile } } }
+            // cleanLogin,
+            // loginReducer: { data: { user: { real_name, avatar_image, mobile } } },
+            // initializationReducer: { data: { version: { force_update, currentVersion, url } } }, initializationReducer
         } = this.props
+        console.log('this.props', this.props)
         return (
             <Container>
                 <Content style={globalStyles.container}>
@@ -59,11 +68,11 @@ class Setting extends Component {
                         <Separator bordered />
                         <ListItem last onPress={Actions.personalCenter}>
                             <View style={styles.avatarContainer}>
-                                {/* <Thumbnail source={avatar_image ? { uri: `${file_host}/image/${avatar_image}` } : { uri: `personalicon` }} />
+                                <Thumbnail source={avatar_image ? { uri: `${file_host}/image/${avatar_image}` } : { uri: `personalicon` }} />
                                 <View style={styles.userContainer}>
                                     <Text style={globalStyles.midText}>{real_name ? `${real_name}` : ''}</Text>
                                     <Text style={globalStyles.midText}>{mobile ? `${mobile}` : ''}</Text>
-                                </View> */}
+                                </View>
                             </View>
                         </ListItem>
                         <Separator bordered />
@@ -189,7 +198,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
         // loginReducer: state.loginReducer,
-        // settingReducer: state.settingReducer,
+        settingReducer: state.settingReducer,
         // initializationReducer: state.initializationReducer
     }
 }
@@ -207,6 +216,12 @@ const mapDispatchToProps = (dispatch) => ({
     getResponsibilityListWaiting: () => {
         dispatch(responsibilityListAction.getResponsibilityListWaiting())
     },
+    getUserInfoWaiting: () => {
+        dispatch(settingAction.getUserInfoWaiting())
+    },
+    getUserInfo: () => {
+        dispatch(settingAction.getUserInfo())
+    }
     // cleanLogin: () => {
     //     dispatch(loginAction.cleanLogin())
     // }

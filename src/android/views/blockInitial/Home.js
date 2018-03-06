@@ -218,7 +218,7 @@ class Home extends Component {
                                 isWarn: false, title: '维修中车头',
                                 router: () => {
                                     getTruckHomeFilterListWaiting()
-                                    Actions.truckHomeFilterList({initParam: { repairStatus: 0 }})
+                                    Actions.truckHomeFilterList({ initParam: { repairStatus: 0 } })
                                     InteractionManager.runAfterInteractions(() => getTruckHomeFilterList({ OptionalParam: { repairStatus: 0 } }))
                                 }
                             })}
@@ -226,7 +226,13 @@ class Home extends Component {
                                 status: 1,
                                 count: waitingInspectCount ? waitingInspectCount.toString() : 0,
                                 isWarn: true, title: '待检车辆',
-                                router: () => Actions.truckHomeFilterList({ initParam: { drivingDateEnd: moment(Date.now() + 30 * 24 * 60 * 60 * 1000 * 3).format('YYYYMMDD') } }),
+                                router: () => {
+                                    getTruckHomeFilterListWaiting()
+                                    Actions.truckHomeFilterList({ initParam: { drivingDateEnd: moment(Date.now() + 30 * 24 * 60 * 60 * 1000 * 3).format('YYYYMMDD') } })
+                                    InteractionManager.runAfterInteractions(() => getTruckHomeFilterList({
+                                        OptionalParam: { drivingDateEnd: moment(Date.now() + 30 * 24 * 60 * 60 * 1000 * 3).format('YYYYMMDD') }
+                                    }))
+                                },
                                 warnMsg: '行驶证临近',
                                 warnMsgDate: '三个月'
                             })}

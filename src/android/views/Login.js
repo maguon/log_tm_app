@@ -24,13 +24,13 @@ class Login extends Component {
 
     }
     componentDidMount() {
-        localStorage.loadKey(localStorageKey.USER, (err, res) => {
-            if (err) {
-            }
-            else {
-                this.setState({ textUserName: res.mobile })
-            }
-        })
+        // localStorage.loadKey(localStorageKey.USER, (err, res) => {
+        //     if (err) {
+        //     }
+        //     else {
+        //         this.setState({ textUserName: res.mobile })
+        //     }
+        // })
     }
 
     login(param) {

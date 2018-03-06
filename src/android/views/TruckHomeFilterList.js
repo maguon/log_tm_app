@@ -80,7 +80,7 @@ const TruckHomeFilterList = props => {
                 <FlatList
                     style={styles.flatList}
                     showsVerticalScrollIndicator={false}
-                    data={[...truckList,...truckList]}
+                    data={truckList}
                     renderItem={itemProps => renderItem({ parent, ...itemProps })}
                     onEndReachedThreshold={0.2}
                     onEndReached={() => {

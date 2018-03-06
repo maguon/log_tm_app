@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-        LoginReducer: state.userReducer
+        loginReducer: state.loginReducer
     }
 }
 
@@ -113,37 +113,17 @@ const getSceneStyle = (/* NavigationSceneRendererProps */ props, computedProps) 
 export default class App extends Component {
     constructor(props) {
         super(props)
-        // this.reducerCreate = this.reducerCreate.bind(this)
     }
 
     componentWillMount() {
         Orientation.lockToPortrait()
     }
 
-    // reducerCreate(params) {
-    //     const defaultReducer = Reducer(params)
-    //     return (state, action) => {
-    //         if (action.type == 'REACT_NATIVE_ROUTER_FLUX_FOCUS') {
-    //             if (action.scene.name != 'mainRoot') {
-    //                 this.props.changeScene(action.scene.name)
-    //             }
-    //         }
-    //         return defaultReducer(state, action)
-    //     }
-    // }
-
-    // test() {
-    //     console.log('111')
-    //     Actions.addTruckFirst()
-
-    // }
-
 
     render() {
         console.disableYellowBox = true
         return (
             <Router
-                //createReducer={this.reducerCreate} 
                 getSceneStyle={getSceneStyle} >
                 <Scene key="root">
                     <Scene initial={true} key="initialization" component={Initialization} hideNavBar hideTabBar />
@@ -153,11 +133,12 @@ export default class App extends Component {
                         tabs={true}
                         type={ActionConst.RESET}
                         selector={(props) => {
-                            if (props.LoginReducer.user.mobile
-                                && props.LoginReducer.user.token
-                                && props.LoginReducer.user.userId
-                                && props.LoginReducer.user.userStatus
-                                && props.LoginReducer.user.userType) {
+                            const { user } = props.loginReducer.data
+                            if (user.mobile
+                                && user.token
+                                && user.uid
+                                && user.status
+                                && user.type) {
                                 return 'main'
                             } else {
                                 return 'loginBlock'

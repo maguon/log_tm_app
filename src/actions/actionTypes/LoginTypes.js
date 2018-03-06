@@ -1,6 +1,10 @@
-export const LOGIN_WAITING = 'LOGIN_WAITING'
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
-export const LOGIN_FAILED = 'LOGIN_FAILED'
-export const RESET_LOGIN = 'RESET_LOGIN'
-export const CLEAN_LOGIN = 'CLEAN_LOGIN'
-export const LOGIN_ERROR = 'LOGIN_ERROR'
+export const change_AvatarImage = 'change_AvatarImage'
+
+export const clean_login = 'clean_login'
+
+export const login_waiting = 'login_waiting'
+export const login_success = 'login_success'
+export const login_failed = 'login_failed'
+export const login_error = 'login_error'
+
+export const Set_UserInfo = 'Set_UserInfo'
