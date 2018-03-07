@@ -55,7 +55,6 @@ class Setting extends Component {
             getDemageList,
             getResponsibilityListWaiting,
             getResponsibilityList,
-            //settingReducer: { data: { userInfo: { avatar_image, real_name, mobile } } },
             initializationReducer: { data: { version: { force_update, currentVersion, url } } },
             // cleanLogin,
             loginReducer: { data: { user: { real_name, avatar_image, mobile } } },
@@ -198,7 +197,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-        settingReducer: state.settingReducer,
+        //settingReducer: state.settingReducer,
         loginReducer: state.loginReducer,
         initializationReducer: state.initializationReducer
     }

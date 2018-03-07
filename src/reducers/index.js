@@ -22,7 +22,7 @@ import addDriverThirdReducer from './AddDriverThirdReducer'
 import driverInfoReducer from './DriverInfoReducer'
 import driverListReducer from './DriverListReducer'
 import initializationReducer from './InitializationReducer'
-import PasswordReducer from './PasswordReducer'
+// import PasswordReducer from './PasswordReducer'
 import retrievePasswordReducer from './RetrievePasswordReducer'
 import truckHomeFilterListReducer from './TruckHomeFilterListReducer'
 import demageListReducer from '../android/views/demageList/DemageListReducer'
@@ -37,6 +37,7 @@ import imageListForDemageReducer from '../android/components/demageInfo/imageLis
 import demageEditorReducer from '../android/components/demageInfo/demageEditor/DemageEditorReducer'
 import settingReducer from './SettingReducer'
 import personalCenterReducer from '../android/views/personalCenter/PersonalCenterReducer'
+import updatePasswordReducer from '../android/views/updatePassword/UpdatePasswordReducer'
 
 export default combineReducers({
     form: formReducer,
@@ -62,7 +63,7 @@ export default combineReducers({
     driverInfoReducer,
     driverListReducer,
     initializationReducer,
-    PasswordReducer,
+    //PasswordReducer,
     truckHomeFilterListReducer,
     retrievePasswordReducer,
     demageListReducer,
@@ -76,5 +77,6 @@ export default combineReducers({
     imageListForDemageReducer,
     demageEditorReducer,
     settingReducer,
-    personalCenterReducer
+    personalCenterReducer,
+    updatePasswordReducer
 })

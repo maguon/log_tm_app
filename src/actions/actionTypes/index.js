@@ -21,7 +21,6 @@ import * as addDriverThirdTypes from './AddDriverThirdTypes'
 import * as driverInfoTypes from './DriverInfoTypes' 
 import * as driverListTypes from './DriverListTypes'  
 import * as initializationTypes from './InitializationTypes'
-import * as passwordTypes from './PasswordTypes'
 import * as retrievePasswordTypes from './RetrievePasswordTypes'
 import * as truckHomeFilterListTypes from './TruckHomeFilterListTypes'
 import * as selectCarActionTypes from './selectCarActionTypes'
@@ -50,7 +49,6 @@ export {
     driverListTypes,
     initializationTypes,
     loginTypes,
-    passwordTypes,
     truckHomeFilterListTypes,
     retrievePasswordTypes,
     selectCarActionTypes,

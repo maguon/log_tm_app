@@ -77,20 +77,20 @@ class AddInsurance extends Component {
                 ToastAndroid.show('添加成功', ToastAndroid.SHORT)
                 Actions.pop()
                 this.props.cleanAddInsurance()
-                console.log('createInsurance', '执行成功')
+               // console.log('createInsurance', '执行成功')
             }
             else if (createInsurance.isResultStatus == 1) {
-                console.log('createInsurance异常', createInsurance.errorMsg)
+               // console.log('createInsurance异常', createInsurance.errorMsg)
                 ToastAndroid.show('数据错误，请重新输入', ToastAndroid.SHORT)
                 this.props.resetCreateInsurance()
             }
             else if (createInsurance.isResultStatus == 2) {
-                console.log('createInsurance执行失败', createInsurance.failedMsg)
+                //console.log('createInsurance执行失败', createInsurance.failedMsg)
                 ToastAndroid.show(`执行失败，${createInsurance.failedMsg}！`, ToastAndroid.SHORT)
                 this.props.resetCreateInsurance()
             }
             else if (createInsurance.isResultStatus == 3) {
-                console.log('createInsurance服务器异常', createInsurance.serviceFailedMsg)
+               // console.log('createInsurance服务器异常', createInsurance.serviceFailedMsg)
                 ToastAndroid.show('数据错误，请重新输入', ToastAndroid.SHORT)
                 this.props.resetCreateInsurance()
             }

@@ -34,7 +34,7 @@ import DriverInfo from './views/DriverInfo'
 import RichText from './views/RichText'
 
 import TruckInfo from './views/TruckInfo'
-import Password from './views/Password'
+//import Password from './views/Password'
 
 import Company from './views/select/Company'
 import CompanyType from './views/select/CompanyType'
@@ -68,6 +68,7 @@ import ListCennect from './views/select/ListCennect'
 import TruckOp from './components/share/TruckOp'
 import DriverOp from './components/share/DriverOp'
 import PersonalCenter from './views/personalCenter/PersonalCenter'
+import UpdatePassword from './views/updatePassword/UpdatePassword'
 import ApplyDamageUploadImageSubmit from './components/applyDamageUploadImage/ApplyDamageUploadImageSubmit'
 import Orientation from 'react-native-orientation'
 // import AddInsurance from './views/AddInsurance'
@@ -518,9 +519,9 @@ export default class App extends Component {
                                     title='设置'
                                     hideNavBar={false}
                                     navBar={NavBar} />
-                                <Scene key="password"
+                                <Scene key="updatePassword"
                                     LeftButton={LeftButton}
-                                    component={Password}
+                                    component={UpdatePassword}
                                     title='修改密码'
                                     navBar={NavBar}
                                     hideTabBar
