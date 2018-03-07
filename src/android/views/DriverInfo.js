@@ -481,9 +481,10 @@ class DriverInfo extends Component {
     }
 
     updateDriverAvatarImage(param) {
+
         this.props.updateDriverAvatarImage({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 driverId: this.props.initParam.driverId
             },
             OptionalParam: {
@@ -1009,7 +1010,6 @@ class DriverInfo extends Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>
