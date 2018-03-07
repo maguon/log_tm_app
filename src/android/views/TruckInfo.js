@@ -1294,6 +1294,7 @@ class TruckInfo extends Component {
             },
             postFileParam: {
                 ...param.postFileParam,
+                imageUrl: param.postFileParam.imageUrl.uri,
                 key: "image"
             }
         })
@@ -1314,6 +1315,7 @@ class TruckInfo extends Component {
             },
             postFileParam: {
                 ...param.postFileParam,
+                imageUrl: param.postFileParam.imageUrl.uri,
                 key: "image"
             }
         })
@@ -1369,6 +1371,7 @@ class TruckInfo extends Component {
             },
             postFileParam: {
                 ...param.postFileParam,
+                imageUrl: param.postFileParam.imageUrl.uri,
                 key: "image"
             }
         })
@@ -1585,7 +1588,7 @@ class TruckInfo extends Component {
 
     render() {
         const { truck_status, truck_type } = this.props.truckInfoReducer.data.truckInfo
-        console.log(this.props)
+        // console.log(this.props)
         //  console.log(this.state)
         return (
             <View style={{ flex: 1 }}>

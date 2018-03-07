@@ -121,7 +121,7 @@ class DriverInfo extends Component {
 
     componentDidMount() {
         this.props.getDriverInfo({ OptionalParam: { driveId: this.props.initParam.driverId } })
-        this.props.getDriverRecord({ requiredParam: { userId: this.props.userReducer.user.userId, driverId: this.props.initParam.driverId } })
+        this.props.getDriverRecord({ requiredParam: { userId: this.props.loginReducer.data.user.uid, driverId: this.props.initParam.driverId } })
         //console.log(DrivingLicenseTypeList)
         //DrivingLicenseTypeList.find((item) => item.id == this.props.driverInfoReducer.data.driverInfo.license_type).value
     }
@@ -148,7 +148,7 @@ class DriverInfo extends Component {
                     truckStatus: nextProps.driverInfoReducer.data.driverInfo.drive_status,
                     onPressRight: () => this.props.changeDriverStatus({
                         requiredParam: {
-                            userId: nextProps.userReducer.user.userId,
+                            userId: nextProps.loginReducer.data.user.uid,
                             driveId: nextProps.driverInfoReducer.data.driverInfo.id,
                             driveStatus: nextProps.driverInfoReducer.data.driverInfo.drive_status == 1 ? 0 : 1
                         }
@@ -239,7 +239,7 @@ class DriverInfo extends Component {
                     truckStatus: nextProps.driverInfoReducer.data.driverInfo.drive_status,
                     onPressRight: () => this.props.changeDriverStatus({
                         requiredParam: {
-                            userId: nextProps.userReducer.user.userId,
+                            userId: nextProps.loginReducer.data.user.uid,
                             driveId: nextProps.driverInfoReducer.data.driverInfo.id,
                             driveStatus: nextProps.driverInfoReducer.data.driverInfo.drive_status == 1 ? 0 : 1
                         }
@@ -403,7 +403,7 @@ class DriverInfo extends Component {
     updateDrivingImage(param) {
         this.props.updateDrivingImage({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 driverId: this.props.initParam.driverId
             },
             OptionalParam: {
@@ -414,6 +414,7 @@ class DriverInfo extends Component {
             },
             postFileParam: {
                 ...param.postFileParam,
+                imageUrl: param.postFileParam.imageUrl.uri,
                 key: "image"
             }
         })
@@ -422,7 +423,7 @@ class DriverInfo extends Component {
     updateLicenseImage(param) {
         this.props.updateLicenseImage({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 driverId: this.props.initParam.driverId
             },
             OptionalParam: {
@@ -433,6 +434,7 @@ class DriverInfo extends Component {
             },
             postFileParam: {
                 ...param.postFileParam,
+                imageUrl: param.postFileParam.imageUrl.uri,
                 key: "image"
             }
         })
@@ -441,7 +443,7 @@ class DriverInfo extends Component {
     updateDrivingImageRe(param) {
         this.props.updateDrivingImageRe({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 driverId: this.props.initParam.driverId
             },
             OptionalParam: {
@@ -452,6 +454,7 @@ class DriverInfo extends Component {
             },
             postFileParam: {
                 ...param.postFileParam,
+                imageUrl: param.postFileParam.imageUrl.uri,
                 key: "image"
             }
         })
@@ -460,7 +463,7 @@ class DriverInfo extends Component {
     updateLicenseImageOp(param) {
         this.props.updateLicenseImageOp({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 driverId: this.props.initParam.driverId
             },
             OptionalParam: {
@@ -471,6 +474,7 @@ class DriverInfo extends Component {
             },
             postFileParam: {
                 ...param.postFileParam,
+                imageUrl: param.postFileParam.imageUrl.uri,
                 key: "image"
             }
         })
@@ -490,6 +494,7 @@ class DriverInfo extends Component {
             },
             postFileParam: {
                 ...param.postFileParam,
+                imageUrl: param.postFileParam.imageUrl.uri,
                 key: "image"
             }
         })
@@ -614,7 +619,7 @@ class DriverInfo extends Component {
     bindTruck(param) {
         this.props.bindTruck({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 truckId: param.id,
                 driverId: this.props.driverInfoReducer.data.driverInfo.id
             },
@@ -626,7 +631,7 @@ class DriverInfo extends Component {
     unBindTruck() {
         this.props.unBindTruck({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 truckId: this.props.driverInfoReducer.data.driverInfo.truck_id,
                 driverId: this.props.driverInfoReducer.data.driverInfo.id
             }
@@ -636,7 +641,7 @@ class DriverInfo extends Component {
     updateDriverInfo() {
         let param = {
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 truckId: this.props.initParam.driverId
             },
             putParam: {
@@ -1033,7 +1038,7 @@ class DriverInfo extends Component {
 const mapStateToProps = (state) => {
     return {
         driverInfoReducer: state.driverInfoReducer,
-        userReducer: state.userReducer
+        loginReducer: state.loginReducer
     }
 }
 
