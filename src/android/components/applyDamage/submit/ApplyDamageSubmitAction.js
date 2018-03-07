@@ -6,6 +6,7 @@ import { getFormValues } from 'redux-form'
 import { ToastAndroid, InteractionManager } from 'react-native'
 import {Actions} from 'react-native-router-flux'
 //import * as carInfoRecordAction from '../../carInfo/carInfoRecord/CarInfoRecordAction'
+import * as demageListAction from '../../../views/demageList/DemageListAction'
 import * as routerDirection from '../../../../util/RouterDirection'
 
 export const createDamage = (parent) => async (dispatch, getState) => {
@@ -29,8 +30,7 @@ export const createDamage = (parent) => async (dispatch, getState) => {
             dispatch({ type: applyDamageSubmitActionTypes.create_Damage_success, payload: { damageId: res.id,
                 vin: applyDamageForm.car.value} })
             Actions.applyDamageUploadImage()
-            //routerDirection.applyDamageUploadImage(parent)()
-            // carInfoRecordAction.getCarInfoRecordWaiting()(dispatch)
+            dispatch(demageListAction.getDemageList())
             //InteractionManager.runAfterInteractions(() => carInfoRecordAction.getCarInfoRecord({ car_id: carDetail.id })(dispatch, getState))
         } else {
             ToastAndroid.showWithGravity(`提交失败！${res.msg}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)

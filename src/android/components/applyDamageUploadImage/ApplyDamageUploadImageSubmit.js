@@ -11,8 +11,9 @@ const ApplyDamageUploadImageSubmit = props => {
     const { parent } = props
     return (
         <Button transparent onPress={() => {
-            if (parent === 'settingBlock') return Actions.popTo('carInfoAtSettingBlock')
-            if (parent === 'homeBlock') return Actions.popTo('carInfoAtHomeBlock')
+            Actions.popTo('demageList')
+            // if (parent === 'settingBlock') return Actions.popTo('carInfoAtSettingBlock')
+            // if (parent === 'homeBlock') return Actions.popTo('carInfoAtHomeBlock')
         }}>
             <Text style={styles.text}>完成</Text>
         </Button>
