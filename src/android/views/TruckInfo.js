@@ -179,7 +179,7 @@ class TruckInfo extends Component {
                     truckStatus: nextProps.truckInfoReducer.data.truckInfo.truck_status,
                     onPressRight: () => this.onChangeTruckStatus({
                         truckType: nextProps.truckInfoReducer.data.truckInfo.truck_type,
-                        userId: nextProps.userReducer.user.userId,
+                        userId: nextProps.loginReducer.data.user.uid,
                         truckId: nextProps.truckInfoReducer.data.truckInfo.id,
                         truckStatus: nextProps.truckInfoReducer.data.truckInfo.truck_status
                     })
@@ -321,7 +321,7 @@ class TruckInfo extends Component {
                     truckStatus: nextProps.truckInfoReducer.data.truckInfo.truck_status,
                     onPressRight: () => this.onChangeTruckStatus({
                         truckType: nextProps.truckInfoReducer.data.truckInfo.truck_type,
-                        userId: nextProps.userReducer.user.userId,
+                        userId: nextProps.loginReducer.data.user.uid,
                         truckId: nextProps.truckInfoReducer.data.truckInfo.id,
                         truckStatus: nextProps.truckInfoReducer.data.truckInfo.truck_status
                     })
@@ -352,7 +352,7 @@ class TruckInfo extends Component {
                     truckStatus: nextProps.truckInfoReducer.data.truckInfo.truck_status,
                     onPressRight: () => this.onChangeTruckStatus({
                         truckType: nextProps.truckInfoReducer.data.truckInfo.truck_type,
-                        userId: nextProps.userReducer.user.userId,
+                        userId: nextProps.loginReducer.data.user.uid,
                         truckId: nextProps.truckInfoReducer.data.truckInfo.id,
                         truckStatus: nextProps.truckInfoReducer.data.truckInfo.truck_status
                     })
@@ -621,7 +621,7 @@ class TruckInfo extends Component {
     componentDidMount() {
         this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId }, type: this.props.initParam.truckType })
         this.props.getTruckInsureRel({ OptionalParam: { truckId: this.props.initParam.truckId, active: 1 } })
-        this.props.getTruckRecord({ requiredParam: { userId: this.props.userReducer.user.userId, truckNum: this.props.initParam.truck_num } })
+        this.props.getTruckRecord({ requiredParam: { userId: this.props.loginReducer.data.user.uid, truckNum: this.props.initParam.truck_num } })
         this.props.getTruckRepairRelList({ OptionalParam: { truckId: this.props.initParam.truckId } })
     }
 
@@ -633,7 +633,7 @@ class TruckInfo extends Component {
     updateTruckInfo() {
         let param = {
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 truckId: this.props.initParam.truckId
             },
             putParam: {
@@ -654,7 +654,7 @@ class TruckInfo extends Component {
     bindViceDriver(param) {
         this.props.bindViceDriver({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 truckId: this.props.initParam.truckId,
                 viceDriveId: param.id
             },
@@ -666,7 +666,7 @@ class TruckInfo extends Component {
     unBindViceDriver() {
         this.props.unBindViceDriver({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 truckId: this.props.initParam.truckId,
                 viceDriveId: this.props.truckInfoReducer.data.truckInfo.vice_drive_id
             }
@@ -1110,7 +1110,7 @@ class TruckInfo extends Component {
     unBindDriver() {
         this.props.unBindDriver({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 truckId: this.props.truckInfoReducer.data.truckInfo.id,
                 driverId: this.props.truckInfoReducer.data.truckInfo.drive_id,
             },
@@ -1125,7 +1125,7 @@ class TruckInfo extends Component {
     bindDriver(param) {
         this.props.bindDriver({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 truckId: this.props.truckInfoReducer.data.truckInfo.id,
                 driverId: param.id,
             },
@@ -1141,7 +1141,7 @@ class TruckInfo extends Component {
         if (this.props.truckInfoReducer.data.truckInfo.truck_type == 1) {
             this.props.bindTruck({
                 requiredParam: {
-                    userId: this.props.userReducer.user.userId,
+                    userId: this.props.loginReducer.data.user.uid,
                     truckId: this.props.truckInfoReducer.data.truckInfo.id,
                     trailId: param.id,
                 },
@@ -1153,7 +1153,7 @@ class TruckInfo extends Component {
         } else if (this.props.truckInfoReducer.data.truckInfo.truck_type == 2) {
             this.props.bindTruck({
                 requiredParam: {
-                    userId: this.props.userReducer.user.userId,
+                    userId: this.props.loginReducer.data.user.uid,
                     truckId: param.id,
                     trailId: this.props.truckInfoReducer.data.truckInfo.id,
                 },
@@ -1170,7 +1170,7 @@ class TruckInfo extends Component {
         if (this.props.truckInfoReducer.data.truckInfo.truck_type == 1) {
             this.props.unBindTruck({
                 requiredParam: {
-                    userId: this.props.userReducer.user.userId,
+                    userId: this.props.loginReducer.data.user.uid,
                     truckId: this.props.truckInfoReducer.data.truckInfo.id,
                     trailId: this.props.truckInfoReducer.data.truckInfo.trail_id,
                 },
@@ -1182,7 +1182,7 @@ class TruckInfo extends Component {
         } else if (this.props.truckInfoReducer.data.truckInfo.truck_type == 2) {
             this.props.unBindTruck({
                 requiredParam: {
-                    userId: this.props.userReducer.user.userId,
+                    userId: this.props.loginReducer.data.user.uid,
                     truckId: this.props.truckInfoReducer.data.truckInfo.first_id,
                     trailId: this.props.truckInfoReducer.data.truckInfo.id,
                 },
@@ -1283,7 +1283,7 @@ class TruckInfo extends Component {
     updateDrivingImage(param) {
         this.props.updateDrivingImage({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 truckId: this.props.initParam.truckId
             },
             OptionalParam: {
@@ -1303,7 +1303,7 @@ class TruckInfo extends Component {
     updateLicenseImage(param) {
         this.props.updateLicenseImage({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 truckId: this.props.initParam.truckId
             },
             OptionalParam: {
@@ -1355,7 +1355,7 @@ class TruckInfo extends Component {
     createTruckImage(param) {
         this.props.createTruckImage({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 truckId: this.props.truckInfoReducer.data.truckInfo.id,
                 truckCode: this.props.truckInfoReducer.data.truckInfo.truck_num
             },
@@ -1363,9 +1363,9 @@ class TruckInfo extends Component {
                 imageType: 2
             },
             postParam: {
-                username: this.props.userReducer.user.mobile,
-                userid: this.props.userReducer.user.userId,
-                userType: this.props.userReducer.user.userType,
+                username: this.props.loginReducer.data.user.mobile,
+                userid: this.props.loginReducer.data.user.uid,
+                userType: this.props.loginReducer.data.user.type,
             },
             postFileParam: {
                 ...param.postFileParam,
@@ -1378,7 +1378,7 @@ class TruckInfo extends Component {
     delTruckImage(param) {
         this.props.delTruckImage({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 url: param,
                 truckNum: this.props.initParam.truck_num
             }
@@ -1440,7 +1440,7 @@ class TruckInfo extends Component {
     OnRepairSave(param) {
         let p = {
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 truckId: this.props.truckInfoReducer.data.truckInfo.id
             },
             postParam: {
@@ -1458,7 +1458,7 @@ class TruckInfo extends Component {
         let truckRepairing = this.props.truckInfoReducer.data.truckRepairRelList.find((item) => item.repair_status == 0)
         this.props.updateTruckRepairRel({
             requiredParam: {
-                userId: this.props.userReducer.user.userId,
+                userId: this.props.loginReducer.data.user.uid,
                 relId: truckRepairing.id
             },
             putParam: {
@@ -1629,7 +1629,7 @@ class TruckInfo extends Component {
 const mapStateToProps = (state) => {
     return {
         truckInfoReducer: state.truckInfoReducer,
-        userReducer: state.userReducer
+        loginReducer: state.loginReducer
     }
 }
 
