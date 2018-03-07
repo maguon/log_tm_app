@@ -6,7 +6,7 @@ import { ToastAndroid } from 'react-native'
 
 export const uploadDamageImage = (params) => async (dispatch, getState) => {
     try {
-        const { userReducer: { user: { userId } },
+        const { loginReducer: { data: { user: { uid } } },
             applyDamageSubmitReducer: { data: { damageId, vin } } } = getState()
         const getUserInfoUrl = `${base_host}/user?userId=${userId}`
         const getUserInfoRes = await httpRequest.get(getUserInfoUrl)

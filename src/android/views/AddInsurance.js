@@ -40,11 +40,10 @@ class AddInsurance extends Component {
 
     onPressCreateInsurance() {
         const { insureId, insureType, insureNum, insureMoney, startDate, endDate } = this.props.addInsuranceReducer.data
-        const { userId } = this.props.userReducer.user
         const { truckId } = this.props.initParam
         this.props.createInsurance({
             requiredParam: {
-                userId
+                userId: this.props.loginReducer.data.user.uid
             },
             postParam: {
                 truckId,
@@ -206,7 +205,7 @@ class AddInsurance extends Component {
 const mapStateToProps = (state) => {
     return {
         addInsuranceReducer: state.addInsuranceReducer,
-        userReducer: state.userReducer
+        loginReducer: state.loginReducer
     }
 }
 

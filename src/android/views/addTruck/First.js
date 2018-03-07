@@ -377,7 +377,6 @@ class First extends Component {
     }
 
     render() {
-        console.log('this.props.loginReducer',this.props.loginReducer)
         return (
             <View style={{ flex: 1 }}>
                 <StepIndicator

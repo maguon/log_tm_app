@@ -5,7 +5,7 @@ import {
     ScrollView,
     Image,
     TouchableNativeFeedback,
-    InteractionManager
+    InteractionManager,
 } from 'react-native'
 import { Button, Icon } from 'native-base'
 import FontTag from '../../components/tag/FontTag'

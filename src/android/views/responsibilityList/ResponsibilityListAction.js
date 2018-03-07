@@ -8,12 +8,10 @@ import { sleep } from '../../../util/util'
 const pageSize = 50
 
 export const getResponsibilityList = () => async (dispatch, getState) => {
-    const {  userReducer: { user: { userId } }  } = getState()
+    const { loginReducer: { data: { user: { uid } } } } = getState()
     try {
-        const url = `${base_host}/damage?${ObjectToUrl({ underUserId: userId, start: 0, size: pageSize })}`
-        console.log('url',url)
-        const res = await httpRequest.get(url)    
-        console.log('res',res)
+        const url = `${base_host}/damage?${ObjectToUrl({ underUserId: uid, start: 0, size: pageSize })}`
+        const res = await httpRequest.get(url)
         if (res.success) {
             dispatch({
                 type: responsibilityListActionTypes.get_ResponsibilityList_success,
@@ -47,8 +45,8 @@ export const getResponsibilityListMore = () => async (dispatch, getState) => {
         if (!isComplete) {
             dispatch({ type: responsibilityListActionTypes.get_ResponsibilityListMore_waiting, payload: {} })
             try {
-                const url = `${base_host}/damage${ObjectToUrl({ underUserId: uid, start: responsibilityList.length, size: pageSize })}`
-                const res = await httpRequest.get(url)
+                const url = `${base_host}/damage?${ObjectToUrl({ underUserId: uid, start: responsibilityList.length, size: pageSize })}`
+                const res = await httpRequest.get(url) 
                 if (res.success) {
                     if (res.result.length % pageSize != 0 || res.result.length == 0) {
                         dispatch({ type: responsibilityListActionTypes.get_ResponsibilityListMore_success, payload: { responsibilityList: res.result, isComplete: true } })

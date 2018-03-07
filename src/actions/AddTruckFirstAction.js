@@ -6,17 +6,14 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 export const createTruckFirst = (param) => async (dispatch) => {
     try {
         const url = `${base_host}/user/${param.requiredParam.userId}/truckFirst`
-        console.log('url',url)
         dispatch({ type: actionTypes.addTruckFirstTypes.CREATE_TruckFirst_WAITING, payload: {} }) 
         const res = await httpRequest.post(url, param.postParam)
-        console.log('res',res)
         if (res.success) {
             dispatch({ type: actionTypes.addTruckFirstTypes.CREATE_TruckFirst_SUCCESS, payload: { data: res.id } })
         } else {
             dispatch({ type: actionTypes.addTruckFirstTypes.CREATE_TruckFirst_FAILED, payload: { data: res.msg } })
         }
     } catch (err) {
-        console.log('err',err)
         dispatch({ type: actionTypes.addTruckFirstTypes.CREATE_TruckFirst_ERROR, payload: { data: err } })
     }
 }
@@ -24,17 +21,14 @@ export const createTruckFirst = (param) => async (dispatch) => {
 export const createTruckTrailer = (param) => async (dispatch) => {
     try {
         const url = `${base_host}/user/${param.requiredParam.userId}/truckTrailer`
-        console.log('url',url)
         dispatch({ type: actionTypes.addTruckFirstTypes.CREATE_TruckTrailer_WAITING, payload: {} })
         const res = await httpRequest.post(url, param.postParam)
-        console.log('res',res)
         if (res.success) {
             dispatch({ type: actionTypes.addTruckFirstTypes.CREATE_TruckTrailer_SUCCESS, payload: { data: res.id } })
         } else {
             dispatch({ type: actionTypes.addTruckFirstTypes.CREATE_TruckTrailer_FAILED, payload: { data: res.msg } })
         }
     } catch (err) {
-        console.log('err',err)
         dispatch({ type: actionTypes.addTruckFirstTypes.CREATE_TruckTrailer_ERROR, payload: { data: err } })
     }
 }
