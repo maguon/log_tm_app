@@ -10,11 +10,11 @@ export const updateDamage = (param) => async (dispatch, getState) => {
     dispatch({ type: demageEditorActionTypes.update_Damage_waiting, payload: {} })
     const { damageId, carId, vin } = param
     const state = getState()
-    const {  userReducer: { user: { userId } } } = state
+    const { loginReducer: { data: { user: { uid } } } } = state
     const applyDamageForm = getFormValues('demageEditorForm')(state) ? getFormValues('demageEditorForm')(state) : {}
     const { damageRemark, selectDriver: { value, id, truck_id, truck_num } } = applyDamageForm
     try {
-        const url = `${base_host}/user/${userId}/damage/${damageId}`
+        const url = `${base_host}/user/${uid}/damage/${damageId}`
         const res = await httpRequest.put(url, {
             carId,
             vin,
@@ -25,16 +25,16 @@ export const updateDamage = (param) => async (dispatch, getState) => {
             damageExplain: damageRemark
         })
         if (res.success) {
-            dispatch({ type: demageListActionTypes.update_Demage, payload: { id: damageId, truck_id, truck_num, drive_id: id, drive_name:value, damage_explain: damageRemark } })
+            dispatch({ type: demageListActionTypes.update_Demage, payload: { id: damageId, truck_id, truck_num, drive_id: id, drive_name: value, damage_explain: damageRemark } })
             dispatch({ type: demageEditorActionTypes.update_Damage_success, payload: {} })
             ToastAndroid.showWithGravity(`修改成功！`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
         } else {
             dispatch({ type: demageEditorActionTypes.update_Damage_failed, payload: { failedMsg: res.msg } })
-            ToastAndroid.showWithGravity(`修改失败！${res.msg}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)   
+            ToastAndroid.showWithGravity(`修改失败！${res.msg}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
         }
     } catch (err) {
         dispatch({ type: demageEditorActionTypes.update_Damage_error, payload: { errorMsg: err } })
         ToastAndroid.showWithGravity(`修改成功！${err}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
-        
+
     }
 }

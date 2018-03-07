@@ -11,10 +11,10 @@ import * as routerDirection from '../../../../util/RouterDirection'
 export const createDamage = (parent) => async (dispatch, getState) => {
     dispatch({ type: applyDamageSubmitActionTypes.create_Damage_waiting, payload: {} })
     const state = getState()
-    const { userReducer: { user: { userId } } } = state
+    const { loginReducer: { data: { user: { uid } } }} = state
     const applyDamageForm = getFormValues('applyDamage')(state) ? getFormValues('applyDamage')(state) : { driver: {},car:{} }
     try {
-        const url = `${base_host}/user/${userId}/damage`
+        const url = `${base_host}/user/${uid}/damage`
         const res = await httpRequest.post(url, {
             carId: applyDamageForm.car.id,
             vin: applyDamageForm.car.value,
@@ -38,7 +38,6 @@ export const createDamage = (parent) => async (dispatch, getState) => {
         }
     }
     catch (err) {
-        console.log('err',err)
         ToastAndroid.showWithGravity(`提交失败！${err}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
         dispatch({ type: applyDamageSubmitActionTypes.create_Damage_error, payload: { errorMsg: err } })
     }
