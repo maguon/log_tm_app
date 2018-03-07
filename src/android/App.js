@@ -67,6 +67,7 @@ import NavSearchStaticBar from './components/share/NavSearchStaticBar'
 import ListCennect from './views/select/ListCennect'
 import TruckOp from './components/share/TruckOp'
 import DriverOp from './components/share/DriverOp'
+import PersonalCenter from './views/personalCenter/PersonalCenter'
 import ApplyDamageUploadImageSubmit from './components/applyDamageUploadImage/ApplyDamageUploadImageSubmit'
 import Orientation from 'react-native-orientation'
 // import AddInsurance from './views/AddInsurance'
@@ -586,6 +587,13 @@ export default class App extends Component {
                                     LeftButton={LeftButton}
                                     component={ResponsibilityList}
                                     title='我的责任'
+                                    hideTabBar
+                                    hideNavBar={false}
+                                    navBar={NavBar} />
+                                <Scene key="personalCenter"
+                                    LeftButton={LeftButton}
+                                    component={PersonalCenter}
+                                    title='个人中心'
                                     hideTabBar
                                     hideNavBar={false}
                                     navBar={NavBar} />

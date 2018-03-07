@@ -55,10 +55,11 @@ class Setting extends Component {
             getDemageList,
             getResponsibilityListWaiting,
             getResponsibilityList,
-            settingReducer: { data: { userInfo: { avatar_image, real_name, mobile } } }
+            //settingReducer: { data: { userInfo: { avatar_image, real_name, mobile } } },
+            initializationReducer: { data: { version: { force_update, currentVersion, url } } },
             // cleanLogin,
-            // loginReducer: { data: { user: { real_name, avatar_image, mobile } } },
-            // initializationReducer: { data: { version: { force_update, currentVersion, url } } }, initializationReducer
+            loginReducer: { data: { user: { real_name, avatar_image, mobile } } },
+           // initializationReducer
         } = this.props
         console.log('this.props', this.props)
         return (
@@ -116,10 +117,10 @@ class Setting extends Component {
                                 <Icon name="ios-cube-outline" style={globalStyles.styleColor} />
                             </Left>
                             <Body>
-                                {/* <Text style={globalStyles.midText}>版本信息：v{currentVersion}</Text> */}
+                                <Text style={globalStyles.midText}>版本信息：v{currentVersion}</Text>
                             </Body>
                             <Right >
-                                {/* {force_update != 0 && <TouchableOpacity onPress={() => {
+                                {force_update != 0 && <TouchableOpacity onPress={() => {
                                     if (url) {
                                         Linking.canOpenURL(url)
                                             .then(supported => {
@@ -133,7 +134,7 @@ class Setting extends Component {
                                     }
                                 }}>
                                     <FoundationIcon name="burst-new" size={30} color={'#ff0000'} />
-                                </TouchableOpacity>} */}
+                                </TouchableOpacity>}
                             </Right>
                         </ListItem>
                         <ListItem icon onPress={Actions.updatePassword}>
@@ -198,6 +199,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
         settingReducer: state.settingReducer,
+        loginReducer: state.loginReducer,
+        initializationReducer: state.initializationReducer
     }
 }
 

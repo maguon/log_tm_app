@@ -36,6 +36,7 @@ import demageOpResultReducer from '../android/components/demageInfo/demageOpResu
 import imageListForDemageReducer from '../android/components/demageInfo/imageListForDemage/ImageListForDemageReducer'
 import demageEditorReducer from '../android/components/demageInfo/demageEditor/DemageEditorReducer'
 import settingReducer from './SettingReducer'
+import personalCenterReducer from '../android/views/personalCenter/PersonalCenterReducer'
 
 export default combineReducers({
     form: formReducer,
@@ -74,5 +75,6 @@ export default combineReducers({
     demageOpResultReducer,
     imageListForDemageReducer,
     demageEditorReducer,
-    settingReducer
+    settingReducer,
+    personalCenterReducer
 })
