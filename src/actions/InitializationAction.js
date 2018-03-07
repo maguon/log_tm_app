@@ -124,14 +124,14 @@ export const validateVersion = (tryCount = 1) => async (dispatch) => {
 export const loadLocalStorage = (tryCount = 1) => async (dispatch) => {
     const currentStep = 2
     try {
-        localStorage.save({
-            key: localStorageKey.USER,
-            data: {
-                uid: 72,
-                token: 'r3CO6lteX-wRGSwh0--n8_2FJiw=cLqEPfp3b3c4a3879d9a6bc85a82b658af0f9b16759c2b29e6ea3b4bdf6cceab69c3865e2a77961e5b223dbf258792d8f023532f'
-            }
-        })
-        //localStorage.remove({ key: localStorageKey.USER })
+        // localStorage.save({
+        //     key: localStorageKey.USER,
+        //     data: {
+        //         uid: 72,
+        //         token: 'r3CO6lteX-wRGSwh0--n8_2FJiw=cLqEPfp3b3c4a3879d9a6bc85a82b658af0f9b16759c2b29e6ea3b4bdf6cceab69c3865e2a77961e5b223dbf258792d8f023532f'
+        //     }
+        // })
+        localStorage.remove({ key: localStorageKey.USER })
         const localStorageRes = await localStorage.load({ key: localStorageKey.USER })
         if (localStorageRes.token && localStorageRes.uid) {
             dispatch({ type: actionTypes.initializationTypes.Load_LocalStorage_Success, payload: { step: currentStep } })
@@ -169,7 +169,7 @@ export const validateToken = (tryCount = 1, param) => async (dispatch) => {
     const currentStep = 3
     try {
         const url = `${base_host}/user/${param.requiredParam.userId}/token/${param.requiredParam.token}`
-        const res = await httpRequest.get(url)    
+        const res = await httpRequest.get(url)
         if (res.success) {
             const getUserInfoUrl = `${base_host}/user?${ObjectToUrl({ userId: param.requiredParam.userId })}`
             const getUserInfoRes = await httpRequest.get(getUserInfoUrl)

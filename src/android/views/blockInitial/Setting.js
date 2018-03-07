@@ -15,7 +15,7 @@ import globalStyles from '../../GlobalStyles'
 import * as demageListAction from '../demageList/DemageListAction'
 import * as responsibilityListAction from '../responsibilityList/ResponsibilityListAction'
 import * as settingAction from '../../../actions/SettingAction'
-//import * as loginAction from '../login/LoginAction'
+import * as loginAction from '../../../actions/LoginAction'
 import { file_host } from '../../../config/Host'
 import ConfirmModal from '../../components/ConfirmModal'
 
@@ -221,10 +221,10 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getUserInfo: () => {
         dispatch(settingAction.getUserInfo())
+    },
+    cleanLogin: () => {
+        dispatch(loginAction.cleanLogin())
     }
-    // cleanLogin: () => {
-    //     dispatch(loginAction.cleanLogin())
-    // }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Setting)
