@@ -4,6 +4,7 @@ import * as updatePasswordActionTypes from './UpdatePasswordActionTypes'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { getFormValues } from 'redux-form'
 import { ToastAndroid } from 'react-native'
+import * as loginAction from '../../../actions/LoginAction'
 
 export const updatePassword = () => async (dispatch, getState) => {
     const state = getState()
@@ -19,6 +20,7 @@ export const updatePassword = () => async (dispatch, getState) => {
             if (res.success) {
                 ToastAndroid.showWithGravity(`修改成功！`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
                 dispatch({ type: updatePasswordActionTypes.change_Password_success, payload: {} })
+                dispatch(loginAction.cleanLogin())
             } else {
                 ToastAndroid.showWithGravity(`修改失败！${res.msg}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
                 dispatch({ type: updatePasswordActionTypes.change_Password_failed, payload: { failedMsg: res.msg } })
