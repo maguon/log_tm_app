@@ -1,11 +1,9 @@
 import httpRequest from '../util/HttpRequest.js'
-import { base_host, record_host,file_host } from '../config/Host'
+import { base_host, record_host, file_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 import React, { Component } from 'react'
-import {
-Alert
-} from 'react-native'
+import { Alert } from 'react-native'
 
 //完成
 export const getTruckInfo = (param) => async (dispatch) => {
@@ -95,7 +93,7 @@ export const changeTruckTrailerStatus = (param) => async (dispatch) => {
     try {
         let res = await httpRequest.put(url, {})
         if (res.success) {
-            dispatch({ type: actionTypes.truckInfoTypes.ChangeTruckTrailerStatus_SUCCESS, payload: { data: param.requiredParam.truckStatus} })
+            dispatch({ type: actionTypes.truckInfoTypes.ChangeTruckTrailerStatus_SUCCESS, payload: { data: param.requiredParam.truckStatus } })
         } else {
             dispatch({ type: actionTypes.truckInfoTypes.ChangeTruckTrailerStatus_FAILED, payload: { data: res.msg } })
         }
@@ -154,9 +152,9 @@ export const bindDriver = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/drive/${param.requiredParam.driverId}/bind`
     dispatch({ type: actionTypes.truckInfoTypes.BindDriver_WAITING, payload: {} })
     try {
-        let res = await httpRequest.put(url, {})     
+        let res = await httpRequest.put(url, {})
         if (res.success) {
-            dispatch({ type: actionTypes.truckInfoTypes.BindDriver_SUCCESS, payload: { data: param.reducerParam} })
+            dispatch({ type: actionTypes.truckInfoTypes.BindDriver_SUCCESS, payload: { data: param.reducerParam } })
         } else {
             dispatch({ type: actionTypes.truckInfoTypes.BindDriver_FAILED, payload: { data: res.msg } })
         }
@@ -172,7 +170,7 @@ export const unBindDriver = (param) => async (dispatch) => {
     try {
         let res = await httpRequest.put(url, {})
         if (res.success) {
-            dispatch({ type: actionTypes.truckInfoTypes.UnBindDriver_SUCCESS, payload: { data: param.reducerParam} })
+            dispatch({ type: actionTypes.truckInfoTypes.UnBindDriver_SUCCESS, payload: { data: param.reducerParam } })
         } else {
             dispatch({ type: actionTypes.truckInfoTypes.UnBindDriver_FAILED, payload: { data: res.msg } })
         }
@@ -297,7 +295,7 @@ export const delTruckImage = (param) => async (dispatch) => {
     const recordUrl = `${record_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckNum}/record`
     dispatch({ type: actionTypes.truckInfoTypes.DEL_TruckInfoTruckImage_WAITING, payload: {} })
     try {
-        let recordRes = await httpRequest.get(recordUrl)    
+        let recordRes = await httpRequest.get(recordUrl)
         if (recordRes.success) {
             const url = `${record_host}/user/${param.requiredParam.userId}/record/${recordRes.result[0]._id}/truck/${param.requiredParam.truckNum}/image/${param.requiredParam.url}`
             let res = await httpRequest.del(url, {})
@@ -438,7 +436,7 @@ export const unBindViceDriver = (param) => async (dispatch) => {
     try {
         let res = await httpRequest.put(url, param.putParam)
         if (res.success) {
-            dispatch({ type: actionTypes.truckInfoTypes.UnBindViceDriver_SUCCESS, payload: { } })
+            dispatch({ type: actionTypes.truckInfoTypes.UnBindViceDriver_SUCCESS, payload: {} })
         } else {
             dispatch({ type: actionTypes.truckInfoTypes.UnBindViceDriver_FAILED, payload: { data: res.msg } })
         }

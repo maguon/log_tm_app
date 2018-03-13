@@ -1,6 +1,7 @@
 import httpRequest from '../util/HttpRequest'
 import { base_host, record_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
+import { Toast } from 'native-base'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
 import { sleep } from '../util/util'
@@ -25,7 +26,7 @@ export const getTruckHomeFilterList = (param) => async (dispatch) => {
     }
 }
 
-export const getTruckHomeFilterListMore = (param) => async (dispatch,getState) => {
+export const getTruckHomeFilterListMore = (param) => async (dispatch, getState) => {
     const {
         truckHomeFilterListReducer: { data: { truckList, isComplete } },
         truckHomeFilterListReducer } = getState()
@@ -53,7 +54,12 @@ export const getTruckHomeFilterListMore = (param) => async (dispatch,getState) =
                 dispatch({ type: actionTypes.truckHomeFilterListTypes.get_TruckHomeFilterListMore_error, payload: { errorMsg: err } })
             }
         } else {
-            ToastAndroid.showWithGravity('已全部加载完毕！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+            // Toast.show({
+            //     text: 'Wrong password!',
+            //     position: 'bottom',
+            //     buttonText: 'Okay'
+            //   })
+           ToastAndroid.showWithGravity('已全部加载完毕！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
         }
     }
 }

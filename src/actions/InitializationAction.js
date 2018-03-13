@@ -93,7 +93,6 @@ export const validateVersion = (tryCount = 1) => async (dispatch) => {
                 data.newestVersion = versionList[0].version
                 data.url = versionList[0].url
                 data.remark = versionList[0].remark
-
             } else {
                 data.force_update = 0
                 data.newestVersion = data.currentVersion
@@ -131,7 +130,7 @@ export const loadLocalStorage = (tryCount = 1) => async (dispatch) => {
         //         token: 'r3CO6lteX-wRGSwh0--n8_2FJiw=cLqEPfp3b3c4a3879d9a6bc85a82b658af0f9b16759c2b29e6ea3b4bdf6cceab69c3865e2a77961e5b223dbf258792d8f023532f'
         //     }
         // })
-        localStorage.remove({ key: localStorageKey.USER })
+        //localStorage.remove({ key: localStorageKey.USER })
         const localStorageRes = await localStorage.load({ key: localStorageKey.USER })
         if (localStorageRes.token && localStorageRes.uid) {
             dispatch({ type: actionTypes.initializationTypes.Load_LocalStorage_Success, payload: { step: currentStep } })

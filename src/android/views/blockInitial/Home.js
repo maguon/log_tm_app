@@ -7,7 +7,7 @@ import {
     TouchableNativeFeedback,
     InteractionManager,
 } from 'react-native'
-import { Button, Icon } from 'native-base'
+import { Button, Icon, Root, Toast } from 'native-base'
 import FontTag from '../../components/tag/FontTag'
 import * as RouterDirection from '../../../util/RouterDirection'
 import { connect } from 'react-redux'
@@ -30,6 +30,9 @@ class Home extends Component {
         super(props)
         this.renderTruckTypeItem = this.renderTruckTypeItem.bind(this)
         this.renderTruckStatusItem = this.renderTruckStatusItem.bind(this)
+        this.state = {
+            showToast: false
+        }
     }
 
     componentDidMount() {
@@ -192,69 +195,71 @@ class Home extends Component {
         const { waitingInspectCount, truckRepairRelCount, driverlicenseCount } = this.props.homeReducer.data
         const { getTruckHomeFilterListWaiting, getTruckHomeFilterList } = this.props
         return (
-            <View style={{ flex: 1 }}>
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    <View>
-                        <View style={{ flexDirection: 'row', backgroundColor: '#f2f6f7', borderBottomWidth: 1, borderColor: '#e2e9ec' }}>
-                            <View style={{ flex: 1, marginVertical: 10, borderRightWidth: 1, borderColor: '#e2e9ec' }}>
-                                {this.renderTruckTypeItem({ title: '自营车辆', count: zCount, type: 0 })}
-                            </View>
-                            <View style={{ flex: 1, marginVertical: 10, borderRightWidth: 1, borderColor: '#e2e9ec' }}>
-                                {this.renderTruckTypeItem({ title: '外协车辆', count: wCount, type: 1 })}
-                            </View>
-                        </View>
-                        <View style={{ flexDirection: 'row', backgroundColor: '#f2f6f7', borderBottomWidth: 1, borderColor: '#e2e9ec' }}>
-                            <View style={{ flex: 1, marginVertical: 10, borderRightWidth: 1, borderColor: '#e2e9ec' }}>
-                                {this.renderTruckTypeItem({ title: '供方车辆', count: gCount, type: 2 })}
-                            </View>
-                            <View style={{ flex: 1, marginVertical: 10, borderRightWidth: 1, borderColor: '#e2e9ec' }}>
-                                {this.renderTruckTypeItem({ title: '承包车辆', count: cCount, type: 3 })}
-                            </View>
-                        </View>
+            <Root>
+                <View style={{ flex: 1 }}>
+                    <ScrollView showsVerticalScrollIndicator={false}>
                         <View>
-                            {this.renderTruckStatusItem({
-                                status: 0,
-                                count: truckRepairRelCount ? truckRepairRelCount.toString() : 0,
-                                isWarn: false, title: '维修中车头',
-                                router: () => {
-                                    getTruckHomeFilterListWaiting()
-                                    Actions.truckHomeFilterList({ initParam: { repairStatus: 0 } })
-                                    InteractionManager.runAfterInteractions(() => getTruckHomeFilterList({ OptionalParam: { repairStatus: 0 } }))
-                                }
-                            })}
-                            {this.renderTruckStatusItem({
-                                status: 1,
-                                count: waitingInspectCount ? waitingInspectCount.toString() : 0,
-                                isWarn: true, title: '待检车辆',
-                                router: () => {
-                                    getTruckHomeFilterListWaiting()
-                                    Actions.truckHomeFilterList({ initParam: { drivingDateEnd: moment(Date.now() + 30 * 24 * 60 * 60 * 1000 * 3).format('YYYYMMDD') } })
-                                    InteractionManager.runAfterInteractions(() => getTruckHomeFilterList({
-                                        OptionalParam: { drivingDateEnd: moment(Date.now() + 30 * 24 * 60 * 60 * 1000 * 3).format('YYYYMMDD') }
-                                    }))
-                                },
-                                warnMsg: '行驶证临近',
-                                warnMsgDate: '三个月'
-                            })}
-                            {this.renderTruckStatusItem({
-                                status: 2,
-                                count: driverlicenseCount ? driverlicenseCount.toString() : 0,
-                                isWarn: true,
-                                title: '待检司机',
-                                router: () => RouterDirection.driverList(this.props.parent)({ initParam: { licenseDateEnd: moment(Date.now() + 30 * 24 * 60 * 60 * 1000).format('YYYYMMDD') } }),
-                                warnMsg: '驾驶证临近',
-                                warnMsgDate: '一个月'
-                            })}
+                            <View style={{ flexDirection: 'row', backgroundColor: '#f2f6f7', borderBottomWidth: 1, borderColor: '#e2e9ec' }}>
+                                <View style={{ flex: 1, marginVertical: 10, borderRightWidth: 1, borderColor: '#e2e9ec' }}>
+                                    {this.renderTruckTypeItem({ title: '自营车辆', count: zCount, type: 0 })}
+                                </View>
+                                <View style={{ flex: 1, marginVertical: 10, borderRightWidth: 1, borderColor: '#e2e9ec' }}>
+                                    {this.renderTruckTypeItem({ title: '外协车辆', count: wCount, type: 1 })}
+                                </View>
+                            </View>
+                            <View style={{ flexDirection: 'row', backgroundColor: '#f2f6f7', borderBottomWidth: 1, borderColor: '#e2e9ec' }}>
+                                <View style={{ flex: 1, marginVertical: 10, borderRightWidth: 1, borderColor: '#e2e9ec' }}>
+                                    {this.renderTruckTypeItem({ title: '供方车辆', count: gCount, type: 2 })}
+                                </View>
+                                <View style={{ flex: 1, marginVertical: 10, borderRightWidth: 1, borderColor: '#e2e9ec' }}>
+                                    {this.renderTruckTypeItem({ title: '承包车辆', count: cCount, type: 3 })}
+                                </View>
+                            </View>
+                            <View>
+                                {this.renderTruckStatusItem({
+                                    status: 0,
+                                    count: truckRepairRelCount ? truckRepairRelCount.toString() : 0,
+                                    isWarn: false, title: '维修中车头',
+                                    router: () => {
+                                        getTruckHomeFilterListWaiting()
+                                        Actions.truckHomeFilterList({ initParam: { repairStatus: 0 } })
+                                        InteractionManager.runAfterInteractions(() => getTruckHomeFilterList({ OptionalParam: { repairStatus: 0 } }))
+                                    }
+                                })}
+                                {this.renderTruckStatusItem({
+                                    status: 1,
+                                    count: waitingInspectCount ? waitingInspectCount.toString() : 0,
+                                    isWarn: true, title: '待检车辆',
+                                    router: () => {
+                                        getTruckHomeFilterListWaiting()
+                                        Actions.truckHomeFilterList({ initParam: { drivingDateEnd: moment(Date.now() + 30 * 24 * 60 * 60 * 1000 * 3).format('YYYYMMDD') } })
+                                        InteractionManager.runAfterInteractions(() => getTruckHomeFilterList({
+                                            OptionalParam: { drivingDateEnd: moment(Date.now() + 30 * 24 * 60 * 60 * 1000 * 3).format('YYYYMMDD') }
+                                        }))
+                                    },
+                                    warnMsg: '行驶证临近',
+                                    warnMsgDate: '三个月'
+                                })}
+                                {this.renderTruckStatusItem({
+                                    status: 2,
+                                    count: driverlicenseCount ? driverlicenseCount.toString() : 0,
+                                    isWarn: true,
+                                    title: '待检司机',
+                                    router: () => RouterDirection.driverList(this.props.parent)({ initParam: { licenseDateEnd: moment(Date.now() + 30 * 24 * 60 * 60 * 1000).format('YYYYMMDD') } }),
+                                    warnMsg: '驾驶证临近',
+                                    warnMsgDate: '一个月'
+                                })}
+                            </View>
+                            <View>
+                                <Text>
+                                    {this.props.homeReducer.getDriverlicenseCount.failedMsg}
+                                    {this.props.homeReducer.getDriverlicenseCount.errorMsg}
+                                </Text>
+                            </View>
                         </View>
-                        <View>
-                            <Text>
-                                {this.props.homeReducer.getDriverlicenseCount.failedMsg}
-                                {this.props.homeReducer.getDriverlicenseCount.errorMsg}
-                            </Text>
-                        </View>
-                    </View>
-                </ScrollView>
-            </View>
+                    </ScrollView>
+                </View>
+            </Root>
         )
     }
 }

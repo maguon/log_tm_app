@@ -4,13 +4,10 @@ import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
 export const getUserInfo = param => async (dispatch, getState) => {
-    console.log('getState()', getState())
     try {
-        const { userReducer: { user: { userId } } } = getState()
-        const url = `${base_host}/user?userId=${userId}`
-        console.log('url', url)
+        const { loginReducer: { data: { user: { uid } } } } = getState()
+        const url = `${base_host}/user?userId=${uid}`
         const res = await httpRequest.get(url)
-        console.log('res', res)
         if (res.success) {
             dispatch({ type: actionTypes.settingTypes.get_userInfo_success, payload: { userInfo: res.result[0] } })
         } else {
