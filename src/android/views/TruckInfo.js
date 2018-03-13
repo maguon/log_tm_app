@@ -1493,8 +1493,8 @@ class TruckInfo extends Component {
                         <Text style={{ fontSize: 12 }}>{truckRepairing.repair_reason}</Text>
                     </View>
                 </View> : <View style={{ paddingVertical: 10, borderBottomWidth: 0.5, borderColor: '#e3e3e3' }}>
-                        <Button small onPress={() => RouterDirection.addRepair(this.props.parent)({ OnRepairSave: this.OnRepairSave })} style={{ backgroundColor: '#f27d80', alignSelf: 'center' }}>
-                            <Text style={{ color: '#fff' }}>维修</Text>
+                        <Button small onPress={() => RouterDirection.addRepair(this.props.parent)({ OnRepairSave: this.OnRepairSave })} style={{ backgroundColor: '#f27d80', alignSelf: 'flex-end',marginRight:15 }}>
+                            <Text style={{ color: '#fff',paddingHorizontal:10 }}>维修</Text>
                         </Button>
                     </View>}
                 <View style={{ flex: 1 }} >
@@ -1580,7 +1580,7 @@ class TruckInfo extends Component {
                     small
                     onPress={() => RouterDirection.addInsurance(this.props.parent)({ initParam: this.props.initParam, onAddInsurance: this.onAddInsurance })}
                     style={{ backgroundColor: styleColor, alignSelf: 'flex-end' }}>
-                    <Text style={{ color: '#fff', fontSize: 12 }}>增加保单</Text>
+                    <Text style={{ color: '#fff', fontSize: 12,paddingHorizontal:10 }}>增加保单</Text>
                 </Button>
             </View>
         )
