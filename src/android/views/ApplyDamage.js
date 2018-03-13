@@ -51,7 +51,6 @@ const ApplyDamage = props => {
                     }} />
                 <Field
                     label='货车司机：'
-                    isRequired={true}
                     name='driver'
                     component={Select}
                     getList={getSelectDriverList}
@@ -145,7 +144,7 @@ const vinMapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => {
     return {
         applyDamageReducer: state.applyDamageReducer,
-        //initialValues: { driver: {} }
+        initialValues: { driver: {} }
         // selectDriverValues: getFormValues('applyDamage')(state)
     }
 }
