@@ -219,7 +219,7 @@ class Home extends Component {
                                 {this.renderTruckStatusItem({
                                     status: 0,
                                     count: truckRepairRelCount ? truckRepairRelCount.toString() : 0,
-                                    isWarn: false, title: '维修中车头',
+                                    isWarn: false, title: '维修中车辆',
                                     router: () => {
                                         getTruckHomeFilterListWaiting()
                                         Actions.truckHomeFilterList({ initParam: { repairStatus: 0 } })
