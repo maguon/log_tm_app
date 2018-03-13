@@ -11,6 +11,7 @@ import TextBox from '../../components/form/TextBox'
 import CheckBox from '../../components/form/CheckBox'
 import * as RouterDirection from '../../../util/RouterDirection'
 import moment from 'moment'
+import globalStyles, { styleColor } from '../../GlobalStyles'
 
 export default class Truck extends Component {
     constructor(props) {
@@ -175,12 +176,12 @@ export default class Truck extends Component {
                                 drivingDateEndTruckTrailer: '',
                                 licenseDateStartTruckTrailer: '',
                                 licenseDateEndTruckTrailer: '',
-                            })} style={{ backgroundColor: '#00cade' }}>
+                            })} style={globalStyles.styleBackgroundColor}>
                                 <Text style={{ color: '#fff' }}>重置</Text>
                             </Button>
                         </View>
                         <View style={{ paddingHorizontal: 10, flex: 1 }}>
-                            <Button full onPress={this.onShowTruckFirstList} style={{ backgroundColor: '#00cade' }}>
+                            <Button full onPress={this.onShowTruckFirstList} style={globalStyles.styleBackgroundColor}>
                                 <Text style={{ color: '#fff' }}>搜索</Text>
                             </Button>
                         </View>
@@ -269,12 +270,12 @@ export default class Truck extends Component {
                                 drivingDateEndTruckTrailer: '',
                                 licenseDateStartTruckTrailer: '',
                                 licenseDateEndTruckTrailer: '',
-                            })} style={{ backgroundColor: '#00cade' }}>
+                            })} style={globalStyles.styleBackgroundColor}>
                                 <Text style={{ color: '#fff' }}>重置</Text>
                             </Button>
                         </View>
                         <View style={{ paddingHorizontal: 10, flex: 1 }}>
-                            <Button full onPress={this.onShowTruckTrailerList} style={{ backgroundColor: '#00cade' }}>
+                            <Button full onPress={this.onShowTruckTrailerList} style={globalStyles.styleBackgroundColor}>
                                 <Text style={{ color: '#fff' }}>搜索</Text>
                             </Button>
                         </View>
@@ -285,18 +286,17 @@ export default class Truck extends Component {
     }
 
     render() {
-        //console.log(this.state)
         return (
             <View style={{ flex: 1 }}>
-                <View style={{ marginHorizontal: 30, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>
-                    <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.truckType == 1 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(1)}>
-                        <Text style={{ color: this.state.truckType == 1 ? '#fff' : '#00cade' }}>车头</Text>
+                <View style={{ marginHorizontal: 30, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: styleColor}}>
+                    <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: styleColor, justifyContent: 'center', backgroundColor: this.state.truckType == 1 ? styleColor : '#fff' }} onPress={() => this.onPressSegment(1)}>
+                        <Text style={{ color: this.state.truckType == 1 ? '#fff' : styleColor }}>车头</Text>
                     </Button>
-                    <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.truckType == 2 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(2)}>
-                        <Text style={{ color: this.state.truckType == 2 ? '#fff' : '#00cade' }}>挂车</Text>
+                    <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: styleColor, justifyContent: 'center', backgroundColor: this.state.truckType == 2 ? styleColor : '#fff' }} onPress={() => this.onPressSegment(2)}>
+                        <Text style={{ color: this.state.truckType == 2 ? '#fff' : styleColor }}>挂车</Text>
                     </Button>
                 </View>
-                <View style={{ backgroundColor: '#fff', borderTopWidth: 1, borderColor: '#00cade', flex: 1 }}>
+                <View style={{ backgroundColor: '#fff', borderTopWidth: 1, borderColor: styleColor, flex: 1 }}>
                     {this.state.truckType == 1 && this.renderTruckFirst()}
                     {this.state.truckType == 2 && this.renderTruckTrailer()}
                 </View>

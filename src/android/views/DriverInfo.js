@@ -53,6 +53,7 @@ import ImageCropPicker from 'react-native-image-crop-picker'
 import { setPhoto } from '../../actions/SinglePhotoViewAction'
 import { Actions } from 'react-native-router-flux'
 import DrivingLicenseTypeList from '../../config/DrivingLicenseType.json'
+import globalStyles, { styleColor } from '../GlobalStyles'
 
 
 var photoOptions = {
@@ -695,12 +696,12 @@ class DriverInfo extends Component {
                             <Text style={{ fontSize: 12 }}>主驾货车：{this.props.driverInfoReducer.data.driverInfo.truck_num ? this.props.driverInfoReducer.data.driverInfo.truck_num : '未绑定货车'}</Text>
                         </View>
                         {!this.props.driverInfoReducer.data.driverInfo.truck_num && !this.props.driverInfoReducer.data.driverInfo.vice && <TouchableNativeFeedback onPress={() => RouterDirection.selectTruck(this.props.parent)({ initParam: { type: 1 }, filterType: 1, onSelect: (param) => this.bindTruck(param) })} background={TouchableNativeFeedback.SelectableBackground()}>
-                            <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                            <View style={{ backgroundColor: styleColor, height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                 <Text style={{ fontSize: 10, color: '#fff' }}>绑定</Text>
                             </View>
                         </TouchableNativeFeedback>}
                         {!!this.props.driverInfoReducer.data.driverInfo.truck_num && !this.props.driverInfoReducer.data.driverInfo.vice && <TouchableNativeFeedback onPress={this.unBindTruck} background={TouchableNativeFeedback.SelectableBackground()}>
-                            <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                            <View style={{ backgroundColor: styleColor, height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                 <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
                             </View>
                         </TouchableNativeFeedback>}
@@ -797,13 +798,13 @@ class DriverInfo extends Component {
                                 this.state.cardNoValidater
                             )}*/
                             style={{
-                                backgroundColor: ('#00cade')
+                                backgroundColor: (styleColor)
                                 /* this.state.telValidater &&
                                  this.state.sibTelValidater &&
                                  this.state.driverNameValidater &&
                                  this.state.addressValidater &&
                                  this.state.cardNoValidater
-                             ) ? '#00cade' : '#888888'*/
+                             ) ? styleColor : '#888888'*/
                             }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
@@ -928,13 +929,13 @@ class DriverInfo extends Component {
                                  this.state.cardNoValidater
                              )}*/
                             style={{
-                                backgroundColor: ('#00cade')
+                                backgroundColor: (styleColor)
                                 /*  this.state.telValidater &&
                                  this.state.sibTelValidater &&
                                  this.state.driverNameValidater &&
                                  this.state.addressValidater &&
                                  this.state.cardNoValidater
-                             ) ? '#00cade' : '#888888'*/
+                             ) ? styleColor : '#888888'*/
                             }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
@@ -1012,18 +1013,18 @@ class DriverInfo extends Component {
     render() {
         return (
             <View style={{ flex: 1 }}>
-                <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>
-                    <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.active == 0 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(0)}>
-                        <Text style={{ color: this.state.active == 0 ? '#fff' : '#00cade' }}>基本信息</Text>
+                <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: styleColor }}>
+                    <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: styleColor, justifyContent: 'center', backgroundColor: this.state.active == 0 ? styleColor : '#fff' }} onPress={() => this.onPressSegment(0)}>
+                        <Text style={{ color: this.state.active == 0 ? '#fff' : styleColor}}>基本信息</Text>
                     </Button>
-                    <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.active == 1 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(1)}>
-                        <Text style={{ color: this.state.active == 1 ? '#fff' : '#00cade' }}>照片</Text>
+                    <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: styleColor, justifyContent: 'center', backgroundColor: this.state.active == 1 ? styleColor : '#fff' }} onPress={() => this.onPressSegment(1)}>
+                        <Text style={{ color: this.state.active == 1 ? '#fff' : styleColor }}>照片</Text>
                     </Button>
-                    <Button small style={{ flex: 1, borderRadius: 0, justifyContent: 'center', backgroundColor: this.state.active == 2 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(2)}>
-                        <Text style={{ color: this.state.active == 2 ? '#fff' : '#00cade' }}>记录</Text>
+                    <Button small style={{ flex: 1, borderRadius: 0, justifyContent: 'center', backgroundColor: this.state.active == 2 ? styleColor : '#fff' }} onPress={() => this.onPressSegment(2)}>
+                        <Text style={{ color: this.state.active == 2 ? '#fff' : styleColor }}>记录</Text>
                     </Button>
                 </View>
-                <View style={{ backgroundColor: '#fff', borderTopWidth: 1, borderColor: '#00cade', flex: 1 }}>
+                <View style={{ backgroundColor: '#fff', borderTopWidth: 1, borderColor: styleColor, flex: 1 }}>
                     {this.state.active == 0 && this.props.driverInfoReducer.data.driverInfo.drive_status == 1 && this.renderDriverInfoEnable()}
                     {this.state.active == 0 && this.props.driverInfoReducer.data.driverInfo.drive_status == 0 && this.renderDriverInfoDisable()}
                     {this.state.active == 1 && this.renderDriverPhoto()}

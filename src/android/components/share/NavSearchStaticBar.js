@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Header, Title, Button, Icon, Right, Left, Body, Label, Item, Input, Text } from 'native-base'
 import { View, StatusBar, StyleSheet, TextInput } from 'react-native'
- import { Actions } from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import globalStyles, { styleColor } from '../../GlobalStyles'
 import { Field, reduxForm } from 'redux-form'
@@ -9,7 +9,6 @@ import { Field, reduxForm } from 'redux-form'
 
 const TextBox = props => {
     const { input: { onChange, ...restProps } } = props
-    console.log('props',props)
     return (
         <View style={styles.inputContainer}>
             <TextInput
@@ -28,7 +27,9 @@ const NavSearchStaticBar = props => {
     return (
         <View style={[styles.container, { width: layout.initWidth }]}>
             <StatusBar hidden={false} />
-            <Header style={globalStyles.styleBackgroundColor}>
+            <Header
+                androidStatusBarColor={styleColor}
+                style={globalStyles.styleBackgroundColor}>
                 <Left style={styles.left}>
                     <Button transparent onPress={Actions.pop}>
                         <Icon name="arrow-back" style={styles.leftIcon} />

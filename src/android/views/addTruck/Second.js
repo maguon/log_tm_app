@@ -26,6 +26,7 @@ import {
     unBindViceDriver,
     resetUnBindViceDriver
 } from '../../../actions/AddTruckSecondAction'
+import globalStyles, { styleColor } from '../../GlobalStyles'
 
 class Second extends Component {
     constructor(props) {
@@ -285,7 +286,7 @@ class Second extends Component {
                         <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View><Text style={{ fontSize: 12 }}>关联挂车：{this.props.addTruckSecondReducer.data.bindTrailer}</Text></View>
                             <TouchableNativeFeedback onPress={this.onPressUnBindTruck} background={TouchableNativeFeedback.SelectableBackground()}>
-                                <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                                <View style={{ backgroundColor: styleColor, height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                     <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
                                 </View>
                             </TouchableNativeFeedback>
@@ -302,7 +303,7 @@ class Second extends Component {
                         <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View><Text style={{ fontSize: 12 }}>关联车头：{this.props.addTruckSecondReducer.data.bindTractor}</Text></View>
                             <TouchableNativeFeedback onPress={this.onPressUnBindTruck} background={TouchableNativeFeedback.SelectableBackground()}>
-                                <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                                <View style={{ backgroundColor: styleColor, height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                     <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
                                 </View>
                             </TouchableNativeFeedback>
@@ -318,7 +319,7 @@ class Second extends Component {
                     {this.props.initParam.type == 1 && !!this.props.addTruckSecondReducer.data.bindDriverId && <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View><Text style={{ fontSize: 12 }}>关联主驾：{this.props.addTruckSecondReducer.data.bindDriver}</Text></View>
                         <TouchableNativeFeedback onPress={this.onPressUnBindDriver} background={TouchableNativeFeedback.SelectableBackground()}>
-                            <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                            <View style={{ backgroundColor: styleColor, height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                 <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
                             </View>
                         </TouchableNativeFeedback>
@@ -336,7 +337,7 @@ class Second extends Component {
                     {this.props.initParam.type == 1 && !!this.props.addTruckSecondReducer.data.bindViceDriverId && <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View><Text style={{ fontSize: 12 }}>关联副驾：{this.props.addTruckSecondReducer.data.bindViceDriver}</Text></View>
                         <TouchableNativeFeedback onPress={this.onPressUnBindViceDriver} background={TouchableNativeFeedback.SelectableBackground()}>
-                            <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                            <View style={{ backgroundColor: styleColor, height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                 <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
                             </View>
                         </TouchableNativeFeedback>
@@ -347,7 +348,7 @@ class Second extends Component {
                         <Button
                             full
                             onPress={this.onPressNextStep}
-                            style={{ backgroundColor: '#00cade' }}>
+                            style={{ backgroundColor: styleColor }}>
                             <Text style={{ color: '#fff' }}>下一步</Text>
                         </Button>
                     </View>

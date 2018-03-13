@@ -3,7 +3,7 @@ import { Text, View, ScrollView, TextInput, StyleSheet } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import { Input, Button } from 'native-base'
 import { validate } from '../../util/Validator'
-
+import globalStyles, { styleColor } from '../GlobalStyles'
 
 const styles = StyleSheet.create({
     messageSytle: {
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 const basestyles = {
     btnSytle: {
 
-        backgroundColor: '#00cade'
+        backgroundColor: styleColor
     },
     btnDisabledSytle: {
 

@@ -18,7 +18,7 @@ import {
     changeInsuranceField,
     cleanAddInsurance
 } from '../../actions/AddInsuranceAction'
-
+import globalStyles, { styleColor } from '../GlobalStyles'
 
 class AddInsurance extends Component {
     constructor(props) {
@@ -189,7 +189,7 @@ class AddInsurance extends Component {
                                         this.state.insuranceMoneyValidater &&
                                         this.state.insuranceStartDateValidater &&
                                         this.state.insuranceEndDateValidater
-                                    ) ? '#00cade' : '#888888'
+                                    ) ? styleColor : '#888888'
                                 }}
                             >
                                 <Text style={{ color: '#fff' }}>保存</Text>

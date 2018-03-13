@@ -72,6 +72,8 @@ import { setPhoto } from '../../actions/SinglePhotoViewAction'
 import { initPhotoList, delPhoto } from '../../actions/CustomPhotoViewAction'
 import TagTextBox from '../components/form/TagTextBox'
 import moment from 'moment'
+import globalStyles, { styleColor } from '../GlobalStyles'
+
 
 var photoOptions = {
     //底部弹出框选项
@@ -729,11 +731,11 @@ class TruckInfo extends Component {
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View><Text style={{ fontSize: 12 }}>关联挂车：{this.props.truckInfoReducer.data.truckInfo.trail_num ? this.props.truckInfoReducer.data.truckInfo.trail_num : '您还没有关联挂车'}</Text></View>
                         {!this.props.truckInfoReducer.data.truckInfo.trail_id ? <TouchableNativeFeedback onPress={() => RouterDirection.selectTruck(this.props.parent)({ initParam: { type: 2 }, onSelect: (param) => this.bindTrail(param) })} background={TouchableNativeFeedback.SelectableBackground()}>
-                            <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                            <View style={{ backgroundColor: styleColor, height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                 <Text style={{ fontSize: 10, color: '#fff' }}>绑定</Text>
                             </View>
                         </TouchableNativeFeedback> : <TouchableNativeFeedback onPress={this.unBindTrail} background={TouchableNativeFeedback.SelectableBackground()}>
-                                <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                                <View style={{ backgroundColor: styleColor, height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                     <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
                                 </View>
                             </TouchableNativeFeedback>}
@@ -741,11 +743,11 @@ class TruckInfo extends Component {
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View><Text style={{ fontSize: 12 }}>关联主驾：{this.props.truckInfoReducer.data.truckInfo.drive_name ? this.props.truckInfoReducer.data.truckInfo.drive_name : '您还没有关联司机'}</Text></View>
                         {!this.props.truckInfoReducer.data.truckInfo.drive_id ? <TouchableNativeFeedback onPress={() => RouterDirection.selectDriver(this.props.parent)({ initParam: { type: 2 }, onSelect: (param) => this.bindDriver(param) })} background={TouchableNativeFeedback.SelectableBackground()}>
-                            <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                            <View style={{ backgroundColor: styleColor, height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                 <Text style={{ fontSize: 10, color: '#fff' }}>绑定</Text>
                             </View>
                         </TouchableNativeFeedback> : <TouchableNativeFeedback onPress={this.unBindDriver} background={TouchableNativeFeedback.SelectableBackground()}>
-                                <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                                <View style={{ backgroundColor: styleColor, height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                     <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
                                 </View>
                             </TouchableNativeFeedback>}
@@ -753,11 +755,11 @@ class TruckInfo extends Component {
                      <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View><Text style={{ fontSize: 12 }}>关联副驾：{this.props.truckInfoReducer.data.truckInfo.vice_drive_name ? this.props.truckInfoReducer.data.truckInfo.vice_drive_name : '您还没有关联司机'}</Text></View>
                         {!this.props.truckInfoReducer.data.truckInfo.vice_drive_id ? <TouchableNativeFeedback onPress={() => RouterDirection.selectDriver(this.props.parent)({ initParam: { type: 2 }, onSelect: (param) => this.bindViceDriver(param) })} background={TouchableNativeFeedback.SelectableBackground()}>
-                            <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                            <View style={{ backgroundColor: styleColor, height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                 <Text style={{ fontSize: 10, color: '#fff' }}>绑定</Text>
                             </View>
                         </TouchableNativeFeedback> : <TouchableNativeFeedback onPress={this.unBindViceDriver} background={TouchableNativeFeedback.SelectableBackground()}>
-                                <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                                <View style={{ backgroundColor: styleColor, height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                     <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
                                 </View>
                             </TouchableNativeFeedback>}
@@ -793,12 +795,12 @@ class TruckInfo extends Component {
                                 this.state.remarkTractorValidater
                             )} */
                             style={{
-                                backgroundColor: ('#00cade')
+                                backgroundColor: (styleColor)
                                 /*    this.state.truckNumTractorValidater &&
                                    this.state.truckTelTractorValidater &&
                                    this.state.theCodeTractorValidater &&
                                    this.state.remarkTractorValidater
-                               ) ? '#00cade' : '#888888'*/
+                               ) ? styleColor : '#888888'*/
                             }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
@@ -892,12 +894,12 @@ class TruckInfo extends Component {
                                 this.state.remarkTractorValidater
                             )}*/
                             style={{
-                                backgroundColor: ('#00cade')
+                                backgroundColor: (styleColor)
                                 /* this.state.truckNumTractorValidater &&
                                  this.state.truckTelTractorValidater &&
                                  this.state.theCodeTractorValidater &&
                                  this.state.remarkTractorValidater
-                             ) ? '#00cade' : '#888888'*/
+                             ) ? styleColor : '#888888'*/
                             }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
@@ -958,11 +960,11 @@ class TruckInfo extends Component {
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View><Text style={{ fontSize: 12 }}>关联车头：{this.props.truckInfoReducer.data.truckInfo.first_num ? this.props.truckInfoReducer.data.truckInfo.first_num : '您还没有关联挂车'}</Text></View>
                         {!this.props.truckInfoReducer.data.truckInfo.first_id ? <TouchableNativeFeedback onPress={() => RouterDirection.selectTruck(this.props.parent)({ initParam: { type: 1 }, onSelect: (param) => this.bindTrail(param) })} background={TouchableNativeFeedback.SelectableBackground()}>
-                            <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                            <View style={{ backgroundColor: styleColor, height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                 <Text style={{ fontSize: 10, color: '#fff' }}>绑定</Text>
                             </View>
                         </TouchableNativeFeedback> : <TouchableNativeFeedback onPress={this.unBindTrail} background={TouchableNativeFeedback.SelectableBackground()}>
-                                <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                                <View style={{ backgroundColor: styleColor, height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                     <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
                                 </View>
                             </TouchableNativeFeedback>}
@@ -998,12 +1000,12 @@ class TruckInfo extends Component {
                                 this.state.remarkTrailerValidater
                             )}*/
                             style={{
-                                backgroundColor: ('#00cade')
+                                backgroundColor: (styleColor)
                                 /*   this.state.truckNumTrailerValidater &&
                                    this.state.numberTrailerValidater &&
                                    this.state.theCodeTrailerValidater &&
                                    this.state.remarkTrailerValidater
-                               ) ? '#00cade' : '#888888'*/
+                               ) ? styleColor : '#888888'*/
                             }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
@@ -1091,12 +1093,12 @@ class TruckInfo extends Component {
                                 this.state.remarkTrailerValidater
                             )}*/
                             style={{
-                                backgroundColor: ('#00cade')
+                                backgroundColor: (styleColor)
                                 /* this.state.truckNumTrailerValidater &&
                                  this.state.numberTrailerValidater &&
                                  this.state.theCodeTrailerValidater &&
                                  this.state.remarkTrailerValidater
-                             ) ? '#00cade' : '#888888'*/
+                             ) ? styleColor : '#888888'*/
                             }}>
                             <Text style={{ color: '#fff' }}>保存信息</Text>
                         </Button>
@@ -1480,7 +1482,7 @@ class TruckInfo extends Component {
                 {truckRepairing ? <View style={{ paddingHorizontal: 10, paddingVertical: 10, borderBottomWidth: 0.5, borderColor: '#e3e3e3' }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 12 }}>维修日期：{new Date(truckRepairing.repair_date).toLocaleDateString()}</Text>
-                        <Button small style={{ backgroundColor: '#00cade' }} onPress={() => RouterDirection.updateRepair(this.props.parent)({ onRepairUpdate: this.onRepairUpdate })}>
+                        <Button small style={{ backgroundColor: styleColor }} onPress={() => RouterDirection.updateRepair(this.props.parent)({ onRepairUpdate: this.onRepairUpdate })}>
                             <Text style={{ color: '#fff' }}>结束</Text>
                         </Button>
                     </View>
@@ -1545,7 +1547,7 @@ class TruckInfo extends Component {
                     <View style={{ marginHorizontal: 10, paddingHorizontal: 10, paddingVertical: 10, backgroundColor: '#fff', borderColor: '#e8e8e8', borderWidth: 0.5, ...panelStyle }}>
                         <View style={{ flexDirection: 'row', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#e8e8e8', alignItems: 'flex-end' }}>
                             <View style={{ flex: 1 }}>
-                                <Text style={{ color: '#00cade' }}>{insuranceTypeList.find((typeItem) => typeItem.id == item.insure_type).insuranceType}</Text>
+                                <Text style={{ color: styleColor }}>{insuranceTypeList.find((typeItem) => typeItem.id == item.insure_type).insuranceType}</Text>
                             </View>
                             <View style={{ flex: 2 }}>
                                 <Text style={{ fontSize: 11 }}>编号：{item.insure_num}</Text>
@@ -1577,7 +1579,7 @@ class TruckInfo extends Component {
                 <Button
                     small
                     onPress={() => RouterDirection.addInsurance(this.props.parent)({ initParam: this.props.initParam, onAddInsurance: this.onAddInsurance })}
-                    style={{ backgroundColor: '#00cade', alignSelf: 'flex-end' }}>
+                    style={{ backgroundColor: styleColor, alignSelf: 'flex-end' }}>
                     <Text style={{ color: '#fff', fontSize: 12 }}>增加保单</Text>
                 </Button>
             </View>
@@ -1592,24 +1594,24 @@ class TruckInfo extends Component {
         //  console.log(this.state)
         return (
             <View style={{ flex: 1 }}>
-                <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>
-                    <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.truckType == 0 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(0)}>
-                        <Text style={{ color: this.state.truckType == 0 ? '#fff' : '#00cade' }}>信息</Text>
+                <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: styleColor }}>
+                    <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: styleColor, justifyContent: 'center', backgroundColor: this.state.truckType == 0 ? styleColor : '#fff' }} onPress={() => this.onPressSegment(0)}>
+                        <Text style={{ color: this.state.truckType == 0 ? '#fff' : styleColor }}>信息</Text>
                     </Button>
-                    <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.truckType == 1 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(1)}>
-                        <Text style={{ color: this.state.truckType == 1 ? '#fff' : '#00cade' }}>照片</Text>
+                    <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: styleColor, justifyContent: 'center', backgroundColor: this.state.truckType == 1 ? styleColor : '#fff' }} onPress={() => this.onPressSegment(1)}>
+                        <Text style={{ color: this.state.truckType == 1 ? '#fff' : styleColor }}>照片</Text>
                     </Button>
-                    <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.truckType == 2 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(2)}>
-                        <Text style={{ color: this.state.truckType == 2 ? '#fff' : '#00cade' }}>车保</Text>
+                    <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: styleColor, justifyContent: 'center', backgroundColor: this.state.truckType == 2 ? styleColor : '#fff' }} onPress={() => this.onPressSegment(2)}>
+                        <Text style={{ color: this.state.truckType == 2 ? '#fff' : styleColor }}>车保</Text>
                     </Button>
-                    <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.truckType == 3 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(3)}>
-                        <Text style={{ color: this.state.truckType == 3 ? '#fff' : '#00cade' }}>记录</Text>
+                    <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: styleColor, justifyContent: 'center', backgroundColor: this.state.truckType == 3 ? styleColor : '#fff' }} onPress={() => this.onPressSegment(3)}>
+                        <Text style={{ color: this.state.truckType == 3 ? '#fff' : styleColor }}>记录</Text>
                     </Button>
-                    <Button small style={{ flex: 1, borderRadius: 0, justifyContent: 'center', backgroundColor: this.state.truckType == 4 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(4)}>
-                        <Text style={{ color: this.state.truckType == 4 ? '#fff' : '#00cade' }}>维修</Text>
+                    <Button small style={{ flex: 1, borderRadius: 0, justifyContent: 'center', backgroundColor: this.state.truckType == 4 ? styleColor : '#fff' }} onPress={() => this.onPressSegment(4)}>
+                        <Text style={{ color: this.state.truckType == 4 ? '#fff' : styleColor }}>维修</Text>
                     </Button>
                 </View>
-                <View style={{ backgroundColor: '#fff', borderTopWidth: 1, borderColor: '#00cade', flex: 1 }}>
+                <View style={{ backgroundColor: '#fff', borderTopWidth: 1, borderColor: styleColor, flex: 1 }}>
                     {this.state.truckType == 0 && truck_status == 1 && truck_type == 1 && this.renderTractorInfoEnable()}
                     {this.state.truckType == 0 && truck_status == 0 && truck_type == 1 && this.renderTractorInfoDisable()}
 

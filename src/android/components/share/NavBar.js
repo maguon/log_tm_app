@@ -13,7 +13,7 @@ const NavBar = props => {
             <StatusBar hidden={false} />
             <Header
                 androidStatusBarColor={styleColor}
-                style={[styles.header, globalStyles.styleBackgroundColor,{backgroundColor:'#00cade'}]}>
+                style={[styles.header, globalStyles.styleBackgroundColor]}>
                 {LeftButton && <Left>
                     <LeftButton />
                 </Left>}

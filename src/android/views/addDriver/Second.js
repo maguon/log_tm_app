@@ -18,6 +18,7 @@ import {
     resetBindTruck,
     resetUnBindTruck
 } from '../../../actions/AddDriverSecondAction'
+import globalStyles, { styleColor } from '../../GlobalStyles'
 
 class Second extends Component {
     constructor(props) {
@@ -117,7 +118,7 @@ class Second extends Component {
                         <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View><Text style={{ fontSize: 12 }}>关联货车：{this.props.addDriverSecondReducer.data.truckNum}</Text></View>
                             <TouchableNativeFeedback onPress={this.onPressUnBindTruck} background={TouchableNativeFeedback.SelectableBackground()}>
-                                <View style={{ backgroundColor: '#00cade', height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
+                                <View style={{ backgroundColor: styleColor, height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
                                     <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
                                 </View>
                             </TouchableNativeFeedback>
@@ -126,7 +127,7 @@ class Second extends Component {
                         <Button
                             full
                             onPress={this.onPressNextStep}
-                            style={{ backgroundColor: '#00cade' }}>
+                            style={{ backgroundColor: styleColor }}>
                             <Text style={{ color: '#fff' }}>下一步</Text>
                         </Button>
                     </View>

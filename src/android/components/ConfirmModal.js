@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, Modal, TouchableHighlight, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
+import globalStyles, { styleColor } from '../GlobalStyles'
 
 const ConfirmModal = ({ onPressOk, onPressCancel, isVisible,title }) => {
 
@@ -71,7 +72,7 @@ var styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 16,
-        color: '#00cade',
+        color: styleColor,
         textAlign: 'center',
         marginTop: 10,
         marginBottom: 5,

@@ -29,7 +29,7 @@ import { Actions } from 'react-native-router-flux'
 import ImageResizer from 'react-native-image-resizer'
 import ImagePicker from 'react-native-image-picker'
 import ImageCropPicker from 'react-native-image-crop-picker'
-
+import globalStyles, { styleColor } from '../../GlobalStyles'
 
 var photoOptions = {
     //底部弹出框选项
@@ -382,7 +382,7 @@ class Third extends Component {
                     <Button
                         full
                         onPress={this.onPressNextStep}
-                        style={{ backgroundColor: '#00cade' }}>
+                        style={{ backgroundColor: styleColor }}>
                         <Text style={{ color: '#fff' }}>下一步</Text>
                     </Button>
                 </View>

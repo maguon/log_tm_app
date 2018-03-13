@@ -8,6 +8,7 @@ import { Button, Icon } from 'native-base'
 import ImageResizer from 'react-native-image-resizer'
 import ImagePicker from 'react-native-image-picker'
 import ImageCropPicker from 'react-native-image-crop-picker'
+import globalStyles, { styleColor } from '../../GlobalStyles'
 
 const window = Dimensions.get('window')
 
@@ -107,7 +108,7 @@ export default class Camera extends Component {
         return (
             <View style={{ width: this.props.width, height: this.props.width / 16 * 9, ...this.props.containerSytle}}>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <Button onPress={this.launchCamera} rounded style={{ width: 50, borderRadius: 25, height: 50, backgroundColor: '#00cade', justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }} >
+                    <Button onPress={this.launchCamera} rounded style={{ width: 50, borderRadius: 25, height: 50, backgroundColor: styleColor, justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }} >
                         <Icon name='camera' style={{ fontSize: 24 }} />
                     </Button>
                     <Text style={{ fontSize: 10, color: '#bfbfbf', paddingTop: 5 }}>{this.props.title}</Text>

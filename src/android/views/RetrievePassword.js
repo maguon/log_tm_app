@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Icon, Button } from 'native-base'
 import * as RetrievePasswordAction from '../../actions/RetrievePasswordAction'
 import { Actions } from 'react-native-router-flux'
+import globalStyles, { styleColor } from '../GlobalStyles'
 
 class RetrievePassword extends Component {
     constructor(props) {
@@ -148,7 +149,7 @@ class RetrievePassword extends Component {
             <View style={{ flex: 1, justifyContent: 'space-between', padding: 10 }}>
                 <View>
                     <View style={{ flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderColor: '#eee' }}>
-                        <Icon name='ios-phone-portrait' style={{ color: '#00cade', fontSize: 14 }} />
+                        <Icon name='ios-phone-portrait' style={{ color: styleColor, fontSize: 14 }} />
                         <Text style={{ fontSize: 11, marginLeft: 5 }}>手机号：</Text>
                         <TextInput
                             style={{ flex: 1, fontSize: 11, marginLeft: 5, color: '#888' }}
@@ -157,12 +158,12 @@ class RetrievePassword extends Component {
                             placeholder='请输入手机号'
                             underlineColorAndroid='transparent'
                             placeholderTextColor='#ccc' />
-                        <Button small disabled={this.state.countDownTime > 0} style={this.state.countDownTime > 0 ? { alignSelf: 'center', marginLeft: 5, paddingHorizontal: 10 } : { alignSelf: 'center', marginLeft: 5, backgroundColor: '#00cade', paddingHorizontal: 10 }} onPress={this.getVCode}>
+                        <Button small disabled={this.state.countDownTime > 0} style={this.state.countDownTime > 0 ? { alignSelf: 'center', marginLeft: 5, paddingHorizontal: 10 } : { alignSelf: 'center', marginLeft: 5, backgroundColor: styleColor, paddingHorizontal: 10 }} onPress={this.getVCode}>
                             <Text style={{ color: '#fff', fontSize: 11 }}>发送验证码 {this.state.countDownTime ? `(${this.state.countDownTime})` : ''}</Text>
                         </Button>
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderColor: '#eee' }}>
-                        <Icon name='ios-key' style={{ color: '#00cade', fontSize: 14 }} />
+                        <Icon name='ios-key' style={{ color: styleColor, fontSize: 14 }} />
                         <Text style={{ fontSize: 11, marginLeft: 5 }}>验证码：</Text>
                         <TextInput
                             style={{ flex: 1, fontSize: 11, marginLeft: 5, color: '#888' }}
@@ -173,7 +174,7 @@ class RetrievePassword extends Component {
                             placeholderTextColor='#ccc' />
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderColor: '#eee' }}>
-                        <Icon name='ios-lock' style={{ color: '#00cade', fontSize: 14 }} />
+                        <Icon name='ios-lock' style={{ color: styleColor, fontSize: 14 }} />
                         <Text style={{ fontSize: 11, marginLeft: 5 }}>新密码：</Text>
                         <TextInput
                             secureTextEntry={true}
@@ -185,7 +186,7 @@ class RetrievePassword extends Component {
                             placeholderTextColor='#ccc' />
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderColor: '#eee' }}>
-                        <Icon name='ios-lock' style={{ color: '#00cade', fontSize: 14 }} />
+                        <Icon name='ios-lock' style={{ color: styleColor, fontSize: 14 }} />
                         <Text style={{ fontSize: 11, marginLeft: 5 }}>确认密码：</Text>
                         <TextInput
                             secureTextEntry={true}
@@ -201,12 +202,12 @@ class RetrievePassword extends Component {
                     <Button
                         full
                         disabled={!(this.state.firstPassword && this.state.secondPassword && this.state.vCode && this.state.mobile)}
-                        style={this.state.firstPassword && this.state.secondPassword && this.state.vCode && this.state.mobile ? { backgroundColor: '#00cade' } : {}} onPress={this.retrieve}>
+                        style={this.state.firstPassword && this.state.secondPassword && this.state.vCode && this.state.mobile ? { backgroundColor: styleColor } : {}} onPress={this.retrieve}>
                         <Text style={{ color: '#fff' }}>确认</Text>
                     </Button>
                     <Button
                         full
-                        style={{ backgroundColor: '#00cade', marginTop: 10 }} onPress={Actions.pop}>
+                        style={{ backgroundColor: styleColor, marginTop: 10 }} onPress={Actions.pop}>
                         <Text style={{ color: '#fff' }}>返回</Text>
                     </Button>
                 </View>

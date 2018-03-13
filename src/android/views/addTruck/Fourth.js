@@ -12,6 +12,7 @@ import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import * as RouterDirection from '../../../util/RouterDirection'
 import { addInsurance } from '../../../actions/AddTruckFourthAction'
+import globalStyles, { styleColor } from '../../GlobalStyles'
 
 class Fourth extends Component {
     constructor(props) {
@@ -27,7 +28,7 @@ class Fourth extends Component {
                     <View style={{ marginHorizontal: 10, paddingHorizontal: 10, paddingVertical: 10, backgroundColor: '#fff', borderColor: '#e8e8e8', borderWidth: 0.5, ...panelStyle }}>
                         <View style={{ flexDirection: 'row', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#e8e8e8', alignItems: 'flex-end' }}>
                             <View style={{ flex: 1 }}>
-                                <Text style={{ color: '#00cade' }}>{item.insureTypeName}</Text>
+                                <Text style={{ color: styleColor }}>{item.insureTypeName}</Text>
                             </View>
                             <View style={{ flex: 2 }}>
                                 <Text style={{ fontSize: 11 }}>编号：{item.insureNum}</Text>
@@ -59,7 +60,7 @@ class Fourth extends Component {
                 <Button
                     small
                     onPress={() => RouterDirection.addInsurance(this.props.parent)({ initParam: this.props.initParam, onAddInsurance: this.props.addInsurance })}
-                    style={{ backgroundColor: '#00cade', alignSelf: 'flex-end' }}>
+                    style={{ backgroundColor: styleColor, alignSelf: 'flex-end' }}>
                     <Text style={{ color: '#fff', fontSize: 12 }}>增加保单</Text>
                 </Button>
             </View>
@@ -85,7 +86,7 @@ class Fourth extends Component {
                             <Button
                                 full
                                 onPress={() => Actions.pop({ popNum: 4 })}
-                                style={{ backgroundColor: '#00cade' }}>
+                                style={{ backgroundColor: styleColor }}>
                                 <Text style={{ color: '#fff' }}>完成</Text>
                             </Button>
                         </View>}

@@ -25,6 +25,7 @@ import {
 import { cleanAddDriverSecondDate } from '../../../actions/AddDriverSecondAction'
 import { cleanAddDriverThirdDate } from '../../../actions/AddDriverThirdAction'
 import DrivingLicenseTypeList from '../../../config/DrivingLicenseType.json'
+import globalStyles, { styleColor } from '../../GlobalStyles'
 
 class First extends Component {
     constructor(props) {
@@ -229,7 +230,7 @@ class First extends Component {
                                         this.state.addressValidater &&
                                         this.state.licenseTypeValidater &&
                                         this.state.licenseDateValidater
-                                    ) ? '#00cade' : '#888888'
+                                    ) ? styleColor : '#888888'
                                 }}>
                                 <Text style={{ color: '#fff' }}>下一步</Text>
                             </Button>

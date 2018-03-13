@@ -31,6 +31,7 @@ import ImagePicker from 'react-native-image-picker'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import * as RouterDirection from '../../../util/RouterDirection'
 import { Actions } from 'react-native-router-flux'
+import globalStyles, { styleColor } from '../../GlobalStyles'
 
 var photoOptions = {
     //底部弹出框选项
@@ -445,7 +446,7 @@ class Third extends Component {
                         <PanelSingleItem onUpdateImage={this.onPressUpdateDriverAvatarImage} onShowPhoto={this.onShowDriverAvatarImage} title='个人照片' imageUrl={this.props.addDriverThirdReducer.data.driverAvatarImage} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
                 </View>
                 <View style={{ paddingTop: btnPaddingTop, paddingBottom: 10, paddingHorizontal: 10 }}>
-                    <Button full onPress={() => Actions.pop({ popNum: 3 })} style={{ backgroundColor: '#00cade' }}>
+                    <Button full onPress={() => Actions.pop({ popNum: 3 })} style={{ backgroundColor: styleColor }}>
                         <Text style={{ color: '#fff' }}>完成</Text>
                     </Button>
                 </View>

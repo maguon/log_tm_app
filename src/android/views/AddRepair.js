@@ -7,6 +7,7 @@ import RichTextBox from '../components/form/RichTextBox'
 import * as RouterDirection from '../../util/RouterDirection'
 import { Button } from 'native-base'
 import { Actions } from 'react-native-router-flux'
+import globalStyles, { styleColor } from '../GlobalStyles'
 
 export default class AddRepair extends Component {
     constructor(props) {
@@ -42,7 +43,7 @@ export default class AddRepair extends Component {
                 />
 
                 <View style={{ paddingVertical: 10, paddingHorizontal: 10 }}>
-                    <Button full onPress={this.OnRepairSave} style={{ backgroundColor: '#00cade' }}>
+                    <Button full onPress={this.OnRepairSave} style={{ backgroundColor: styleColor }}>
                         <Text style={{ color: '#fff' }}>保存信息</Text>
                     </Button>
                 </View>
