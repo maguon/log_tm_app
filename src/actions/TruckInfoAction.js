@@ -361,7 +361,7 @@ export const createTruckRepairRel = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/truckRepairRel`
     dispatch({ type: actionTypes.truckInfoTypes.CreateTruckRepairRel_WAITING, payload: {} })
     try {
-        let res = await httpRequest.post(url, param.postParam)
+        const res = await httpRequest.post(url, param.postParam)
         if (res.success) {
             dispatch({ type: actionTypes.truckInfoTypes.CreateTruckRepairRel_SUCCESS, payload: {} })
         } else {

@@ -91,12 +91,38 @@ export const addInsurance = (parent) => {
     if (parent === 'homeBlock') return Actions.addInsuranceAtHomeBlock
 }
 
-export const addRepair = (parent) => {
-    if (parent === 'truckBlock') return Actions.addRepairAtTruckBlock
-    if (parent === 'homeBlock') return Actions.addRepairAtHomeBlock
+export const createRepair = (parent) => {
+    if (parent === 'truckBlock') return Actions.createRepairAtTruckBlock
+    if (parent === 'homeBlock') return Actions.createRepairAtHomeBlock
 }
 
 export const updateRepair = (parent) => {
     if (parent === 'truckBlock') return Actions.updateRepairAtTruckBlock
     if (parent === 'homeBlock') return Actions.updateRepairAtHomeBlock
+}
+
+
+export const repairEditor = (parent) => {
+    if (parent === 'homeBlock') return Actions.repairEditorAtHomeBlock
+    if (parent === 'truckBlock') return Actions.repairEditorAtTruckBlock
+}
+
+export const listCennectNav = (parent) => {
+    if (parent === 'homeBlock') return Actions.listCennectNavAtHomeBlock
+    if (parent === 'truckBlock') return Actions.listCennectNavAtTruckBlock
+}
+
+export const finishRepair = (parent) => {
+    if (parent === 'homeBlock') return Actions.finishRepairAtHomeBlock
+    if (parent === 'truckBlock') return Actions.finishRepairAtTruckBlock
+}
+
+export const repairInfo = (parent) => {
+    if (parent === 'homeBlock') return Actions.repairInfoAtHomeBlock
+    if (parent === 'truckBlock') return Actions.repairInfoAtTruckBlock
+}
+
+export const selectAccident = (parent) => {
+    if (parent === 'homeBlock') return Actions.selectAccidentAtHomeBlock
+    if (parent === 'truckBlock') return Actions.selectAccidentAtTruckBlock
 }

@@ -1,0 +1,4 @@
+export const get_selectRepairStationList_success = 'get_selectRepairStationList_success'
+export const get_selectRepairStationList_waiting = 'get_selectRepairStationList_waiting'
+export const get_selectRepairStationList_failed = 'get_selectRepairStationList_failed'
+export const get_selectRepairStationList_error = 'get_selectRepairStationList_error'

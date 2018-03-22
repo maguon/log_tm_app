@@ -5,10 +5,12 @@ import {
     FlatList,
     ScrollView,
     TouchableNativeFeedback,
-    ToastAndroid, Alert
+    ToastAndroid,
+    Alert,
+    TouchableOpacity
 } from 'react-native'
 
-import { Button } from 'native-base'
+import { Button, Icon } from 'native-base'
 import TextBox from '../components/form/TextBox'
 import Select from '../components/form/Select'
 import DateTimePicker from '../components/form/DateTimePicker'
@@ -752,7 +754,7 @@ class TruckInfo extends Component {
                                 </View>
                             </TouchableNativeFeedback>}
                     </View>
-                     <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View><Text style={{ fontSize: 12 }}>关联副驾：{this.props.truckInfoReducer.data.truckInfo.vice_drive_name ? this.props.truckInfoReducer.data.truckInfo.vice_drive_name : '您还没有关联司机'}</Text></View>
                         {!this.props.truckInfoReducer.data.truckInfo.vice_drive_id ? <TouchableNativeFeedback onPress={() => RouterDirection.selectDriver(this.props.parent)({ initParam: { type: 2 }, onSelect: (param) => this.bindViceDriver(param) })} background={TouchableNativeFeedback.SelectableBackground()}>
                             <View style={{ backgroundColor: styleColor, height: 16, width: 50, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 0.5, borderColor: '#fbfbfb' }}>
@@ -763,7 +765,7 @@ class TruckInfo extends Component {
                                     <Text style={{ fontSize: 10, color: '#fff' }}>解绑</Text>
                                 </View>
                             </TouchableNativeFeedback>}
-                    </View> 
+                    </View>
                     <DateTimePicker
                         value={this.props.truckInfoReducer.data.truckInfo.driving_date ? this.props.truckInfoReducer.data.truckInfo.driving_date : '请选择'}
                         title='行驶证检证日期：'
@@ -1443,19 +1445,22 @@ class TruckInfo extends Component {
     }
 
     OnRepairSave(param) {
-        let p = {
+        //console.log('param',param)
+        const p = {
             requiredParam: {
                 userId: this.props.loginReducer.data.user.uid,
                 truckId: this.props.truckInfoReducer.data.truckInfo.id
             },
             postParam: {
-                repairReason: param.repairReason
+                repairReason: param.repairReason,
+                repairType: param.repairType,
+                accidentId: param.accidentId
             }
         }
-        if (this.props.truckInfoReducer.data.truckInfo.drive_id && this.props.truckInfoReducer.data.truckInfo.drive_name) {
-            p.postParam.driveId = this.props.truckInfoReducer.data.truckInfo.drive_id
-            p.postParam.driveName = this.props.truckInfoReducer.data.truckInfo.drive_name
-        }
+        // if (this.props.truckInfoReducer.data.truckInfo.drive_id && this.props.truckInfoReducer.data.truckInfo.drive_name) {
+        //     p.postParam.driveId = this.props.truckInfoReducer.data.truckInfo.drive_id
+        //     p.postParam.driveName = this.props.truckInfoReducer.data.truckInfo.drive_name
+        // }
         this.props.createTruckRepairRel(p)
     }
 
@@ -1469,55 +1474,53 @@ class TruckInfo extends Component {
             putParam: {
                 remark: param.remark,
                 repairMoney: param.repairMoney,
-                repairUser: param.repairUser
+                repairStationId: param.repairStationId
             }
         })
     }
 
     renderRepair() {
         let truckRepairing = this.props.truckInfoReducer.data.truckRepairRelList.find((item) => item.repair_status == 0)
-        // console.log(truckRepairing)
         return (
             <View style={{ flex: 1 }}>
-                {truckRepairing ? <View style={{ paddingHorizontal: 10, paddingVertical: 10, borderBottomWidth: 0.5, borderColor: '#e3e3e3' }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={{ fontSize: 12 }}>维修日期：{new Date(truckRepairing.repair_date).toLocaleDateString()}</Text>
-                        <Button small style={{ backgroundColor: styleColor }} onPress={() => RouterDirection.updateRepair(this.props.parent)({ onRepairUpdate: this.onRepairUpdate })}>
-                            <Text style={{ color: '#fff' }}>结束</Text>
-                        </Button>
+                {truckRepairing ? <TouchableOpacity style={{ borderBottomWidth: 0.5, borderColor: '#e3e3e3' }} onPress={() => RouterDirection.repairEditor(this.props.parent)({ onRepairUpdate: this.onRepairUpdate, repairInfo: truckRepairing })}>
+                    <View style={{ flexDirection: 'row', padding: 10, justifyContent: 'space-between', backgroundColor: '#adadad' }}>
+                        <Text style={[globalStyles.smallText, { color: '#fff' }]}>维修编号：{truckRepairing.id ? `${truckRepairing.id}` : ''}</Text>
+                        <Text style={[globalStyles.smallText, { color: '#fff' }]}>正在维修</Text>
                     </View>
-                    <View style={{ paddingVertical: 10 }}>
-                        <Text style={{ fontSize: 12, fontWeight: 'bold' }}>维修原因</Text>
+                    <View style={{ padding: 10, backgroundColor: '#f2f2f2', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <View>
+                            <Text allowFontScaling={false} style={{ fontSize: 12 }}><Text style={{ fontWeight: 'bold' }}>申报时间：</Text>{truckRepairing.repair_date ? `${moment(truckRepairing.repair_date).format('YYYY-MM-DD HH:mm:ss')}` : ''}</Text>
+                            <Text allowFontScaling={false} numberOfLines={1} style={{ paddingTop: 10, fontSize: 12 }}><Text style={{ fontWeight: 'bold' }}>申报描述：</Text>{truckRepairing.repair_reason ? `${truckRepairing.repair_reason}` : ''}</Text>
+                        </View>
+                        <Icon name='ios-arrow-forward-outline' style={{ fontSize: 20, color: '#777' }} />
                     </View>
-                    <View>
-                        <Text style={{ fontSize: 12 }}>{truckRepairing.repair_reason}</Text>
-                    </View>
-                </View> : <View style={{ paddingVertical: 10, borderBottomWidth: 0.5, borderColor: '#e3e3e3' }}>
-                        <Button small onPress={() => RouterDirection.addRepair(this.props.parent)({ OnRepairSave: this.OnRepairSave })} style={{ backgroundColor: '#f27d80', alignSelf: 'flex-end',marginRight:15 }}>
-                            <Text style={{ color: '#fff',paddingHorizontal:10 }}>维修</Text>
+                </TouchableOpacity> : <View style={{ paddingVertical: 10, borderBottomWidth: 0.5, borderColor: '#e3e3e3' }}>
+                        <Button small onPress={() => RouterDirection.createRepair(this.props.parent)({ OnRepairSave: this.OnRepairSave, truckId: this.props.truckInfoReducer.data.truckInfo.id })} style={{ backgroundColor: '#f27d80', alignSelf: 'flex-end', marginRight: 15 }}>
+                            <Text style={{ color: '#fff', paddingHorizontal: 10 }}>维修</Text>
                         </Button>
                     </View>}
-                <View style={{ flex: 1 }} >
+                <View style={{ flex: 1, paddingTop: 10 }} >
                     <FlatList
                         showsVerticalScrollIndicator={false}
                         data={this.props.truckInfoReducer.data.truckRepairRelList.filter((item) => item.repair_status == 1)}
-                        renderItem={({ item }) => <View style={{ paddingVertical: 5, paddingHorizontal: 5, borderRadius: 2, borderWidth: 0.5, marginHorizontal: 10, marginVertical: 10, borderColor: '#e3e3e3' }}>
-                            <View style={{ borderBottomWidth: 0.5, borderColor: '#e3e3e3', paddingVertical: 5 }}>
-                                <Text style={{ fontSize: 12, fontWeight: 'bold' }}>{moment(new Date(item.repair_date)).format('YYYY-MM-DD hh:mm:ss')} 至 {moment(new Date(item.end_date)).format('YYYY-MM-DD hh:mm:ss')}</Text>
+                        renderItem={({ item }) => <TouchableOpacity
+                            onPress={() => RouterDirection.repairInfo(this.props.parent)({ initParam: item })}
+                            style={{ borderBottomWidth: 0.5, borderColor: '#e3e3e3' }}>
+                            <View style={{ flexDirection: 'row', padding: 10, justifyContent: 'space-between', backgroundColor: '#f2f2f2' }}>
+                                <Text style={[globalStyles.smallText, { color: styleColor }]}>维修编号：{item.id ? `${item.id}` : ''}</Text>
+                                {item.repair_type == 1 && <Text style={[globalStyles.smallText, { color: styleColor }]}>事故维修</Text>}
+                                {item.repair_type == 2 && <Text style={[globalStyles.smallText]}>非事故维修</Text>}
                             </View>
-                            <View>
-                                <Text style={{ fontSize: 12, paddingVertical: 5, fontWeight: 'bold' }}>维修原因：</Text>
-                                <Text style={{ fontSize: 12, paddingVertical: 5 }}>{item.repair_reason}</Text>
+                            <View style={{ padding: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                                <View>
+                                    <Text allowFontScaling={false} style={{ fontSize: 12 }}>{item.repair_date ? `${moment(item.repair_date).format('YYYY-MM-DD HH:mm:ss')}` : ''} 至 {item.end_date ? `${moment(item.end_date).format('YYYY-MM-DD HH:mm:ss')}` : ''}</Text>
+                                    <Text allowFontScaling={false} numberOfLines={1} style={{ paddingTop: 10, fontSize: 12 }}><Text style={{ fontWeight: 'bold' }}>申报描述：</Text>{item.repair_reason ? `${item.repair_reason}` : ''}</Text>
+                                    <Text allowFontScaling={false} numberOfLines={1} style={{ paddingTop: 10, fontSize: 12 }}><Text style={{ fontWeight: 'bold' }}>金额：</Text><Text style={{ color: 'red' }}>{item.repair_money ? `${item.repair_money}` : ''}</Text>元</Text>
+                                </View>
+                                <Icon name='ios-arrow-forward-outline' style={{ fontSize: 20, color: '#777' }} />
                             </View>
-                            <View>
-                                <Text style={{ fontSize: 12, paddingVertical: 5, fontWeight: 'bold' }}>维修描述：</Text>
-                                <Text style={{ fontSize: 12, paddingVertical: 5 }}>{item.remark}</Text>
-                            </View>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={{ alignSelf: 'flex-end', fontSize: 10 }}>维修人：<Text style={{ color: '#f27d80', fontSize: 12 }}>{item.repair_user}</Text></Text>
-                                <Text style={{ alignSelf: 'flex-end', fontSize: 10 }}>金额：<Text style={{ color: '#f27d80', fontSize: 12 }}>{item.repair_money}</Text>元</Text>
-                            </View>
-                        </View>}
+                        </TouchableOpacity>}
                     />
                 </View>
 
@@ -1580,7 +1583,7 @@ class TruckInfo extends Component {
                     small
                     onPress={() => RouterDirection.addInsurance(this.props.parent)({ initParam: this.props.initParam, onAddInsurance: this.onAddInsurance })}
                     style={{ backgroundColor: styleColor, alignSelf: 'flex-end' }}>
-                    <Text style={{ color: '#fff', fontSize: 12,paddingHorizontal:10 }}>增加保单</Text>
+                    <Text style={{ color: '#fff', fontSize: 12, paddingHorizontal: 10 }}>增加保单</Text>
                 </Button>
             </View>
         )
@@ -1590,7 +1593,7 @@ class TruckInfo extends Component {
 
     render() {
         const { truck_status, truck_type } = this.props.truckInfoReducer.data.truckInfo
-        // console.log(this.props)
+        //  console.log(this.props.truckInfoReducer.data.truckInfo)
         //  console.log(this.state)
         return (
             <View style={{ flex: 1 }}>

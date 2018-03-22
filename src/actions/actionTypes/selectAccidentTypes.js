@@ -1,0 +1,4 @@
+export const get_selectAccidentList_success = 'get_selectAccidentList_success'
+export const get_selectAccidentList_waiting = 'get_selectAccidentList_waiting'
+export const get_selectAccidentList_failed = 'get_selectAccidentList_failed'
+export const get_selectAccidentList_error = 'get_selectAccidentList_error'

@@ -22,6 +22,12 @@ import addDriverThirdReducer from './AddDriverThirdReducer'
 import driverInfoReducer from './DriverInfoReducer'
 import driverListReducer from './DriverListReducer'
 import initializationReducer from './InitializationReducer'
+import selectAccidentReducer from './SelectAccidentReducer'
+import selectRepairStationReducer from './SelectRepairStationReducer'
+import repairEditorReducer from './RepairEditorReducer'
+import finishRepairReducer from './FinishRepairReducer'
+import createRepairReducer from './CreateRepairReducer'
+
 // import PasswordReducer from './PasswordReducer'
 import retrievePasswordReducer from './RetrievePasswordReducer'
 import truckHomeFilterListReducer from './TruckHomeFilterListReducer'
@@ -78,5 +84,10 @@ export default combineReducers({
     demageEditorReducer,
     settingReducer,
     personalCenterReducer,
-    updatePasswordReducer
+    updatePasswordReducer,
+    selectAccidentReducer,
+    selectRepairStationReducer,
+    finishRepairReducer,
+    createRepairReducer,
+    repairEditorReducer
 })

@@ -8,6 +8,9 @@ import {
 } from 'react-native'
 import { Button, Icon } from 'native-base'
 import { validate } from '../../../util/Validator'
+import globalStyles,{styleColor} from '../../GlobalStyles'
+
+
 const styles = StyleSheet.create({
     containerSytle: {
         borderBottomWidth: 0.5,
@@ -133,8 +136,8 @@ export default class CheckBox extends Component {
                             borderWidth: 0.5,
                             borderColor: '#ccc',
                         }}>
-                            <View style={{ borderBottomWidth: 1, borderColor: '#00cade' }}>
-                                <Text style={{ paddingVertical: 10, color: '#00cade', textAlign: 'center' }}>{this.props.listTitle}</Text>
+                            <View style={{ borderBottomWidth: 1, borderColor: styleColor }}>
+                                <Text style={{ paddingVertical: 10, color: styleColor, textAlign: 'center' }}>{this.props.listTitle}</Text>
                             </View>
                             {this.renderItem()}
                         </View>

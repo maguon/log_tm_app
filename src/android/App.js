@@ -32,9 +32,12 @@ import AddTruckFourth from './views/addTruck/Fourth'
 import AddInsurance from './views/AddInsurance'
 import DriverInfo from './views/DriverInfo'
 import RichText from './views/RichText'
+import FinishRepair from './views/FinishRepair'
 
 import TruckInfo from './views/TruckInfo'
-//import Password from './views/Password'
+import RepairInfo from './views/RepairInfo'
+import RepairEditor from './views/RepairEditor'
+//import Password from './views/Password'RepairInfo
 
 import Company from './views/select/Company'
 import CompanyType from './views/select/CompanyType'
@@ -43,6 +46,8 @@ import Make from './views/select/Make'
 import SelectTruck from './views/select/Truck'
 import SelectDriver from './views/select/Driver'
 import SelectInsurance from './views/select/Insurance'
+import SelectAccident from './views/select/Accident'
+import SelectRepairStation from './views/select/RepairStation'
 import SelectInsuranceType from './views/select/InsuranceType'
 
 
@@ -52,7 +57,7 @@ import CustomPhotoView from './views/CustomPhotoView'
 
 
 import UpdateRepair from './views/UpdateRepair'
-import AddRepair from './views/AddRepair'
+import CreateRepair from './views/CreateRepair'
 import TruckHomeFilterList from './views/TruckHomeFilterList'
 import RetrievePassword from './views/RetrievePassword'
 import DemageInfo from './views/demageInfo/DemageInfo'
@@ -72,7 +77,6 @@ import UpdatePassword from './views/updatePassword/UpdatePassword'
 import ApplyDamageUploadImageSubmit from './components/applyDamageUploadImage/ApplyDamageUploadImageSubmit'
 import Orientation from 'react-native-orientation'
 // import AddInsurance from './views/AddInsurance'
-// import AddRepair from './views/AddRepair'
 // import UpdateRepair from './views/UpdateRepair'
 
 // import Orientation from 'react-native-orientation'
@@ -209,6 +213,24 @@ export default class App extends Component {
                                     hideNavBar={false}
                                     navBar={NavBar}
                                     hideTabBar={true} />
+                                <Scene key="selectRepairStationAtHomeBlock"
+                                    LeftButton={LeftButton}
+                                    component={SelectRepairStation}
+                                    title='维修站列表'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+
+
+
+
+                                <Scene key="selectAccidentAtHomeBlock"
+                                    LeftButton={LeftButton}
+                                    component={SelectAccident}
+                                    title='事故列表'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
                                 <Scene key="selectDrivingLicenseTypeAtHomeBlock"
                                     LeftButton={LeftButton}
                                     component={DrivingLicenseType}
@@ -275,17 +297,44 @@ export default class App extends Component {
                                     hideNavBar={false}
                                     navBar={NavBar}
                                     hideTabBar={true} />
-                                <Scene key="addRepairAtHomeBlock"
+                                <Scene key="createRepairAtHomeBlock"
                                     LeftButton={LeftButton}
-                                    component={AddRepair}
+                                    component={CreateRepair}
                                     title='开始维修'
                                     hideNavBar={false}
                                     navBar={NavBar}
                                     hideTabBar={true} />
-                                <Scene key="updateRepairAtHomeBlock"
+                                {/* <Scene key="updateRepairAtHomeBlock"
                                     LeftButton={LeftButton}
                                     component={UpdateRepair}
                                     title='维修完毕'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} /> */}
+                                <Scene key="listCennectNavAtHomeBlock"
+                                    component={ListCennect}
+                                    hideTabBar
+                                    navBar={NavBar}
+                                    LeftButton={LeftButton}
+                                    hideNavBar={false} />
+                                <Scene key="finishRepairAtHomeBlock"
+                                    LeftButton={LeftButton}
+                                    component={FinishRepair}
+                                    title='维修完毕'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="repairInfoAtHomeBlock"
+                                    LeftButton={LeftButton}
+                                    component={RepairInfo}
+                                    title='维修信息'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="repairEditorAtHomeBlock"
+                                    LeftButton={LeftButton}
+                                    component={RepairEditor}
+                                    title='维修信息'
                                     hideNavBar={false}
                                     navBar={NavBar}
                                     hideTabBar={true} />
@@ -396,9 +445,9 @@ export default class App extends Component {
                                     hideNavBar={false}
                                     navBar={NavBar}
                                     hideTabBar={true} />
-                                <Scene key="addRepairAtTruckBlock"
+                                <Scene key="createRepairAtTruckBlock"
                                     LeftButton={LeftButton}
-                                    component={AddRepair}
+                                    component={CreateRepair}
                                     title='开始维修'
                                     hideNavBar={false}
                                     navBar={NavBar}
@@ -427,6 +476,41 @@ export default class App extends Component {
                                     component={CustomPhotoView}
                                     hideNavBar
                                     hideTabBar />
+
+                                <Scene key="finishRepairAtTruckBlock"
+                                    LeftButton={LeftButton}
+                                    component={FinishRepair}
+                                    title='维修完毕'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="repairInfoAtTruckBlock"
+                                    LeftButton={LeftButton}
+                                    component={RepairInfo}
+                                    title='维修信息'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="repairEditorAtTruckBlock"
+                                    LeftButton={LeftButton}
+                                    component={RepairEditor}
+                                    title='维修信息'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
+                                <Scene key="listCennectNavAtTruckBlock"
+                                    component={ListCennect}
+                                    hideTabBar
+                                    navBar={NavBar}
+                                    LeftButton={LeftButton}
+                                    hideNavBar={false} />
+                                <Scene key="selectAccidentAtTruckBlock"
+                                    LeftButton={LeftButton}
+                                    component={SelectAccident}
+                                    title='事故列表'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar={true} />
                             </Scene>
                             <Scene key="driverBlock" icon={TabIcon} online='ios-contact' outline='ios-contact-outline'>
                                 <Scene key="driver"
