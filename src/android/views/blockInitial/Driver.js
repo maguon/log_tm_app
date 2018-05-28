@@ -18,7 +18,7 @@ export default class Driver extends Component {
         this.onPressSearch = this.onPressSearch.bind(this)
         this.state = {
             driveName: null,
-            tel: null,
+            mobile: null,
             companyId: null,
             company: null,
             truckNum: null,
@@ -51,8 +51,8 @@ export default class Driver extends Component {
                     />
                     <TextBox
                         title='联系电话：'
-                        value={this.state.tel ? this.state.tel : ''}
-                        onValueChange={(param) => this.setState({ tel: param })}
+                        value={this.state.mobile ? this.state.mobile : ''}
+                        onValueChange={(param) => this.setState({ mobile: param })}
                         placeholder='请输入联系电话'
                     />
                     <Select
@@ -99,7 +99,7 @@ export default class Driver extends Component {
                         <View style={{ paddingHorizontal: 10, flex: 1 }}>
                             <Button full onPress={() => this.setState({
                                 driverName: null,
-                                tel: null,
+                                mobile: null,
                                 companyId: null,
                                 company: null,
                                 truckNum: null,

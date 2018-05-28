@@ -87,7 +87,7 @@ class Third extends Component {
             updateLicenseImageOp,
             updateDriverAvatarImage,
             data } = nextProps.addDriverThirdReducer
-            console.log('data',data)
+           // console.log('data',data)
         /*updateDrivingImage*/
         if (updateDrivingImage.isExecStatus == 2) {
             if (updateDrivingImage.isResultStatus == 0) {

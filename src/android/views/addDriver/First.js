@@ -133,8 +133,8 @@ class First extends Component {
                                 message: '不是手机号码'
                             }]}*/
                             onRequire={(flag) => this.setState({ telValidater: flag })}
-                            value={this.props.addDriverFirstReducer.data.driverInfo.tel ? this.props.addDriverFirstReducer.data.driverInfo.tel : ''}
-                            onValueChange={(param) => this.props.changeDriverField({ tel: param })}
+                            value={this.props.addDriverFirstReducer.data.driverInfo.mobile ? this.props.addDriverFirstReducer.data.driverInfo.mobile : ''}
+                            onValueChange={(param) => this.props.changeDriverField({ mobile: param })}
                             placeholder='请输入联系电话'
                         />
                         <Select

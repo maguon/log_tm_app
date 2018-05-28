@@ -656,7 +656,7 @@ class DriverInfo extends Component {
         if (this.props.driverInfoReducer.data.driverInfo.address) param.putParam.address = this.props.driverInfoReducer.data.driverInfo.address
         if (this.props.driverInfoReducer.data.driverInfo.license_type) param.putParam.licenseType = this.props.driverInfoReducer.data.driverInfo.license_type
         if (this.props.driverInfoReducer.data.driverInfo.id_number) param.putParam.idNumber = this.props.driverInfoReducer.data.driverInfo.id_number
-        if (this.props.driverInfoReducer.data.driverInfo.tel) param.putParam.tel = this.props.driverInfoReducer.data.driverInfo.tel
+        if (this.props.driverInfoReducer.data.driverInfo.mobile) param.putParam.mobile = this.props.driverInfoReducer.data.driverInfo.mobile
         if (this.props.driverInfoReducer.data.driverInfo.sib_tel) param.putParam.sibTel = this.props.driverInfoReducer.data.driverInfo.sib_tel
         if (this.props.driverInfoReducer.data.driverInfo.remark) param.putParam.remark = this.props.driverInfoReducer.data.driverInfo.remark
 
@@ -716,17 +716,17 @@ class DriverInfo extends Component {
                         value={gender ? gender : '请选择'}
                         itemList={[{ id: 1, value: '男' }, { id: 0, value: '女' }]}
                         onCheck={(param) => this.props.changeDriverInfoField({ gender: param.id })} />
-                    <TextBox
+                    {/* <TextBox
                         title='联系电话：'
-                        value={this.props.driverInfoReducer.data.driverInfo.tel ? this.props.driverInfoReducer.data.driverInfo.tel : ''}
-                        onValueChange={(param) => this.props.changeDriverInfoField({ tel: param })}
-                        /*verifications={[{
-                            type: 'isPhone',
-                            message: '不是手机号码'
-                        }]}
-                        onRequire={(flag) => this.setState({ telValidater: flag })}*/
+                        value={this.props.driverInfoReducer.data.driverInfo.mobile ? this.props.driverInfoReducer.data.driverInfo.mobile : ''}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ mobile: param })}
                         placeholder='请输入联系电话'
-                    />
+                    /> */}
+                    <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View>
+                            <Text style={{ fontSize: 12 }}>联系电话：{this.props.driverInfoReducer.data.driverInfo.mobile ? this.props.driverInfoReducer.data.driverInfo.mobile : ''}</Text>
+                        </View>
+                    </View>
                     <TextBox
                         title='身份证：'
                         /*verifications={[{
@@ -848,17 +848,17 @@ class DriverInfo extends Component {
                         value={gender ? gender : '请选择'}
                         itemList={[{ id: 1, value: '男' }, { id: 0, value: '女' }]}
                         onCheck={(param) => this.props.changeDriverInfoField({ gender: param.id })} />
-                    <TextBox
+                    {/* <TextBox
                         title='联系电话：'
-                        value={this.props.driverInfoReducer.data.driverInfo.tel ? this.props.driverInfoReducer.data.driverInfo.tel : ''}
-                        onValueChange={(param) => this.props.changeDriverInfoField({ tel: param })}
-                        /*verifications={[{
-                            type: 'isPhone',
-                            message: '不是手机号码'
-                        }]}
-                        onRequire={(flag) => this.setState({ telValidater: flag })}*/
+                        value={this.props.driverInfoReducer.data.driverInfo.mobile ? this.props.driverInfoReducer.data.driverInfo.mobile : ''}
+                        onValueChange={(param) => this.props.changeDriverInfoField({ mobile: param })}
                         placeholder='请输入联系电话'
-                    />
+                    /> */}
+                    <View style={{ borderBottomWidth: 0.5, borderColor: '#dddddd', paddingVertical: 10, paddingHorizontal: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View>
+                            <Text style={{ fontSize: 12 }}>联系电话：{this.props.driverInfoReducer.data.driverInfo.mobile ? this.props.driverInfoReducer.data.driverInfo.mobile : ''}</Text>
+                        </View>
+                    </View>
                     <TextBox
                         title='身份证：'
                         value={this.props.driverInfoReducer.data.driverInfo.id_number ? this.props.driverInfoReducer.data.driverInfo.id_number : ''}
@@ -1015,7 +1015,7 @@ class DriverInfo extends Component {
             <View style={{ flex: 1 }}>
                 <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: styleColor }}>
                     <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: styleColor, justifyContent: 'center', backgroundColor: this.state.active == 0 ? styleColor : '#fff' }} onPress={() => this.onPressSegment(0)}>
-                        <Text style={{ color: this.state.active == 0 ? '#fff' : styleColor}}>基本信息</Text>
+                        <Text style={{ color: this.state.active == 0 ? '#fff' : styleColor }}>基本信息</Text>
                     </Button>
                     <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: styleColor, justifyContent: 'center', backgroundColor: this.state.active == 1 ? styleColor : '#fff' }} onPress={() => this.onPressSegment(1)}>
                         <Text style={{ color: this.state.active == 1 ? '#fff' : styleColor }}>照片</Text>
