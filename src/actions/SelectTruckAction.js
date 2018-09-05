@@ -13,7 +13,9 @@ export const getTruckList = (param) => async (dispatch) => {
 
     dispatch({ type: actionTypes.selectTruckTypes.GET_SelectTruckList_WAITING, payload: {} })
     try {
+        console.log('url', url)
         let res = await httpRequest.get(url)
+        console.log('res', res)
         if (res.success) {
             dispatch({ type: actionTypes.selectTruckTypes.GET_SelectTruckList_SUCCESS, payload: { data: res.result, type: param.OptionalParam.truckType } })
         } else {

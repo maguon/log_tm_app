@@ -83,7 +83,7 @@ function putCallBack(url, params,callback) {
     });
 }
 
-function del(url, callback) {
+function del(url) {
    return fetch(url, {
         method: 'DELETE',
         headers: requestHeaders.headers,

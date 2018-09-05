@@ -1,0 +1,4 @@
+export const get_insureCompanyOptionalList_success = 'get_insureCompanyOptionalList_success'
+export const get_insureCompanyOptionalList_failed = 'get_insureCompanyOptionalList_failed'
+export const get_insureCompanyOptionalList_error = 'get_insureCompanyOptionalList_error'
+export const get_insureCompanyOptionalList_waiting = 'get_insureCompanyOptionalList_waiting'

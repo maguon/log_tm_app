@@ -1,0 +1,4 @@
+export const get_accidentDisposeInfo_success='get_accidentDisposeInfo_success'
+export const get_accidentDisposeInfo_failed='get_accidentDisposeInfo_failed'
+export const get_accidentDisposeInfo_error='get_accidentDisposeInfo_error'
+export const get_accidentDisposeInfo_waiting='get_accidentDisposeInfo_waiting'

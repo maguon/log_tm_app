@@ -24,7 +24,8 @@ class Driver extends Component {
     static defaultProps = {
         initParam: {
             type: 1
-        }
+        },
+        selectType: null
     }
 
     componentDidMount() {
@@ -64,10 +65,10 @@ class Driver extends Component {
                 </View>
                 <FlatList
                     showsVerticalScrollIndicator={true}
-                    data={this.driverListFilter()}
+                    data={this.props.selectType == 'all' ? this.props.selectDriverReducer.data.driverList : this.driverListFilter()}
                     renderItem={({ item }) => {
                         return (
-                            <TouchableNativeFeedback key={item.id} onPress={() => this._onPress({ id: item.id, value: item.drive_name })} background={TouchableNativeFeedback.SelectableBackground()}>
+                            <TouchableNativeFeedback key={item.id} onPress={() => this._onPress({ id: item.id, value: item.drive_name, item })} background={TouchableNativeFeedback.SelectableBackground()}>
                                 <View key={item.id} style={{ paddingHorizontal: 10, paddingVertical: 10, borderBottomWidth: 0.5, borderColor: '#dddddd' }}>
                                     <Text>{item.drive_name}</Text>
                                 </View>

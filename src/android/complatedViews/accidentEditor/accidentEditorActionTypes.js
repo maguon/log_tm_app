@@ -1,0 +1,9 @@
+export const modify_accident_success = 'modify_accident_success'
+export const modify_accident_failed = 'modify_accident_failed'
+export const modify_accident_waiting = 'modify_accident_waiting'
+export const modify_accident_error = 'modify_accident_error'
+
+export const get_dpRouteTaskForAccidentEditor_success = 'get_dpRouteTaskForAccidentEditor_success'
+export const get_dpRouteTaskForAccidentEditor_failed = 'get_dpRouteTaskForAccidentEditor_failed'
+export const get_dpRouteTaskForAccidentEditor_waiting = 'get_dpRouteTaskForAccidentEditor_waiting'
+export const get_dpRouteTaskForAccidentEditor_error = 'get_dpRouteTaskForAccidentEditor_error'

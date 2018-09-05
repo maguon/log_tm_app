@@ -1,0 +1,6 @@
+export const get_accidentIndemnifyList_success = 'get_accidentIndemnifyList_success'
+export const get_accidentIndemnifyList_failed = 'get_accidentIndemnifyList_failed'
+export const get_accidentIndemnifyList_error = 'get_accidentIndemnifyList_error'
+export const get_accidentIndemnifyList_waiting = 'get_accidentIndemnifyList_waiting'
+
+export const modify_accidentIndemnifyForList = 'modify_accidentIndemnifyForList'

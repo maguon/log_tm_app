@@ -1,0 +1,4 @@
+export const create_overuseDieselOil_success = 'create_overuseDieselOil_success'
+export const create_overuseDieselOil_failed = 'create_overuseDieselOil_failed'
+export const create_overuseDieselOil_waiting = 'create_overuseDieselOil_waiting'
+export const create_overuseDieselOil_error = 'create_overuseDieselOil_error'

@@ -1,0 +1,9 @@
+export const modify_accidentIndemnify_success = 'modify_accidentIndemnify_success'
+export const modify_accidentIndemnify_failed = 'modify_accidentIndemnify_failed'
+export const modify_accidentIndemnify_waiting = 'modify_accidentIndemnify_waiting'
+export const modify_accidentIndemnify_error = 'modify_accidentIndemnify_error'
+
+export const finish_accidentIndemnify_success = 'finish_accidentIndemnify_success'
+export const finish_accidentIndemnify_failed = 'finish_accidentIndemnify_failed'
+export const finish_accidentIndemnify_waiting = 'finish_accidentIndemnify_waiting'
+export const finish_accidentIndemnify_error = 'finish_accidentIndemnify_error'

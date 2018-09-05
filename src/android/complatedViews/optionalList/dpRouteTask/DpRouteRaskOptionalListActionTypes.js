@@ -1,0 +1,5 @@
+export const get_dpRouteRaskOptionalList_success = 'get_dpRouteRaskOptionalList_success'
+export const get_dpRouteRaskOptionalList_failed = 'get_dpRouteRaskOptionalList_failed'
+export const get_dpRouteRaskOptionalList_error = 'get_dpRouteRaskOptionalList_error'
+export const get_dpRouteRaskOptionalList_waiting = 'get_dpRouteRaskOptionalList_waiting'
+export const reset_dpRouteRaskOptionalList_status = 'reset_dpRouteRaskOptionalList_status'

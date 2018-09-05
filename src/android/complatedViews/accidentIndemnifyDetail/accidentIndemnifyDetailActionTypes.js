@@ -1,0 +1,4 @@
+export const get_accidentListForInsure_success = 'get_accidentListForInsure_success'
+export const get_accidentListForInsure_failed = 'get_accidentListForInsure_failed'
+export const get_accidentListForInsure_waiting = 'get_accidentListForInsure_waiting'
+export const get_accidentListForInsure_error = 'get_accidentListForInsure_error'

@@ -82,6 +82,7 @@ class Truck extends Component {
 
     render() {
         console.log(this.props)
+        // console.log('this.tractorListFilter()',this.tractorListFilter())
         return (
             <View>
                 <View style={{ backgroundColor: '#edf1f4' }}>
@@ -104,7 +105,7 @@ class Truck extends Component {
                     data={this.props.initParam.type == 1 ? this.tractorListFilter() : this.trailerListFilter()}
                     renderItem={({ item }) => {
                         return (
-                            <TouchableNativeFeedback key={item.id} onPress={() => this._onPress({ id: item.id, value: item.truck_num })} background={TouchableNativeFeedback.SelectableBackground()}>
+                            <TouchableNativeFeedback key={item.id} onPress={() => this._onPress({ id: item.id, value: item.truck_num, item })} background={TouchableNativeFeedback.SelectableBackground()}>
                                 <View key={item.id} style={{ paddingHorizontal: 10, paddingVertical: 10, borderBottomWidth: 0.5, borderColor: '#dddddd' }}>
                                     <Text>{item.truck_num}</Text>
                                 </View>

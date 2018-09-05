@@ -45,6 +45,35 @@ import settingReducer from './SettingReducer'
 import personalCenterReducer from '../android/views/personalCenter/PersonalCenterReducer'
 import updatePasswordReducer from '../android/views/updatePassword/UpdatePasswordReducer'
 
+import peccancyListReducer from '../android/complatedViews/peccancyList/peccancyListReducer'
+import accidentEditorReducer from '../android/complatedViews/accidentEditor/accidentEditorReducer'
+import overuseDieselOilListReducer from '../android/complatedViews/overuseDieselOilList/overuseDieselOilListReducer'
+import peccancyEditorReducer from '../android/complatedViews/peccancyEditor/peccancyEditorReducer'
+import driverOptionalListReducer from '../android/complatedViews/optionalList/driver/driverOptionalListReducer'
+import createOveruseDieselOilReducer from '../android/complatedViews/createOveruseDieselOil/createOveruseDieselOilReducer'
+import dpRouteRaskOptionalListReducer from '../android/complatedViews/optionalList/dpRouteTask/DpRouteRaskOptionalListReducer'
+
+import accidentListReducer from '../android/complatedViews/accidentList/accidentListReducer'
+import accidentInfoReducer from '../android/complatedViews/accidentInfo/accidentInfoReducer'
+import createAccidentReducer from '../android/complatedViews/createAccident/createAccidentReducer'
+
+import accidentIndemnifyListReducer from '../android/complatedViews/accidentIndemnifyList/accidentIndemnifyListReducer'
+import accidentIndemnifyEditorReducer from '../android/complatedViews/accidentIndemnifyEditor/accidentIndemnifyEditorReducer'
+import accidentIndemnifyInfoReducer from '../android/complatedViews/accidentIndemnifyInfo/accidentIndemnifyInfoReducer'
+
+import createAccidentDisposeReducer from '../android/complatedViews/createAccidentDispose/createAccidentDisposeReducer'
+import locationOptionalListReducer from '../android/complatedViews/optionalList/location/locationOptionalListReducer'
+import userOptionalListReducer from '../android/complatedViews/optionalList/user/userOptionalListReducer'
+import truckOptionalListReducer from '../android/complatedViews/optionalList/truck/truckOptionalListReducer'
+import repairStationOptionalListReducer from '../android/complatedViews/optionalList/repairStation/repairStationOptionalListReducer'
+import insureCompanyOptionalListReducer from '../android/complatedViews/optionalList/insureCompany/insureCompanyOptionalListReducer'
+import accidentIndemnifyDetailReducer from '../android/complatedViews/accidentIndemnifyDetail/accidentIndemnifyDetailReducer'
+import createAccidentIndemnifyReducer from '../android/complatedViews/createAccidentIndemnify/createAccidentIndemnifyReducer'
+import accidentRepairListReducer from '../android/complatedViews/accidentRepairList/accidentRepairListReducer'
+import accidentRepairEditorReducer from '../android/complatedViews/accidentRepairEditor/accidentRepairEditorReducer'
+import uploadImageForCreateAccidentReducer from '../android/complatedViews/uploadImageForCreateAccident/uploadImageForCreateAccidentReducer'
+import uploadImageForAccidentInfoReducer from '../android/complatedViews/uploadImageForAccidentInfo/uploadImageForAccidentInfoReducer'
+
 export default combineReducers({
     form: formReducer,
     homeReducer,
@@ -89,5 +118,33 @@ export default combineReducers({
     selectRepairStationReducer,
     finishRepairReducer,
     createRepairReducer,
-    repairEditorReducer
+    repairEditorReducer,
+
+
+    peccancyListReducer,
+    overuseDieselOilListReducer,
+    peccancyEditorReducer,
+    driverOptionalListReducer,
+    createOveruseDieselOilReducer,
+    dpRouteRaskOptionalListReducer,
+    locationOptionalListReducer,
+    accidentEditorReducer,
+    accidentInfoReducer,
+    userOptionalListReducer,
+    truckOptionalListReducer,
+    
+    accidentListReducer,
+    createAccidentReducer,
+    createAccidentDisposeReducer,
+    accidentIndemnifyListReducer,
+    insureCompanyOptionalListReducer,
+    accidentIndemnifyEditorReducer,
+    accidentIndemnifyInfoReducer,
+    accidentIndemnifyDetailReducer,
+    createAccidentIndemnifyReducer,
+    accidentRepairListReducer,
+    accidentRepairEditorReducer,
+    repairStationOptionalListReducer,
+    uploadImageForCreateAccidentReducer,
+    uploadImageForAccidentInfoReducer
 })

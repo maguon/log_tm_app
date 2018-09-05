@@ -1,0 +1,4 @@
+export const create_accidentDispose_success = 'create_accidentDispose_success'
+export const create_accidentDispose_failed = 'create_accidentDispose_failed'
+export const create_accidentDispose_error = 'create_accidentDispose_error'
+export const create_accidentDispose_waiting = 'create_accidentDispose_waiting'

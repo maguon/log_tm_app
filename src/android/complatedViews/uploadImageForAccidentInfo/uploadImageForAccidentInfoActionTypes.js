@@ -1,0 +1,18 @@
+export const upload_imageForAccidentInfo_success = 'upload_imageForAccidentInfo_success'
+export const upload_imageForAccidentInfo_partSuccess = 'upload_imageForAccidentInfo_partSuccess'
+export const upload_imageForAccidentInfo_failed = 'upload_imageForAccidentInfo_failed'
+export const upload_imageForAccidentInfo_error = 'upload_imageForAccidentInfo_error'
+export const upload_imageForAccidentInfo_waiting = 'upload_imageForAccidentInfo_waiting'
+export const clean_imageForAccidentInfo = 'clean_imageForAccidentInfo'
+
+export const del_imageForAccidentInfo_success = 'del_imageForAccidentInfo_success'
+export const del_imageForAccidentInfo_failed = 'del_imageForAccidentInfo_failed'
+export const del_imageForAccidentInfo_error = 'del_imageForAccidentInfo_error'
+export const del_imageForAccidentInfo_waiting = 'del_imageForAccidentInfo_waiting'
+
+export const set_indexForUploadImageForAccidentInfo = 'set_indexForUploadImageForAccidentInfo'
+
+export const get_imageForAccidentInfo_success = 'get_imageForAccidentInfo_success'
+export const get_imageForAccidentInfo_failed = 'get_imageForAccidentInfo_failed'
+export const get_imageForAccidentInfo_error = 'get_imageForAccidentInfo_error'
+export const get_imageForAccidentInfo_waiting = 'get_imageForAccidentInfo_waiting'
