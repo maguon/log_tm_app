@@ -209,7 +209,7 @@ export default class App extends Component {
                                 navBar={NavBar} />
                         </Scene>
                         <Scene key="main" tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
-                            <Scene key="homeBlock" icon={TabIcon} online='ios-home' outline='ios-home-outline' >
+                            <Scene key="homeBlock" initial={true}  icon={TabIcon} online='ios-home' outline='ios-home-outline' >
                                 <Scene key="home" initial={true} component={Home} title='车辆管理' hideNavBar={false} navBar={NavBar} />
                                 <Scene key="driverListAtHomeBlock"
                                     LeftButton={LeftButton}
@@ -639,7 +639,7 @@ export default class App extends Component {
                                     navBar={NavBar}
                                     hideTabBar={true} />
                             </Scene>
-                            <Scene key="blameBlock" initial={true} icon={TabIcon} online='ios-warning' outline='ios-warning-outline' >
+                            <Scene key="blameBlock" icon={TabIcon} online='ios-warning' outline='ios-warning-outline' >
                                 <Scene key="blame"
                                     component={Blame}
                                     initial={true}

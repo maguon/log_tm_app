@@ -74,7 +74,7 @@ export default handleActions({
             ...state,
             data: {
                 ...state.data,
-                accidentList: [...state.data.accidentList, ...accidentList],
+                accidentList:[...state.data.accidentList, ...accidentList],
                 isComplete
             },
             getAccidentListMore: {

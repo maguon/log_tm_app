@@ -60,6 +60,7 @@ import * as truckOptionalList from '../../android/complatedViews/optionalList/tr
 import * as insureCompanyOptionalList from '../../android/complatedViews/optionalList/insureCompany/insureCompanyOptionalListActionTypes'
 import * as accidentIndemnifyDetail from '../../android/complatedViews/accidentIndemnifyDetail/accidentIndemnifyDetailActionTypes'
 import * as repairStationOptionalList from '../../android/complatedViews/optionalList/repairStation/repairStationOptionalListActionTypes'
+import * as blame from '../../android/complatedViews/blame/blameActionTypes'
 
 export {
     homeTypes,
@@ -93,7 +94,7 @@ export {
     repairEditorTypes,
     finishRepairTypes,
     createRepairTypes,
-
+    blame,
     peccancyList,
     overuseDieselOilList,
     createPeccancy,

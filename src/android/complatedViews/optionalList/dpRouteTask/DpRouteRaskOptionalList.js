@@ -21,7 +21,7 @@ const DpRouteRaskOptionalList = props => {
             <Content>
                 <Field name='dpRouteTaskId' label='调度编号：' isRequired={true} validate={[requiredValidator]} component={TextBox} />
                 {!dpRouteRask && getDpRouteRaskOptionalList.isResultStatus == 2 && <Text style={[globalStyles.midText, { color: 'red', margin: 15 }]}>暂无该调度编号</Text>}
-                {getDpRouteRaskOptionalList.isResultStatus != 1 && <Button full style={[globalStyles.styleBackgroundColor, { margin: 15 }]} onPress={() => { handleSubmit() }}>
+                {getDpRouteRaskOptionalList.isResultStatus != 1 && <Button full style={[globalStyles.styleBackgroundColor, { margin: 15 }]} onPress={handleSubmit}>
                     <Text style={[globalStyles.midText, { color: '#fff' }]}>确定</Text>
                 </Button>}
                 {getDpRouteRaskOptionalList.isResultStatus == 1 && <Spinner color={styleColor} style={{ margin: 15 }}/>}

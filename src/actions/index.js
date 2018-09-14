@@ -28,6 +28,7 @@ import * as truckOptionalList from '../android/complatedViews/optionalList/truck
 import * as repairStationOptionalList from '../android/complatedViews/optionalList/repairStation/repairStationOptionalListActions'
 import * as insureCompanyOptionalList from '../android/complatedViews/optionalList/insureCompany/insureCompanyOptionalListActions'
 import * as accidentIndemnifyDetail from '../android/complatedViews/accidentIndemnifyDetail/accidentIndemnifyDetailActions'
+import * as blame from '../android/complatedViews/blame/blameActions'
 
 export {
     //settingBlock-views-complated 
@@ -43,7 +44,7 @@ export {
     createOveruseDieselOil,
     dpRouteRaskOptionalList,
     overuseDieselOilEditor,
-
+    blame,
 
     accidentDisposeEditor,
     accidentEditor,

@@ -73,6 +73,7 @@ import accidentRepairListReducer from '../android/complatedViews/accidentRepairL
 import accidentRepairEditorReducer from '../android/complatedViews/accidentRepairEditor/accidentRepairEditorReducer'
 import uploadImageForCreateAccidentReducer from '../android/complatedViews/uploadImageForCreateAccident/uploadImageForCreateAccidentReducer'
 import uploadImageForAccidentInfoReducer from '../android/complatedViews/uploadImageForAccidentInfo/uploadImageForAccidentInfoReducer'
+import blameReducer from '../android/complatedViews/blame/blameReducer'
 
 export default combineReducers({
     form: formReducer,
@@ -98,6 +99,7 @@ export default combineReducers({
     driverInfoReducer,
     driverListReducer,
     initializationReducer,
+    blameReducer,
     //PasswordReducer,
     truckHomeFilterListReducer,
     retrievePasswordReducer,
