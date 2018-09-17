@@ -13,15 +13,22 @@ class Blame extends Component {
     }
 
     componentDidMount() {
-        const { getBlameStatisticsWaiting, getBlameStatistics } = this.props
-        getBlameStatisticsWaiting()
-        InteractionManager.runAfterInteractions(getBlameStatistics)
+        const { getExceedOilStatisticsWaiting, getExceedOilStatistics, getPeccancyStatistics, getPeccancyStatisticsWaiting,
+            getTruckAccidentStatistics, getTruckAccidentStatisticsWaiting } = this.props
+        getTruckAccidentStatisticsWaiting()
+        getExceedOilStatisticsWaiting()
+        getPeccancyStatisticsWaiting()
+        InteractionManager.runAfterInteractions(() => {
+            getExceedOilStatistics()
+            getPeccancyStatistics()
+            getTruckAccidentStatistics()
+        })
     }
 
     render() {
         const { getPeccancyList, getPeccancyListWaiting, getOveruseDieselOilList, getOveruseDieselOilListWaiting, getAccidentListWaiting,
             getAccidentList, blameReducer: { data: { peccancyStatistics, overuseDieselOilStatistics, accidentStatistics } } } = this.props
-        console.log('this.props', this.props)
+        // console.log('this.props', this.props)
         return (
             <Container style={{ backgroundColor: '#f5f5f5' }}>
                 <Content>
@@ -38,8 +45,8 @@ class Blame extends Component {
                             <Body>
                                 <Text style={[globalStyles.midText, globalStyles.styleColor]}>事故管理</Text>
                                 <View style={{ flexDirection: 'row' }}>
-                                    <Text style={globalStyles.smallText}>待处理  {accidentStatistics.waiting ? `${accidentStatistics.waiting}` : ''}</Text>
-                                    <Text style={[globalStyles.smallText, { paddingLeft: 15 }]}>处理中  {accidentStatistics.doing ? `${accidentStatistics.doing}` : ''}</Text>
+                                    <Text style={globalStyles.smallText}>待处理  {accidentStatistics.waiting ? `${accidentStatistics.waiting}` : '0'}</Text>
+                                    <Text style={[globalStyles.smallText, { paddingLeft: 15 }]}>处理中  {accidentStatistics.doing ? `${accidentStatistics.doing}` : '0'}</Text>
                                 </View>
                             </Body>
                             <Right>
@@ -58,8 +65,8 @@ class Blame extends Component {
                             <Body>
                                 <Text style={[globalStyles.midText, globalStyles.styleColor]}>违章扣款</Text>
                                 <View style={{ flexDirection: 'row' }}>
-                                    <Text style={globalStyles.smallText}>未扣笔数 {peccancyStatistics.peccancy_count ? `${peccancyStatistics.peccancy_count}` : ''}</Text>
-                                    <Text style={[globalStyles.smallText, { paddingLeft: 15 }]}>未扣金额 {peccancyStatistics.fine_money ? `${peccancyStatistics.fine_money}` : ''}元</Text>
+                                    <Text style={globalStyles.smallText}>未扣笔数 {peccancyStatistics.peccancy_count ? `${peccancyStatistics.peccancy_count}` : '0'}</Text>
+                                    <Text style={[globalStyles.smallText, { paddingLeft: 15 }]}>未扣金额 {peccancyStatistics.fine_money ? `${peccancyStatistics.fine_money}` : '0'}元</Text>
                                 </View>
                             </Body>
                             <Right>
@@ -78,8 +85,8 @@ class Blame extends Component {
                             <Body>
                                 <Text style={[globalStyles.midText, globalStyles.styleColor]}>超油扣款</Text>
                                 <View style={{ flexDirection: 'row' }}>
-                                    <Text style={globalStyles.smallText}>未扣笔数 {overuseDieselOilStatistics.exceed_oil_count ? `${overuseDieselOilStatistics.exceed_oil_count}` : ''}</Text>
-                                    <Text style={[globalStyles.smallText, { paddingLeft: 15 }]}>未扣金额 {overuseDieselOilStatistics.exceed_oil_money ? `${overuseDieselOilStatistics.exceed_oil_money}` : ''}元</Text>
+                                    <Text style={globalStyles.smallText}>未扣笔数 {overuseDieselOilStatistics.exceed_oil_count ? `${overuseDieselOilStatistics.exceed_oil_count}` : '0'}</Text>
+                                    <Text style={[globalStyles.smallText, { paddingLeft: 15 }]}>未扣金额 {overuseDieselOilStatistics.exceed_oil_money ? `${overuseDieselOilStatistics.exceed_oil_money}` : '0'}元</Text>
                                 </View>
                             </Body>
                             <Right>
@@ -118,12 +125,23 @@ const mapDispatchToProps = (dispatch) => ({
     getPeccancyListWaiting: () => {
         dispatch(actions.peccancyList.getPeccancyListWaiting())
     },
-    getBlameStatistics: () => {
-        dispatch(actions.blame.getBlameStatistics())
-
+    getExceedOilStatistics: () => {
+        dispatch(actions.blame.getExceedOilStatistics())
     },
-    getBlameStatisticsWaiting: () => {
-        dispatch(actions.blame.getBlameStatisticsWaiting())
+    getExceedOilStatisticsWaiting: () => {
+        dispatch(actions.blame.getExceedOilStatisticsWaiting())
+    },
+    getPeccancyStatistics: () => {
+        dispatch(actions.blame.getPeccancyStatistics())
+    },
+    getPeccancyStatisticsWaiting: () => {
+        dispatch(actions.blame.getPeccancyStatisticsWaiting())
+    },
+    getTruckAccidentStatistics: () => {
+        dispatch(actions.blame.getTruckAccidentStatistics())
+    },
+    getTruckAccidentStatisticsWaiting: () => {
+        dispatch(actions.blame.getTruckAccidentStatisticsWaiting())
     }
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Blame)

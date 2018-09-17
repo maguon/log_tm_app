@@ -3,33 +3,79 @@ import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actions/actionTypes'
 import { objectExceptNull } from '../../../util/ObjectToUrl'
 
-export const getBlameStatistics = () => async (dispatch) => {
+export const getPeccancyStatistics = () => async (dispatch) => {
     try {
-        const urls = [`${base_host}/drivePeccancyCount`,
-        `${base_host}/driveExceedOilCount`,
-        `${base_host}/truckAccidentNotCheckCount`]
-        console.log('urls', urls)
-        const res = await Promise.all(urls.map((url) => httpRequest.get(url)))
-        console.log('res', res)
-        if (res[0].success && res[1].success && res[2].success) {
+        const url = `${base_host}/drivePeccancyCount`
+        // console.log('url', url)
+        const res = await httpRequest.get(url)
+        // console.log('res', res)
+        if (res.success) {
             dispatch({
-                type: actionTypes.blame.get_blameStatistics_success, payload: {
-                    peccancyStatistics: res[0].result.find(item => item.stat_status == 1),
-                    overuseDieselOilStatistics: res[1].result.find(item => item.stat_status == 1),
+                type: actionTypes.blame.get_peccancyStatistics_success, payload: {
+                    peccancyStatistics: res.result && res.result.find(item => item.stat_status == 1) ? res.result.find(item => item.stat_status == 1) : {}
+                }
+            })
+        } else {
+            dispatch({ type: actionTypes.blame.get_peccancyStatistics_failed, payload: { failedMsg: res.msg } })
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.blame.get_peccancyStatistics_error, payload: { errorMsg: err } })
+    }
+}
+
+
+export const getExceedOilStatistics = () => async (dispatch) => {
+    try {
+        const url = `${base_host}/driveExceedOilCount`
+        // console.log('url', url)
+        const res = await httpRequest.get(url)
+        // console.log('res', res)
+        if (res.success) {
+            dispatch({
+                type: actionTypes.blame.get_exceedOilStatistics_success, payload: {
+                    overuseDieselOilStatistics: res.result && res.result.find(item => item.stat_status == 1) ? res.result.find(item => item.stat_status == 1) : {}
+                }
+            })
+        } else {
+            dispatch({ type: actionTypes.blame.get_exceedOilStatistics_failed, payload: { failedMsg: res.msg } })
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.blame.get_exceedOilStatistics_error, payload: { errorMsg: err } })
+    }
+}
+
+export const getTruckAccidentStatistics = () => async (dispatch) => {
+    try {
+        const url = `${base_host}/truckAccidentNotCheckCount`
+        // console.log('url', url)
+        const res = await httpRequest.get(url)
+        // console.log('res', res)
+        if (res.success) {
+            dispatch({
+                type: actionTypes.blame.get_truckAccidentStatistics_success, payload: {
                     accidentStatistics: {
-                        waiting: res[2].result.find(item => item.accident_status == 1).truck_accident_count,
-                        doing: res[2].result.find(item => item.accident_status == 2).truck_accident_count
+                        waiting: res.result && res.result.find(item => item.accident_status == 1) ? res.result.find(item => item.accident_status == 1).truck_accident_count : '0',
+                        doing: res.result && res.result.find(item => item.accident_status == 2) ? res.result.find(item => item.accident_status == 2).truck_accident_count : '0'
                     }
                 }
             })
         } else {
-            dispatch({ type: actionTypes.blame.get_blameStatistics_error, payload: { failedMsg: '' } })
+            dispatch({ type: actionTypes.blame.get_truckAccidentStatistics_failed, payload: { failedMsg: res.msg } })
         }
     } catch (err) {
-        dispatch({ type: actionTypes.blame.get_blameStatistics_error, payload: { errorMsg: err } })
+        dispatch({ type: actionTypes.blame.get_truckAccidentStatistics_error, payload: { errorMsg: err } })
     }
 }
 
-export const getBlameStatisticsWaiting = () => (dispatch) => {
-    dispatch({ type: actionTypes.blame.get_blameStatistics_waiting, payload: {} })
+
+export const getPeccancyStatisticsWaiting = () => (dispatch) => {
+    dispatch({ type: actionTypes.blame.get_peccancyStatistics_waiting, payload: {} })
+}
+
+export const getExceedOilStatisticsWaiting = () => (dispatch) => {
+    dispatch({ type: actionTypes.blame.get_exceedOilStatistics_waiting, payload: {} })
+}
+
+export const getTruckAccidentStatisticsWaiting = () => (dispatch) => {
+    dispatch({ type: actionTypes.blame.get_truckAccidentStatistics_waiting, payload: {} })
 }
