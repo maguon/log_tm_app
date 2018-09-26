@@ -46,7 +46,8 @@ export const initApp = (currentStep = 1, tryCount = 1, param = null) => (dispatc
 export const validateVersion = (tryCount = 1) => async (dispatch) => {
     const currentStep = 1
     try {
-        const url = `${base_host}/app?${ObjectToUrl({ app: 2, type: 1 })}`
+        const url = `${base_host}/app?${ObjectToUrl({ app: android_app.type, type: android_app.android })}`
+        // console.log('url', url)
         const res = await httpRequest.get(url)
         if (res.success) {
             const data = {
