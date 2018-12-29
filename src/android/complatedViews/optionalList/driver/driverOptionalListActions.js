@@ -1,10 +1,10 @@
 import * as httpRequest from '../../../../util/HttpRequest'
-import { base_host } from '../../../../config/Host'
 import * as actionTypes from '../../../../actions/actionTypes'
 
 
 export const getDriverOptionalList = () => async (dispatch) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/drive`
         console.log('url', url)
         const res = await httpRequest.get(url)

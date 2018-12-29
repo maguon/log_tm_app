@@ -1,12 +1,12 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actions/actionTypes'
 import { ObjectToUrl, objectExceptNull } from '../../../util/ObjectToUrl'
 import { sleep } from '../../../util/util'
 import { ToastAndroid } from 'react-native'
 
-export const getAccidentRepairList = (param) => async (dispatch) => {
+export const getAccidentRepairList = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/truckRepairRel?${ObjectToUrl({ accidentId: param.accidentId })}`
         console.log('url', url)
         const res = await httpRequest.get(url)
@@ -28,6 +28,7 @@ export const getAccidentRepairListWaiting = () => (dispatch) => {
 
 export const createAccidentRepair = param => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { loginReducer: { data: { user: { uid } } } } = getState()
         dispatch({ type: actionTypes.accidentRepairList.create_accidentRepair_waiting, payload: {} })
         console.log('param', param)

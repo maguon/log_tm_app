@@ -1,5 +1,4 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actions/actionTypes'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { sleep } from '../../../util/util'
@@ -7,8 +6,9 @@ import { ToastAndroid } from 'react-native'
 
 const pageSize = 20
 
-export const getAccidentList = (param) => async (dispatch) => {
+export const getAccidentList = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         let searchParam = {}
         if (param) {
             searchParam = {
@@ -37,7 +37,7 @@ export const getAccidentList = (param) => async (dispatch) => {
             dispatch({ type: actionTypes.accidentList.get_accidentList_failed, payload: { failedMsg: err } })
         }
     } catch (err) {
-        console.log('err',err)
+        console.log('err', err)
         dispatch({ type: actionTypes.accidentList.get_accidentList_error, payload: { errorMsg: err } })
     }
 }
@@ -47,8 +47,9 @@ export const getAccidentListWaiting = () => (dispatch) => {
 }
 
 export const getAccidentListMore = () => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const state = getState()
-    const {  accidentListReducer: { data: { accidentList, isComplete, search } },
+    const { accidentListReducer: { data: { accidentList, isComplete, search } },
         accidentListReducer } = state
     let searchParam = {}
     if (search) {

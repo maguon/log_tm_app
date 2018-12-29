@@ -1,5 +1,4 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actions/actionTypes'
 import { ObjectToUrl, objectExceptNull } from '../../../util/ObjectToUrl'
 import { sleep } from '../../../util/util'
@@ -8,6 +7,8 @@ import { ToastAndroid } from 'react-native'
 
 export const modifyAccidentRepair = param => async (dispatch, getState) => {
     try {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
+
         dispatch({ type: actionTypes.accidentRepairEditor.modify_accidentRepair_waiting, payload: {} })
         const { loginReducer: { data: { user: { uid } } } } = getState()
         const url = `${base_host}/user/${uid}/truckRepairRelBase/${param.repairId}`

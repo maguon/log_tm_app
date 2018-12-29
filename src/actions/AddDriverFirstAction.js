@@ -1,10 +1,10 @@
 import httpRequest from '../util/HttpRequest.js'
-import { base_host, record_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
-export const createDriver = (param) => async (dispatch) => {
-    const url = `${base_host}/user/${param.requiredParam.userId}/drive`    
+export const createDriver = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host} } } = getState()
+    const url = `${base_host}/user/${param.requiredParam.userId}/drive`
     dispatch({ type: actionTypes.addDriverFirstTypes.CREATE_Driver_WAITING, payload: {} })
     try {
         const res = await httpRequest.post(url, param.postParam)

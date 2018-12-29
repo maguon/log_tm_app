@@ -1,5 +1,4 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actions/actionTypes'
 import { objectExceptNull } from '../../../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
@@ -7,6 +6,8 @@ import * as actions from '../../../actions'
 
 export const createPeccancy = (param) => async (dispatch, getState) => {
     try {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
+
         dispatch({ type: actionTypes.createPeccancy.create_peccancy_waiting, payload: {} })
         const { loginReducer: { data: { user: { uid } } } } = getState()
         const url = `${base_host}/user/${uid}/drivePeccancy`

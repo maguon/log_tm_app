@@ -1,9 +1,10 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actions/actionTypes'
 
-export const getAccidentDisposeInfo = param => async (dispatch) => {
+export const getAccidentDisposeInfo = param => async (dispatch,getState) => {
     try {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
+
         const url = `${base_host}/truckAccidentCheck?truckAccidentId=${param.accidentId}`
         const res = await httpRequest.get(url)
         if (res.success) {

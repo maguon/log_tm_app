@@ -8,12 +8,12 @@ import {
 import { Button, Icon } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
-import { file_host } from '../../config/Host'
 import SharePhotoView from '../complatedComponents/share/SharePhotoView'
 import * as actions from '../../actions'
 
 const UploadImageForCreateAccidentPhotoView = props => {
     const { uploadImageForCreateAccidentReducer: { data: { imageList, index } }, setIndexForUploadImageForCreateAccident } = props
+    const { communicationSettingReducer: { data: { file_host } } } = props
     return (
         <SharePhotoView
             initParam={{ imageUrlList: imageList.map(item => `${file_host}/image/${item}`), index }}
@@ -22,7 +22,8 @@ const UploadImageForCreateAccidentPhotoView = props => {
 }
 
 const mapStateToProps = (state) => ({
-    uploadImageForCreateAccidentReducer: state.uploadImageForCreateAccidentReducer
+    uploadImageForCreateAccidentReducer: state.uploadImageForCreateAccidentReducer,
+    communicationSettingReducer: state.communicationSettingReducer
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,5 +1,4 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actions/actionTypes'
 import * as actions from '../../../actions'
 import { objectExceptNull, ObjectToUrl } from '../../../util/ObjectToUrl'
@@ -7,8 +6,8 @@ import { ToastAndroid } from 'react-native'
 
 
 export const getAccidentIndemnifyList = param => async (dispatch, getState) => {
-    // console.log('getState', getState())
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/truckAccidentInsure?${ObjectToUrl({
             accidentId: param.accidentId
         })}`

@@ -1,9 +1,9 @@
 import httpRequest from '../util/HttpRequest.js'
-import { base_host, record_host,file_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
-export const getDriverInfo = (param) => async (dispatch) => {
+export const getDriverInfo = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/drive?${ObjectToUrl(param.OptionalParam)}`
     dispatch({ type: actionTypes.driverInfoTypes.GET_DriverInfo_WAITING, payload: {} })
     try {
@@ -22,7 +22,8 @@ export const resetGetDriverInfo = (param) => (dispatch) => {
     dispatch({ type: actionTypes.driverInfoTypes.RESET_GET_DriverInfo, payload: {} })
 }
 
-export const getDriverRecord = (param) => async (dispatch) => {
+export const getDriverRecord = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { record_host } } } = getState()
     const url = `${record_host}/user/${param.requiredParam.userId}/tuser/${param.requiredParam.driverId}/record`
     dispatch({ type: actionTypes.driverInfoTypes.GET_DriverRecord_WAITING, payload: {} })
     try {
@@ -41,13 +42,14 @@ export const resetGetDriverRecord = (param) => (dispatch) => {
     dispatch({ type: actionTypes.driverInfoTypes.RESET_GET_DriverRecord, payload: {} })
 }
 
-export const changeDriverStatus = (param) => async (dispatch) => {
+export const changeDriverStatus = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driveId}/driveStatus/${param.requiredParam.driveStatus}`
     dispatch({ type: actionTypes.driverInfoTypes.ChangeDriverStatus_WAITING, payload: {} })
     try {
         let res = await httpRequest.put(url, {})
         if (res.success) {
-            dispatch({ type: actionTypes.driverInfoTypes.ChangeDriverStatus_SUCCESS, payload: {data:param.requiredParam.driveStatus} })
+            dispatch({ type: actionTypes.driverInfoTypes.ChangeDriverStatus_SUCCESS, payload: { data: param.requiredParam.driveStatus } })
         } else {
             dispatch({ type: actionTypes.driverInfoTypes.ChangeDriverStatus_FAILED, payload: { data: res.msg } })
         }
@@ -60,11 +62,12 @@ export const resetChangeDriverStatus = () => (dispatch) => {
     dispatch({ type: actionTypes.driverInfoTypes.RESET_ChangeDriverStatus, payload: {} })
 }
 
-export const bindTruck = (param) => async (dispatch) => {
+export const bindTruck = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/drive/${param.requiredParam.driverId}/bind`
     dispatch({ type: actionTypes.driverInfoTypes.BindTruck_WAITING, payload: {} })
     try {
-        let res = await httpRequest.put(url, {}) 
+        let res = await httpRequest.put(url, {})
         if (res.success) {
             dispatch({ type: actionTypes.driverInfoTypes.BindTruck_SUCCESS, payload: { data: { truck_num: param.truck_num, truck_id: param.truck_id } } })
         } else {
@@ -75,7 +78,8 @@ export const bindTruck = (param) => async (dispatch) => {
     }
 }
 
-export const unBindTruck = (param) => async (dispatch) => {
+export const unBindTruck = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/drive/${param.requiredParam.driverId}/unbind`
     dispatch({ type: actionTypes.driverInfoTypes.UnBindTruck_WAITING, payload: {} })
     try {
@@ -98,7 +102,8 @@ export const resetUnBindTruck = () => (dispatch) => {
     dispatch({ type: actionTypes.driverInfoTypes.RESET_UnBindTruck, payload: {} })
 }
 
-export const updateDrivingImage = (param) => async (dispatch) => {
+export const updateDrivingImage = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host, file_host } } } = getState()
     const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
     dispatch({ type: actionTypes.driverInfoTypes.UPDATE_DriverInfoDrivingImage_WAITING, payload: {} })
     try {
@@ -106,7 +111,7 @@ export const updateDrivingImage = (param) => async (dispatch) => {
         if (imageRes.success) {
             const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driverId}/image`
             param.putParam.driveImage = imageRes.imageId
-            let res = await httpRequest.put(url, param.putParam)            
+            let res = await httpRequest.put(url, param.putParam)
             if (res.success) {
                 dispatch({ type: actionTypes.driverInfoTypes.UPDATE_DriverInfoDrivingImage_SUCCESS, payload: { data: imageRes.imageId } })
             }
@@ -122,11 +127,12 @@ export const updateDrivingImage = (param) => async (dispatch) => {
     }
 }
 
-export const updateLicenseImage = (param) => async (dispatch) => {
+export const updateLicenseImage = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host, file_host } } } = getState()
     const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
     dispatch({ type: actionTypes.driverInfoTypes.UPDATE_DriverInfoLicenseImage_WAITING, payload: {} })
     try {
-        let imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)  
+        let imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
         if (imageRes.success) {
             const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driverId}/image`
             param.putParam.driveImage = imageRes.imageId
@@ -158,7 +164,8 @@ export const changeDriverInfoField = (param) => (dispatch) => {
     dispatch({ type: actionTypes.driverInfoTypes.CHANGE_DriverInfo_FIELD, payload: { data: param } })
 }
 
-export const updateDriverInfo = (param) => async (dispatch) => {
+export const updateDriverInfo = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.truckId}`
     dispatch({ type: actionTypes.driverInfoTypes.UpdateDriverInfo_WAITING, payload: {} })
     try {
@@ -179,7 +186,8 @@ export const resetUpdateDriverInfo = (param) => (dispatch) => {
 
 
 //完成
-export const updateDrivingImageRe = (param) => async (dispatch) => {
+export const updateDrivingImageRe = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host, file_host } } } = getState()
     const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
     dispatch({ type: actionTypes.driverInfoTypes.UPDATE_TruckInfoDrivingImageRe_WAITING, payload: {} })
     try {
@@ -209,7 +217,8 @@ export const resetUpdateDrivingImageRe = () => (dispatch) => {
 }
 
 //完成
-export const updateLicenseImageOp = (param) => async (dispatch) => {
+export const updateLicenseImageOp = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host, file_host } } } = getState()
     const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
     dispatch({ type: actionTypes.driverInfoTypes.UPDATE_TruckInfoLicenseImageOp_WAITING, payload: {} })
     try {
@@ -239,13 +248,14 @@ export const resetUpdateLicenseImageOp = () => (dispatch) => {
 }
 
 //完成
-export const updateDriverAvatarImage = (param) => async (dispatch) => {
+export const updateDriverAvatarImage = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host, file_host } } } = getState()
     const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
     dispatch({ type: actionTypes.driverInfoTypes.UPDATE_TruckInfoDriverAvatarImage_WAITING, payload: {} })
     try {
         let imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
         if (imageRes.success) {
-            const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driverId}/image` 
+            const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driverId}/image`
             param.putParam.driveImage = imageRes.imageId
             let res = await httpRequest.put(url, param.putParam)
             if (res.success) {

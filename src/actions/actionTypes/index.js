@@ -62,6 +62,8 @@ import * as accidentIndemnifyDetail from '../../android/complatedViews/accidentI
 import * as repairStationOptionalList from '../../android/complatedViews/optionalList/repairStation/repairStationOptionalListActionTypes'
 import * as blame from '../../android/complatedViews/blame/blameActionTypes'
 
+import * as communicationSetting from '../../android/complatedViews/communicationSetting/communicationSettingActionTypes'
+
 export {
     homeTypes,
     truckInfoTypes,
@@ -125,6 +127,8 @@ export {
     insureCompanyOptionalList,
     accidentIndemnifyDetail,
     repairStationOptionalList,
-    truckOptionalList
+    truckOptionalList,
+
+    communicationSetting
 }
 

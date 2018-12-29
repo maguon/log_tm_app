@@ -13,7 +13,6 @@ import ImageItem from '../../share/ImageItem'
 import globalStyles from '../../../GlobalStyles'
 import { connect } from 'react-redux'
 import CameraButton from '../../../components/share/CameraButton'
-import { file_host } from '../../../../config/Host'
 import { Container, Content, Input, Label, Icon } from 'native-base'
 import * as  imageListForDemageAction from './ImageListForDemageAction'
 import * as routerDirection from '../../../../util/RouterDirection'
@@ -23,9 +22,9 @@ const containerWidth = window.width / 2
 const containerHeight = containerWidth / 16 * 9
 
 const renderItem = props => {
-    const { item, index, uploadDamageImageWaiting, uploadDamageImage, demageImageList, parent, damageId,vin } = props
+    const { item, index, uploadDamageImageWaiting, uploadDamageImage, demageImageList, parent, damageId, vin, file_host } = props
     if (item == 'isCameraButton') {
-        return renderItemCameraButton({ index, uploadDamageImageWaiting, uploadDamageImage, damageId ,vin})
+        return renderItemCameraButton({ index, uploadDamageImageWaiting, uploadDamageImage, damageId, vin })
     } else {
         return (
             <TouchableOpacity
@@ -39,11 +38,11 @@ const renderItem = props => {
 }
 
 const renderItemCameraButton = props => {
-    const { index, uploadDamageImageWaiting, uploadDamageImage, damageId,vin } = props
+    const { index, uploadDamageImageWaiting, uploadDamageImage, damageId, vin } = props
     return (
         <View key={index} style={styles.itemCameraButton}>
             <CameraButton
-                getImage={(cameraReses) => uploadDamageImage({ cameraReses, damageId,vin })}
+                getImage={(cameraReses) => uploadDamageImage({ cameraReses, damageId, vin })}
                 _cameraStart={uploadDamageImageWaiting}
             />
         </View>
@@ -51,12 +50,12 @@ const renderItemCameraButton = props => {
 }
 
 const renderListEmpty = props => {
-    const { uploadDamageImageWaiting, uploadDamageImage, damageId,vin } = props
+    const { uploadDamageImageWaiting, uploadDamageImage, damageId, vin } = props
     return (
         <View>
             <View style={styles.cameraButtonContainer}>
                 <CameraButton
-                    getImage={(cameraReses) => uploadDamageImage({ cameraReses, damageId,vin })}
+                    getImage={(cameraReses) => uploadDamageImage({ cameraReses, damageId, vin })}
                     _cameraStart={uploadDamageImageWaiting} />
             </View>
             <View style={styles.titleContainer}>
@@ -74,8 +73,8 @@ const ImageEditorForDemage = props => {
         uploadDamageImageWaiting,
         uploadDamageImage,
         imageListForDemageReducer: { data: { demageImageList }, uploadDamageImage: { isResultStatus } },
-        initParam: { id ,vin} } = props
-        console.log('props',props)
+        initParam: { id, vin } } = props
+    const { communicationSettingReducer: { data: { file_host } } } = props
     return (
         <Container >
             <FlatList
@@ -83,8 +82,8 @@ const ImageEditorForDemage = props => {
                 showsVerticalScrollIndicator={false}
                 data={demageImageList.length > 0 ? [...demageImageList, 'isCameraButton'] : demageImageList}
                 numColumns={2}
-                ListEmptyComponent={() => renderListEmpty({ uploadDamageImageWaiting, uploadDamageImage, damageId: id ,vin})}
-                renderItem={({ item, index }) => renderItem({ parent, item, index, demageImageList, uploadDamageImageWaiting, uploadDamageImage, damageId: id,vin })} />
+                ListEmptyComponent={() => renderListEmpty({ uploadDamageImageWaiting, uploadDamageImage, damageId: id, vin })}
+                renderItem={({ item, index }) => renderItem({ parent, item, index, demageImageList, uploadDamageImageWaiting, file_host, uploadDamageImage, damageId: id, vin })} />
             <Modal
                 animationType={"fade"}
                 transparent={true}
@@ -161,17 +160,16 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-        imageListForDemageReducer: state.imageListForDemageReducer
+        imageListForDemageReducer: state.imageListForDemageReducer,
+        communicationSettingReducer: state.communicationSettingReducer
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
     uploadDamageImageWaiting: () => {
-        console.log(1111)
         dispatch(imageListForDemageAction.uploadDamageImageWaiting())
     },
     uploadDamageImage: (param) => {
-        console.log('param',param)
         dispatch(imageListForDemageAction.uploadDamageImage(param))
     }
 })

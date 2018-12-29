@@ -11,7 +11,6 @@ import PhotoView from 'react-native-photo-view'
 import ConfirmModal from '../components/ConfirmModal'
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
-import { file_host } from '../../config/Host'
 
 const { width, height } = Dimensions.get('window')
 class CustomPhotoView extends Component {
@@ -60,7 +59,7 @@ class CustomPhotoView extends Component {
     }
 
     renderPhoteView() {
-        console.log(this.props.customPhotoViewReducer.data.photoList)
+        const { communicationSettingReducer: { data: {  file_host } } } = this.props
         return this.props.customPhotoViewReducer.data.photoList.map((item, i) => {
             return <View key={i} style={{ flex: 1 }} >
                 <PhotoView
@@ -139,18 +138,15 @@ class CustomPhotoView extends Component {
     }
 }
 
+
 const mapStateToProps = (state) => {
     return {
-        customPhotoViewReducer: state.customPhotoViewReducer
+        customPhotoViewReducer: state.customPhotoViewReducer,
+        communicationSettingReducer:state.communicationSettingReducer
     }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-
-
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(CustomPhotoView)
+export default connect(mapStateToProps)(CustomPhotoView)
 
 
 var styles = {

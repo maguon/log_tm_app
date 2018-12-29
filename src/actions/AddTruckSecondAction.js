@@ -1,9 +1,9 @@
 import httpRequest from '../util/HttpRequest.js'
-import { base_host, record_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
-export const bindTruck = (param) => async (dispatch) => {
+export const bindTruck = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/trail/${param.requiredParam.trailId}/bind`
     dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindTruck_WAITING, payload: {} })
     try {
@@ -26,7 +26,8 @@ export const bindTruck = (param) => async (dispatch) => {
     }
 }
 
-export const unBindTruck = (param) => async (dispatch) => {
+export const unBindTruck = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/trail/${param.requiredParam.trailId}/unbind`
     dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondUnBindTruck_WAITING, payload: {} })
     try {
@@ -41,7 +42,9 @@ export const unBindTruck = (param) => async (dispatch) => {
     }
 }
 
-export const bindDriver = (param) => async (dispatch) => {
+export const bindDriver = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
+
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/drive/${param.requiredParam.driverId}/bind`
     dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindDriver_WAITING, payload: {} })
     try {
@@ -56,7 +59,8 @@ export const bindDriver = (param) => async (dispatch) => {
     }
 }
 
-export const unBindDriver = (param) => async (dispatch) => {
+export const unBindDriver = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/drive/${param.requiredParam.driverId}/unbind`
     dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindDriver_WAITING, payload: {} })
     try {
@@ -91,7 +95,8 @@ export const cleanAddTruckSecondDate = () => (dispatch) => {
     dispatch({ type: actionTypes.addTruckSecondTypes.CLEAN_AddTruckSecondReducer, payload: {} })
 }
 
-export const bindViceDriver = (param) => async (dispatch) => {
+export const bindViceDriver = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/viceDrive/${param.requiredParam.viceDriverId}/bind`
     dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondBindViceDriver_WAITING, payload: {} })
     try {
@@ -118,13 +123,14 @@ export const resetBindViceDriver = (param) => (dispatch) => {
     dispatch({ type: actionTypes.addTruckSecondTypes.RESET_CREATE_TruckSecondBindViceDriver, payload: { data: param } })
 }
 
-export const unBindViceDriver = (param) => async (dispatch) => {
+export const unBindViceDriver = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/viceDrive/${param.requiredParam.viceDriverId}/unbind`
     dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondUnBindViceDriver_WAITING, payload: {} })
     try {
         let res = await httpRequest.put(url, param.putParam)
         if (res.success) {
-            dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondUnBindViceDriver_SUCCESS, payload: { } })
+            dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondUnBindViceDriver_SUCCESS, payload: {} })
         } else {
             dispatch({ type: actionTypes.addTruckSecondTypes.CREATE_TruckSecondUnBindViceDriver_FAILED, payload: { data: res.msg } })
         }

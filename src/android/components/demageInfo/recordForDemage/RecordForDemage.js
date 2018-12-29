@@ -28,9 +28,7 @@ const renderListEmpty = () => {
 }
 
 const renderItem = props => {
-
     const { item: { name, timez, content }, index } = props
-
     return (
         <View key={index} style={styles.item}>
             <Text style={globalStyles.midText}>{timez ? `${moment(timez).format('YYYY-MM-DD HH:mm:ss')}` : ''} {name ? `[${name}]` : ''} {content ? `${content}` : ''}</Text>
@@ -39,7 +37,7 @@ const renderItem = props => {
 }
 
 const RecordForDemageInfo = props => {
-    const { recordForDemageReducer: { data: { carInfoRecord: { comment } } } } = props
+    const { recordForDemageReducer: { data: { carInfoRecord: { comment=[] } } } } = props
     return (
         <View style={{ flex: 1 }}>
             <ListHeader />

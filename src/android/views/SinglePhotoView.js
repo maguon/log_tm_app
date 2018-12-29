@@ -10,7 +10,6 @@ import Swiper from 'react-native-swiper'
 import PhotoView from 'react-native-photo-view'
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
-import { file_host } from '../../config/Host'
 
 const { width, height } = Dimensions.get('window')
 
@@ -54,7 +53,7 @@ class SinglePhotoView extends Component {
     }
 
     renderPhoteView() {
-        console.log(this.props.singlePhotoViewReducer.data.photo)
+        const { communicationSettingReducer: { data: { file_host } } } = this.props
         return this.props.singlePhotoViewReducer.data.photo.map((item, i) => {
             return <View key={i} style={{ flex: 1 }} >
                 <PhotoView
@@ -105,18 +104,14 @@ class SinglePhotoView extends Component {
     }
 }
 
-
 const mapStateToProps = (state) => {
     return {
-        singlePhotoViewReducer: state.singlePhotoViewReducer
+        singlePhotoViewReducer: state.singlePhotoViewReducer,
+        communicationSettingReducer: state.communicationSettingReducer
     }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(SinglePhotoView)
+export default connect(mapStateToProps)(SinglePhotoView)
 
 var styles = {
     wrapper: {

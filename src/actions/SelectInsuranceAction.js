@@ -1,9 +1,9 @@
 import httpRequest from '../util/HttpRequest.js'
-import { base_host, } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
-export const getInsuranceList = () => async (dispatch) => {
+export const getInsuranceList = () => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/truckInsure`
     dispatch({ type: actionTypes.selectInsuranceTypes.GET_InsuranceList_WAITING, payload: {} })
     try {

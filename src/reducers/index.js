@@ -74,6 +74,7 @@ import accidentRepairEditorReducer from '../android/complatedViews/accidentRepai
 import uploadImageForCreateAccidentReducer from '../android/complatedViews/uploadImageForCreateAccident/uploadImageForCreateAccidentReducer'
 import uploadImageForAccidentInfoReducer from '../android/complatedViews/uploadImageForAccidentInfo/uploadImageForAccidentInfoReducer'
 import blameReducer from '../android/complatedViews/blame/blameReducer'
+import communicationSettingReducer from '../android/complatedViews/communicationSetting/communicationSettingReducer'
 
 export default combineReducers({
     form: formReducer,
@@ -148,5 +149,6 @@ export default combineReducers({
     accidentRepairEditorReducer,
     repairStationOptionalListReducer,
     uploadImageForCreateAccidentReducer,
-    uploadImageForAccidentInfoReducer
+    uploadImageForAccidentInfoReducer,
+    communicationSettingReducer
 })

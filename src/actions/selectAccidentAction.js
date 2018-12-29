@@ -1,10 +1,10 @@
 import httpRequest from '../util/HttpRequest.js'
-import { base_host, record_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
-export const getTruckAccidentList = (param) => async (dispatch) => {
+export const getTruckAccidentList = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         dispatch({ type: actionTypes.selectAccidentTypes.get_selectAccidentList_waiting, payload: {} })
         const url = `${base_host}/truckAccident?${ObjectToUrl(param.OptionalParam)}`
         const res = await httpRequest.get(url)

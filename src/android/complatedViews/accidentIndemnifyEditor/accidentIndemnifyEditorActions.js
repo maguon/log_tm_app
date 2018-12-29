@@ -1,5 +1,4 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actions/actionTypes'
 import * as actions from '../../../actions'
 import { objectExceptNull } from '../../../util/ObjectToUrl'
@@ -7,6 +6,7 @@ import { ToastAndroid } from 'react-native'
 
 export const modifyAccidentIndemnify = param => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         // console.log('param', param)
         const { loginReducer: { data: { user: { uid } } } } = getState()
         dispatch({ type: actionTypes.accidentIndemnifyEditor.modify_accidentIndemnify_waiting, payload: {} })
@@ -62,6 +62,7 @@ export const modifyAccidentIndemnify = param => async (dispatch, getState) => {
 
 export const finishAccidentIndemnify = param => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         dispatch({ type: actionTypes.accidentIndemnifyEditor.finish_accidentIndemnify_waiting, payload: {} })
         const { loginReducer: { data: { user: { uid } } } } = getState()
         const url = `${base_host}/user/${uid}/truckAccidentInsure/${param.accidentInsureId}/insureStatus/2`
@@ -87,6 +88,5 @@ export const finishAccidentIndemnify = param => async (dispatch, getState) => {
         // console.log('err', err)
         ToastAndroid.show(`提交失败：${err}！`, 10)
         dispatch({ type: actionTypes.accidentIndemnifyEditor.finish_accidentIndemnify_error, payload: { errorMsg: err } })
-
     }
 }

@@ -1,15 +1,14 @@
 import * as httpRequest from '../../../../util/HttpRequest'
-import { base_host, file_host, record_host } from '../../../../config/Host'
 import * as applyDamageSubmitActionTypes from './ApplyDamageSubmitActionTypes'
 import { ObjectToUrl } from '../../../../util/ObjectToUrl'
 import { getFormValues } from 'redux-form'
 import { ToastAndroid, InteractionManager } from 'react-native'
 import {Actions} from 'react-native-router-flux'
-//import * as carInfoRecordAction from '../../carInfo/carInfoRecord/CarInfoRecordAction'
 import * as demageListAction from '../../../views/demageList/DemageListAction'
 import * as routerDirection from '../../../../util/RouterDirection'
 
 export const createDamage = (parent) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     dispatch({ type: applyDamageSubmitActionTypes.create_Damage_waiting, payload: {} })
     const state = getState()
     const { loginReducer: { data: { user: { uid } } }} = state

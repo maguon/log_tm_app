@@ -1,5 +1,4 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actions/actionTypes'
 import { change } from 'redux-form'
 import { objectExceptNull } from '../../../util/ObjectToUrl'
@@ -7,6 +6,7 @@ import { ToastAndroid } from 'react-native'
 
 export const getDpRouteTaskForAccidentEditor = param => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/dpRouteTask?dpRouteTaskId=${param.dp_route_task_id}`
         const res = await httpRequest.get(url)
         if (res.success) {
@@ -28,6 +28,7 @@ export const getDpRouteTaskForAccidentEditorWaiting = () => (dispatch) => {
 
 export const modifyAccident = param => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         // console.log('getState', getState())
         const { loginReducer: { data: { user: { uid } } } } = getState()
         console.log('param', param)

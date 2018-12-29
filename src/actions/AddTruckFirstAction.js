@@ -1,12 +1,12 @@
 import httpRequest from '../util/HttpRequest.js'
-import { base_host, record_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
-export const createTruckFirst = (param) => async (dispatch) => {
+export const createTruckFirst = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/user/${param.requiredParam.userId}/truckFirst`
-        dispatch({ type: actionTypes.addTruckFirstTypes.CREATE_TruckFirst_WAITING, payload: {} }) 
+        dispatch({ type: actionTypes.addTruckFirstTypes.CREATE_TruckFirst_WAITING, payload: {} })
         const res = await httpRequest.post(url, param.postParam)
         if (res.success) {
             dispatch({ type: actionTypes.addTruckFirstTypes.CREATE_TruckFirst_SUCCESS, payload: { data: res.id } })
@@ -18,8 +18,9 @@ export const createTruckFirst = (param) => async (dispatch) => {
     }
 }
 
-export const createTruckTrailer = (param) => async (dispatch) => {
+export const createTruckTrailer = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/user/${param.requiredParam.userId}/truckTrailer`
         dispatch({ type: actionTypes.addTruckFirstTypes.CREATE_TruckTrailer_WAITING, payload: {} })
         const res = await httpRequest.post(url, param.postParam)

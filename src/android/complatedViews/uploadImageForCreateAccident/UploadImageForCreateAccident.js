@@ -15,7 +15,6 @@ import CameraButton from '../../components/share/CameraButton'
 import globalStyles, { styleColor } from '../../GlobalStyles'
 import * as actions from '../../../actions'
 import ImageItem from '../../components/share/ImageItem'
-import { file_host } from '../../../config/Host'
 import { Actions } from 'react-native-router-flux'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 
@@ -24,7 +23,7 @@ const containerWidth = window.width / 2 - 5
 const containerHeight = containerWidth / 16 * 9
 
 const renderItem = props => {
-    const { item, index, uploadAccidentImageWaiting, uploadAccidentImage, setIndexForUploadImageForCreateAccident } = props
+    const { item, index, uploadAccidentImageWaiting, uploadAccidentImage, setIndexForUploadImageForCreateAccident, file_host } = props
     if (item == 'isCameraButton') {
         return renderItemCameraButton({ index, uploadAccidentImageWaiting, uploadAccidentImage })
     } else {
@@ -76,6 +75,7 @@ const renderListEmpty = props => {
 const UploadImageForCreateAccident = props => {
     const { parent, uploadAccidentImageWaiting, uploadAccidentImage, setIndexForUploadImageForCreateAccident,
         uploadImageForCreateAccidentReducer: { data: { imageList }, uploadAccidentImage: { isResultStatus }, getImageForCreateAccident } } = props
+    const { communicationSettingReducer: { data: { file_host } } } = props
     if (getImageForCreateAccident.isResultStatus == 1) {
         return (
             <Container>
@@ -92,7 +92,7 @@ const UploadImageForCreateAccident = props => {
                     numColumns={2}
                     ListEmptyComponent={() => renderListEmpty({ uploadAccidentImageWaiting, uploadAccidentImage })}
                     renderItem={({ item, index }) => renderItem({
-                        parent, item, index, imageList, uploadAccidentImageWaiting, uploadAccidentImage, setIndexForUploadImageForCreateAccident
+                        parent, item, index, imageList, uploadAccidentImageWaiting, file_host, uploadAccidentImage, setIndexForUploadImageForCreateAccident
                     })} />
                 <Modal
                     animationType={"fade"}
@@ -170,7 +170,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-        uploadImageForCreateAccidentReducer: state.uploadImageForCreateAccidentReducer
+        uploadImageForCreateAccidentReducer: state.uploadImageForCreateAccidentReducer,
+        communicationSettingReducer: state.communicationSettingReducer
     }
 }
 

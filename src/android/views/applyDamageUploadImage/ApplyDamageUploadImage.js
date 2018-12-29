@@ -15,7 +15,6 @@ import CameraButton from '../../components/share/CameraButton'
 import globalStyles from '../../GlobalStyles'
 import * as applyDamageUploadImageAction from './ApplyDamageUploadImageAction'
 import ImageItem from '../../components/share/ImageItem'
-import { base_host, file_host, record_host } from '../../../config/Host'
 import * as routerDirection from '../../../util/RouterDirection'
 
 const window = Dimensions.get('window')
@@ -23,7 +22,7 @@ const containerWidth = window.width / 2
 const containerHeight = containerWidth / 16 * 9
 
 const renderItem = props => {
-    const { item, index, uploadDamageImageWating, uploadDamageImage, imageList, parent } = props
+    const { item, index, uploadDamageImageWating, uploadDamageImage, imageList, parent, file_host } = props
     if (item == 'isCameraButton') {
         return renderItemCameraButton({ index, uploadDamageImageWating, uploadDamageImage })
     } else {
@@ -31,7 +30,7 @@ const renderItem = props => {
             <TouchableOpacity
                 key={index}
                 style={styles.itemContainer}
-                onPress={() =>routerDirection.singlePhotoView(parent)({ initParam: { imageUrlList: imageList.map(url => `${file_host}/image/${url}`), index } })} >
+                onPress={() => routerDirection.singlePhotoView(parent)({ initParam: { imageUrlList: imageList.map(url => `${file_host}/image/${url}`), index } })} >
                 <ImageItem imageUrl={`${file_host}/image/${item}`} />
             </TouchableOpacity>
         )
@@ -70,6 +69,7 @@ const renderListEmpty = props => {
 }
 
 const ApplyDamageUploadImage = props => {
+    const { communicationSettingReducer: { data: {  file_host } } } = props
     const { parent, uploadDamageImageWating, uploadDamageImage, applyDamageUploadImageReducer: { data: { imageList }, uploadDamageImage: { isResultStatus } } } = props
     return (
         <Container >
@@ -79,7 +79,7 @@ const ApplyDamageUploadImage = props => {
                 data={imageList.length > 0 ? [...imageList, 'isCameraButton'] : imageList}
                 numColumns={2}
                 ListEmptyComponent={() => renderListEmpty({ uploadDamageImageWating, uploadDamageImage })}
-                renderItem={({ item, index }) => renderItem({ parent, item, index, imageList, uploadDamageImageWating, uploadDamageImage })} />
+                renderItem={({ item, index }) => renderItem({ parent, item, index, file_host, imageList, uploadDamageImageWating, uploadDamageImage })} />
             <Modal
                 animationType={"fade"}
                 transparent={true}
@@ -156,7 +156,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-        applyDamageUploadImageReducer: state.applyDamageUploadImageReducer
+        applyDamageUploadImageReducer: state.applyDamageUploadImageReducer,
+        communicationSettingReducer: state.communicationSettingReducer
     }
 }
 

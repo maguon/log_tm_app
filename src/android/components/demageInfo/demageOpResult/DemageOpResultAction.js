@@ -1,11 +1,12 @@
 import * as httpRequest from '../../../../util/HttpRequest'
-import { base_host, file_host, record_host } from '../../../../config/Host'
 import * as demageOpResultActionTypes from './DemageOpResultActionTypes'
 import { ObjectToUrl } from '../../../../util/ObjectToUrl'
 
 export const getDemageOpResult = (param) => async (dispatch, getState) => {
     const { id } = param
     try {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
+
         const url = `${base_host}/damageCheck?${ObjectToUrl({ damageId: id })}`
         const res = await httpRequest.get(url)      
         if (res.success) {

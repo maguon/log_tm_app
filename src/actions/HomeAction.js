@@ -1,9 +1,9 @@
 import httpRequest from '../util/HttpRequest.js'
-import { base_host, record_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
-export const getOperateTypeCount = (param) => async (dispatch) => {
+export const getOperateTypeCount = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/operateTypeCount?${ObjectToUrl(param.OptionalParam)}`
     dispatch({ type: actionTypes.homeTypes.GET_OperateTypeCount_WAITING, payload: {} })
     try {
@@ -18,10 +18,11 @@ export const getOperateTypeCount = (param) => async (dispatch) => {
     }
 }
 
-export const getWaitingInspectCount = (param) => async (dispatch) => {
+export const getWaitingInspectCount = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/drivingCount?${ObjectToUrl(param.OptionalParam)}`
     dispatch({ type: actionTypes.homeTypes.GET_WaitingInspectCount_WAITING, payload: {} })
-    try {  
+    try {
         let res = await httpRequest.get(url)
         if (res.success) {
             dispatch({ type: actionTypes.homeTypes.GET_WaitingInspectCount_SUCCESS, payload: { data: res.result } })
@@ -33,7 +34,8 @@ export const getWaitingInspectCount = (param) => async (dispatch) => {
     }
 }
 
-export const getTruckRepairRelCount = () => async (dispatch) => {
+export const getTruckRepairRelCount = () => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/truckRepairRelCount?repairStatus=0`
     dispatch({ type: actionTypes.homeTypes.GET_TruckRepairRelCount_WAITING, payload: {} })
     try {
@@ -61,7 +63,8 @@ export const resetGetTruckRepairRelCount = () => (dispatch) => {
 }
 
 
-export const getDriverlicenseCount = (param) => async (dispatch) => {
+export const getDriverlicenseCount = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/licenseCount?${ObjectToUrl(param.OptionalParam)}`
     dispatch({ type: actionTypes.homeTypes.GET_DriverlicenseCount_WAITING, payload: {} })
     try {

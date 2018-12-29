@@ -1,10 +1,10 @@
 import httpRequest from '../util/HttpRequest.js'
-import { base_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
 
-export const getVCode = (param) => (dispatch) => {
+export const getVCode = (param) => (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     dispatch({ type: actionTypes.retrievePasswordTypes.GET_VCODE_WAITING, payload: {} })
     const url = `${base_host}/phone/${param.requiredParam.mobile}/passwordSms`
     httpRequest
@@ -32,7 +32,8 @@ export const resetRetrieve = () => (dispatch) => {
     dispatch({ type: actionTypes.retrievePasswordTypes.Reset_Retrieve, payload: {} })
 }
 
-export const retrieve = (param) => (dispatch) => {
+export const retrieve = (param) => (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     dispatch({ type: actionTypes.retrievePasswordTypes.Retrieve_WAITING, payload: {} })
     const url = `${base_host}/phone/${param.requiredParam.mobile}/password`
     httpRequest

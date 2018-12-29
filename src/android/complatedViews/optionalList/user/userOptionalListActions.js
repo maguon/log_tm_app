@@ -1,10 +1,10 @@
 import * as httpRequest from '../../../../util/HttpRequest'
-import { base_host } from '../../../../config/Host'
 import * as actionTypes from '../../../../actions/actionTypes'
 import { ObjectToUrl } from '../../../../util/ObjectToUrl'
 
 export const getUserOptionalList = () => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/user`
         const res = await httpRequest.get(url)
         if (res.success) {

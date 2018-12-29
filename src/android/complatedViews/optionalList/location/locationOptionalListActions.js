@@ -1,5 +1,4 @@
 import * as httpRequest from '../../../../util/HttpRequest'
-import { base_host } from '../../../../config/Host'
 import * as actionTypes from '../../../../actions/actionTypes'
 import { ObjectToUrl } from '../../../../util/ObjectToUrl'
 

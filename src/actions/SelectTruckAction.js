@@ -1,9 +1,9 @@
 import httpRequest from '../util/HttpRequest.js'
-import { base_host, record_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
-export const getTruckList = (param) => async (dispatch) => {
+export const getTruckList = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     let url
     if (param.OptionalParam.truckType === 1) {
         url = `${base_host}/truckFirst?${ObjectToUrl(param.OptionalParam)}`

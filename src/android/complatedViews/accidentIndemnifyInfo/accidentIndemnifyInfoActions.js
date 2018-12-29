@@ -1,13 +1,13 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actions/actionTypes'
 import * as actions from '../../../actions'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
 
 
-export const getAccidentInsureLoan = param => async (dispatch) => {
+export const getAccidentInsureLoan = param => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/truckAccidentInsureLoan?${ObjectToUrl({ accidentInsureId: param.accidentInsureId })}`
         console.log('url', url)
         const res = await httpRequest.get(url)
@@ -23,7 +23,7 @@ export const getAccidentInsureLoan = param => async (dispatch) => {
 }
 
 export const getAccidentInsureLoanWaiting = () => (dispatch) => {
-    dispatch({ type: actionTypes.accidentIndemnifyInfo.get_accidentInsureLoan_waiting, payload: { } })
+    dispatch({ type: actionTypes.accidentIndemnifyInfo.get_accidentInsureLoan_waiting, payload: {} })
 
 }
 

@@ -103,7 +103,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     initApp: () => {
-        dispatch(initializationAction.initApp())
+        dispatch(initializationAction.getCommunicationSetting())
     }
 })
 

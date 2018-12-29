@@ -1,5 +1,4 @@
 import * as httpRequest from '../../../util/HttpRequest'
-import { base_host, file_host, record_host } from '../../../config/Host'
 import * as demageListActionTypes from './DemageListActionTypes'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
@@ -10,6 +9,7 @@ const pageSize = 50
 export const getDemageList = () => async (dispatch, getState) => {
     const { loginReducer: { data: { user: { uid } } }} = getState()
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/damage?${ObjectToUrl({ declareUserId: uid, start: 0, size: pageSize })}`
         const res = await httpRequest.get(url)
         if (res.success) {
@@ -31,7 +31,7 @@ export const getDemageListWaiting = () => (dispatch, getState) => {
 }
 
 export const getDemageListMore = () => async (dispatch, getState) => {
-
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const {
         loginReducer: { data: { user: { uid } } },
         demageListReducer: { data: { demageList, isComplete } },

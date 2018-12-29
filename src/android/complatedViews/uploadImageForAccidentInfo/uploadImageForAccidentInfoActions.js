@@ -1,5 +1,4 @@
 import * as httpRequest from '../../../util/HttpRequest'
-import { base_host, file_host, record_host } from '../../../config/Host'
 import * as actionTypes from '../../../actions/actionTypes'
 import { ObjectToUrl, objectExceptNull } from '../../../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
@@ -10,6 +9,7 @@ export const uploadAccidentImageWaiting = () => (dispatch) => {
 
 export const uploadAccidentImage = param => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { file_host, record_host } } } = getState()
         const { cameraReses, accidentId, vheNo } = param
         // console.log('param', param)
         const cameraSuccessReses = cameraReses.filter(item => item.success)
@@ -84,8 +84,9 @@ export const setIndexForUploadImageForAccidentInfo = param => (dispatch) => {
     dispatch({ type: actionTypes.uploadImageForAccidentInfo.set_indexForUploadImageForAccidentInfo, payload: { index } })
 }
 
-export const getImageForAccidentInfo = param => async (dispatch) => {
+export const getImageForAccidentInfo = param => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { record_host } } } = getState()
         const url = `${record_host}/truckDamage?truckDamageId=${param.accidentId}`
         // console.log('url', url)
         const res = await httpRequest.get(url)
@@ -111,6 +112,7 @@ export const getImageForAccidentInfoWaiting = () => (dispatch) => {
 
 export const delImageForAccidentInfo = () => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { record_host } } } = getState()
         dispatch({ type: actionTypes.uploadImageForAccidentInfo.del_imageForAccidentInfo_waiting, payload: {} })
         const { loginReducer: { data: { user: { uid } } }, uploadImageForAccidentInfoReducer: { data: { recordId, index, imageList } } } = getState()
         const url = `${record_host}/user/${uid}/record/${recordId}/truckDamageImage/${imageList[index]}`
@@ -125,6 +127,5 @@ export const delImageForAccidentInfo = () => async (dispatch, getState) => {
     } catch (err) {
         // console.log('err', err)
         dispatch({ type: actionTypes.uploadImageForAccidentInfo.del_imageForAccidentInfo_error, payload: { errorMsg: err } })
-
     }
 }

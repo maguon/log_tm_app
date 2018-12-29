@@ -1,5 +1,4 @@
 import * as httpRequest from '../../../util/HttpRequest'
-import { base_host, file_host, record_host } from '../../../config/Host'
 import * as updatePasswordActionTypes from './UpdatePasswordActionTypes'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { getFormValues } from 'redux-form'
@@ -8,6 +7,7 @@ import * as loginAction from '../../../actions/LoginAction'
 
 export const updatePassword = () => async (dispatch, getState) => {
     const state = getState()
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const { confirmPassword, newPassword, oldPassword } = getFormValues('updatePasswordForm')(state)
     const { loginReducer: { data: { user: { uid } } } } = state
     if (newPassword == confirmPassword) {

@@ -1,5 +1,4 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actions/actionTypes'
 import * as actions from '../../../actions'
 import { objectExceptNull } from '../../../util/ObjectToUrl'
@@ -7,6 +6,7 @@ import { ToastAndroid } from 'react-native'
 
 export const modifyAccidentDispose = param => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { loginReducer: { data: { user: { uid } } } } = getState()
         dispatch({ type: actionTypes.accidentDisposeEditor.modify_accidentDispose_waiting, payload: {} })
         const url = `${base_host}/user/${uid}/truckAccidentCheck/${param.accidentCheckId}`
@@ -50,6 +50,7 @@ export const modifyAccidentDispose = param => async (dispatch, getState) => {
 
 export const finishAccidentDispose = param => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         dispatch({ type: actionTypes.accidentDisposeEditor.finish_accidentDispose_waiting, payload: {} })
         const { loginReducer: { data: { user: { uid } } } } = getState()
         const url = `${base_host}/user/${uid}/truckAccident/${param.accidentId}/accidentStatus/3?truckAccidentCheckId=${param.accidentCheckId}`

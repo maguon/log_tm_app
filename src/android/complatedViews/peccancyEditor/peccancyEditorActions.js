@@ -1,5 +1,4 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actions/actionTypes'
 import { objectExceptNull } from '../../../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
@@ -8,6 +7,7 @@ import * as actions from '../../../actions'
 
 export const modifyPeccancy = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { loginReducer: { data: { user: { uid } } } } = getState()
         const { peccancyId, values } = param
         const url = `${base_host}/user/${uid}/peccancy/${peccancyId}`

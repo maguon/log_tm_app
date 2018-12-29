@@ -1,14 +1,13 @@
 import httpRequest from '../util/HttpRequest.js'
-import { base_host, record_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { ObjectToUrl, objectExceptNull } from '../util/ObjectToUrl'
 import * as truckInfoAction from '../actions/TruckInfoAction'
 import { ToastAndroid } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 
-
 export const createRepair = (values) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { loginReducer: { data: { user: { uid } } } } = getState()
         const { truckId, repair_reason, repair_type, accident = {} } = values
         dispatch({ type: actionTypes.createRepairTypes.create_Repair_waiting, payload: {} })

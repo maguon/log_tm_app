@@ -9,8 +9,7 @@ import { Button, Icon } from 'native-base'
 import Swiper from 'react-native-swiper'
 import PhotoView from 'react-native-photo-view'
 import { Actions } from 'react-native-router-flux'
-import { file_host } from '../../../config/Host'
-
+import {connect} from 'react-redux'
 
 const { width, height } = Dimensions.get('window')
 

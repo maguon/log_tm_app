@@ -1,13 +1,13 @@
 import * as httpRequest from '../../../util/HttpRequest'
-import { base_host, file_host, record_host } from '../../../config/Host'
 import * as personalCenterActionTypes from './PersonalCenterActionTypes'
 import * as actionTypes from '../../../actions/actionTypes'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
 
-export const updatePersonalImage = (param) => async (dispatch) => {   
+export const updatePersonalImage = (param) => async (dispatch,getState) => {   
     dispatch({ type: personalCenterActionTypes.Update_PersonalImage_waiting, payload: {} })
     try {
+        const { communicationSettingReducer: { data: { base_host, file_host } } } = getState()
         const uploadUrl = `${file_host}/user/${param.uploadImage.requiredParam.userId}/image?${ObjectToUrl(param.uploadImage.optionalParam)}`
         const uploadUrlRes = await httpRequest.postFile(uploadUrl, param.uploadImage.postParam)
         if (uploadUrlRes.success) {

@@ -1,12 +1,12 @@
 import httpRequest from '../util/HttpRequest.js'
-import { base_host, record_host, file_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 import React, { Component } from 'react'
 import { Alert } from 'react-native'
 
 //完成
-export const getTruckInfo = (param) => async (dispatch) => {
+export const getTruckInfo = (param) => async (dispatch,getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     let url
     if (param.type == 1) { url = `${base_host}/truckFirst?${ObjectToUrl(param.OptionalParam)}` }
     if (param.type == 2) { url = `${base_host}/truckTrailer?${ObjectToUrl(param.OptionalParam)}` }
@@ -24,7 +24,8 @@ export const getTruckInfo = (param) => async (dispatch) => {
 }
 
 //完成
-export const getTruckRecord = (param) => async (dispatch) => {
+export const getTruckRecord = (param) => async (dispatch,getState) => {
+    const { communicationSettingReducer: { data: {  record_host } } } = getState()
     const url = `${record_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckNum}/record`
     dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_WAITING, payload: {} })
     try {
@@ -40,7 +41,9 @@ export const getTruckRecord = (param) => async (dispatch) => {
 }
 
 //完成
-export const getTruckInsureRel = (param) => async (dispatch) => {
+export const getTruckInsureRel = (param) => async (dispatch,getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
+
     const url = `${base_host}/truckInsureRel?${ObjectToUrl(param.OptionalParam)}`
     dispatch({ type: actionTypes.truckInfoTypes.GET_TruckInsureRel_WAITING, payload: {} })
     try {
@@ -71,7 +74,8 @@ export const resetGetTruckInsureRel = (param) => (dispatch) => {
 }
 
 //完成
-export const changeTruckFirstStatus = (param) => async (dispatch) => {
+export const changeTruckFirstStatus = (param) => async (dispatch,getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/truckStatus/${param.requiredParam.truckStatus}/first`
     dispatch({ type: actionTypes.truckInfoTypes.ChangeTruckFirstStatus_WAITING, payload: {} })
     try {
@@ -87,7 +91,8 @@ export const changeTruckFirstStatus = (param) => async (dispatch) => {
 }
 
 //完成
-export const changeTruckTrailerStatus = (param) => async (dispatch) => {
+export const changeTruckTrailerStatus = (param) => async (dispatch,getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/truckStatus/${param.requiredParam.truckStatus}/trailer`
     dispatch({ type: actionTypes.truckInfoTypes.ChangeTruckTrailerStatus_WAITING, payload: {} })
     try {
@@ -112,7 +117,8 @@ export const resetChangeTruckTrailerStatus = () => (dispatch) => {
 }
 
 //完成
-export const bindTruck = (param) => async (dispatch) => {
+export const bindTruck = (param) => async (dispatch,getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/trail/${param.requiredParam.trailId}/bind`
     dispatch({ type: actionTypes.truckInfoTypes.BindTrail_WAITING, payload: {} })
     try {
@@ -132,7 +138,8 @@ export const bindTruck = (param) => async (dispatch) => {
 }
 
 //完成
-export const unBindTruck = (param) => async (dispatch) => {
+export const unBindTruck = (param) => async (dispatch,getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/trail/${param.requiredParam.trailId}/unbind`
     dispatch({ type: actionTypes.truckInfoTypes.UnBindTrail_WAITING, payload: {} })
     try {
@@ -148,7 +155,8 @@ export const unBindTruck = (param) => async (dispatch) => {
 }
 
 //完成
-export const bindDriver = (param) => async (dispatch) => {
+export const bindDriver = (param) => async (dispatch,getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/drive/${param.requiredParam.driverId}/bind`
     dispatch({ type: actionTypes.truckInfoTypes.BindDriver_WAITING, payload: {} })
     try {
@@ -164,7 +172,8 @@ export const bindDriver = (param) => async (dispatch) => {
 }
 
 //完成
-export const unBindDriver = (param) => async (dispatch) => {
+export const unBindDriver = (param) => async (dispatch,getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/drive/${param.requiredParam.driverId}/unbind`
     dispatch({ type: actionTypes.truckInfoTypes.UnBindDriver_WAITING, payload: {} })
     try {
@@ -200,7 +209,8 @@ export const resetUnBindDriver = () => (dispatch) => {
 }
 
 //完成
-export const updateDrivingImage = (param) => async (dispatch) => {
+export const updateDrivingImage = (param) => async (dispatch,getState) => {
+    const { communicationSettingReducer: { data: { base_host, file_host } } } = getState()
     const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
     dispatch({ type: actionTypes.truckInfoTypes.UPDATE_TruckInfoDrivingImage_WAITING, payload: {} })
     try {
@@ -225,7 +235,8 @@ export const updateDrivingImage = (param) => async (dispatch) => {
 }
 
 //完成
-export const updateLicenseImage = (param) => async (dispatch) => {
+export const updateLicenseImage = (param) => async (dispatch,getState) => {
+    const { communicationSettingReducer: { data: { base_host, file_host } } } = getState()
     const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
     dispatch({ type: actionTypes.truckInfoTypes.UPDATE_TruckInfoLicenseImage_WAITING, payload: {} })
     try {
@@ -260,7 +271,8 @@ export const resetUpdateLicenseImage = () => (dispatch) => {
 }
 
 //完成
-export const createTruckImage = (param) => async (dispatch) => {
+export const createTruckImage = (param) => async (dispatch,getState) => {
+    const { communicationSettingReducer: { data: {  file_host, record_host } } } = getState()
     const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
     dispatch({ type: actionTypes.truckInfoTypes.CREATE_TruckInfoTruckImage_WAITING, payload: {} })
     try {
@@ -291,7 +303,8 @@ export const resetCreateTruckImage = () => (dispatch) => {
 
 }
 
-export const delTruckImage = (param) => async (dispatch) => {
+export const delTruckImage = (param) => async (dispatch,getState) => {
+    const { communicationSettingReducer: { data: {  record_host } } } = getState()
     const recordUrl = `${record_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckNum}/record`
     dispatch({ type: actionTypes.truckInfoTypes.DEL_TruckInfoTruckImage_WAITING, payload: {} })
     try {
@@ -319,7 +332,8 @@ export const resetDelTruckImage = () => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.RESET_DEL_TruckInfoTruckImage, payload: {} })
 }
 
-export const updateTruckInfo = (param) => async (dispatch) => {
+export const updateTruckInfo = (param) => async (dispatch,getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}`
     dispatch({ type: actionTypes.truckInfoTypes.UpdateTruckInfo_WAITING, payload: {} })
     try {
@@ -338,7 +352,8 @@ export const resetUpdateTruckInfo = (param) => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.RESET_UpdateTruckInfo, payload: {} })
 }
 
-export const getTruckRepairRelList = (param) => async (dispatch) => {
+export const getTruckRepairRelList = (param) => async (dispatch,getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/truckRepairRel?${ObjectToUrl(param.OptionalParam)}`
     dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRepairRelList_WAITING, payload: {} })
     try {
@@ -357,7 +372,8 @@ export const resetGetTruckRepairRelList = (param) => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.RESET_GET_TruckRepairRelList, payload: {} })
 }
 
-export const createTruckRepairRel = (param) => async (dispatch) => {
+export const createTruckRepairRel = (param) => async (dispatch,getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/truckRepairRel`
     dispatch({ type: actionTypes.truckInfoTypes.CreateTruckRepairRel_WAITING, payload: {} })
     try {
@@ -376,7 +392,8 @@ export const resetCreateTruckRepairRel = (param) => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.RESET_CreateTruckRepairRel, payload: {} })
 }
 
-export const updateTruckRepairRel = (param) => async (dispatch) => {
+export const updateTruckRepairRel = (param) => async (dispatch,getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/truckRepairRel/${param.requiredParam.relId}`
     dispatch({ type: actionTypes.truckInfoTypes.UpdateTruckRepairRel_WAITING, payload: {} })
     try {
@@ -403,7 +420,8 @@ export const addTruckInfoInsurance = (param) => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.Add_TruckInfoInsurance, payload: { data: param } })
 }
 
-export const bindViceDriver = (param) => async (dispatch) => {
+export const bindViceDriver = (param) => async (dispatch,getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/viceDrive/${param.requiredParam.viceDriveId}/bind`
     dispatch({ type: actionTypes.truckInfoTypes.BindViceDriver_WAITING, payload: {} })
     try {
@@ -430,7 +448,8 @@ export const resetBindViceDriver = (param) => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.RESET_BindViceDriver, payload: { data: param } })
 }
 
-export const unBindViceDriver = (param) => async (dispatch) => {
+export const unBindViceDriver = (param) => async (dispatch,getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/viceDrive/${param.requiredParam.viceDriveId}/unbind`
     dispatch({ type: actionTypes.truckInfoTypes.UnBindViceDriver_WAITING, payload: {} })
     try {

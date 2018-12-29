@@ -1,9 +1,8 @@
 import * as httpRequest from '../util/HttpRequest'
-import { base_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
-// import * as loginActionTypes from './LoginActionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
-import { getFormValues, blur } from 'redux-form'
+import { sleep } from '../util/util'
+import { getFormValues } from 'redux-form'
 import { Actions } from 'react-native-router-flux'
 import { ToastAndroid } from 'react-native'
 import requestHeaders from '../util/RequestHeaders'
@@ -15,11 +14,14 @@ export const login = (tryCount = 1) => async (dispatch, getState) => {
     dispatch({ type: actionTypes.loginTypes.login_waiting, payload: {} })
     const { mobile, password } = getFormValues('loginForm')(getState())
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
+        console.log('base_host', base_host)
         const url = `${base_host}/userLogin`
         const res = await httpRequest.post(url, {
             mobile: mobile,
             password
         })
+        console.log('res', res)
         if (res.success) {
             if (res.result.type == 11 || res.result.type == 19) {
                 const getUserInfoUrl = `${base_host}/user?${ObjectToUrl({ userId: res.result.userId })}`
@@ -79,5 +81,5 @@ export const cleanLogin = () => (dispatch, getState) => {
     })
 
     dispatch({ type: actionTypes.loginTypes.Set_UserInfo, payload: { user: { mobile } } })
-   // Actions.popTo('main')
+    // Actions.popTo('main')
 }

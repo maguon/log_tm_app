@@ -16,7 +16,6 @@ import * as demageListAction from '../demageList/DemageListAction'
 import * as responsibilityListAction from '../responsibilityList/ResponsibilityListAction'
 import * as settingAction from '../../../actions/SettingAction'
 import * as loginAction from '../../../actions/LoginAction'
-import { file_host } from '../../../config/Host'
 import ConfirmModal from '../../components/ConfirmModal'
 
 
@@ -58,9 +57,11 @@ class Setting extends Component {
             initializationReducer: { data: { version: { force_update, currentVersion, url } } },
             // cleanLogin,
             loginReducer: { data: { user: { real_name, avatar_image, mobile } } },
-           // initializationReducer
+            // initializationReducer
         } = this.props
         // console.log('this.props', this.props)
+        const { communicationSettingReducer: { data: {  file_host } } } = this.props
+        
         return (
             <Container>
                 <Content style={globalStyles.container}>
@@ -199,7 +200,8 @@ const mapStateToProps = (state) => {
     return {
         //settingReducer: state.settingReducer,
         loginReducer: state.loginReducer,
-        initializationReducer: state.initializationReducer
+        initializationReducer: state.initializationReducer,
+        communicationSettingReducer: state.communicationSettingReducer
     }
 }
 

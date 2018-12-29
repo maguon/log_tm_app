@@ -7,11 +7,10 @@ import {
     TouchableHighlight
 } from 'react-native'
 import { Button, Icon } from 'native-base'
-
-import { file_host } from '../../../config/Host'
+import { connect } from 'react-redux'
 
 const window = Dimensions.get('window')
-export default class PanelSingleItem extends Component {
+class PanelSingleItem extends Component {
     constructor(props) {
         super(props)
         // this.state = {
@@ -43,6 +42,7 @@ export default class PanelSingleItem extends Component {
     // }
 
     renderIsEdit() {
+        const { communicationSettingReducer: { data: { file_host } } } = this.props
         return (
             <TouchableHighlight underlayColor='rgba(0,0,0,0)' onPress={this.props.onShowPhoto}  >
                 <View style={{ width: this.props.width, height: this.props.width / 16 * 9, ...this.props.containerSytle }}>
@@ -80,3 +80,11 @@ export default class PanelSingleItem extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        communicationSettingReducer: state.communicationSettingReducer
+    }
+}
+
+export default connect(mapStateToProps)(PanelSingleItem)

@@ -1,5 +1,4 @@
 import httpRequest from '../util/HttpRequest.js'
-import { base_host, record_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 import * as truckInfoAction from '../actions/TruckInfoAction'
@@ -7,6 +6,7 @@ import { ToastAndroid } from 'react-native'
 
 export const modifyRepairInfo = (values) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { loginReducer: { data: { user: { uid } } } } = getState()
         const { id, repair_type, repair_reason, accident, truck_id } = values
         dispatch({ type: actionTypes.repairEditorTypes.modify_RepairInfo_waiting, payload: {} })

@@ -1,10 +1,10 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actions/actionTypes'
 import { objectExceptNull } from '../../../util/ObjectToUrl'
 
-export const getPeccancyStatistics = () => async (dispatch) => {
+export const getPeccancyStatistics = () => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/drivePeccancyCount`
         // console.log('url', url)
         const res = await httpRequest.get(url)
@@ -24,8 +24,9 @@ export const getPeccancyStatistics = () => async (dispatch) => {
 }
 
 
-export const getExceedOilStatistics = () => async (dispatch) => {
+export const getExceedOilStatistics = () => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/driveExceedOilCount`
         // console.log('url', url)
         const res = await httpRequest.get(url)
@@ -44,8 +45,9 @@ export const getExceedOilStatistics = () => async (dispatch) => {
     }
 }
 
-export const getTruckAccidentStatistics = () => async (dispatch) => {
+export const getTruckAccidentStatistics = () => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/truckAccidentNotCheckCount`
         // console.log('url', url)
         const res = await httpRequest.get(url)

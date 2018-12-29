@@ -123,6 +123,7 @@ import PhotoViewNavBar from './complatedComponents/share/PhotoViewNavBar'
 import UploadImageForAccidentInfoPhotoViewToolButton from './complatedComponents/toolButton/UploadImageForAccidentInfoPhotoViewToolButton'
 import UploadImageForCreateAccidentPhotoViewToolButton from './complatedComponents/toolButton/UploadImageForCreateAccidentPhotoViewToolButton'
 import AccidentSearchToolButton from './complatedComponents/toolButton/AccidentSearchToolButton'
+import CommunicationSetting from './complatedViews/communicationSetting/CommunicationSetting'
 // import AddInsurance from './views/AddInsurance'
 // import UpdateRepair from './views/UpdateRepair'
 
@@ -207,6 +208,7 @@ export default class App extends Component {
                                 hideTabBar
                                 hideNavBar={false}
                                 navBar={NavBar} />
+                            <Scene key="communicationSetting" title='通讯设置' component={CommunicationSetting} hideTabBar hideNavBar={false} LeftButton={LeftButton} navBar={NavBar} />
                         </Scene>
                         <Scene key="main" tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
                             <Scene key="homeBlock" initial={true}  icon={TabIcon} online='ios-home' outline='ios-home-outline' >

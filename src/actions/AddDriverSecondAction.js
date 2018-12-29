@@ -1,9 +1,9 @@
 import httpRequest from '../util/HttpRequest.js'
-import { base_host, record_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
-export const bindTruck = (param) => async (dispatch) => {
+export const bindTruck = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/drive/${param.requiredParam.driverId}/bind`
     dispatch({ type: actionTypes.addDriverSecondTypes.CREATE_DriverSecondBindTruck_WAITING, payload: {} })
     try {
@@ -25,8 +25,9 @@ export const bindTruck = (param) => async (dispatch) => {
     }
 }
 
-export const unBindTruck = (param) => async (dispatch) => {
-     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/drive/${param.requiredParam.driverId}/unbind`
+export const unBindTruck = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
+    const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}/drive/${param.requiredParam.driverId}/unbind`
     dispatch({ type: actionTypes.addDriverSecondTypes.CREATE_DriverSecondUnBindTruck_WAITING, payload: {} })
     try {
         let res = await httpRequest.put(url, {})

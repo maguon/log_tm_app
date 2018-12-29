@@ -30,7 +30,7 @@ const TextBox = props => {
 }
 
 const Login = props => {
-    const { login, loginReducer ,initialValues,formReducer} = props 
+    const { login, loginReducer, initialValues, formReducer } = props
     // console.log(loginReducer)
     // console.log(formReducer)
     // console.log('initialValues',initialValues)
@@ -68,9 +68,14 @@ const Login = props => {
                         <Text style={[globalStyles.midText, styles.buttonTittle]}>登录</Text>
                     </Button>
                 </View>
-                <TouchableOpacity style={styles.linkButton} onPress={() => Actions.retrievePassword()}>
-                    <Text style={[globalStyles.midText, styles.linkButtonTittle]}>忘记密码？</Text>
-                </TouchableOpacity>
+                <View style={{ flexDirection: 'row', alignSelf: 'flex-end' }}>
+                    <TouchableOpacity style={styles.linkButton} onPress={Actions.retrievePassword}>
+                        <Text style={[globalStyles.midText, styles.linkButtonTittle]}>忘记密码</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.linkButton} onPress={Actions.communicationSetting}>
+                        <Text style={[globalStyles.midText, styles.linkButtonTittle]}>通讯设置</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </Container>
     )
@@ -145,11 +150,12 @@ const styles = StyleSheet.create({
 })
 
 
+
 const mapStateToProps = (state) => {
     return {
         loginReducer: state.loginReducer,
         initialValues: state.loginReducer.data.user,
-        formReducer:state.form
+        formReducer: state.form
     }
 }
 

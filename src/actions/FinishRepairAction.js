@@ -1,5 +1,4 @@
 import httpRequest from '../util/HttpRequest.js'
-import { base_host, record_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { ObjectToUrl, objectExceptNull } from '../util/ObjectToUrl'
 import * as truckInfoAction from '../actions/TruckInfoAction'
@@ -8,6 +7,7 @@ import { Actions } from 'react-native-router-flux'
 
 export const finishRepair = (values) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { loginReducer: { data: { user: { uid } } } } = getState()
         const { id, repairMoney, repairStation, remark, repairId, truckId } = values
         dispatch({ type: actionTypes.finishRepairTypes.finish_Repair_waiting, payload: {} })

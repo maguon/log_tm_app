@@ -1,5 +1,4 @@
 import httpRequest from '../util/HttpRequest'
-import { base_host, record_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { Toast } from 'native-base'
 import { ObjectToUrl } from '../util/ObjectToUrl'
@@ -8,8 +7,9 @@ import { sleep } from '../util/util'
 
 const pageSize = 50
 
-export const getTruckHomeFilterList = (param) => async (dispatch) => {
+export const getTruckHomeFilterList = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/truckFirst?${ObjectToUrl({ ...param.OptionalParam, start: 0, size: pageSize })}`
         const res = await httpRequest.get(url)
         if (res.success) {
@@ -27,6 +27,7 @@ export const getTruckHomeFilterList = (param) => async (dispatch) => {
 }
 
 export const getTruckHomeFilterListMore = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const {
         truckHomeFilterListReducer: { data: { truckList, isComplete } },
         truckHomeFilterListReducer } = getState()
@@ -59,7 +60,7 @@ export const getTruckHomeFilterListMore = (param) => async (dispatch, getState) 
             //     position: 'bottom',
             //     buttonText: 'Okay'
             //   })
-           ToastAndroid.showWithGravity('已全部加载完毕！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+            ToastAndroid.showWithGravity('已全部加载完毕！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
         }
     }
 }

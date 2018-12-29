@@ -9,11 +9,10 @@ import {
 import ImageItem from '../../share/ImageItem'
 import globalStyles from '../../../GlobalStyles'
 import { connect } from 'react-redux'
-import { file_host } from '../../../../config/Host'
 import * as routerDirection from '../../../../util/RouterDirection'
 
 const renderItem = props => {
-    const { item, index, parent, demageImageList } = props
+    const { item, index, parent, demageImageList, file_host } = props
     return (
         <TouchableOpacity
             key={index}
@@ -34,27 +33,25 @@ const renderListEmpty = () => {
 
 const ImageListForDemageInfo = props => {
     const { imageListForDemageReducer: { data: { demageImageList } }, parent } = props
+    const { communicationSettingReducer: { data: { file_host } } } = props
     return (
         <FlatList
             style={styles.flatList}
             data={demageImageList}
             numColumns={2}
             ListEmptyComponent={renderListEmpty}
-            renderItem={({ item, index }) => renderItem({ item, index, parent, demageImageList })} />
+            renderItem={({ item, index }) => renderItem({ item, index, parent, demageImageList, file_host })} />
     )
 }
 
 const mapStateToProps = (state) => {
     return {
-        imageListForDemageReducer: state.imageListForDemageReducer
+        imageListForDemageReducer: state.imageListForDemageReducer,
+        communicationSettingReducer: state.communicationSettingReducer
     }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(ImageListForDemageInfo)
+export default connect(mapStateToProps)(ImageListForDemageInfo)
 
 const styles = StyleSheet.create({
     itemContainer: {

@@ -1,5 +1,4 @@
 import * as httpRequest from '../../../util/HttpRequest'
-import { base_host, file_host, record_host } from '../../../config/Host'
 import * as responsibilityListActionTypes from './ResponsibilityListActionTypes'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
@@ -8,6 +7,7 @@ import { sleep } from '../../../util/util'
 const pageSize = 50
 
 export const getResponsibilityList = () => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const { loginReducer: { data: { user: { uid } } } } = getState()
     try {
         const url = `${base_host}/damage?${ObjectToUrl({ underUserId: uid, start: 0, size: pageSize })}`
@@ -33,7 +33,7 @@ export const getResponsibilityListWaiting = () => (dispatch, getState) => {
 }
 
 export const getResponsibilityListMore = () => async (dispatch, getState) => {
-
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const {
         loginReducer: { data: { user: { uid } } },
         responsibilityListReducer: { data: { responsibilityList, isComplete } },

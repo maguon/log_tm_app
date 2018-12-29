@@ -1,10 +1,10 @@
 import httpRequest from '../util/HttpRequest.js'
-import { base_host, file_host, record_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
 
-export const updateDrivingImage = (param) => async (dispatch) => {
+export const updateDrivingImage = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host, file_host } } } = getState()
     const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
     dispatch({ type: actionTypes.addTruckThirdTypes.UPDATE_TruckThirdDrivingImage_WAITING, payload: {} })
     try {
@@ -28,7 +28,8 @@ export const updateDrivingImage = (param) => async (dispatch) => {
     }
 }
 
-export const updateLicenseImage = (param) => async (dispatch) => {
+export const updateLicenseImage = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host, file_host } } } = getState()
     const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
     dispatch({ type: actionTypes.addTruckThirdTypes.UPDATE_TruckThirdLicenseImage_WAITING, payload: {} })
     try {
@@ -52,7 +53,8 @@ export const updateLicenseImage = (param) => async (dispatch) => {
     }
 }
 
-export const createTruckImage = (param) => async (dispatch) => {
+export const createTruckImage = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { file_host, record_host } } } = getState()
     const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
     dispatch({ type: actionTypes.addTruckThirdTypes.CREATE_TruckThirdTruckImage_WAITING, payload: {} })
     try {
@@ -90,11 +92,12 @@ export const resetCreateTruckImage = () => (dispatch) => {
 
 }
 
-export const delTruckImage = (param) => async (dispatch) => {
+export const delTruckImage = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { record_host } } } = getState()
     const recordUrl = `${record_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckNum}/record`
     dispatch({ type: actionTypes.addTruckThirdTypes.DEL_TruckThirdTruckImage_WAITING, payload: {} })
     try {
-        let recordRes = await httpRequest.get(recordUrl)    
+        let recordRes = await httpRequest.get(recordUrl)
         if (recordRes.success) {
             const url = `${record_host}/user/${param.requiredParam.userId}/record/${recordRes.result[0]._id}/truck/${param.requiredParam.truckNum}/image/${param.requiredParam.url}`
             let res = await httpRequest.del(url, {})
@@ -108,7 +111,6 @@ export const delTruckImage = (param) => async (dispatch) => {
         else {
             dispatch({ type: actionTypes.addTruckThirdTypes.DEL_TruckThirdTruckImage_FAILED, payload: { data: res.msg } })
         }
-
     } catch (err) {
         dispatch({ type: actionTypes.addTruckThirdTypes.DEL_TruckThirdTruckImage_ERROR, payload: { data: err } })
     }
@@ -119,5 +121,5 @@ export const resetDelTruckImage = () => (dispatch) => {
 }
 
 export const cleanAddTruckThirdDate = () => (dispatch) => {
-dispatch({ type: actionTypes.addTruckThirdTypes.CLEAN_AddTruckThirdReducer, payload: {} })
+    dispatch({ type: actionTypes.addTruckThirdTypes.CLEAN_AddTruckThirdReducer, payload: {} })
 }

@@ -1,8 +1,5 @@
-//import { Actions } from 'react-native-router-flux'
 import * as httpRequest from '../util/HttpRequest'
-import { base_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
-//import * as loginActionTypes from '../login/LoginActionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 import localStorageKey from '../util/LocalStorageKey'
 import localStorage from '../util/LocalStorage'
@@ -41,11 +38,36 @@ export const initApp = (currentStep = 1, tryCount = 1, param = null) => (dispatc
 }
 
 
+export const getCommunicationSetting = () => async (dispatch) => {
+    try {
+        const localStorageRes = await localStorage.load({ key: localStorageKey.SERVERADDRESS })
+        console.log('localStorageRes', localStorageRes)
+        const { base_host, file_host, record_host, host } = localStorageRes
+        if (base_host && file_host && record_host && host) {
+            await dispatch({
+                type: actionTypes.communicationSetting.get_communicationSetting_success, payload: {
+                    base_host, file_host, record_host, host
+                }
+            })
+            dispatch(validateVersion())
+        } else {
+            // console.log('Actions.mainRoot')
+            Actions.mainRoot()
+        }
+
+    } catch (err) {
+        Actions.mainRoot()
+        console.log('err', err)
+    }
+}
+
+
 
 //第一步：获取最新version信息
-export const validateVersion = (tryCount = 1) => async (dispatch) => {
+export const validateVersion = (tryCount = 1) => async (dispatch, getState) => {
     const currentStep = 1
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/app?${ObjectToUrl({ app: android_app.type, type: android_app.android })}`
         // console.log('url', url)
         const res = await httpRequest.get(url)
@@ -106,17 +128,20 @@ export const validateVersion = (tryCount = 1) => async (dispatch) => {
             dispatch({ type: actionTypes.initializationTypes.Valdate_Version_Failed, payload: { failedMsg: res.msg, step: currentStep } })
         }
     } catch (err) {
+        console.log('err',err)
         if (err.message == 'Network request failed') {
             //尝试20次
-            if (tryCount < 20) {
-                await sleep(1000)
-                dispatch(initApp(currentStep, tryCount + 1))
-            } else {
-                dispatch({ type: actionTypes.initializationTypes.Valdate_Version_NetWorkError, payload: { step: currentStep } })
-            }
+            // if (tryCount < 20) {
+            //     await sleep(1000)
+            //     dispatch(initApp(currentStep, tryCount + 1))
+            // } else {
+            //     dispatch({ type: actionTypes.initializationTypes.Valdate_Version_NetWorkError, payload: { step: currentStep } })
+            // }
+            
         } else {
             dispatch({ type: actionTypes.initializationTypes.Valdate_Version_Error, payload: { errorMsg: err.message, step: currentStep } })
         }
+        Actions.mainRoot()
     }
 }
 
@@ -165,9 +190,10 @@ export const loadLocalStorage = (tryCount = 1) => async (dispatch) => {
 }
 
 //第三步:更换service-token ,如果更新成功将登陆数据放入userReducer
-export const validateToken = (tryCount = 1, param) => async (dispatch) => {
+export const validateToken = (tryCount = 1, param) => async (dispatch, getState) => {
     const currentStep = 3
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/user/${param.requiredParam.userId}/token/${param.requiredParam.token}`
         const res = await httpRequest.get(url)
         if (res.success) {

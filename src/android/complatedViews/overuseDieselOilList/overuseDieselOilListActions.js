@@ -1,5 +1,4 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actions/actionTypes'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { sleep } from '../../../util/util'
@@ -9,6 +8,7 @@ const pageSize = 50
 
 export const getOveruseDieselOilList = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         let searchParam = {}
         if (param) {
             searchParam = {
@@ -44,6 +44,7 @@ export const cleanOveruseDieselOilList = () => (dispatch) => {
 }
 
 export const getOveruseDieselOilListMore = () => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const state = getState()
     const {
         overuseDieselOilListReducer: { data: { overuseDieselOilList, isComplete, search } },

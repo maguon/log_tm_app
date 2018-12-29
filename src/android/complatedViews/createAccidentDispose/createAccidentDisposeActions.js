@@ -1,5 +1,4 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actions/actionTypes'
 import { objectExceptNull } from '../../../util/ObjectToUrl'
 import * as actions from '../../../actions'
@@ -7,6 +6,7 @@ import { ToastAndroid } from 'react-native'
 
 export const createAccidentDispose = param => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { loginReducer: { data: { user: { uid } } } } = getState()
         dispatch({ type: actionTypes.createAccidentDispose.create_accidentDispose_waiting, payload: {} })
         const url = `${base_host}/user/${uid}/truckAccidentCheck`

@@ -29,6 +29,7 @@ import * as repairStationOptionalList from '../android/complatedViews/optionalLi
 import * as insureCompanyOptionalList from '../android/complatedViews/optionalList/insureCompany/insureCompanyOptionalListActions'
 import * as accidentIndemnifyDetail from '../android/complatedViews/accidentIndemnifyDetail/accidentIndemnifyDetailActions'
 import * as blame from '../android/complatedViews/blame/blameActions'
+import * as communicationSetting from '../android/complatedViews/communicationSetting/communicationSettingActions'
 
 export {
     //settingBlock-views-complated 
@@ -66,6 +67,8 @@ export {
     insureCompanyOptionalList,
     accidentIndemnifyDetail,
     repairStationOptionalList,
-    truckOptionalList
+    truckOptionalList,
+
+    communicationSetting
     // overuseDieselOilInfo
 }

@@ -1,5 +1,4 @@
 import httpRequest from '../util/HttpRequest'
-import { base_host, record_host, file_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 import { sleep } from '../util/util'
@@ -10,6 +9,7 @@ const pageSize = 10
 
 export const getCarList = () => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const searchFormValues = getFormValues('searchCarForm')(getState())
         const url = `${base_host}/carList?${ObjectToUrl({
             vinCode: searchFormValues ? searchFormValues.vin : null,
@@ -32,13 +32,13 @@ export const getCarList = () => async (dispatch, getState) => {
     }
 }
 
-export const getCarListWaiting = () =>  (dispatch) => {
+export const getCarListWaiting = () => (dispatch) => {
     dispatch({ type: actionTypes.selectCarActionTypes.get_selectCarList_waiting, payload: {} })
 }
 
 
-export const cleanCarList=()=>(dispatch) => {
-    dispatch({ type: actionTypes.selectCarActionTypes.clean_selectCarList, payload: {} })  
+export const cleanCarList = () => (dispatch) => {
+    dispatch({ type: actionTypes.selectCarActionTypes.clean_selectCarList, payload: {} })
 }
 
 // export const getCarListMore = () => async (dispatch, getState) => {

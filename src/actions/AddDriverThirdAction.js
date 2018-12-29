@@ -1,18 +1,18 @@
 import httpRequest from '../util/HttpRequest.js'
-import { base_host, file_host, record_host } from '../config/Host'
 import * as actionTypes from './actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
 
-export const updateDrivingImage = (param) => async (dispatch) => {
+export const updateDrivingImage = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host, file_host } } } = getState()
         const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
-        dispatch({ type: actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDrivingImage_WAITING, payload: {} })      
-        const imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)    
+        dispatch({ type: actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDrivingImage_WAITING, payload: {} })
+        const imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
         if (imageRes.success) {
-            const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driverId}/image`   
-            param.putParam.driveImage = imageRes.imageId  
-            const res = await httpRequest.put(url, param.putParam)   
+            const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driverId}/image`
+            param.putParam.driveImage = imageRes.imageId
+            const res = await httpRequest.put(url, param.putParam)
             if (res.success) {
                 dispatch({ type: actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDrivingImage_SUCCESS, payload: { data: imageRes.imageId } })
             }
@@ -28,8 +28,10 @@ export const updateDrivingImage = (param) => async (dispatch) => {
     }
 }
 
-export const updateDrivingImageRe = (param) => async (dispatch) => {
+export const updateDrivingImageRe = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host, file_host } } } = getState()
+
         const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
         dispatch({ type: actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDrivingImageRe_WAITING, payload: {} })
         const imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
@@ -52,13 +54,15 @@ export const updateDrivingImageRe = (param) => async (dispatch) => {
     }
 }
 
-export const updateDriverAvatarImage = (param) => async (dispatch) => {
+export const updateDriverAvatarImage = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host, file_host } } } = getState()
+
         const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
         dispatch({ type: actionTypes.addDriverThirdTypes.UPDATE_DriverThirdDriverAvatarImage_WAITING, payload: {} })
         const imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
         if (imageRes.success) {
-            const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driverId}/image`  
+            const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driverId}/image`
             param.putParam.driveImage = imageRes.imageId
             const res = await httpRequest.put(url, param.putParam)
             if (res.success) {
@@ -76,13 +80,15 @@ export const updateDriverAvatarImage = (param) => async (dispatch) => {
     }
 }
 
-export const updateLicenseImageOp = (param) => async (dispatch) => {
+export const updateLicenseImageOp = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host, file_host } } } = getState()
+
         const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
         dispatch({ type: actionTypes.addDriverThirdTypes.UPDATE_DriverThirdLicenseImageOp_WAITING, payload: {} })
         const imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
         if (imageRes.success) {
-            const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driverId}/image` 
+            const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driverId}/image`
             param.putParam.driveImage = imageRes.imageId
             const res = await httpRequest.put(url, param.putParam)
             if (res.success) {
@@ -100,11 +106,13 @@ export const updateLicenseImageOp = (param) => async (dispatch) => {
     }
 }
 
-export const updateLicenseImage = (param) => async (dispatch) => {
+export const updateLicenseImage = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host, file_host } } } = getState()
+
         const imageUrl = `${file_host}/user/${param.requiredParam.userId}/image?${ObjectToUrl(param.OptionalParam)}`
         dispatch({ type: actionTypes.addDriverThirdTypes.UPDATE_DriverThirdLicenseImage_WAITING, payload: {} })
-        const imageRes = await httpRequest.postFile(imageUrl, param.postFileParam) 
+        const imageRes = await httpRequest.postFile(imageUrl, param.postFileParam)
         if (imageRes.success) {
             const url = `${base_host}/user/${param.requiredParam.userId}/drive/${param.requiredParam.driverId}/image`
             param.putParam.driveImage = imageRes.imageId

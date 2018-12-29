@@ -1,5 +1,4 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actions/actionTypes'
 import { objectExceptNull } from '../../../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
@@ -20,6 +19,7 @@ export const submit = param => (dispatch, getState) => {
 export const createAccident = (param) => async (dispatch, getState) => {
     try {
         console.log('createAccident')
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         dispatch({ type: actionTypes.createAccident.create_accident_waiting, payload: {} })
         const { loginReducer: { data: { user: { uid } } } } = getState()
         const url = `${base_host}/user/${uid}/truckAccident`
@@ -52,8 +52,7 @@ export const createAccident = (param) => async (dispatch, getState) => {
 
 export const modifyAccident = param => async (dispatch, getState) => {
     try {
-        // console.log('modifyAccident')
-
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         dispatch({ type: actionTypes.createAccident.modify_infoForCreateAccident_waiting, payload: {} })
         const { createAccidentReducer: { data: { accidentId } }, loginReducer: { data: { user: { uid } } } } = getState()
         // console.log('param', param)

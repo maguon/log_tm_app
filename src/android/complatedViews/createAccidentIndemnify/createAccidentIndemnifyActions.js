@@ -1,5 +1,4 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actions/actionTypes'
 import * as actions from '../../../actions'
 import { objectExceptNull } from '../../../util/ObjectToUrl'
@@ -8,6 +7,7 @@ import { Actions } from 'react-native-router-flux'
 
 export const createAccidentIndemnify = param => async (dispatch, getState) => {
     try {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { loginReducer: { data: { user: { uid } } } } = getState()
         dispatch({ type: actionTypes.createAccidentIndemnify.create_accidentIndemnify_waiting, payload: {} })
         const url = `${base_host}/user/${uid}/truckAccidentInsureBase`

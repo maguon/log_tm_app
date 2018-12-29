@@ -1,5 +1,4 @@
 import * as httpRequest from '../../../util/HttpRequest'
-import { base_host, file_host, record_host } from '../../../config/Host'
 import * as actionTypes from '../../../actions/actionTypes'
 import { ObjectToUrl, objectExceptNull } from '../../../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
@@ -10,6 +9,7 @@ export const uploadAccidentImageWaiting = () => (dispatch) => {
 
 export const uploadAccidentImage = param => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { file_host, record_host } } } = getState()
         const { cameraReses } = param
         // console.log('param', param)
         const cameraSuccessReses = cameraReses.filter(item => item.success)
@@ -85,8 +85,9 @@ export const setIndexForUploadImageForCreateAccident = param => (dispatch) => {
     dispatch({ type: actionTypes.uploadImageForCreateAccident.set_indexForUploadImageForCreateAccident, payload: { index } })
 }
 
-export const getImageForCreateAccident = param => async (dispatch) => {
+export const getImageForCreateAccident = param => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { record_host } } } = getState()
         const url = `${record_host}/truckDamage?truckDamageId=${param.accidentId}`
         // console.log('url', url)
         const res = await httpRequest.get(url)
@@ -113,6 +114,7 @@ export const getImageForCreateAccidentWaiting = () => (dispatch) => {
 
 export const delImageForCreateAccident = () => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { record_host } } } = getState()
         dispatch({ type: actionTypes.uploadImageForCreateAccident.del_imageForCreateAccident_waiting, payload: {} })
         const { loginReducer: { data: { user: { uid } } }, uploadImageForCreateAccidentReducer: { data: { recordId, index, imageList } } } = getState()
         const url = `${record_host}/user/${uid}/record/${recordId}/truckDamageImage/${imageList[index]}`
