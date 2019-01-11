@@ -30,7 +30,7 @@ const TextBox = props => {
 }
 
 const Login = props => {
-    const { login, loginReducer, initialValues, formReducer } = props
+    const { login } = props
     // console.log(loginReducer)
     // console.log(formReducer)
     // console.log('initialValues',initialValues)
@@ -53,6 +53,11 @@ const Login = props => {
                 </View>
                 <View style={styles.formContainer}>
                     <Field
+                        name='server'
+                        iconName='md-globe'
+                        placeholderText='请输入服务器域名'
+                        component={TextBox} />
+                    <Field
                         name='mobile'
                         iconName='md-person'
                         placeholderText='请输入用户名'
@@ -72,9 +77,9 @@ const Login = props => {
                     <TouchableOpacity style={styles.linkButton} onPress={Actions.retrievePassword}>
                         <Text style={[globalStyles.midText, styles.linkButtonTittle]}>忘记密码</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.linkButton} onPress={Actions.communicationSetting}>
+                    {/* <TouchableOpacity style={styles.linkButton} onPress={Actions.communicationSetting}>
                         <Text style={[globalStyles.midText, styles.linkButtonTittle]}>通讯设置</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
             </View>
         </Container>
@@ -153,9 +158,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-        loginReducer: state.loginReducer,
-        initialValues: state.loginReducer.data.user,
-        formReducer: state.form
+        initialValues:{
+            mobile:state.loginReducer.data.user.mobile,
+            server:state.communicationSettingReducer.data.host
+        } 
     }
 }
 
@@ -167,5 +173,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(
     reduxForm({
-        form: 'loginForm'
+        form: 'loginForm',
+        destroyOnUnmount: false,
+        enableReinitialize:true
     })(Login))

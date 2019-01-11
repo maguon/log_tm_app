@@ -23,6 +23,5 @@ export const saveCommunicationSetting = param => (dispatch) => {
             record_host: `http://records.${url}/api`,
             host: url
     }})
-    ToastAndroid.show('保存成功！', 10)
-
+    // ToastAndroid.show('保存成功！', 10)
 }

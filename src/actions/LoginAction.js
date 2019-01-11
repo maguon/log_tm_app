@@ -8,20 +8,22 @@ import { ToastAndroid } from 'react-native'
 import requestHeaders from '../util/RequestHeaders'
 import localStorageKey from '../util/LocalStorageKey'
 import localStorage from '../util/LocalStorage'
+import * as communicationSettingActions from '../android/complatedViews/communicationSetting/communicationSettingActions'
 
 //登录
 export const login = (tryCount = 1) => async (dispatch, getState) => {
     dispatch({ type: actionTypes.loginTypes.login_waiting, payload: {} })
-    const { mobile, password } = getFormValues('loginForm')(getState())
+    const { mobile, password, server } = getFormValues('loginForm')(getState())
+    const base_host =`http://api.${server}/api`
     try {
-        const { communicationSettingReducer: { data: { base_host } } } = getState()
-        console.log('base_host', base_host)
+        // const { communicationSettingReducer: { data: { base_host } } } = getState()
+        // console.log('base_host', base_host)
         const url = `${base_host}/userLogin`
         const res = await httpRequest.post(url, {
             mobile: mobile,
             password
         })
-        console.log('res', res)
+        // console.log('res', res)
         if (res.success) {
             if (res.result.type == 11 || res.result.type == 19) {
                 const getUserInfoUrl = `${base_host}/user?${ObjectToUrl({ userId: res.result.userId })}`
@@ -39,34 +41,35 @@ export const login = (tryCount = 1) => async (dispatch, getState) => {
                         key: localStorageKey.USER,
                         data: user
                     })
-                    dispatch({ type: actionTypes.loginTypes.login_success, payload: { user } })
+                    await dispatch(communicationSettingActions.saveCommunicationSetting({ url: server }))
+                    await dispatch({ type: actionTypes.loginTypes.login_success, payload: { user } })
                     Actions.main()
                 } else {
-                    ToastAndroid.showWithGravity(`登陆失败：无法获取用户信息！`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+                    ToastAndroid.show(`登陆失败：无法获取用户信息！`, 10)
                     dispatch({ type: actionTypes.loginTypes.login_failed, payload: { failedMsg: '无法获取用户信息！' } })
                 }
             }
             else {
-                ToastAndroid.showWithGravity(`登陆失败：身份错误！`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+                ToastAndroid.show(`登陆失败：身份错误！`, 10)
                 dispatch({ type: actionTypes.loginTypes.login_failed, payload: { failedMsg: '身份错误！' } })
             }
         } else {
             //登录失败重新登录
-            ToastAndroid.showWithGravity(`登陆失败：${res.msg}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+            ToastAndroid.show(`登陆失败：${res.msg}`, 10)
             dispatch({ type: actionTypes.loginTypes.login_failed, payload: { failedMsg: res.msg } })
         }
     } catch (err) {
         if (err.message == 'Network request failed') {
             //尝试20次
-            if (tryCount < 20) {
-                await sleep(1000)
-                dispatch(login(tryCount + 1))
-            } else {
-                ToastAndroid.showWithGravity(`登陆失败：网络链接失败！`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+            // if (tryCount < 20) {
+            //     await sleep(1000)
+            //     dispatch(login(tryCount + 1))
+            // } else {
+                ToastAndroid.show(`登陆失败：网络链接失败！`, 10)
                 dispatch({ type: actionTypes.loginTypes.login_error, payload: { errorMsg: err } })
-            }
+            // }
         } else {
-            ToastAndroid.showWithGravity(`登陆失败：${err}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+            ToastAndroid.show(`登陆失败：${err}`, 10)
             dispatch({ type: actionTypes.loginTypes.login_error, payload: { errorMsg: err } })
         }
     }
@@ -79,7 +82,6 @@ export const cleanLogin = () => (dispatch, getState) => {
         key: localStorageKey.USER,
         data: { mobile }
     })
-
     dispatch({ type: actionTypes.loginTypes.Set_UserInfo, payload: { user: { mobile } } })
     // Actions.popTo('main')
 }

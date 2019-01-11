@@ -41,7 +41,7 @@ export const initApp = (currentStep = 1, tryCount = 1, param = null) => (dispatc
 export const getCommunicationSetting = () => async (dispatch) => {
     try {
         const localStorageRes = await localStorage.load({ key: localStorageKey.SERVERADDRESS })
-        console.log('localStorageRes', localStorageRes)
+        // console.log('localStorageRes', localStorageRes)
         const { base_host, file_host, record_host, host } = localStorageRes
         if (base_host && file_host && record_host && host) {
             await dispatch({
@@ -57,7 +57,7 @@ export const getCommunicationSetting = () => async (dispatch) => {
 
     } catch (err) {
         Actions.mainRoot()
-        console.log('err', err)
+        // console.log('err', err)
     }
 }
 

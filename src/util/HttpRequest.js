@@ -107,13 +107,6 @@ function postFile(url, params) {
         headers: requestHeaders.formHeaders,
         body: formData,
     }).then((response) => response.json())
-    // .then((responseJson) => {
-    //     callback(null, responseJson)
-
-    // })
-    // .catch((error) => {
-    //     callback(error, null)
-    // })
 }
 
 // function getAll(urls, callback) {
