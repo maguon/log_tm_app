@@ -96,12 +96,12 @@ export const validateVersion = () => async (dispatch, getState) => {
         // console.log('mobile', mobile)
 
         const base_host = `http://api.${server}/api`
-        console.log('base_host', base_host)
+        // console.log('base_host', base_host)
         // const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/app?${ObjectToUrl({ app: android_app.type, type: android_app.android })}`
-        console.log('url', url)
+        // console.log('url', url)
         const res = await httpRequest.get(url)
-        console.log('res',res)
+        // console.log('res',res)
         if (res.success) {
             const data = {
                 currentVersion: android_app.version,
@@ -160,7 +160,7 @@ export const validateVersion = () => async (dispatch, getState) => {
             dispatch({ type: initializationActionTypes.Valdate_Version_Failed, payload: { failedMsg: res.msg, step: currentStep } })
         }
     } catch (err) {
-        console.log('err',err)
+        // console.log('err',err)
         if (err.message == 'Network request failed') {
             //尝试20次
             // if (tryCount < 20) {
