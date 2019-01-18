@@ -8,6 +8,8 @@ import { Field, reduxForm } from 'redux-form'
 import * as loginAction from '../../actions/LoginAction'
 import localStorageKey from '../../util/LocalStorageKey'
 import localStorage from '../../util/LocalStorage'
+import * as android_app from '../../android_app.json'
+
 
 const window = Dimensions.get('window')
 const ImageWidth = window.width
@@ -30,9 +32,9 @@ const TextBox = props => {
 }
 
 const Login = props => {
-    const { login } = props
+    const { login ,initializationReducer:{data: { version: { force_update, url } }}} = props
     // console.log(loginReducer)
-    // console.log(formReducer)
+    // console.log('android_app',android_app)
     // console.log('initialValues',initialValues)
     return (
         <Container style={styles.container}>
@@ -40,6 +42,7 @@ const Login = props => {
             <Image
                 source={{ uri: 'login_back' }}
                 style={styles.backgroundImage} />
+            <Text style={[globalStyles.smallText, { color: 'rgba(255,255,255,0.1)', position: 'absolute', bottom: 5, right: 5 }]}>{android_app.version}</Text>
             <View style={styles.connectContainer}>
                 <View style={styles.logoContainer}>
                     <Image
@@ -51,7 +54,7 @@ const Login = props => {
                         source={{ uri: 'app_name' }}
                         style={styles.appname} />
                 </View>
-                <View style={styles.formContainer}>
+                {force_update != 1 &&<View style={styles.formContainer}>
                     <Field
                         name='server'
                         iconName='md-globe'
@@ -72,15 +75,29 @@ const Login = props => {
                         onPress={login}>
                         <Text style={[globalStyles.midText, styles.buttonTittle]}>登录</Text>
                     </Button>
-                </View>
-                <View style={{ flexDirection: 'row', alignSelf: 'flex-end' }}>
+                </View>}
+                {force_update != 1 && <View style={{ flexDirection: 'row', alignSelf: 'flex-end' }}>
                     <TouchableOpacity style={styles.linkButton} onPress={Actions.retrievePassword}>
                         <Text style={[globalStyles.midText, styles.linkButtonTittle]}>忘记密码</Text>
                     </TouchableOpacity>
-                    {/* <TouchableOpacity style={styles.linkButton} onPress={Actions.communicationSetting}>
-                        <Text style={[globalStyles.midText, styles.linkButtonTittle]}>通讯设置</Text>
-                    </TouchableOpacity> */}
-                </View>
+                </View>}
+                {force_update == 1 &&<View style={styles.formContainer}>
+                    <Button style={[globalStyles.styleBackgroundColor, { marginTop: 50 }]} onPress={() => {
+                        if (url) {
+                            Linking.canOpenURL(url)
+                                .then(supported => {
+                                    if (!supported) {
+                                        console.log('Can\'t handle url: ' + url)
+                                    } else {
+                                        return Linking.openURL(url)
+                                    }
+                                })
+                                .catch(err => console.error('An error occurred', err))
+                        }
+                    }}>
+                        <Text style={[globalStyles.midText, styles.buttonTittle]}>请下载最新版本</Text>
+                    </Button>
+                </View>}
             </View>
         </Container>
     )
@@ -161,13 +178,14 @@ const mapStateToProps = (state) => {
         initialValues:{
             mobile:state.loginReducer.data.user.mobile,
             server:state.communicationSettingReducer.data.host
-        } 
+        },
+        initializationReducer: state.initializationReducer
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
     login: () => {
-        dispatch(loginAction.login())
+        dispatch(loginAction.validateVersion())
     }
 })
 
