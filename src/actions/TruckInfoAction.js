@@ -335,15 +335,21 @@ export const resetDelTruckImage = () => (dispatch) => {
 export const updateTruckInfo = (param) => async (dispatch,getState) => {
     const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckId}`
+    // console.log('url',url)
+    // console.log('param',param)
     dispatch({ type: actionTypes.truckInfoTypes.UpdateTruckInfo_WAITING, payload: {} })
     try {
         let res = await httpRequest.put(url, param.putParam)
+    // console.log('res',res)
+
         if (res.success) {
             dispatch({ type: actionTypes.truckInfoTypes.UpdateTruckInfo_SUCCESS, payload: { data: res.result } })
         } else {
             dispatch({ type: actionTypes.truckInfoTypes.UpdateTruckInfo_FAILED, payload: { data: res.msg } })
         }
     } catch (err) {
+    // console.log('err',err)
+
         dispatch({ type: actionTypes.truckInfoTypes.UpdateTruckInfo_ERROR, payload: { data: err } })
     }
 }

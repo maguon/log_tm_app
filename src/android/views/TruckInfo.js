@@ -647,6 +647,7 @@ class TruckInfo extends Component {
             }
         }
         if (this.props.truckInfoReducer.data.truckInfo.brand_id) param.putParam.brandId = this.props.truckInfoReducer.data.truckInfo.brand_id
+        if (this.props.truckInfoReducer.data.truckInfo.number) param.putParam.number = this.props.truckInfoReducer.data.truckInfo.number
         if (this.props.truckInfoReducer.data.truckInfo.truck_tel) param.putParam.truckTel = this.props.truckInfoReducer.data.truckInfo.truck_tel
         if (this.props.truckInfoReducer.data.truckInfo.the_code) param.putParam.theCode = this.props.truckInfoReducer.data.truckInfo.the_code
         if (this.props.truckInfoReducer.data.truckInfo.driving_date) param.putParam.drivingDate = this.props.truckInfoReducer.data.truckInfo.driving_date

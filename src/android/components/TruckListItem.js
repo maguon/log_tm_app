@@ -18,9 +18,10 @@ export default class TruckListItem extends Component {
     // }
 
     render() {
-
+        // console.log(this.props.truck)
         if (this.props.truck.driving_date) {
-            confirmFlag = (Date.parse(new Date(this.props.truck.driving_date))) < (Date.parse(new Date()) + 30 * 24 * 60 * 60 * 1000*3)
+            confirmFlag = ((Date.parse(new Date(this.props.truck.driving_date))) < (Date.parse(new Date()) + 30 * 24 * 60 * 60 * 1000*3))
+            ||((Date.parse(new Date(this.props.truck.license_date))) < (Date.parse(new Date()) + 30 * 24 * 60 * 60 * 1000*3))
         }
         return (
             <TouchableNativeFeedback onPress={this.props.onPress} background={TouchableNativeFeedback.SelectableBackground()}>
