@@ -95,6 +95,7 @@ export default class DateTimePicker extends Component {
     }
 
     async showPicker(options) {
+
         try {
             const { action, year, month, day } = await DatePickerAndroid.open(options)
             if (action !== DatePickerAndroid.dismissedAction) {
@@ -119,10 +120,11 @@ export default class DateTimePicker extends Component {
     }
 
     render() {
+        // console.log('this.props.value', this.props.value)
         return (
             <TouchableHighlight
                 underlayColor='rgba(0,0,0,0.1)'
-                onPress={() => this.showPicker({ date: new Date(), mode: 'spinner' })}>
+                onPress={() => this.showPicker({ date: this.props.value ? new Date(this.props.value) : new Date(), mode: 'spinner' })}>
                 <View style={this.props.containerSytle}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1 }}>
                         <View style={{ flexDirection: 'row' }}>
